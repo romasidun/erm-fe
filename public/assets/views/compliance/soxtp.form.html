@@ -1,0 +1,121 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle" >{{mainTitle}}</h1>
+			<span class="mainDescription">{{mainDesc}}</span>
+		</div>
+	</div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-transparent">
+				<div class="panel-body">
+					<form name="Form.ITRAM" ng-submit="submitAction()" role="form" >
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Name </label>
+									<input type="text" name="assessName" ng-model="VM.assessName" placeholder="Name" class="form-control">
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Description </label>
+									<input type="text" name="assessDesc" ng-model="VM.assessDesc" placeholder="Description" class="form-control">
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Region </label>
+									<select type="text" name="region" ng-model="VM.region" class="form-control" ng-options="r.key as r.val for r in app.Lookup.LIST001">
+										<option selected value>Select Region</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Department </label>
+									<select type="text" name="department" ng-model="VM.department" class="form-control" ng-options="d.deptId as d.deptName for d in app.Lookup.Departments">
+										<option selected value>Select Department</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Frequency </label>
+									<select type="text" name="frequency" ng-model="VM.frequency" class="form-control" ng-options="op.key as op.val for op in app.Lookup.LIST003">
+										<option selected value>Select Frequency</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Status</label>
+									<select type="text" name="status" ng-model="VM.status" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004">
+										<option selected value>Select Status</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Priority </label>
+									<select type="text" name="priority" ng-model="VM.priority" class="form-control" ng-options="p.key as p.val for p in app.Lookup.LIST005">
+										<option selected value>Select Priority</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Responsible Person </label>
+									<select type="text" name="resPerson" ng-model="VM.resPerson" class="form-control" ng-options="op.id as op.name for op in app.Lookup.Users">
+										<option selected value>Select Person</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Period </label>
+									<select type="text" name="period" ng-model="VM.period" class="form-control" ng-options="per.key as per.val for per in app.Lookup.LIST002">
+										<option selected value>Select Period</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Due Date </label>
+									<datepicker date-format="dd-MM-yyyy" date-set="{{dueDate}}">
+										<input type="text" name="due_date" ng-model="VM.due_date" placeholder="Due Date" class="form-control">
+									</datepicker>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Files to upload </label>
+									<input type="file" file-model="VM.filemodel" multiple class="form-control" />
+									<ul class="file-list-group col-xs-12">
+										<li class="file-list-item" ng-repeat="file in VM.filemodel">
+											<a ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.fileName}}</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<hr class="hrule4" />
+						<div class="col-xs-12 text-right">
+							<button class="btn btn-squared btn-dark-blue" ng-disabled="Form.ITRAM.$invalid || Form.ITRAM.$pristine" type="submit"><i class="fa fa-save"></i> Save</button>
+							<!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+							<button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

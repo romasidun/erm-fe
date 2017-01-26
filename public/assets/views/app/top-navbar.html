@@ -1,0 +1,78 @@
+<!-- start: TOP NAVBAR -->
+<!-- start: NAVBAR HEADER -->
+<div class="navbar-header">
+	<a href="#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg" ng-click="toggle('sidebar')" class="btn btn-navbar sidebar-toggle"> <i class="ti-align-justify"></i> </a>
+	<a class="navbar-brand" ui-sref="app.dashboard.main">
+		<img src="./assets/img/logo.png" width="90" alt="AARSI"/>
+	</a>
+	<a href="#" class="sidebar-toggler pull-right visible-md visible-lg" ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed"> <i class="ti-align-justify"></i> </a>
+	<a class="pull-right menu-toggler visible-xs-block" id="menu-toggler" ng-click="navbarCollapsed = !navbarCollapsed"> <span class="sr-only">Toggle navigation</span> <i class="ti-view-grid"></i> </a>
+</div>
+<!-- end: NAVBAR HEADER -->
+<!-- start: NAVBAR COLLAPSE -->
+<div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
+	<ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
+
+		<!-- start: USER OPTIONS DROPDOWN -->
+		<li class="dropdown current-user" uib-dropdown on-toggle="toggled(open)">
+			<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="assets/images/avatar-5.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></span> </a>
+			<ul class="dropdown-menu">
+				<li>
+					<a ui-sref="app.pages.user"> My Profile </a>
+				</li>
+				<li>
+					<a ui-sref="app.pages.calendar"> My Calendar </a>
+				</li>
+				<li>
+					<a ui-sref="app.pages.messages"> My Messages (3) </a>
+				</li>
+				<li>
+					<a ui-sref="login.lockscreen"> Lock Screen </a>
+				</li>
+				<li>
+					<a ui-sref="login.signin"> Log Out </a>
+				</li>
+			</ul>
+		</li>
+		<!-- end: USER OPTIONS DROPDOWN -->
+		<!-- start: App Settings -->
+		<li class="dropdown current-user"  uib-dropdown on-toggle="toggled(open)" ng-if="app.IsAuthenticated">
+			<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="assets/img/settings.png" style="width:26px;" alt="Settings"> <i class="ti-angle-down"></i>  </a>
+			<div class="dropdown-menu padding-10">
+				<div class="setting-box clearfix">
+					<span class="setting-title pull-left"> Fixed header</span>
+					<span class="setting-switch pull-right">
+						<switch ng-model="app.layout.isNavbarFixed" class="blue"></switch>
+					</span>
+				</div>
+				<div class="setting-box clearfix">
+					<span class="setting-title pull-left">Fixed sidebar</span>
+					<span class="setting-switch pull-right">
+						<switch ng-model="app.layout.isSidebarFixed" class="blue"></switch>
+					</span>
+				</div>
+				<div class="setting-box clearfix">
+					<span class="setting-title pull-left">Closed sidebar</span>
+					<span class="setting-switch pull-right">
+						<switch ng-model="app.layout.isSidebarClosed" class="green"></switch>
+					</span>
+				</div>
+				<div class="setting-box clearfix">
+					<span class="setting-title pull-left">Fixed footer</span>
+					<span class="setting-switch pull-right">
+						<switch ng-model="app.layout.isFooterFixed" class="green"></switch>
+					</span>
+				</div>
+			</div>			
+		</li>
+		<!-- end: App Settings -->
+	</ul>
+	<!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
+	<div class="close-handle visible-xs-block menu-toggler" ng-click="navbarCollapsed = true">
+		<div class="arrow-left"></div>
+		<div class="arrow-right"></div>
+	</div>
+	<!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
+</div>
+<!-- end: NAVBAR COLLAPSE -->
+<!-- start: TOP NAVBAR -->

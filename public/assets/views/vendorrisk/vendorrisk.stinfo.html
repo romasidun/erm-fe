@@ -1,0 +1,67 @@
+<!-- Page Header -->
+<div class="heading_title_panel blue_head">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle heading_title_style text-center">Risk Assessment</h1>
+        </div>
+    </div>
+    <div class="col-md-6 col-md-offset-3 ">
+        <select class="font-sans-serif form-control white_background_style" ng-model="vrStinfo.selectVendorNameOption"
+                ng-options="item1.vendorName for item1 in vrStinfo.vendornamelist track by item1.id"></select>
+    </div>
+
+    <div  class="col-md-6 col-md-offset-3 ">
+        <select class="font-sans-serif margin-top-20 form-control white_background_style" ng-model="vrStinfo.selectRiskAssessmentTypeList"
+                ng-options="item2.riskType for item2 in vrStinfo.riskassementtype track by item2.id"></select>
+    </div>
+
+    <div class="form-group">
+        <a class="btn btn-info col-md-4 col-md-offset-4 margin-top-20" ng-click="vrStinfo.createAssessment()">
+            Create Assessment button
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="alert alert-danger margin-top-20" ng-if="vrStinfo.EmptyVendor">
+        {{ vrStinfo.EmptyVendorMessage }}
+        <span class="close" ng-click="vrStinfo.EmptyVendor = false">&times;</span>
+    </div>
+    <div class="alert alert-danger" ng-if="vrStinfo.EmptyRiskAssessment">
+        {{ vrStinfo.EmptyRiskAssessmentMessage }}
+        <span class="close" ng-click="vrStinfo.EmptyRiskAssessment = false">&times;</span>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div>
+    <table class="table table_outborder table-bordered table-hover">
+        <thead>
+        <tr class="blue_background_style">
+            <th>Vendor Risk Type</th>
+            <th>Doc type</th>
+            <th>Vendor Name</th>
+            <th>Assessments date</th>
+            <th>Assessment By</th>
+            <th>Vendor Contact</th>
+            <th>Email/Link</th>
+            <th>Risk Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="name in vrStinfo.vendorAMdata track by $index">
+            <td>{{name.vendorRiskType}}</td>
+            <td>{{name.docType}}</td>
+            <td>{{name.vendorName}}</td>
+            <td>{{name.assessmentDate}}</td>
+            <td>{{name.assessmentBy}}</td>
+            <td>{{name.vendorContact}}</td>
+            <td>{{name.emailOrLink}}</td>
+            <td>{{name.riskScore}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

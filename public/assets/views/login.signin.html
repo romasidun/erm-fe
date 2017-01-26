@@ -1,0 +1,48 @@
+<!-- start: LOGIN -->
+<div class="row">
+	<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">		
+		<!-- start: LOGIN BOX -->
+		<div class="col-xs-12 text-center padding-15">
+			<h2><i class="fa fa-leaf" style="color:#48d035"></i> Aarsi Control</h2>
+			<a href="http://www.aasricontrols.com" target="_blank">© www.aasricontrols.com</a>
+		</div>
+		<div class="box-login">
+			<form name="form.signin" class="form-login" ng-submit="loginAction()">
+				<fieldset>
+					<legend>
+						Sign in to your account
+					</legend>
+					<div class="login-errors row" ng-if="submit && (invalidCreds || errs.user || errs.pass)">
+						<div class="col-xs-12">
+							<p ng-if="invalidCreds"> <i class="fa fa-times"></i> Invalid username or password </p>
+							<p ng-if="errs.user">	<i class="fa fa-times"></i> Login name cannot be blank </p>
+							<p ng-if="errs.pass">	<i class="fa fa-times"></i> Password cannot be blank </p>
+						</div>						
+					</div>
+					<br>
+					<div class="form-group">
+						<span class="input-icon">
+							<input type="text" class="form-control" name="username" ng-model="creds.username" placeholder="Username">
+							<i class="fa fa-user"></i>
+						</span>
+					</div>
+					<div class="form-group form-actions">
+						<span class="input-icon">
+							<input type="password" class="form-control password" name="password" ng-model="creds.password" placeholder="Password">
+							<i class="fa fa-lock"></i>
+							<a class="forgot" ui-sref="login.forgot"> I forgot my password </a> </span>
+					</div>
+					<div class="form-actions">
+						<div class="checkbox clip-check check-primary">
+							<input type="checkbox" id="remember" value="1">
+							<label for="remember"> Keep me signed in </label>
+						</div>
+						<button type="submit" ng-disabled="form.signin.$invalid || form.signin.$pristine" class="btn btn-primary pull-right"> Login <i class="fa fa-arrow-circle-right"></i> </button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<!-- end: LOGIN BOX -->
+	</div>
+</div>
+<!-- end: LOGIN -->

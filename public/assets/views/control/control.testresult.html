@@ -1,0 +1,80 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle" >{{mainTitle}}</h1>
+			<span class="mainDescription">{{mainDesc}} </span>
+		</div>
+	</div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-white no-radius">
+				<div class="panel-heading">
+					<div class="panel-tools">
+						<a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.control.testresult.form"><i class="ti-plus"></i> Add Test Result </a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+							<select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+						</div>
+						<div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+							<div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+								<span class="input-icon">
+									<input type="text" ng-model="CurrFilt" placeholder="search" class="form-control input-sm" />
+									<i class="fa fa-search"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<table class="table table-striped table-responsive col-xs-12">
+							<thead>
+							<tr class="sortable-headers">
+								<th><input type="checkbox" ng-model="all_check" ng-click="selectAll()"></th>
+								<th><a ng-class="{'text-azure': CurrCol==='testResultName' }" ng-click="sortMe('testResultName')"><i class="fa {{resSort('testResultName')}}"></i> Test Result </a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='regionName' }" ng-click="sortMe('regionName')"><i class="fa {{resSort('regionName')}}"></i> Region </a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='deptName' }" ng-click="sortMe('deptName')"><i class="fa {{resSort('deptName')}}"></i> Departments </a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='testResults' }" ng-click="sortMe('testResults')"><i class="fa {{resSort('testResults')}}"></i> Test Results </a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='dueDate' }" ng-click="sortMe('dueDate')"><i class="fa {{resSort('dueDate')}}"></i> Test Due Date</a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='riskCategory' }" ng-click="sortMe('riskCategory')"><i class="fa {{resSort('riskCategory')}}"></i> Test Completed Date </a></th>
+								<th>Action</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="tr in TestResults | orderBy: CurrCol:IsAsc | filter: CurrFilt"">
+								<th><input type="checkbox"></th>
+								<td>{{tr.testResultName}}</td>
+								<td>{{tr.regionName}}</td>
+								<td>{{tr.deptName}}</td>
+								<td>{{tr.testResults}}</td>
+								<td>{{tr.dueDate | date }}</td>
+								<td>{{tr.testCompletedDate | date }}</td>
+								<td>
+									<a ui-sref="app.control.testresult.update({id: tr.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+									<a ng-click="delete(tp)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-4">
+							Showing {{1}} to {{TestResults.length}} of {{TestResults.length}} entries
+						</div>
+						<div class="col-xs-12 col-sm-8 pagination-right">
+							<uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

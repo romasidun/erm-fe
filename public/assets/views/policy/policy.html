@@ -1,0 +1,70 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle" >{{mainTitle}}</h1>
+            <span class="mainDescription">{{mainDesc}} </span>
+        </div>
+    </div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white no-radius">
+                <div class="panel-heading">
+                    <h5>Policies</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                            <select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+                        </div>
+                        <div class="panel-tools">
+                            <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.policy.form">Add New</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-striped table-responsive col-xs-12">
+                            <thead>
+                            <tr class="sortable-headers">
+                                <th><input type="checkbox"></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='docName' }" ng-click="sortMe('docName')"><i class="fa {{resSort('docName')}}"></i> Name</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='docDesc' }" ng-click="sortMe('docDesc')"><i class="fa {{resSort('docDesc')}}"></i> Description</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='assessmentType' }" ng-click="sortMe('assessmentType')"><i class="fa {{resSort('assessmentType')}}"></i> Assessment Type </a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='createdBy' }" ng-click="sortMe('createdBy')"><i class="fa {{resSort('createdBy')}}"></i> Created By </a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='modifiedBy' }" ng-click="sortMe('modifiedBy')"><i class="fa {{resSort('modifiedBy')}}"></i> Modified By </a></th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="p in Policies | orderBy: CurrCol:IsAsc">
+                                <th><input type="checkbox"></th>
+                                <td>{{p.docName}}</td>
+                                <td>{{p.docDesc}}</td>
+                                <td>{{p.assessmentType}}</td>
+                                <td>{{p.createdBy}}</td>
+                                <td>{{p.modifiedBy}}</td>
+                                <td>
+                                    <a ui-sref="app.policy.update({id: p.id})" class="btn btn-xs btn-squared btn-azure"><i class="ti-pencil"></i></a>
+                                    <a ng-click="deleteAction(p)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            Showing {{1}} to {{Policies.length}} of {{Policies.length}} entries
+                        </div>
+                        <div class="col-xs-12 col-sm-8 pagination-right">
+                            <uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

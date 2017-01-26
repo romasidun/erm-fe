@@ -1,0 +1,102 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle" >{{mainTitle}}</h1>
+			<span class="mainDescription">{{mainDesc}}</span>
+		</div>		
+	</div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="panel panel-white">
+				<div class="panel-body">
+					<div id="oriChart" class="col-xs-12"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="panel panel-white">
+				<div class="panel-body">
+					<div id="periodChart" class="col-xs-12"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="panel panel-white">
+				<div class="panel-body">
+					<div id="oristacked" class="col-xs-12"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-white no-radius">
+				<div class="panel-heading">
+					<h5>Operation Risk Incident</h5>
+					<div class="panel-tools">
+						<a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.oprisk.incident.form">Add Incident</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+							<select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+						</div>
+						<div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+							<div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+								<span class="input-icon">
+									<input type="text" ng-model="CurrFilt" placeholder="search" class="form-control input-sm" />
+									<i class="fa fa-search"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<table class="table table-striped table-responsive col-xs-12">
+							<thead>
+							<tr class="sortable-headers">
+								<th><input type="checkbox"></th>
+								<th><a ng-class="{'text-azure': CurrCol==='rcsa_name' }" ng-click="sortMe('rcsa_name')"><i class="fa {{resSort('rcsa_name')}}"></i> Name</a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='IDate' }" ng-click="sortMe('IDate')"><i class="fa {{resSort('IDate')}}"></i> Identified Date</a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='riskSeverity' }" ng-click="sortMe('riskSeverity')"><i class="fa {{resSort('riskSeverity')}}"></i> Severity</a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='rcsaStatus' }" ng-click="sortMe('rcsaStatus')"><i class="fa {{resSort('rcsaStatus')}}"></i> Status</a></th>
+								<th><a ng-class="{'text-azure': CurrCol==='riskCategory' }" ng-click="sortMe('riskCategory')"><i class="fa {{resSort('riskCategory')}}"></i> RiskCategory</a></th>
+								<th>Action</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="r in Risks | orderBy: CurrCol:IsAsc  | filter: CurrFilt">
+								<th><input type="checkbox"></th>
+								<td>{{r.rcsaName}}</td>
+								<td>{{r.IDate | date}}</td>
+								<td>{{r.riskSeverity}}</td>
+								<td>{{r.rcsaStatus}}</td>
+								<td>{{r.riskCategory}}</td>
+								<td>
+									<a ui-sref="app.oprisk.incident.update({ id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+									<a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-4">
+							Showing {{1}} to {{7}} of {{7}} entries
+						</div>
+						<div class="col-xs-12 col-sm-8 pagination-right">
+							<uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

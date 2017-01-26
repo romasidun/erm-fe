@@ -1,0 +1,112 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle">{{mainTitle}}</h1>
+			<span class="mainDescription">{{mainDesc}}</span>
+		</div>
+	</div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-transparent">
+				<div class="panel-body">
+					<form name="Form.Audit" ng-submit="submitAction()" role="form" class="form-horizontal col-sm-12 col-md-6" >
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Action Name </label>
+									<div class="col-sm-9 col-md-8">
+										<input type="text" name="actionsName" ng-model="Action.actionsName" placeholder="Name" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Audit Name </label>
+									<div class="col-sm-9 col-md-8">
+										<input type="text" name="auditName" disabled ng-model="Audit.auditName" placeholder="Name" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Topic Name </label>
+									<div class="col-sm-9 col-md-8">
+										<input type="text" name="topicName" disabled ng-model="Audit.Topic.topicName" placeholder="Name" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Finding Name </label>
+									<div class="col-sm-9 col-md-8">
+										<input type="text" name="findingName" disabled ng-model="Audit.Finding.findingName" placeholder="Name" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Description </label>
+									<div class="col-sm-9 col-md-8">
+										<textarea name="actionsDesc" ng-model="Action.actionsDesc" rows="5" class="form-control"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Department </label>
+									<div class="col-sm-9 col-md-8">
+										<select name="controlCategory" ng-model="Action.deptId" ng-options="dep.deptId as dep.deptName for dep in app.Lookup.Departments " class="form-control">
+											<option value="">Select Department</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Responsible Person </label>
+									<div class="col-sm-9 col-md-8">
+										<select name="userName" ng-model="Action.userName" ng-options="u.id as u.name for u in app.Lookup.Users " class="form-control">
+											<option value=""> Responsible Person </option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Due Date </label>
+									<div class="col-sm-9 col-md-8">
+										<datepicker date-format="dd-MM-yyyy" date-set="{{dueDate}}">
+											<input type="text" name="controlEffectiveStartdate" ng-model="Action.dueDate" placeholder="Due Date" class="form-control">
+										</datepicker>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Status </label>
+									<div class="col-sm-9 col-md-8">
+										<select name="controlCategory" ng-model="Action.deptId" ng-options="dep.deptId as dep.deptName for dep in app.Lookup.Departments " class="form-control">
+											<option value="">Select Department</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr class="hrule4" />
+						<div class="col-xs-12 text-right">
+							<button class="btn btn-squared btn-dark-blue" ng-disabled="Form.Audit.$invalid" type="submit"><i class="fa fa-save"></i> Save</button>
+							<!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+							<button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<!-- start: SETTINGS -->
+<button ct-toggle="toggle" target="settings" parent-active-class="active" class="btn btn-default">
+	<i class="fa fa-spin fa-gear"></i>
+</button>
+<div class="panel-heading ng-scope">
+	Style Selector
+</div>
+<div class="panel-body ng-scope">
+	<!-- start: FIXED HEADER -->
+	<div class="setting-box clearfix">
+		<span class="setting-title pull-left"> Fixed header</span>
+		<span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isNavbarFixed" class="green"></switch>
+		</span>
+	</div>
+	<!-- end: FIXED HEADER -->
+	<!-- start: FIXED SIDEBAR -->
+	<div class="setting-box clearfix">
+		<span class="setting-title pull-left">Fixed sidebar</span>
+		<span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isSidebarFixed" class="green"></switch>
+		</span>
+	</div>
+	<!-- end: FIXED SIDEBAR -->
+	<!-- start: CLOSED SIDEBAR -->
+	<div class="setting-box clearfix">
+		<span class="setting-title pull-left">Closed sidebar</span>
+		<span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isSidebarClosed" class="green"></switch>
+		</span>
+	</div>
+	<!-- end: CLOSED SIDEBAR -->
+	<!-- start: FIXED FOOTER -->
+	<div class="setting-box clearfix">
+		<span class="setting-title pull-left">Fixed footer</span>
+		<span class="setting-switch pull-right">
+			<switch ng-model="app.layout.isFooterFixed" class="green"></switch>
+		</span>
+	</div>
+	<!-- end: FIXED FOOTER -->	
+</div>
+<!-- end: SETTINGS -->

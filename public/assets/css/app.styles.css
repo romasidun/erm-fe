@@ -1,0 +1,323 @@
+select {
+    -moz-appearance: none;
+    background: rgba(0, 0, 0, 0) url("../img/dropdown.png") no-repeat scroll 100% center / 20px 13px !important;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    padding: 6px 20px 6px 6px !important;
+    width: auto;
+}
+
+.sidebar-spacer {
+    height: 84px;
+}
+
+.mCSB_inside>.mCSB_container {
+    margin-right: 8px;
+}
+
+.modal-content {
+    border-radius: 0px;
+}
+
+.modal-body {
+    background-color: #FFF !important;
+}
+
+.login-errors {
+    padding:10px 5px 5px 10px;
+    border:1px solid #ff0234;
+    color:#ff0234;
+    background: rgba(255, 181, 181, 0.7);
+    border-radius: 3px;
+}
+
+/* Form related styles*/
+input[type=file] {
+    border-radius: 0;
+}
+
+.switch {
+    background: #fff;
+    border: 1px solid #dfdfdf;
+    position: relative;
+    display: inline-block;
+    box-sizing: content-box;
+    overflow: visible;
+    width: 42px !important;
+    height: 22px !important;
+    padding: 0;
+    margin: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: #dfdfdf 0 0 0 0 inset;
+    transition: .3s ease-out all;
+    -webkit-transition: .3s ease-out all;
+    top: -1px;
+}
+
+.switch small {
+    background: #fff;
+    border-radius: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,.4);
+    width: 20px !important;
+    height: 20px !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: .3s ease-out all;
+    -webkit-transition: .3s ease-out all;
+}
+
+.panel .panel-heading > h5 {
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+.navbar-brand > i {
+    text-shadow: 1px 2px 3px #1f9e0e;
+    color: #77db25;
+    font-size: 21px;
+}
+
+.dropdown-menu {
+    border-radius: 0px !important;
+    -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.175);
+    box-shadow: 0 2px 5px rgba(0,0,0,.175);
+    font-size:11px;
+}
+
+/* View Loading Mask with Spinner */
+.view-mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    z-index:999999;
+    transition: all 2s linear;
+}
+
+.view-mask .view-mask-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-color:rgba(41, 78, 100, 0.42);
+}
+
+.view-mask .view-mask-dialogue {
+    position: absolute;
+    top:220px;
+    background-color: transparent;
+    z-index: 900;
+}
+
+.view-mask .loader{
+  height: 90px;
+  text-align: center;
+  padding: 1em;
+  display: inline-block;
+  vertical-align: central;
+}
+
+.view-mask svg path, .view-mask svg rect{
+  fill: #FF6700;
+  z-index: 9999;
+}
+
+.view-mask .view-mask-dialogue h5 {
+    font-size: 1.32em;
+    font-weight: 200;
+    padding: 1em;
+    color:rgb(234, 234, 234);
+}
+
+.view-mask .view-mask-dialogue:after {
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+
+.table-responsive tbody tr td {
+    padding: 0px;
+}
+
+.sortable-headers a, .sortable-headers a:link, .sortable-headers a:focus, .sortable-headers a:visited {
+    color:#333;
+    width:100%;
+}
+
+.pagination-right ul.pagination {
+    float: right;
+    margin-top:0px;
+}
+
+.multi-select-list-group {
+    margin: 0 5px 0 0;
+}
+
+.multi-select-list-group .list-item-container {
+    list-style: none;
+    padding: 1px;
+}
+
+.multi-select-list-group .list-item {
+    border-radius: 0px !important;
+    padding: 5px;
+    font-size: 14px;
+    background-color: rgba(229, 229, 229, 0.39);
+    border: 1px solid #d9d9d9;
+    color: #666;
+}
+
+.multi-select-list-group .list-item i{
+    display:none;
+}
+
+.multi-select-list-group .selected .list-item{
+    background-color:#E6E6E6;
+    border: 1px solid #E8E8E8;
+    color:#333;
+}
+
+.multi-select-list-group .no-result{
+    list-style: none;
+    background-color:transparent;
+    color:#0b3e6f;
+}
+
+.multi-select-list-group .selected .list-item i{
+    text-align: right;
+    font-size:16px;
+    display:block;
+    color:#1fb231;
+}
+
+.multi-select-list-group .list-item .delete{
+    color: #e60712 !important;
+}
+
+.multi-select-list-group .list-item:hover {
+    background-color: rgba(209, 209, 209, 0.45);
+    border: 1px solid #c8c8c8;
+}
+
+.multi-select-list-group .selected .list-item:hover{
+    background-color:#E6E6E6;
+}
+
+.file-list-group {
+    padding:2px;
+    list-style: none;
+}
+
+.file-list-item {
+    list-style-type: none;
+    color:#0000ee;
+}
+
+/*
+    Horizontal Rules Styles
+*/
+hr.hrule1 {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+hr.hrule2 {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+hr.hrule3 {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #999;
+}
+
+hr.hrule4 {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color:#197719
+}
+
+/*
+    Bootstrap Custom Checkbox Styles
+*/
+
+.checkbox label:after, .radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr, .radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon, .radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"], .radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon, .radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon, .radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+
+
+/*Control Mapping Classes for row colors*/
+.bg-light-green {
+    background-color: rgba(158, 237, 208, 0.48);
+}
+
+.bg-light-blue {
+    background-color: rgba(146, 236, 245, 0.48);
+}
+
+.bg-light-yellow {
+    background-color: rgba(214, 237, 158, 0.48);
+}

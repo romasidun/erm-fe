@@ -1,0 +1,146 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle" >{{mainTitle}}</h1>
+			<span class="mainDescription">{{mainDesc}}</span>
+		</div>
+	</div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-transparent">
+				<div class="panel-body">
+					<form name="Form.TestResult" ng-submit="submitAction()" role="form" >
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Test Plan Name </label>
+									<input type="text" name="testPlanName" ng-model="VM.testPlanName" placeholder="Name" class="form-control">
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Control Description </label>
+									<input type="text" name="testPlanDesc" ng-model="VM.testPlanDesc" placeholder="Operational Loss" class="form-control">
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Department </label>
+									<select name="controlCategory" ng-model="VM.department[0]" ng-options="d as d.deptName for d in app.Lookup.Departments" class="form-control">
+										<option value="">Select Department</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Region </label>
+									<select name="regionName" ng-model="VM.regionName" ng-options="op.key as op.val for op in app.Lookup.LIST001" class="form-control">
+										<option value="">Select Region</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Test Status </label>
+									<select name="controlCategory" ng-model="VM.controlCategory" ng-options="op.key as op.val for op in app.Lookup.LIST016" class="form-control">
+										<option value="">Select Status</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Test method </label>
+									<select name="controlCategory" ng-model="VM.controlCategory" ng-options="op.key as op.val for op in app.Lookup.LIST014" class="form-control">
+										<option value="">Select Method</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Test Plan Frequency </label>
+									<select name="controlCategory" ng-model="VM.controlCategory" ng-options="op.key as op.val for op in app.Lookup.LIST012" class="form-control">
+										<option value="">Select Frequency</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Criticality </label>
+									<select name="controlCategory" ng-model="VM.controlCategory" ng-options="op.key as op.val for op in app.Lookup.Severity" class="form-control">
+										<option value=""  >Select Criticality</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row margin-bottom-15">
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Current Due Date </label>
+									<datepicker date-format="dd-MM-yyyy">
+										<input type="text" name="controlEffectiveStartdate" ng-model="VM.controlEffectiveStartdate" placeholder="Due Date" class="form-control">
+									</datepicker>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Next Due Date </label>
+									<datepicker date-format="dd-MM-yyyy">
+										<input type="text" name="controlEffectiveEnddate" ng-model="VM.controlEffectiveEnddate" placeholder="Due Date" class="form-control">
+									</datepicker>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Files to upload </label>
+									<input type="file" file-model="VM.testresultFileModel" multiple class="form-control" />
+									<ul class="file-list-group col-xs-12">
+										<li class="file-list-item" ng-repeat="file in VM.testresultFileModel"> <i class="fa fa-file"></i> {{file.name}}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Test Plan File </label>
+									<input type="text" name="controlRefID" ng-model="VM.controlRefID" placeholder="Control Ref ID" class="form-control">
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="form-group">
+									<label> Associate Control <a ng-click="addControls()" class="btn btn-link"><i class="fa fa-search"></i></a>  </label>
+									<div class="col-xs-12">
+										<ul class="multi-select-list-group col-xs-12 padding-left-0">
+											<li class="list-item-container row" ng-repeat="con in VM.testresultFileModel">
+												<div class="list-item col-xs-12 padding-left-0">
+													<span class="col-sm-4"> {{con.controlName}} </span>
+													<span class="col-sm-6"> {{con.modifiedOn | date}} </span>
+													<span class="col-sm-2">
+														<a class="text-right delete" ng-click="removeItem('testresultFileModel', $index)"> remove </a>
+													</span>
+												</div>
+											</li>
+											<li class="no-result padding-left-0" ng-if="!VM.testresultFileModel.length"> <i class="fa fa-info-circle"></i> no test plan selected</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr class="hrule4" />
+						<div class="col-xs-12 text-right">
+							<button class="btn btn-squared btn-dark-blue" ng-disabled="Form.TestPlan.$invalid" type="submit"><i class="fa fa-save"></i> Save</button>
+							<!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+							<button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

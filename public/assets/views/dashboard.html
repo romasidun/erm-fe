@@ -1,0 +1,229 @@
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle" >DASHBOARD</h1>
+
+		</div>
+	</div>
+</section>
+
+<div class="container-fluid container-fullw padding-bottom-10">
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h5>Task Inbox </h5>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group col-xs-4 col-sm-3 col-md-2">
+							<select id="perpage" ng-model="TVM.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+						</div>
+						<div class="col-xs-4 col-sm-3 col-md-10">
+							<div class="form-group pull-right col-xs-12 col-sm-4">
+								<span class="input-icon">
+									<input type="text" ng-model="TVM.Filter" placeholder="search" class="form-control input-sm" />
+									<i class="fa fa-search"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<table class="table table-striped table-responsive">
+							<thead>
+							<tr class="sortable-headers">
+								<th></th>
+								<th><a ng-class="{'text-azure': TVM.Column==='alertName' }" ng-click="TVM.SortMe('alertName')"><i class="fa {{TVM.GetIco('alertName')}}"></i> Item</a></th>
+								<th><a ng-class="{'text-azure': TVM.Column==='alertDesc' }" ng-click="TVM.SortMe('alertDesc')"><i class="fa {{TVM.GetIco('alertDesc')}}"></i> Description</a></th>
+								<th><a ng-class="{'text-azure': TVM.Column==='alertDueDate' }" ng-click="TVM.SortMe('alertDueDate')"><i class="fa {{TVM.GetIco('alertDueDate')}}"></i> Due Date </a></th>
+								<th><a ng-class="{'text-azure': TVM.Column==='alertCreatedDate' }" ng-click="TVM.SortMe('alertCreatedDate')"><i class="fa {{TVM.GetIco('alertCreatedDate')}}"></i> Event Created </a></th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="t in Tasks[TVM.CurrPage-1] | orderBy: TVM.Column:TVM.IsAsc | filter: TVM.Filter">
+								<th>
+									<a ng-if="t.action_to_take=='form'" ui-sref="app.dashboard.action.update({id: t.actionId})" class="btn btn-xs btn-squared btn-azure"><i class="ti-bell"></i></a>
+									<a popup-show="actionPopover.html"
+									   popup-placement="right"
+									   ng-if="t.action_to_take=='tooltip'"
+									   class="btn btn-xs btn-squared btn-default">
+										<i class="fa fa-envelope text-yellow"></i>
+									</a>
+								</th>
+								<td>{{t.workItemType}}</td>
+								<td>{{t.audit_action_name}}</td>
+								<td>{{t.alertDueDate}}</td>
+								<td class="text-center">{{t.alertCreatedDate}}</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row margin-top-10">
+						<div class="col-xs-12 col-sm-5">
+							Showing {{1}} to {{Tasks.length}} of {{Tasks.length}} entries
+						</div>
+						<div class="col-xs-12 col-sm-7 pagination-right">
+							<uib-pagination total-items="TVM.Total" ng-model="TVM.CurrPage" items-per-page="TVM.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h5>Calendar</h5>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+
+						<div class="col-md-6 text-center">
+							<div class="btn-group">
+								<button class="btn btn-sm btn-squared btn-dark-azure" mwl-date-modifier date="viewDate" decrement="calendarView" ng-click="vm.cellIsOpen = false">	Previous </button>
+								<button class="btn btn-sm btn-squared btn-default" mwl-date-modifier date="viewDate" set-to-today ng-click="cellIsOpen = false">	Today </button>
+								<button class="btn btn-sm btn-squared btn-dark-azure" mwl-date-modifier date="viewDate" increment="calendarView" ng-click="cellIsOpen = false"> Next	</button>
+							</div>
+						</div>
+						<br class="visible-xs visible-sm">
+						<div class="col-md-6 text-center">
+							<div class="btn-group">
+								<label class="btn btn-sm btn-squared btn-dark-azure" ng-model="calendarView" uib-btn-radio="'month'" ng-click="cellIsOpen = false">Month</label>
+								<label class="btn btn-sm btn-squared btn-dark-azure" ng-model="calendarView" uib-btn-radio="'week'" ng-click="cellIsOpen = false">Week</label>
+								<label class="btn btn-sm btn-squared btn-dark-azure" ng-model="calendarView" uib-btn-radio="'day'" ng-click="cellIsOpen = false">Day</label>
+							</div>
+						</div>
+
+					</div>
+					<mwl-calendar
+							view="calendarView"
+							view-date="viewDate"
+							events="events"
+							view-title="calendarTitle"
+							on-event-click="eventClicked(calendarEvent)"
+							on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+							cell-is-open="true">
+					</mwl-calendar>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h5>Control Analytics</h5>
+					<div class="panel-tools">
+						<div class="btn-group" uib-dropdown ng-init="currCA=CAnalOpts[0]">
+							<button type="button" class="btn btn-xs btn-o btn-dark-azure btn-squared uib-dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+								{{currCA.val}} <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu">
+								<li ng-repeat="op in CAnalOpts" ng-class="{'active': op.key===currCA.key}">
+									<a ng-click="setCAOpt(op)">{{op.val}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div google-chart chart="chart" style="width:100%;"> </div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<h5>Open Items</h5>
+					<div class="panel-tools">
+						<div class="btn-group" uib-dropdown ng-init="currOP=OpItemsOpts[0]">
+							<button type="button" class="btn btn-xs btn-o btn-dark-azure btn-squared uib-dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+								{{currCA.val}} <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu">
+								<li ng-repeat="op in OpItemsOpts" ng-class="{'active': op.key===currOP.key}">
+									<a ng-click="setOpen(op)">{{op.val}}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div google-chart chart="chart" style="width:100%;"> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-white">
+				<div class="row padding-10">
+					<div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+						<select ng-model="AVM.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+					</div>
+					<div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+						<div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+							<span class="input-icon">
+								<input type="text" ng-model="AVM.Filter" placeholder="search" class="form-control input-sm" />
+								<i class="fa fa-search"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<table class="table table-striped table-responsive col-xs-12">
+						<thead>
+						<tr class="sortable-headers">
+							<th><input type="checkbox"></th>
+							<th><a ng-class="{'text-azure': AVM.Column==='activityType' }" ng-click="AVM.SortMe('activityType')"><i class="fa {{AVM.GetIco('activityType')}}"></i> Activity Type</a></th>
+							<th><a ng-class="{'text-azure': AVM.Column==='activtiyTitle' }" ng-click="AVM.SortMe('activtiyTitle')"><i class="fa {{AVM.GetIco('activtiyTitle')}}"></i> Activity Title</a></th>
+							<th><a ng-class="{'text-azure': AVM.Column==='createdDate' }" ng-click="AVM.SortMe('createdDate')"><i class="fa {{AVM.GetIco('createdDate')}}"></i> Created Date</a></th>
+							<th><a ng-class="{'text-azure': AVM.Column==='person' }" ng-click="AVM.SortMe('person')"><i class="fa {{AVM.GetIco('person')}}"></i> Person</a></th>
+							<th><a ng-class="{'text-azure': AVM.Column==='dueDate' }" ng-click="AVM.SortMe('dueDate')"><i class="fa {{AVM.GetIco('dueDate')}}"></i> Due Date</a></th>
+							<th><a ng-class="{'text-azure': AVM.Column==='status' }" ng-click="AVM.SortMe('status')"><i class="fa {{AVM.GetIco('status')}}"></i> Status</a></th>
+							<th><a ng-class="{'text-azure': AVM.Column==='rag' }" ng-click="AVM.SortMe('rag')"><i class="fa {{AVM.GetIco('rag')}}"></i> RAG</a></th>
+							<th>Action</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="a in Activities | orderBy: AVM.Column:AVM.IsAsc | filter: AVM.Filter">
+							<th><input type="checkbox"></th>
+							<td>{{a.activityType}}</td>
+							<td>{{a.activtiyTitle}}</td>
+							<td>{{a.createdDate}}</td>
+							<td>{{a.person}}</td>
+							<td>{{a.dueDate}}</td>
+							<td>{{a.status}}</td>
+							<td><i class="fa fa-2x fa-circle" ng-style="{color: a.rag}"></i></td>
+							<td>
+								<a class="btn btn-xs btn-squared btn-azure"><i class="ti-pencil"></i></a>
+								<a class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="row padding-10">
+					<div class="col-xs-12 col-sm-4">
+						Showing {{1}} to {{7}} of {{7}} entries
+					</div>
+					<div class="col-xs-12 col-sm-8 pagination-right">
+						<uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--<p>API Endpoint Documentation from Swagger. For Development purpose only.</p>-->
+<!--<div class="row">-->
+	<!--<div class="col-xs-12">-->
+		<!--<h5 class="text-bold">API Documentation</h5>-->
+		<!--<p><strong>Username: </strong> user<p>-->
+		<!--<p><strong>Password: </strong> 6hf38!%DQ09736v,32/f85Ax@#</p>-->
+	<!--</div>-->
+<!--</div>-->
