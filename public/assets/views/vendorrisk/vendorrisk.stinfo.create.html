@@ -1,57 +1,66 @@
-<section class="note-editor heading_title_panel yellow_head">
-    <div class="container margin-top-20">
-        <form class="form form-horizontal row col-md-10 col-md-offset-1">
-            <div class="form-body">
-                <div class="form-group row col-md-12">
-                    <label class="col-md-3 control-label">VENDOR</label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" ng-model="vrStinfoCT.vendorData.vendorName"/>
-                    </div>
-                </div>
-                <div class="form-group row col-md-12">
-                    <label class="col-md-3 control-label">Address</label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" ng-model="vrStinfoCT.vendorData.address"/>
-                    </div>
-                </div>
-                <div class="form-group row col-md-12">
-                    <label class="col-md-3 control-label">Primary Contact</label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" ng-model="vrStinfoCT.vendorData.primaryContact"/>
-                    </div>
-                </div>
-                <div class="form-group row col-md-12">
-                    <label class="col-md-3 control-label">Email</label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" ng-model="vrStinfoCT.vendorData.email"/>
-                    </div>
-                </div>
-                <div class="form-group row col-md-12">
-                    <label class="col-md-3 control-label">Overall Risk Score</label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" ng-model="vrStinfoCT.vendorData.riskScore"/>
-                    </div>
-                </div>
-                <div class="form-group row col-md-12">
-                    <label class="col-md-3 control-label">Aggregated Score</label>
-                    <div class="col-md-6">
-                        <input class="form-control" type="text" value = "{{vrStinfoCT.vendorData.riskScore}}"/>
-                    </div>
-                </div>
-                <div class="form-group row col-md-12">
-                    <div class="col-md-4 col-md-offset-4">
-                        <a class="btn btn-primary center-block text-bold" ng-click="vrStinfoCT.saveVendorData()"><i class="fa fa-save"></i> save</a>
-                    </div>
-                </div>
-            </div>
-        </form>
+<!-- Page Header -->
+<section id="page-title" class="vendor_create_title padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle text-center font-sans-serif" >{{vrStinfoCT.mainTitle}}</h1>
+        </div>
     </div>
 </section>
+<!-- End: Page Header -->
 
-<section>
+
+<section class="vendor_create_body">
+    <div class="vendor_assessment_data note-editor heading_title_panel">
+        <div>
+            <h4>
+                Vendor: <i>{{vrStinfoCT.vendorData.vendorName}}</i>
+            </h4>
+        </div>
+        <div>
+            <h4 class="inline-block">
+                Address: <i>{{vrStinfoCT.vendorData.address}}</i>
+            </h4>
+            <h4 class="inline-block margin-left-20">
+                Primary Contact: <i>{{vrStinfoCT.vendorData.primaryContact}}</i>
+            </h4>
+        </div>
+        <div>
+            <h4 class="inline-block">
+                Assessment Date: <i>{{vrStinfoCT.vendorData.assessmentDate}}</i>
+            </h4>
+            <h4 class="inline-block margin-left-20">
+                Assessment By: <i>{{vrStinfoCT.vendorData.assessmentBy}}</i>
+            </h4>
+        </div>
+        <div>
+            <h4 class="inline-block">
+                Doc Title: <i>{{vrStinfoCT.vendorData.title}}</i>
+            </h4>
+            <h4 class="inline-block margin-left-20">
+                Doc Type: <i>{{vrStinfoCT.vendorData.docType}}</i>
+            </h4>
+        </div>
+
+        <div>
+            <h4 class="inline-block margin-left-20">
+                Risk Score: <i>{{vrStinfoCT.vendorData.riskScore}}</i>
+            </h4>
+        </div>
+
+        <div class="action_buttons">
+            <div class="save_button">
+                <a class="btn btn-success center-block text-bold" ng-click="vrStinfoCT.saveVendorData()"><i class="fa fa-save"></i> Save</a>
+            </div>
+            <div class="back_button">
+                <a class="btn btn-primary center-block text-bold" ui-sref="app.vendorrisk.stinfo.main"><i class="fa fa-backward"></i> Back</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
     <table class="table table-hover table-bordered">
         <thead>
-            <tr class="bg-green">
+            <tr class="blue_header">
                 <th>Vendor Risk Category</th>
                 <th>Vendor Risk Assessment</th>
                 <th>Response</th>
@@ -60,17 +69,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="vendorrisk in vrStinfoCT.vendorrisk track by $index">
+            <tr class="white_blue_header" ng-repeat="vendorrisk in vrStinfoCT.vendorrisk track by $index">
                 <td>{{vendorrisk.name}}</td>
                 <td>{{vendorrisk.category}}</td>
                 <td>
-                    <input type="checkbox" ng-model="vrStinfoCT.vendorrisk[$index].response">
+                    <div class="ui_check_style">
+                        <input type="checkbox" ng-model="vrStinfoCT.vendorrisk[$index].response">
+                    </div>
                 </td>
-                <td>
+                <td style="">
                     <input type="number" min="0" ng-model="vrStinfoCT.vendorrisk[$index].findings">
                 </td>
                 <td>
-                    <textarea ng-model="vrStinfoCT.vendorrisk[$index].comments"></textarea >
+                    <textarea ng-model="vrStinfoCT.vendorrisk[$index].comments"></textarea>
                 </td>
             </tr>
         </tbody>

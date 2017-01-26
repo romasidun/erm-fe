@@ -189,14 +189,22 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'VendorriskStinfoCTCtrl',
         controllerAs: 'vrStinfoCT',
         resolve: loadSequence('VendorriskStinfoCTCtrl')
+    }).state('app.vendorrisk.stinfo.update', {
+        url: '/:id/update',
+        templateUrl: "assets/views/vendorrisk/vendorrisk.stinfo.form.html",
+        title: 'Update Vendor Risk Stinfo',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'VendorStinfoUpdateCtrl',
+        ControllerAs: 'vrStinfoupdate',
+        resolve: loadSequence('VendorStinfoUpdateCtrl')
     }).state('app.vendorrisk.assessment', {
         url: '/assessment',
-        templateUrl: 'assets/views/vendorrisk/vendorrisk.stinfo.html',
+        templateUrl: 'assets/views/vendorrisk/vendorrisk.stinfo.create.html',
         title: 'Vendor Risk Standardized Info Gathering ',
         icon: 'ti-layout-media-left-alt',
         controller: 'VendorriskStinfoCtrl',
         controllerAs: 'vrStinfo',
-        resolve: loadSequence('VendorriskStinfoCtrl')
+        resolve: loadSequence('VendorriskStinfoCTCtrl')
     })
     /*
         ---- IT RISK Routes ----
@@ -347,19 +355,12 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'ControlMapCtrl',
         resolve: loadSequence('ControlMapCtrl')
     }).state('app.control.dashboard', {
-        url: '/dashboard',
+        url: '/mapping',
         templateUrl: "assets/views/control/control.dashboard.html",
         title: 'CONTROL Dashboard',
         icon: 'ti-layout-media-left-alt',
         controller: 'ControlDashboardCtrl',
         resolve: loadSequence('ControlDashboardCtrl')
-    }).state('app.control.dashboardtested', {
-        url: '/dashboardtested',
-        templateUrl: "assets/views/control/control.dashboardtested.html",
-        title: 'CONTROL TESTED Dashboard',
-        icon: 'ti-layout-media-left-alt',
-        controller: 'ControlDashboardtestedCtrl',
-        resolve: loadSequence('ControlDashboardtestedCtrl')
     })
 
 
@@ -526,7 +527,6 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
 			    return promise;
 
 			    function promiseThen(_arg) {
-                    console.log('----', _arg);
 			        if (typeof _arg == 'function')
 			            return promise.then(_arg);
 			        else
@@ -539,12 +539,10 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
 			    }
 
 			    function requiredData(name) {
-                    console.log('modules', jsRequires.modules);
 			        if (jsRequires.modules)
 			            for (var m in jsRequires.modules)
 			                if (jsRequires.modules[m].name && jsRequires.modules[m].name === name)
 			                    return jsRequires.modules[m];
-                    console.log('scripts', jsRequires.scripts);
 			        return jsRequires.scripts && jsRequires.scripts[name];
 			    }
 			}]

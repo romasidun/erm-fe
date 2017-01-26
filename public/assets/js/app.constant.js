@@ -58,6 +58,7 @@ app.constant('JS_REQUIRES', {
         //Vendor Risk related Controllers
         'VendorriskStinfoCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.ctrl.js',
         'VendorriskStinfoCTCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.create.ctrl.js',
+        'VendorStinfoUpdateCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.update.ctrl.js',
 
         //Control related Controllers
         'RepoCtrl':             'assets/js/controllers/control/repo.ctrl.js',
@@ -70,7 +71,6 @@ app.constant('JS_REQUIRES', {
         'TestResultFormCtrl':   'assets/js/controllers/control/testresult.form.ctrl.js',
         'TestResultUpdateCtrl': 'assets/js/controllers/control/testresult.update.ctrl.js',
         'ControlDashboardCtrl': 'assets/js/controllers/control/dashboard.ctrl.js',
-        'ControlDashboardtestedCtrl': 'assets/js/controllers/control/dashboardtested.ctrl.js',
         'ControlMapCtrl':       'assets/js/controllers/control/mapping.ctrl.js',
 
 

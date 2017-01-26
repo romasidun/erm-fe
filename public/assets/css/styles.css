@@ -11349,10 +11349,7 @@ td.small-width {
 
 
 .heading_title_panel{
-  border: 1px solid #bdb3b3;
   padding: 5px;
-  margin: 5px;
-  box-shadow: -5px 5px 3px -1px #8b7777;
 }
 .heading_title_panel.blue_head{
   border-left: 10px #7e4ebd solid;
@@ -11375,7 +11372,7 @@ td.small-width {
 }
 
 .blue_background_style{
-  background-color: #5b75d6;;
+  background-color: rgba(4, 72, 228, 0.65);
 }
 
 .font-sans-serif{
@@ -11386,3 +11383,82 @@ td.small-width {
   margin-top: 20px;
   outline: solid 2px rgba(56, 46, 46, 0.28);
 }
+
+/*start vendor create page style*/
+section.vendor_create_title{
+  background: blue !important; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(#b7c4e7, rgba(4, 34, 196, 0.75), #194771) !important; /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(#b7c4e7, rgba(4, 34, 196, 0.75), #194771) !important; /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(#b7c4e7, rgba(4, 34, 196, 0.75), #194771) !important; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(#b7c4e7, rgba(4, 34, 196, 0.75), #194771) !important /* Standard syntax */
+  height:77px;
+}
+
+section.vendor_create_title h1{
+  color: black !important;
+  font-size:31px !important;
+}
+
+
+section.vendor_create_body{
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: -2px;
+  border: solid 2px #457be6;
+}
+
+section.vendor_create_body div.vendor_assessment_data{
+  background-image: url('../images/vendor_create_section_back.JPG');
+  padding-top: 25px;
+  background-color: rgba(204, 204, 204, 0.65);
+}
+
+section.vendor_create_body div.vendor_assessment_data div, section.vendor_create_body div.vendor_assessment_data div h4{
+  margin: 0 auto;
+  text-align: center;
+  padding: 2px;
+  font-weight: bold;
+  float: none;
+}
+
+section.vendor_create_body div.vendor_assessment_data div.action_buttons{
+  margin:0 auto;
+}
+
+section.vendor_create_body div.vendor_assessment_data div.action_buttons div[class$="_button"]{
+  width: 25%;
+  display: inline-block;
+}
+
+section.vendor_create_body div.vendor_assessment_data div h4 i{
+  font-weight: 100 !important;
+}
+
+section.vendor_create_body thead tr.blue_header{
+  background-color: #457be6 !important;
+}
+section.vendor_create_body tbody tr.white_blue_header{
+  background-color: #d1daed;
+}
+
+section.vendor_create_body tbody tr.white_blue_header td, section thead tr.blue_header th{
+  border-left: 2px white solid !important;
+  border-bottom: 2px white solid !important;
+  text-align: center;
+}
+
+section.vendor_create_body tbody tr.white_blue_header td:nth-child(3) div, section thead tr.blue_header th:nth-child(3){
+  padding: 0px;
+}
+
+section.vendor_create_body tbody tr.white_blue_header td:nth-child(4) input, section thead tr.blue_header th:nth-child(4){
+  width: 60px;
+}
+
+section.vendor_create_body table tbody td.action_tools{
+  width: 69px;;
+}
+
+section.vendor_create_body table th,section.vendor_create_body table td{
+  text-align: center;
+} 

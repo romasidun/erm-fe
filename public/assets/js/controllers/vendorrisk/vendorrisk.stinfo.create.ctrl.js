@@ -4,45 +4,68 @@
     app.controller('VendorriskStinfoCTCtrl', VendorriskStinfoCTController);
     function VendorriskStinfoCTController($rootScope, $state, VendorService) {
         var vm = this;
-        $rootScope.app.Mask = false;
+        vm.mainTitle = "Vendor Risk Assessment";
 
         vm.vendorData = {};
 
         function getAssessment() {
             var AssessmentData = VendorService.GetAssessmentData();
-            vm.vendorData = angular.fromJson(AssessmentData.VendorData);
+            vm.vendorData = angular.fromJson(AssessmentData.Vendor_data_selected);
+            vm.amdata_by_filter = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
             vm.vendorrisk = [];
-            VendorService.GetVendorAssessment(AssessmentData.riskTypeData.riskType).then(function (response) {
+            VendorService.GetVendorAssessment(AssessmentData.RiskAssessmentType_selected.riskType).then(function (response) {
                 vm.vendorrisk = angular.fromJson(response);
-                console.log('asdfasd',vm.vendorrisk);
+                $rootScope.app.Mask = false;
             });
         }
 
         function saveVendorData() {
+            $rootScope.app.Mask = true;
             var date = new Date();
-            vm.current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-            vm.current_user = $('.dropdown.current-user .username').text();
-            vm.vendor_comments = "";
-            vm.vendor_control_catetory = "";
-            vm.docType = "";
-            // var postData = {};
-            // postData = {
-            //     "approvedDate": current_date,
-            //     "approver": current user,
-            //     "comments": "string",
-            //     "control_Category": "vendor risk category",
-            //     "docType": from screen1 selection
-            //     "findings": 0,
-            //     "response": true,
-            //     "riskScore": 0,
-            //     "riskTypes": "string",
-            //     "vendorContact": "string",
-            //     "vendorId": "string",
-            //     "vendorName": "string"
-            // }
-            // VendorService.PostVendorData().then(function(response){
-            //     console.log(response);
-            // });
+            var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+            var current_user = $('.dropdown.current-user .username').text();
+            var vendor_docType = vm.amdata_by_filter.docType;
+            var vendor_riskScore = vm.amdata_by_filter.riskScore;
+            var vendor_riskType = vm.amdata_by_filter.vendorRiskType;
+            var vendor_contact = vm.amdata_by_filter.vendorContact;
+            var vendor_id = vm.amdata_by_filter.id;
+            var vendor_name = vm.amdata_by_filter.vendorName;
+
+            for(var i in vm.vendorrisk){
+                var vendor_comment = angular.isDefined(vm.vendorrisk[i].comments) ? vm.vendorrisk[i].comments : "";
+                var vendor_Findings = angular.isDefined(vm.vendorrisk[i].findings) ? vm.vendorrisk[i].findings : 0;
+                var vendor_Response = angular.isDefined(vm.vendorrisk[i].response) ? vm.vendorrisk[i].response : false;
+                var vendor_Category = angular.isDefined(vm.vendorrisk[i].category) ? vm.vendorrisk[i].category : "";
+
+                var post_data = {
+                    "approvedDate": current_date,
+                    "approver": current_user,
+                    "comments": vendor_comment,
+                    "control_Category": vendor_Category,
+                    "docType": vendor_docType,
+                    "findings": vendor_Findings,
+                    "response": vendor_Response,
+                    "riskScore": vendor_riskScore,
+                    "riskTypes": vendor_riskType,
+                    "vendorContact": vendor_contact,
+                    "vendorId": vendor_id,
+                    "vendorName": vendor_name
+                };
+                    // title
+                    // Period
+                    // Approval Status
+                    // Approved Ddate
+                    // Version
+                    // Assessments date
+                    // Assessment By
+                    // Email/Link
+                    // Aggregated Risk Score
+                    // Overall Risk Score
+
+                VendorService.PostVendorData(post_data).then(function () {
+                    $rootScope.app.Mask = false;
+                })
+            }
         }
 
         function initFunc() {
