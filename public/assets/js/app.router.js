@@ -355,7 +355,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'ControlMapCtrl',
         resolve: loadSequence('ControlMapCtrl')
     }).state('app.control.dashboard', {
-        url: '/mapping',
+        url: '/dashboard',
         templateUrl: "assets/views/control/control.dashboard.html",
         title: 'CONTROL Dashboard',
         icon: 'ti-layout-media-left-alt',

@@ -1,10 +1,10 @@
 (function(){
     'use strict';
 
-    DashboardController.$inject = ['$scope','$rootScope','$state', 'orderByFilter', 'Utils', 'DashService' , 'calendarConfig'];
+    DashboardController.$inject = ['$scope','$rootScope','$state', 'orderByFilter', 'Utils', 'DashService' , 'calendarConfig', 'ChartFactory'];
     app.controller('DashboardCtrl', DashboardController);
 
-    function DashboardController ($scope, $rootScope, $state, orderBy, Utils, DashboardService, calendarConfig){
+    function DashboardController ($scope, $rootScope, $state, orderBy, Utils, DashboardService, calendarConfig, ChartFactory){
         $scope.mainTitle = $state.current.title;
 
         $scope.OpList = [10, 25, 50, 100];
@@ -90,7 +90,9 @@
             number : [{ columnNum: 1, pattern: "$ #,##0.00" }]
         };
 
-        $scope.chart = chart1;
+        $scope.chart1 = chart1;
+
+        setopenitemChart();
 
         DashboardService.GetDashboard().then(function(data){
             $scope.Activities = data;
@@ -146,15 +148,15 @@
             });
             console.log($scope.Tasks);
         }
-        
+
         //-------------- Calendar Functionality ----------------
-       $scope.calendarView = 'month';
-       $scope.viewDate = new Date();
+        $scope.calendarView = 'month';
+        $scope.viewDate = new Date();
 
-       $scope.cellIsOpen = true;
+        $scope.cellIsOpen = true;
 
-       $scope.addEvent = function() {
-           $scope.events.push({
+        $scope.addEvent = function() {
+            $scope.events.push({
                 title: 'New event',
                 startsAt: moment().startOf('day').toDate(),
                 endsAt: moment().endOf('day').toDate(),
@@ -164,46 +166,71 @@
             });
         };
 
-       $scope.eventClicked = function(event) {
+        $scope.eventClicked = function(event) {
             alert.show('Clicked', event);
         };
 
-       $scope.eventEdited = function(event) {
+        $scope.eventEdited = function(event) {
             alert.show('Edited', event);
         };
 
-       $scope.eventDeleted = function(event) {
+        $scope.eventDeleted = function(event) {
             alert.show('Deleted', event);
         };
 
-       $scope.eventTimesChanged = function(event) {
+        $scope.eventTimesChanged = function(event) {
             alert.show('Dropped or resized', event);
         };
 
-       $scope.toggle = function($event, field, event) {
+        $scope.toggle = function($event, field, event) {
             $event.preventDefault();
             $event.stopPropagation();
             event[field] = !event[field];
         };
 
-       $scope.timespanClicked = function(date, cell) {
+        $scope.timespanClicked = function(date, cell) {
 
             if (vm.calendarView === 'month') {
                 if ((vm.cellIsOpen && moment(date).startOf('day').isSame(moment(vm.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
-                   $scope.cellIsOpen = false;
+                    $scope.cellIsOpen = false;
                 } else {
-                   $scope.cellIsOpen = true;
-                   $scope.viewDate = date;
+                    $scope.cellIsOpen = true;
+                    $scope.viewDate = date;
                 }
             } else if (vm.calendarView === 'year') {
                 if ((vm.cellIsOpen && moment(date).startOf('month').isSame(moment(vm.viewDate).startOf('month'))) || cell.events.length === 0) {
-                   $scope.cellIsOpen = false;
+                    $scope.cellIsOpen = false;
                 } else {
-                   $scope.cellIsOpen = true;
-                   $scope.viewDate = date;
+                    $scope.cellIsOpen = true;
+                    $scope.viewDate = date;
                 }
             }
 
         };
+        
+        function setopenitemChart() {
+            var opts = {
+                Title: "Open Item",
+                subTitle: "",
+                yTitle: "",
+                tooltip: "",
+                Categories : [],
+                Series: 'Openitem',
+                Data : [
+                    ['Jan', 4],
+                    ['Feb', 8],
+                    ['March', 2],
+                    ['April', 5],
+                    ['May', 2],
+                    ['June', 3],
+                    ['July', 5],
+                    ['August', 2],
+                    ['September', 1]
+                ]
+            };
+
+            var chartObj = ChartFactory.SetupLabelChart(opts);
+            Highcharts.chart('openitemChart', chartObj);
+        }
     }
 })();
