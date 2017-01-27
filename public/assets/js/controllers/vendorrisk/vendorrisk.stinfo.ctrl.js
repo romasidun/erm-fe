@@ -1,11 +1,12 @@
 (function () {
     'use strict';
-    VendorriskStinfoController.$inject = ['$rootScope', '$state', 'VendorService'];
+    VendorriskStinfoController.$inject = ['$rootScope', '$state', 'ExcelFactory', 'VendorService', '$timeout'];
     app.controller('VendorriskStinfoCtrl', VendorriskStinfoController);
-    function VendorriskStinfoController($rootScope, $state, VendorService) {
+    function VendorriskStinfoController($rootScope, $state, ExcelFactory, VendorService, $timeout) {
         var vm = this;
-        vm.mainTitle = "Risk Assessment ";
-        var vendordata_score = "";
+        vm.mainTitle = 'Risk Assessment ';
+        vm.enterVendorTileList = '';
+        var vendordata_score = '';
 
         function getVendorNameList() {
             $(".vendornamelist").select2({
@@ -53,9 +54,8 @@
                 // start get assessment title
                 for(var i in vm.vendorAMdata){
                     vendorTitle[vendorTitle.length] = vm.vendorAMdata[i]['title'];
-                    // vendorTitle.push(vm.vendorAMdata[i]['title']);
                 }
-
+                console.log('vm.vendorAMdata',vm.vendorAMdata);
                 vm.vendorTitleList = vendorTitle.filter(function(elem, index, self) {
                     return index == self.indexOf(elem);
                 });
@@ -84,7 +84,7 @@
             console.log(vm.selectVendorNameOption.id);
             vm.NameList_select = false;
             vm.Alert_namelist = '';
-            if (vm.selectVendorNameOption.id == '') {
+            if (vm.selectVendorNameOption.id === '' || angular.isUndefined(vm.selectVendorNameOption.id)) {
                 vm.NameList_select = true;
                 vm.Alert_namelist = 'Please Select a vendor Name.';
                 return false;
@@ -92,24 +92,32 @@
 
             vm.TypeList_select = false;
             vm.Alert_typelist = '';
-            if (vm.selectRiskAssessmentTypeList.id == '') {
+            if (vm.selectRiskAssessmentTypeList.id === '' || angular.isUndefined(vm.selectRiskAssessmentTypeList.id)) {
                 vm.TypeList_select = true;
                 vm.Alert_typelist = 'Please Select a Risk Assessment Type.';
                 return false;
             }
 
-            vm.TitleList_select = false;
+            // vm.TitleList_enter = false;
+            // vm.Alert_titlelist = '';
+            // if (vm.selectVendorTitleList == '') {
+            //     vm.TitleList_select = true;
+            //     vm.Alert_titlelist = 'Please Select a Risk Assessment Title.';
+            //     return false;
+            // }
+
+            vm.TitleList_enter = false;
             vm.Alert_titlelist = '';
-            if (vm.selectVendorTitleList == '') {
-                vm.TitleList_select = true;
-                vm.Alert_titlelist = 'Please Select a Risk Assessment Title.';
+            if(vm.enterVendorTileList === '' || angular.isUndefined(vm.enterVendorTileList)) {
+                vm.TitleList_enter = true;
+                vm.Alert_titlelist = 'Please Enter a Risk Assessment Title.';
                 return false;
             }
 
             vm.PeriodList_select = false;
             vm.Alert_periodlist = '';
 
-            if (vm.selectVendorPeriodList == '') {
+            if (vm.selectVendorPeriodList === '' || angular.isUndefined(vm.selectVendorPeriodList)) {
                 vm.PeriodList_select = true;
                 vm.Alert_periodlist = 'Please Select a Risk Assessment Period.';
                 return false;
@@ -127,11 +135,44 @@
             var set_data = {
                 Vendor_data_selected: vm.selectVendorNameOption,
                 RiskAssessmentType_selected: vm.selectRiskAssessmentTypeList,
-                AssessmentData_by_vendorName: vm.riskASData_by_vendorName
+                AssessmentData_by_vendorName: vm.riskASData_by_vendorName,
+                Enter_title: vm.enterVendorTileList
             };
 
             VendorService.SetAssessmentData(set_data);
             $state.go('app.vendorrisk.stinfo.create');
+        }
+
+        vm.downloadAssessment = downloadAssessment;
+        function downloadAssessment() {
+            var head_row = $('table.riskassessment_data_table thead tr');
+            var body_row = $('table.riskassessment_data_table tbody tr');
+            var checkedRow = $('table tr');
+            var head_row_col = head_row.children('th');
+            var tableHtml = '<table>';
+            tableHtml += '<tr>';
+            head_row_col.slice(0, head_row_col.length-1).each(function (i) {
+                console.log($(this).html());
+                tableHtml += '<td>' + $(this).html() + '</td>';
+            });
+            tableHtml += '</tr>';
+
+            checkedRow.each(function (i) {
+                tableHtml += '<tr>';
+                var tdObj = $(this).closest('tr').find('td');
+                tdObj.each(function (i) {
+                    tableHtml += '<td>' + $(this).html() + '</td>';
+                });
+                tableHtml += '</tr>';
+            });
+            tableHtml += '</table>';
+
+            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
+            $timeout(function () {
+                location.href = exportHref;
+            }, 100); // trigger download
+            /*window.open('data:application/vnd.ms-excel,'+tableHtml);
+             e.preventDefault();*/
         }
 
         initFunc();

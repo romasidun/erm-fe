@@ -28,13 +28,15 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         $localStorage.Vendor_data_selected = set_data.Vendor_data_selected;
         $localStorage.RiskAssessmentType_selected = set_data.RiskAssessmentType_selected;
         $localStorage.AssessmentData_by_vendorName = set_data.AssessmentData_by_vendorName;
+        $localStorage.Enter_title = set_data.Enter_title;
     };
 
     this.GetAssessmentData = function () {
         return {
             Vendor_data_selected: $localStorage.Vendor_data_selected,
             RiskAssessmentType_selected: $localStorage.RiskAssessmentType_selected,
-            AssessmentData_by_vendorName: $localStorage.AssessmentData_by_vendorName
+            AssessmentData_by_vendorName: $localStorage.AssessmentData_by_vendorName,
+            Enter_title: $localStorage.Enter_title
         }
     };
 

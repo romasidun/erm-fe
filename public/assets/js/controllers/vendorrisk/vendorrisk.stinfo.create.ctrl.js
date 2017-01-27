@@ -11,6 +11,7 @@
             var AssessmentData = VendorService.GetAssessmentData();
             console.log('AssessmentData',AssessmentData);
             vm.Vendor_data_selected = angular.fromJson(AssessmentData.Vendor_data_selected);
+            vm.Vendor_data_title = AssessmentData.Enter_title   ;
             vm.AssessmentData_by_vendorName = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
             vm.amdata_by_filter = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
             vm.vendorrisk = [];

@@ -21,8 +21,9 @@
         </div>
 
         <div  class="col-md-6">
-            <select class="vendorTitleList js-example-basic-single font-sans-serif margin-top-20 form-control white_background_style" ng-model="vrStinfo.selectVendorTitleList"
-                    ng-options="item3 for item3 in vrStinfo.vendorTitleList track by item3"></select>
+            <input type="text" ng-model="vrStinfo.enterVendorTileList" class="form-control" placeholder="Enter Vendor Title">
+            <!--<select class="vendorTitleList js-example-basic-single font-sans-serif margin-top-20 form-control white_background_style" ng-model="vrStinfo.selectVendorTitleList"-->
+                    <!--ng-options="item3 for item3 in vrStinfo.vendorTitleList track by item3"></select>-->
         </div>
 
         <div  class="col-md-6 ">
@@ -32,7 +33,10 @@
 
         <div class="form-group">
             <a class="btn btn-primary col-md-4 col-md-offset-4 margin-top-20" ng-click="vrStinfo.createAssessment()">
-                Create Assessment button
+                <i class="fa fa-newspaper-o"></i>Create Assessment button
+            </a>
+            <a class="btn btn-primary col-md-4 col-md-offset-4 margin-top-20" ng-click="vrStinfo.downloadAssessment()">
+                <i class="fa fa-download"></i> Download Excel
             </a>
         </div>
 
@@ -46,9 +50,9 @@
             {{ vrStinfo.Alert_typelist }}
             <span class="close" ng-click="vrStinfo.TypeList_select = false">&times;</span>
         </div>
-        <div class="alert alert-danger" ng-if="vrStinfo.TitleList_select">
+        <div class="alert alert-danger" ng-if="vrStinfo.TitleList_enter">
             {{ vrStinfo.Alert_titlelist }}
-            <span class="close" ng-click="vrStinfo.TitleList_select = false">&times;</span>
+            <span class="close" ng-click="vrStinfo.TitleList_enter = false">&times;</span>
         </div>
         <div class="alert alert-danger" ng-if="vrStinfo.PeriodList_select">
             {{ vrStinfo.Alert_periodlist }}
@@ -58,7 +62,7 @@
         <div class="clearfix"></div>
     </div>
 
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered riskassessment_data_table">
         <thead>
             <tr class="blue_background_style">
                 <th>Title</th>
