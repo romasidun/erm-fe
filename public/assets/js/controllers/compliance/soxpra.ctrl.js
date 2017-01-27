@@ -1,12 +1,12 @@
 (function () {
     "use strict";
 
-    SOXPRAController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxTpService', 'ChartFactory', 'Utils'];
+    SOXPRAController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxPraService', 'ChartFactory', 'Utils'];
     app.controller('SOXPRACtrl', SOXPRAController);
 
-    function SOXPRAController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils) {
+    function SOXPRAController($scope, $rootScope, $state, $filter, $uibModal, SoxPraService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
+        $scope.mainDesc = "SUMMARY";
 
         $scope.CurrCol = 'assessName';
         $scope.IsAsc = true;
@@ -39,7 +39,7 @@
                 resolve: {
                     items: function () {
                         return {
-                            TempLoader: SoxTpService.GetRSATemplates()
+                            TempLoader: SoxPraService.GetRSATemplates()
                         };
                     }
                 }
@@ -50,19 +50,19 @@
             });
         };
 
-        SoxTpService.GetRSAStatus().then(function (data) {
+        SoxPraService.GetRSAStatus().then(function (data) {
             var rcsaChrt = [];
             Object.keys(data).forEach(function (k) {
                 rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
             });
             setupPieChart(rcsaChrt);
-            return SoxTpService.GetRSAPeriod();
+            return SoxPraService.GetRSAPeriod();
         }).then(function (data) {
             setupPeriodChart(data);
-            return SoxTpService.GetRSARegion();
+            return SoxPraService.GetRSARegion();
         }).then(function (data) {
             setupStatusChart(data);
-            return SoxTpService.GetRSADept();
+            return SoxPraService.GetRSADept();
         }).then(function (data) {
             setupDeptChart(data);
         });
@@ -77,7 +77,7 @@
             confirmation.result.then(function () {
                 console.log("U chose Yes");
                 $rootScope.app.Mask = true;
-                SoxTpService.DeleteAssessment(r.id).then(function (data) {
+                SoxPraService.DeleteAssessment(r.id).then(function (data) {
                     if (data.status === 200) loadAssessments();
                 });
             });
@@ -88,7 +88,7 @@
         };
 
         function loadAssessments() {
-            SoxTpService.GetAssessments().then(function (data) {
+            SoxPraService.GetAssessments().then(function (data) {
                 $scope.Assess = data;
                 $rootScope.app.Mask = false;
             });

@@ -2,14 +2,14 @@
 
     "use strict";
 
-    SOXPRAFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxTpService', 'Utils'];
+    SOXPRAFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxPraService', 'Utils'];
     app.controller('SOXPRAFormCtrl', SOXPRAFormController);
 
 
-    function SOXPRAFormController($scope, $rootScope, $state, SoxTpService, Utils) {
+    function SOXPRAFormController($scope, $rootScope, $state, SoxPraService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
-        $scope.mainDesc = "Upload an Operational Risk Assessment";
+        $scope.mainDesc = "Upload a SOX Process Risk Assessment";
 
         $scope.Form = {};
 
@@ -25,7 +25,7 @@
             business: "",
             createdBy: "",
             createdOn: "",
-            due_date: "",
+            due_date: moment().format("YYYY-MM-DD"),
             filemodel: [],
             filename: "",
             frequency: "",
@@ -41,8 +41,9 @@
         $scope.submitAction = function () {
             if ($scope.Form.Rcsa.$invalid) return false;
 
-            SoxTpService.PostAssessment($scope.VM).then(function (res) {
-                if (res.status === 200) $state.go('app.compliance.soxtp.main');
+            $scope.VM.assessId = moment().format('X');
+            SoxPraService.PostAssessment($scope.VM).then(function (res) {
+                if (res.status === 200) $state.go('app.compliance.soxpra.main');
             });
         };
 

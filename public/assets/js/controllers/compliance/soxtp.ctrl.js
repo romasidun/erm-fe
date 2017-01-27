@@ -6,7 +6,7 @@
 
     function SOXTestPlanController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "SOX TEST PLAN SUMMARY";
+        $scope.mainDesc = "SUMMARY";
 
         $scope.CurrCol = 'assessName';
         $scope.IsAsc = true;

@@ -9,7 +9,7 @@
     function SOXTestPlanFormController($scope, $rootScope, $state, SoxTpService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
-        $scope.mainDesc = "Assessment";
+        $scope.mainDesc = "Upload a Sox Test Plan Assessment";
 
         $scope.Form = {};
 
@@ -40,7 +40,7 @@
 
         $scope.submitAction = function () {
             if ($scope.Form.Rcsa.$invalid) return false;
-
+            $scope.VM.assessId = moment().format('X');
             SoxTpService.PostAssessment($scope.VM).then(function (res) {
                 if (res.status === 200) $state.go('app.compliance.soxtp.main');
             });
