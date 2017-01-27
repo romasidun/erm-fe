@@ -2,11 +2,11 @@
 
     "use strict";
 
-    SOXRCMFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxTpService', 'Utils'];
-    app.controller('SOXRCMFormCtrl', SOXRCMFormController);
+    SOXPRAFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxTpService', 'Utils'];
+    app.controller('SOXPRAFormCtrl', SOXPRAFormController);
 
 
-    function SOXRCMFormController($scope, $rootScope, $state, SoxTpService, Utils) {
+    function SOXPRAFormController($scope, $rootScope, $state, SoxTpService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Upload an Operational Risk Assessment";

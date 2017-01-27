@@ -55,6 +55,14 @@ app.constant('JS_REQUIRES', {
         'ITRiskAssFormCtrl':    'assets/js/controllers/itrisk/itrisk.assessment.form.ctrl.js',
         'ITRiskAssUpdateCtrl':    'assets/js/controllers/itrisk/itrisk.assessment.update.ctrl.js',
 
+        //Compliance Controllers
+        'SOXTPCtrl':       'assets/js/controllers/compliance/soxtp.ctrl.js',
+        'SOXTPFormCtrl':       'assets/js/controllers/compliance/soxtp.form.ctrl.js',
+        'SOXRCMCtrl':       'assets/js/controllers/compliance/soxrcm.ctrl.js',
+        'SOXRCMFormCtrl':       'assets/js/controllers/compliance/soxrcm.form.ctrl.js',
+        'SOXPRACtrl':       'assets/js/controllers/compliance/soxpra.ctrl.js',
+        'SOXPRAFormCtrl':       'assets/js/controllers/compliance/soxpra.form.ctrl.js',
+
         //Vendor Risk related Controllers
         'VendorriskStinfoCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.ctrl.js',
         'VendorriskStinfoCTCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.create.ctrl.js',

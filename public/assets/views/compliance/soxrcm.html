@@ -51,7 +51,7 @@
 					<h5> RCSA Assessments </h5>
 					<div class="panel-tools">
 						<a class="btn btn-xs btn-dark-blue btn-squared" ng-click="downloadTemp()">Download Templates</a>
-						<a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.compliance.soxtp.form">Upload Assessment</a>
+						<a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.compliance.soxrcm.form">Upload Assessment</a>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -92,7 +92,7 @@
 								<td>{{r.frequency}}</td>
 								<td>{{r.approval}}</td>
 								<td>
-									<a ui-sref="app.compliance.soxtp.update({ id: r.id })"  class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+									<a ui-sref="app.compliance.soxrcm.update({ id: r.id })"  class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
 									<a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
 								</td>
 							</tr>

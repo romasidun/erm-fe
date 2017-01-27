@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-    SOXRCMController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxTpService', 'ChartFactory', 'Utils'];
-    app.controller('SOXRCMCtrl', SOXRCMController);
+    SOXPRAController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxTpService', 'ChartFactory', 'Utils'];
+    app.controller('SOXPRACtrl', SOXPRAController);
 
-    function SOXRCMController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils) {
+    function SOXPRAController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
 

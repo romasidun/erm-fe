@@ -1,67 +1,69 @@
-(function(){
-    SOXTestPlanFormController.$inject = ['$scope','$rootScope','$state', 'ComplianceService', 'Utils'];
+(function () {
+
+    "use strict";
+
+    SOXTestPlanFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxTpService', 'Utils'];
     app.controller('SOXTPFormCtrl', SOXTestPlanFormController);
 
-    function SOXTestPlanFormController ($scope, $rootScope, $state, ComplianceService, Utils){
-        $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "SOX Test Plan";
+
+    function SOXTestPlanFormController($scope, $rootScope, $state, SoxTpService, Utils) {
+
+        $scope.mainTitle = $state.current.title || 'loading';
+        $scope.mainDesc = "Upload an Operational Risk Assessment";
 
         $scope.Form = {};
+
         $scope.VM = {
-             controlMethod: "",
-             controlPriority: "",
-             controlStatus: "",
-             createdBy: "",
-             createdOn: "",
-             department: [
-                {
-                     area: "",
-                     deptId: "",
-                     deptName: "",
-                     id: "string"
-                }
-             ],
-             id: "",
-             modifiedBy: "",
-             modifiedOn: "",
-             regionName: "",
-             testDueDate: "",
-             testPlanDesc: "",
-             testPlanFile: "",
-             testPlanName: "",
-             testplanFileModel: []
+            actualName: "",
+            approval: "",
+            asmntType: "",
+            asmntTypeName: "",
+            asmntType_name: "",
+            assessDesc: "",
+            assessId: 0,
+            assessName: "",
+            business: "",
+            createdBy: "",
+            createdOn: "",
+            due_date: "",
+            filemodel: [],
+            filename: "",
+            frequency: "",
+            id: "",
+            modifiedBy: "",
+            modifiedOn: "",
+            period: "",
+            priority: "",
+            region: "",
+            resPerson: ""
         };
 
-        $scope.addControls = function(){
-            var headers= ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
-                cols =["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
+        $scope.submitAction = function () {
+            if ($scope.Form.Rcsa.$invalid) return false;
 
-            $rootScope.app.Mask = true;
-            ComplianceService.GetControlData().then(function(data){
-                data.forEach(function(c, i){
-                    c.Selected = false;
-                    c.modifiedOn = Utils.createDate(c.modifiedOn);
-                });
-                var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
-                controlModal.result.then(function(list){
-                    $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
-                });
-                $rootScope.app.Mask = false;
+            SoxTpService.PostAssessment($scope.VM).then(function (res) {
+                if (res.status === 200) $state.go('app.compliance.soxtp.main');
             });
         };
 
-        $scope.submitAction = function() {
-            if($scope.Form.CtrlRepo.$invalid) return false;
-            //Form Post to go here.
+        $scope.cancelAction = function () {
+            if ($scope.Form.Rcsa.$dirty) {
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                confirm.result.then(function () {
+                    $state.go('app.compliance.soxtp.main');
+                });
+            }
         };
 
-        $scope.cancelAction = function() {
-            if($scope.Form.CtrlRepo.$dirty) {
-                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){ $state.go('app.compliance.soxtp.main'); });
-                return false;
+        $scope.setOpt = function (op) {
+            op.Selected = !op.Selected;
+            if (op.Selected) {
+                $scope.RiskCategories.SelCount++;
+            } else {
+                $scope.RiskCategories.SelCount--;
             }
-            $state.go('app.compliance.soxtp.main');
+
+            console.log($scope.RiskCategories.SelCount);
         };
 
         $rootScope.app.Mask = false;

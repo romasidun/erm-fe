@@ -398,7 +398,60 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'SOXTPFormmCtrl',
         resolve: loadSequence('SOXTPFormCtrl')
 
+    }).state('app.compliance.soxpra', {
+        url: '/soxpra',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.compliance.soxpra.main', {
+        url: '',
+        templateUrl: "assets/views/compliance/soxpra.html",
+        title: 'SOX Process Risk Analysis',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXPRACtrl',
+        resolve: loadSequence('SOXPRACtrl')
+    }).state('app.compliance.soxpra.form', {
+        url: '/manage',
+        templateUrl: "assets/views/compliance/soxpra.form.html",
+        title: 'SOX Process Risk Analysis',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXPRAFormCtrl',
+        resolve: loadSequence('SOXPRAFormCtrl')
+    }).state('app.compliance.soxpra.update', {
+        url: '/:id/update',
+        templateUrl: "assets/views/compliance/soxpra.form.html",
+        title: 'Update SOX Process Risk Analysis',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXPRAFormCtrl',
+        resolve: loadSequence('SOXPRAFormCtrl')
+
+    }).state('app.compliance.soxrcm', {
+        url: '/soxrcm',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.compliance.soxrcm.main', {
+        url: '',
+        templateUrl: "assets/views/compliance/soxrcm.html",
+        title: 'SOX Process Risk Analysis',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXRCMCtrl',
+        resolve: loadSequence('SOXRCMCtrl')
+    }).state('app.compliance.soxrcm.form', {
+        url: '/manage',
+        templateUrl: "assets/views/compliance/soxrcm.form.html",
+        title: 'SOX Process Risk Analysis',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXRCMFormCtrl',
+        resolve: loadSequence('SOXRCMFormCtrl')
+    }).state('app.compliance.soxrcm.update', {
+        url: '/:id/update',
+        templateUrl: "assets/views/compliance/soxrcm.form.html",
+        title: 'Update SOX Process Risk Analysis',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXRCMFormCtrl',
+        resolve: loadSequence('SOXRCMFormCtrl')
+
     })
+
 
 
     /*
