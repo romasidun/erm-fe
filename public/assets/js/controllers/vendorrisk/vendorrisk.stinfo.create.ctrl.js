@@ -29,6 +29,7 @@
         }
 
         function saveVendorData() {
+            $rootScope.app.Mask = true;
             var date = new Date();
             var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
             var current_user = $('.dropdown.current-user .username').text();
@@ -55,7 +56,6 @@
                 var vendor_Findings = angular.isDefined(vm.vendorrisk[i].findings) ? vm.vendorrisk[i].findings : 0;
                 var vendor_Category = angular.isDefined(vm.vendorrisk[i].category) ? vm.vendorrisk[i].category : "";
 
-                $rootScope.app.Mask = false;
                 var post_data = {
                     "approvedDate": current_date,
                     "approver": current_user,
@@ -70,16 +70,7 @@
                     "vendorId": vendor_id,
                     "vendorName": vendor_name
                 };
-                    // title
-                    // Period
-                    // Approval Status
-                    // Approved Ddate
-                    // Version
-                    // Assessments date
-                    // Assessment By
-                    // Email/Link
-                    // Aggregated Risk Score
-                    // Overall Risk Score
+
                 VendorService.PostVendorData(post_data).then(function () {
                     $rootScope.app.Mask = false;
                 })
