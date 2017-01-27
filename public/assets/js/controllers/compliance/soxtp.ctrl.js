@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-    SOXTestPlanController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxTpService', 'ChartFactory', 'Utils'];
+    SOXTestPlanController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxTpService', 'ChartFactory', 'Utils', 'ExcelFactory', '$timeout'];
     app.controller('SOXTPCtrl', SOXTestPlanController);
 
-    function SOXTestPlanController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils) {
+    function SOXTestPlanController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils, ExcelFactory, $timeout) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "SUMMARY";
 
@@ -32,7 +32,7 @@
         };
 
         $scope.downloadTemp = function () {
-            var dlTmpModal = $uibModal.open({
+            /*var dlTmpModal = $uibModal.open({
                 templateUrl: 'tmpdownload.tpl.html',
                 controller: 'TmpDlCtrl',
                 size: 'lg',
@@ -47,7 +47,34 @@
 
             dlTmpModal.result.then(function (updEquip) {
                 console.log("Done");
+            });*/
+            var checkedRow = $('.table>tbody').find('input:checkbox:checked');
+            if (checkedRow.length < 1) {
+                alert('Please select at least one record');
+                return;
+            }
+            var tableHtml = '<table>';
+            tableHtml += '<tr>';
+            $('.table>thead>tr').find('th').slice(1, 6).each(function (i) {
+                tableHtml += '<td>' + $(this).html() + '</td>';
             });
+            tableHtml += '</tr>';
+
+            checkedRow.each(function (i) {
+                tableHtml += '<tr>';
+                var tdObj = $(this).closest('tr').find('td');
+                tdObj.each(function (i) {
+                    tableHtml += '<td>' + $(this).html() + '</td>';
+                });
+                tableHtml += '</tr>';
+            });
+            tableHtml += '</table>';
+            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
+            $timeout(function () {
+                location.href = exportHref;
+            }, 100); // trigger download
+            /*window.open('data:application/vnd.ms-excel,'+tableHtml);
+             e.preventDefault();*/
         };
 
         SoxTpService.GetRSAStatus().then(function (data) {
