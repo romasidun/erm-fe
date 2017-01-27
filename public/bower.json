@@ -88,7 +88,8 @@
     "angular-datepicker": "^2.0.3",
     "angularjs-datepicker": "^2.1.9",
     "angular-bootstrap-calendar": "^0.27.5",
-    "angular-rt-popup": "^1.0.6"
+    "angular-rt-popup": "^1.0.6",
+    "angular-bootstrap-checkbox": "^0.5.0"
   },
   "resolutions": {
     "angular-animate": "^1.6.1",

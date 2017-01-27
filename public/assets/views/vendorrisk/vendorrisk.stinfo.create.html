@@ -63,7 +63,8 @@
             <tr class="blue_header">
                 <th>Vendor Risk Category</th>
                 <th>Vendor Risk Assessment</th>
-                <th>Response</th>
+                <th>Yes</th>
+                <th>No</th>
                 <th>Findings</th>
                 <th>Comments</th>
             </tr>
@@ -72,10 +73,11 @@
             <tr class="white_blue_header" ng-repeat="vendorrisk in vrStinfoCT.vendorrisk track by $index">
                 <td>{{vendorrisk.name}}</td>
                 <td>{{vendorrisk.category}}</td>
-                <td>
-                    <div class="ui_check_style">
-                        <input type="checkbox" ng-model="vrStinfoCT.vendorrisk[$index].response">
-                    </div>
+                <td class="res">
+                    <input type="checkbox" ng-click="vrStinfoCT.vendorResponseVal('Y',this,$event)" class="Vendorresponse" name="Y" ng-model="vrStinfoCT.vendorrisk[$index].responseY">
+                </td>
+                <td class="res">
+                    <input type="checkbox" ng-click="vrStinfoCT.vendorResponseVal('N',this,$event)"  name="N" ng-model="vrStinfoCT.vendorrisk[$index].responseN">
                 </td>
                 <td style="">
                     <input type="number" min="0" ng-model="vrStinfoCT.vendorrisk[$index].findings">

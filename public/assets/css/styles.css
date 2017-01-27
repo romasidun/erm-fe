@@ -11447,11 +11447,11 @@ section.vendor_create_body tbody tr.white_blue_header td, section thead tr.blue_
   text-align: center;
 }
 
-section.vendor_create_body tbody tr.white_blue_header td:nth-child(3) div, section thead tr.blue_header th:nth-child(3){
+section.vendor_create_body tbody tr.white_blue_header td:nth-child(3) div, section thead tr.blue_header th:nth-child(3),section.vendor_create_body tbody tr.white_blue_header td:nth-child(4) div, section thead tr.blue_header th:nth-child(4){
   padding: 0px;
 }
 
-section.vendor_create_body tbody tr.white_blue_header td:nth-child(4) input, section thead tr.blue_header th:nth-child(4){
+section.vendor_create_body tbody tr.white_blue_header td:nth-child(5) input, section thead tr.blue_header th:nth-child(5){
   width: 60px;
 }
 
@@ -11461,4 +11461,9 @@ section.vendor_create_body table tbody td.action_tools{
 
 section.vendor_create_body table th,section.vendor_create_body table td{
   text-align: center;
-} 
+}
+
+.ele_center{
+  margin-left: auto;
+  margin-right: auto;
+}
