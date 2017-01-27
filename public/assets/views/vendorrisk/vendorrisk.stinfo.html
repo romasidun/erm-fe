@@ -38,13 +38,21 @@
 
         <div class="clearfix"></div>
 
-        <div class="alert alert-danger margin-top-20" ng-if="vrStinfo.EmptyVendor">
-            {{ vrStinfo.EmptyVendorMessage }}
-            <span class="close" ng-click="vrStinfo.EmptyVendor = false">&times;</span>
+        <div class="alert alert-danger margin-top-20" ng-if="vrStinfo.NameList_select">
+            {{ vrStinfo.Alert_namelist }}
+            <span class="close" ng-click="vrStinfo.NameList_select = false">&times;</span>
         </div>
-        <div class="alert alert-danger" ng-if="vrStinfo.EmptyRiskAssessment">
-            {{ vrStinfo.EmptyRiskAssessmentMessage }}
-            <span class="close" ng-click="vrStinfo.EmptyRiskAssessment = false">&times;</span>
+        <div class="alert alert-danger" ng-if="vrStinfo.TypeList_select">
+            {{ vrStinfo.Alert_typelist }}
+            <span class="close" ng-click="vrStinfo.TypeList_select = false">&times;</span>
+        </div>
+        <div class="alert alert-danger" ng-if="vrStinfo.TitleList_select">
+            {{ vrStinfo.Alert_titlelist }}
+            <span class="close" ng-click="vrStinfo.TitleList_select = false">&times;</span>
+        </div>
+        <div class="alert alert-danger" ng-if="vrStinfo.PeriodList_select">
+            {{ vrStinfo.Alert_periodlist }}
+            <span class="close" ng-click="vrStinfo.PeriodList_select = false">&times;</span>
         </div>
 
         <div class="clearfix"></div>
