@@ -6,7 +6,7 @@
 
     function SOXTestPlanController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
+        $scope.mainDesc = "SOX TEST PLAN SUMMARY";
 
         $scope.CurrCol = 'assessName';
         $scope.IsAsc = true;
@@ -99,7 +99,7 @@
             rcsa.forEach(function (o) {
                 dataList.push([o.key, o.val]);
             });
-            var chartObj = ChartFactory.CreatePieChartTemplate('RCSA by status', 'RCSA by status', dataList, ['#D936ED', '#2B35DF', '#8EB42E', '#159008', '#B49400', '#9F6CE5']);
+            var chartObj = ChartFactory.CreatePieChartTemplate('By Status', 'By Status', dataList, ['#D936ED', '#2B35DF', '#8EB42E', '#159008', '#B49400', '#9F6CE5']);
             Highcharts.chart('rcsaStatus', chartObj);
         }
 

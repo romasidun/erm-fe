@@ -9,7 +9,7 @@
     function SOXTestPlanFormController($scope, $rootScope, $state, SoxTpService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
-        $scope.mainDesc = "Upload an Operational Risk Assessment";
+        $scope.mainDesc = "Assessment";
 
         $scope.Form = {};
 

@@ -42,6 +42,7 @@ app.service('SoxTpService', function($rootScope, APIHandler, Utils){
     };
 
     this.PostAssessment = function(params){
+        console.log(params);
         return APIHandler.Post('compliance/soxtp', params);
     };
 
