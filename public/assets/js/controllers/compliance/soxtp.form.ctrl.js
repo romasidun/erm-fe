@@ -25,7 +25,7 @@
             business: "",
             createdBy: "",
             createdOn: "",
-            due_date: "",
+            due_date: moment().format("YYYY-MM-DD"),
             filemodel: [],
             filename: "",
             frequency: "",
