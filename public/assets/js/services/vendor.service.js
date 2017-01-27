@@ -19,15 +19,22 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorassessmentlist');
     };
 
+    this.GetRimById = function(id){
+        return APIHandler.Get('itrisk/itrim/' + id);
+    };
+
+
     this.SetAssessmentData = function(set_data) {
-        $localStorage.VendorData = set_data.VendorData;
-        $localStorage.RiskAssessmentType = set_data.RiskAssessmentType;
+        $localStorage.Vendor_data_selected = set_data.Vendor_data_selected;
+        $localStorage.RiskAssessmentType_selected = set_data.RiskAssessmentType_selected;
+        $localStorage.AssessmentData_by_vendorName = set_data.AssessmentData_by_vendorName;
     };
 
     this.GetAssessmentData = function () {
         return {
-            VendorData: $localStorage.VendorData,
-            riskTypeData: $localStorage.RiskAssessmentType
+            Vendor_data_selected: $localStorage.Vendor_data_selected,
+            RiskAssessmentType_selected: $localStorage.RiskAssessmentType_selected,
+            AssessmentData_by_vendorName: $localStorage.AssessmentData_by_vendorName
         }
     };
 

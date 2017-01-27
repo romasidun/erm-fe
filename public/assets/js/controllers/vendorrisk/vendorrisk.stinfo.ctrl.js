@@ -79,19 +79,39 @@
 
         vm.createAssessment = createAssessment;
         function createAssessment() {
+
             //validation Risk assessment
-            vm.EmptyVendor = false;
-            vm.EmptyVendorMessage = '';
+            console.log(vm.selectVendorNameOption.id);
+            vm.NameList_select = false;
+            vm.Alert_namelist = '';
             if (vm.selectVendorNameOption.id == '') {
-                vm.EmptyVendor = true;
-                vm.EmptyVendorMessage = 'Please pick a vendor.';
+                vm.NameList_select = true;
+                vm.Alert_namelist = 'Please Select a vendor Name.';
                 return false;
             }
-            vm.EmptyRiskAssessment = false;
-            vm.EmptyRiskAssessmentMessage = '';
+
+            vm.TypeList_select = false;
+            vm.Alert_typelist = '';
             if (vm.selectRiskAssessmentTypeList.id == '') {
-                vm.EmptyRiskAssessment = true;
-                vm.EmptyRiskAssessmentMessage = 'Please Select a Risk Assessment Type.';
+                vm.TypeList_select = true;
+                vm.Alert_typelist = 'Please Select a Risk Assessment Type.';
+                return false;
+            }
+
+            vm.TitleList_select = false;
+            vm.Alert_titlelist = '';
+            if (vm.selectVendorTitleList == '') {
+                vm.TitleList_select = true;
+                vm.Alert_titlelist = 'Please Select a Risk Assessment Title.';
+                return false;
+            }
+
+            vm.PeriodList_select = false;
+            vm.Alert_periodlist = '';
+
+            if (vm.selectVendorPeriodList == '') {
+                vm.PeriodList_select = true;
+                vm.Alert_periodlist = 'Please Select a Risk Assessment Period.';
                 return false;
             }
             //end validation
@@ -104,7 +124,6 @@
             });
             vm.riskASData_by_vendorName = riskASData_by_vendorNameObje[0];
             // end filter
-            console.log('vm.selectVendorNameOption',vm.riskASData_by_vendorName);
             var set_data = {
                 Vendor_data_selected: vm.selectVendorNameOption,
                 RiskAssessmentType_selected: vm.selectRiskAssessmentTypeList,
