@@ -11,17 +11,17 @@
 <section class="vendor_create_body">
     <div class="vendor_assessment_data note-editor heading_title_panel">
         <div class="col-md-6">
-            <select class="vendornamelist font-sans-serif form-control white_background_style" ng-model="vrStinfo.selectVendorNameOption"
-                    ng-options="item1.vendorName for item1 in vrStinfo.vendornamelist track by item1.id"></select>
+            <select class="vendorNameList font-sans-serif form-control white_background_style" ng-model="vrStinfo.selectVendorNameList"
+                    ng-options="item1 for item1 in vrStinfo.vendorNameList track by item1"></select>
         </div>
 
         <div  class="col-md-6">
-            <select class="riskassementtype js-example-basic-single font-sans-serif margin-top-20 form-control white_background_style" ng-model="vrStinfo.selectRiskAssessmentTypeList"
-                    ng-options="item2.riskType for item2 in vrStinfo.riskassementtype track by item2.id"></select>
+            <select class="vendorRiskTypeList js-example-basic-single font-sans-serif margin-top-20 form-control white_background_style" ng-model="vrStinfo.selectvendorRiskTypeList"
+                    ng-options="item2 for item2 in vrStinfo.vendorRiskTypeList track by item2"></select>
         </div>
 
         <div  class="col-md-6">
-            <input type="text" ng-model="vrStinfo.enterVendorTileList" class="form-control" placeholder="Enter Vendor Title">
+            <input type="text" ng-model="vrStinfo.enterVendorTtileList" class="vendorTitleList form-control" placeholder="Enter Vendor Title">
             <!--<select class="vendorTitleList js-example-basic-single font-sans-serif margin-top-20 form-control white_background_style" ng-model="vrStinfo.selectVendorTitleList"-->
                     <!--ng-options="item3 for item3 in vrStinfo.vendorTitleList track by item3"></select>-->
         </div>
