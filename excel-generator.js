@@ -18,34 +18,29 @@ function excelGenerator(path, data, callback) {
     var sheet1 = workbook.createSheet('Test Plan', headerArray.length, bodyArray.length+5);
 
     // Column headers
-    
-    for (var i = 1; i < headerArray.length; i++)
-        sheet1.set(i, 1, headerArray[i-1].text);
-
     // Add border around all headers
-    sheet1.border(1, 1, {left:'thin',top:'thin',bottom:'thin'});
-    sheet1.border(headerArray.length, 1, {top:'thin',right:'thin',bottom:'thin'});
-    for (var i = 2; i < headerArray.length; i++)
-        sheet1.border(i, 1, {left:'thin',top:'thin',right:'thin',bottom:'thin'});
+    for (var i = 0; i < headerArray.length; i++){
+        var col = i + 1;
+        sheet1.border(col, 1, {left:'thin',top:'thin',right:'thin',bottom:'thin'});
+        sheet1.set(col, 1, headerArray[i].text);
+        sheet1.fill(col, 1, {type:'solid', fgColor: headerArray[i].bgcolor});
+        sheet1.width(col, headerArray[i].width);
+        sheet1.wrap(col, 1, 'true');
+        sheet1.align(col, 1, 'center');
 
-    for (var i = 1; i < headerArray.length + 1; i++) {
-        sheet1.set(i, 1, headerArray[i-1].text);
-        // Fill in header column with orange, accent 6, lighter 80%
-        sheet1.fill(i, 1, {type:'solid', fgColor: headerArray[i-1].bgcolor});
-        sheet1.width(i, headerArray[i-1].width);
     }
 
-    // Wrap text for all the headers
-    for (var i = 1; i < headerArray.length + 2; i++) {
-        sheet1.wrap(i, 1, 'true');
-        sheet1.align(i, 1, 'center');
-    }
     
     var row = 2;
     // Enter data into spreadsheet.
     for (var i = 0; i < bodyArray.length; i++) {
         for(var j=0; j<headerArray.length;j++){
-            sheet1.set((j+1), row, bodyArray[i][j]);
+            col = ( j + 1 );
+            sheet1.set(col, row, bodyArray[i][j]);
+            sheet1.border(col, row, {left:'thin',top:'thin',right:'thin',bottom:'thin'});
+            sheet1.fill(col, row, {type:'solid'});
+            sheet1.wrap(col, row, 'true');
+            sheet1.align(col, row, 'center');
         }
         row = row + 1;
     }
