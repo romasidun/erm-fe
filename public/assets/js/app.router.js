@@ -532,6 +532,22 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         resolve: loadSequence('RepoCtrl')
     })
 
+    .state('app.contact', {
+        url: '/contact',
+        templateUrl: "assets/views/contactus.html",
+        title: 'Contact Us',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'ContactusCtrl',
+        resolve: loadSequence('ContactusCtrl')
+    }).state('app.glossary', {
+        url: '/glossary',
+        templateUrl: "assets/views/glossary.html",
+        title: 'Glossary',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'GlossaryCtrl',
+        resolve: loadSequence('GlossaryCtrl')
+    })
+
     /*
     *   ---- App Utility Page Routes ----
     */

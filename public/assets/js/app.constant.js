@@ -34,6 +34,8 @@ app.constant('JS_REQUIRES', {
         *  Angular Application Controllers
         */
         'LoginCtrl': 'assets/js/controllers/login.signin.ctrl.js',
+        'ContactusCtrl': 'assets/js/controllers/contactusCtrl.js',
+        'GlossaryCtrl': 'assets/js/controllers/glossaryCtrl.js',
         'DashboardCtrl': 'assets/js/controllers/dashboard.ctrl.js',
         'DashActionFormCtrl': 'assets/js/controllers/dashboard.action.form.ctrl.js',
         'DashActionUpdateCtrl': 'assets/js/controllers/dashboard.action.update.ctrl.js',

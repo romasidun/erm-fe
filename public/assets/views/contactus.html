@@ -1,0 +1,52 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle" >{{mainTitle}}</h1>
+		</div>
+	</div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-transparent">
+				<div class="panel-body">
+					<form name="Form.Contactus" ng-submit="submitAction()" role="form" >
+						<div class="row">
+							<div class="form-group" ng-class="{ 'has-error' : Form.Contactus.userName.$invalid && !Form.Contactus.userName.$pristine }">
+								<label> Name </label>
+								<input type="text" name="userName" ng-model="VM.name" placeholder="First & Lastname" class="form-control" required>
+								<p ng-show="Form.Contactus.userName.$invalid && !Form.Contactus.userName.$pristine" class="help-block">You name is required.</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group" ng-class="{ 'has-error' : Form.Contactus.userEmail.$invalid && !Form.Contactus.userEmail.$pristine }">
+								<label> Email </label>
+								<input type="email" name="userEmail" ng-model="VM.email" placeholder="example@domain.com" class="form-control">
+								<p ng-show="Form.Contactus.userEmail.$invalid && !Form.Contactus.userEmail.$pristine" class="help-block">Enter a valid email.</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group" ng-class="{ 'has-error' : Form.Contactus.userMessage.$invalid && !Form.Contactus.userMessage.$pristine }">
+								<label> Message </label>
+								<textarea name="userMessage" ng-model="VM.message" class="form-control" style="height: 200px;" required>
+
+								</textarea>
+								<p ng-show="Form.Contactus.userMessage.$invalid && !Form.Contactus.userMessage.$pristine" class="help-block">This field is required.</p>
+							</div>
+						</div>
+						<hr class="hrule4" />
+						<div class="col-xs-12 text-right">
+							<button class="btn btn-squared btn-dark-blue" ng-disabled="Form.Contactus.$invalid || Form.Contactus.$pristine" type="submit"><i class="fa fa-save"></i> Submit</button>
+							<!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+							<button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
