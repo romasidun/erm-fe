@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-    SOXPRAController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxPraService', 'ChartFactory', 'Utils', 'ExcelFactory', '$timeout'];
+    SOXPRAController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxPraService', 'ChartFactory', 'Utils'];
     app.controller('SOXPRACtrl', SOXPRAController);
 
-    function SOXPRAController($scope, $rootScope, $state, $filter, $uibModal, SoxPraService, ChartFactory, Utils, ExcelFactory, $timeout) {
+    function SOXPRAController($scope, $rootScope, $state, $filter, $uibModal, SoxPraService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "SUMMARY";
 
@@ -32,47 +32,42 @@
         };
 
         $scope.downloadTemp = function () {
-            /*var dlTmpModal = $uibModal.open({
-                templateUrl: 'tmpdownload.tpl.html',
-                controller: 'TmpDlCtrl',
-                size: 'lg',
-                resolve: {
-                    items: function () {
-                        return {
-                            TempLoader: SoxPraService.GetRSATemplates()
-                        };
-                    }
-                }
-            });
-
-            dlTmpModal.result.then(function (updEquip) {
-                console.log("Done");
-            });*/
+            var theadAry = [];
+            var tbodyAry = [];
             var checkedRow = $('.table>tbody').find('input:checkbox:checked');
-            if (checkedRow.length < 1) {
-                alert('Please select at least one record');
-                return;
-            }
-            var tableHtml = '<table>';
-            tableHtml += '<tr>';
-            $('.table>thead>tr').find('th').slice(1, 6).each(function (i) {
-                tableHtml += '<td>' + $(this).html() + '</td>';
+            /*if (checkedRow.length < 1) {
+             alert('Please select at least one record');
+             return;
+             }*/
+
+            $('.table>thead>tr').find('th').slice(1, 7).each(function (i) {
+                theadAry.push({
+                    bgcolor: 'ffffff',
+                    width: 20,
+                    text: $(this).text()
+                });
             });
-            tableHtml += '</tr>';
 
             checkedRow.each(function (i) {
-                tableHtml += '<tr>';
+                /*tableHtml += '<tr>';*/
+                var rowArray = [];
                 var tdObj = $(this).closest('tr').find('td');
                 tdObj.each(function (i) {
-                    tableHtml += '<td>' + $(this).html() + '</td>';
+                    rowArray.push($(this).text());
                 });
-                tableHtml += '</tr>';
+                tbodyAry.push(rowArray);
             });
-            tableHtml += '</table>';
-            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
-            $timeout(function () {
-                location.href = exportHref;
-            }, 100);
+
+            var senddata = {
+                head: theadAry,
+                body: tbodyAry
+            };
+
+            SoxPraService.ExcelDownload(senddata).then(function (response) {
+                location.assign('/download-excel/' + response.data);
+            }).catch(function (error) {
+                alert('error!');
+            });
         };
 
         SoxPraService.GetRSAStatus().then(function (data) {

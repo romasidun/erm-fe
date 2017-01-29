@@ -4,16 +4,17 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "path": "^0.12.7"
-  },
-  "scripts": {
-    "start": "node app.js"
+    "guid": "0.0.12",
+    "moment": "^2.17.1",
+    "msexcel-builder-colorfix": "0.0.3",
+    "path": "^0.12.7",
+    "xlsx": "^0.8.1"
   }
 }

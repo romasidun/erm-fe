@@ -81,5 +81,8 @@ app.service('SoxPraService', function($rootScope, APIHandler, Utils){
         return APIHandler.Get('policies?pagesize=' + size + '&page=' + page);
     };
 
+    this.ExcelDownload = function(params){
+        return APIHandler.Excel('/xlsx', params);
+    }
 
 });
