@@ -23,9 +23,7 @@ app.get('/', function (req, res, next) {
 app.post('/xlsx', function (req, res, next) {
     var data = req.body;
     var fileName = guid.raw();
-
     data.filename = fileName;
-
     excel(xlsDirectory, data, function (err, location) {
         if (!err) {
             res.status(200);

@@ -8,13 +8,13 @@ function callback(err, location) {
 };
 
 function excelGenerator(path, data, callback) {
-    // Create a new workbook file in current working-path 
+    // Create a new workbook file in current working-path
     var workbook = excelbuilder.createWorkbook(path, data.filename);
 
     var headerArray = data.head;
     var bodyArray = data.body;
 
-    // Create a new worksheet with 30 columns and 30 rows 
+    // Create a new worksheet with 30 columns and 30 rows
     var sheet1 = workbook.createSheet('Test Plan', headerArray.length, bodyArray.length+5);
 
     // Column headers
@@ -30,7 +30,7 @@ function excelGenerator(path, data, callback) {
 
     }
 
-    
+
     var row = 2;
     // Enter data into spreadsheet.
     for (var i = 0; i < bodyArray.length; i++) {
@@ -38,14 +38,14 @@ function excelGenerator(path, data, callback) {
             col = ( j + 1 );
             sheet1.set(col, row, bodyArray[i][j]);
             sheet1.border(col, row, {left:'thin',top:'thin',right:'thin',bottom:'thin'});
-            sheet1.fill(col, row, {type:'solid'});
+            sheet1.fill(col, row, {type:'solid', fgColor: 'ffffff'});
             sheet1.wrap(col, row, 'true');
             sheet1.align(col, row, 'center');
         }
         row = row + 1;
     }
 
-    // Save it 
+    // Save it
     workbook.save(function(err) {
         if (!err) {
           console.log('congratulations, your workbook created');

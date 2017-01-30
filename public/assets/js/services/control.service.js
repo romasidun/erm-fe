@@ -98,4 +98,8 @@ app.service('ControlService', function($rootScope, APIHandler, Utils){
     return APIHandler.Get('crtls/testPlans/source');
   };
 
+  // this.DTExcelDownload = function(param) {
+  //   return APIHandler.Excel('xlsx', param);
+  // }
+
 });

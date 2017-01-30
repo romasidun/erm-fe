@@ -81,7 +81,7 @@
 
     APIHandler.prototype.Delete = function get(url) {
       url = baseUrl + url;
-        console.log(url);
+      console.log(url);
       if(isDebug) console.info("DELETE: " + url);
       var promise = $http.delete(url), deferred = $q.defer();
           promise.then(function (res) {
@@ -95,7 +95,6 @@
     };
 
     APIHandler.prototype.Excel = function get(url, params) {
-        url = url;
         if(isDebug) console.info("POST: " + url);
         if(isDebug) console.info("with body: ", params);
         var promise = $http.post(url, params), deferred = $q.defer();

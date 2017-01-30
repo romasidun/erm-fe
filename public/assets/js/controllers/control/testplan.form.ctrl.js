@@ -1,8 +1,8 @@
 (function(){
-    TestPlanFormController.$inject = ['$scope','$rootScope','$state', 'OPRiskService', 'Utils'];
+    TestPlanFormController.$inject = ['$scope','$rootScope','$state', 'OPRiskService', 'SoxTpService', 'Utils'];
     app.controller('TestPlanFormCtrl', TestPlanFormController);
 
-    function TestPlanFormController ($scope, $rootScope, $state, OPRiskService, Utils){
+    function TestPlanFormController ($scope, $rootScope, $state, OPRiskService, SoxTpService, Utils){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Control Test Plan";
 
@@ -61,6 +61,44 @@
             ControlService.AddTestPlans($scope.VM).then(function (res) {
                 if(res.status===200) $state.go('app.control.testplan.main');
             });
+        };
+
+        $scope.downloadExcel = function() {
+            var head_txt = ['Control Category','Control ID','Control Name','Control Source','Business Procee','Owner'];
+            var head_obj = [];
+            var body_txt = [];
+            var control_data = $scope.VM.controlDataModel;
+            var control_data_fir = control_data[0];
+            for(var i in head_txt){
+                head_obj.push({
+                    bgcolor: 'ffffff',
+                    width: 20,
+                    text: head_txt[i]
+                });
+            }
+
+            for(var i in control_data){
+                body_txt.push([
+                    control_data[i].controlCategory,
+                    control_data[i].controlRefID,
+                    control_data[i].controlName,
+                    control_data[i].controlSource,
+                    control_data[i].businessProcess,
+                    control_data[i].controlOwner
+                ]);
+            }
+
+            var senddata = {
+                head: head_obj,
+                body: body_txt
+            };
+            SoxTpService.ExcelDownload(senddata).then(function (response) {
+                location.assign('/download-excel/' + response.data);
+            }).catch(function (error) {
+                alert('error!');
+            });
+
+
         };
 
         $scope.cancelAction = function() {
