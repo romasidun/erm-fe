@@ -62,7 +62,6 @@
                 head: theadAry,
                 body: tbodyAry
             };
-
             SoxPraService.ExcelDownload(senddata).then(function (response) {
                 location.assign('/download-excel/' + response.data);
             }).catch(function (error) {

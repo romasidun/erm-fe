@@ -532,6 +532,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         resolve: loadSequence('RepoCtrl')
     })
 
+
     .state('app.contact', {
         url: '/contact',
         templateUrl: "assets/views/contactus.html",

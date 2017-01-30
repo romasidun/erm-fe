@@ -16,12 +16,11 @@ app.controller('ContactusCtrl', [
         message: ""
     };
 
+
     $scope.submitAction = function(){
         if($scope.Form.Contactus.$invalid) return false;
 
-        /*OPRiskService.PostAssessment($scope.VM).then(function(res){
-            if(res.status === 200) $state.go('app.oprisk.assessment.main');
-        });*/
+        return false;
     };
 
     $scope.cancelAction = function(){

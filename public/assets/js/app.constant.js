@@ -30,6 +30,7 @@ app.constant('JS_REQUIRES', {
 		'highcharts': ['libs/highcharts-ng/dist/highcharts-ng.js'],
         'ngrtPopover': ['libs/angular-rt-popup/dist/angular-rt-popup.min.js'],
 
+
         /*
         *  Angular Application Controllers
         */

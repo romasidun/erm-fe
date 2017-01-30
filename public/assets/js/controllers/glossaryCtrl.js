@@ -3,11 +3,10 @@
   * controller for Contact Us
 */
 app.controller('GlossaryCtrl', [
-    "$scope", "$rootScope", "$state", "Utils",
-    function ($scope, $rootScope, $state, Utils) {
+    "$scope", "$rootScope", "$state",
+    function ($scope, $rootScope, $state) {
     $scope.mainTitle = $state.current.title || 'loading';
     $scope.mainDesc = "Glossary";
-
 
     $rootScope.app.Mask = false;
 }]);
