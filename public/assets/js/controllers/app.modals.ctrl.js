@@ -70,7 +70,6 @@
      ----------------------------------
      */
     app.controller('SelectListCtrl', function($scope, $rootScope, $filter, $uibModalInstance, items){
-
         $rootScope.app.CurrentModal = $uibModalInstance;
 
         $scope.Title = items.Title;
@@ -91,7 +90,6 @@
         };
 
         $('.modal-content').keyup(function (e) {
-            console.log(e.keyCode);
             if (e.keyCode === 13) $scope.ok();
             if (e.keyCode === 27) $scope.cancel();
         });

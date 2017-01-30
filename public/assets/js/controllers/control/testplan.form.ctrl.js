@@ -8,28 +8,29 @@
 
         $scope.Form = {};
         $scope.VM = {
-             controlMethod: "",
-             controlPriority: "",
-             controlStatus: "",
-             createdBy: "",
-             createdOn: "",
-             department: [
-                {
-                     area: "",
-                     deptId: "",
-                     deptName: "",
-                     id: "string"
-                }
-             ],
-             id: "",
-             modifiedBy: "",
-             modifiedOn: "",
-             regionName: "",
-             testDueDate: "",
-             testPlanDesc: "",
-             testPlanFile: "",
-             testPlanName: "",
-             testplanFileModel: []
+            controlMethod: "",
+            controlPriority: "",
+            controlStatus: "",
+            createdBy: "",
+            createdOn: "",
+            department: [
+               {
+                    area: "",
+                    deptId: "",
+                    deptName: "",
+                    id: "string"
+               }
+            ],
+            id: "",
+            modifiedBy: "",
+            modifiedOn: "",
+            regionName: "",
+            testDueDate: "",
+            testPlanDesc: "",
+            testPlanFile: "",
+            testPlanName: "",
+            testplanFileModel: [],
+            controlDataModel: []
         };
 
         $scope.addControls = function(){
@@ -45,9 +46,14 @@
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function(list){
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
+                    console.log($scope.VM.controlDataModel);
                 });
                 $rootScope.app.Mask = false;
             });
+        };
+
+        $scope.removeItem = function (type, idx) {
+            $scope.VM[type].splice(idx, 1);
         };
 
         $scope.submitAction = function() {
