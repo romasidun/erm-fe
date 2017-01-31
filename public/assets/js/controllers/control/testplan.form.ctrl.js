@@ -1,5 +1,5 @@
 (function(){
-    TestPlanFormController.$inject = ['$scope','$rootScope','$state', 'OPRiskService', 'SoxTpService', 'Utils'];
+    TestPlanFormController.$inject = ['$scope', '$rootScope', '$state', 'OPRiskService', 'SoxTpService', 'Utils'];
     app.controller('TestPlanFormCtrl', TestPlanFormController);
 
     function TestPlanFormController ($scope, $rootScope, $state, OPRiskService, SoxTpService, Utils){
@@ -64,27 +64,38 @@
         };
 
         $scope.downloadExcel = function() {
-            var head_txt = ['Control Category','Control ID','Control Name','Control Source','Business Procee','Owner'];
+            var head_txt = ['Test Plan Name','TestPan Desc','Control Category','Control ID','Control Name','Control Source','Business Procee','Owner','Test Due Date','TestDate','Region', 'Control Freq', 'Department', 'Control Method', 'Priority', 'Status', 'TestPlan File name'];
             var head_obj = [];
             var body_txt = [];
             var control_data = $scope.VM.controlDataModel;
             var control_data_fir = control_data[0];
             for(var i in head_txt){
                 head_obj.push({
-                    bgcolor: 'ffffff',
-                    width: 20,
+                    bgcolor: '99b8ca',
                     text: head_txt[i]
                 });
             }
 
             for(var i in control_data){
                 body_txt.push([
+                    $scope.VM.testPlanName,
+                    $scope.VM.testPlanDesc,
+                    control_data[i].controlDescription,
                     control_data[i].controlCategory,
                     control_data[i].controlRefID,
                     control_data[i].controlName,
                     control_data[i].controlSource,
                     control_data[i].businessProcess,
-                    control_data[i].controlOwner
+                    control_data[i].controlOwner,
+                    control_data[i].controlEffectiveEnddate,
+                    control_data[i].controlEffectiveStartdate,
+                    $scope.VM.regionName,
+                    control_data[i].controlFrequency,
+                    $scope.VM.department[0].deptName,
+                    '',
+                    '',
+                    $scope.VM.testPlanFile
+
                 ]);
             }
 
@@ -92,6 +103,7 @@
                 head: head_obj,
                 body: body_txt
             };
+            console.log(senddata)
             SoxTpService.ExcelDownload(senddata).then(function (response) {
                 location.assign('/download-excel/' + response.data);
             }).catch(function (error) {

@@ -24,7 +24,7 @@ function excelGenerator(path, data, callback) {
         sheet1.border(col, 1, {left:'thin',top:'thin',right:'thin',bottom:'thin'});
         sheet1.set(col, 1, headerArray[i].text);
         sheet1.fill(col, 1, {type:'solid', fgColor: headerArray[i].bgcolor});
-        sheet1.width(col, headerArray[i].width);
+        // sheet1.width(col, headerArray[i].width);
         sheet1.wrap(col, 1, 'true');
         sheet1.align(col, 1, 'center');
 

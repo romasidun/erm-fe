@@ -82,6 +82,6 @@ app.service('SoxTpService', function($rootScope, APIHandler, Utils){
     };
 
     this.ExcelDownload = function(params){
-        return APIHandler.Excel('/xlsx', params);
+        return APIHandler.Excel('/control_xlsx', params);
     }
 });
