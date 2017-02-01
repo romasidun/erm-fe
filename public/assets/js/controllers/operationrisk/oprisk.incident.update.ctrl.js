@@ -9,13 +9,13 @@
     function OprIncFormController($scope, $rootScope, $state, $stateParams, OPRiskService, Utils){
 
         $scope.mainTitle = $state.current.title || 'loading';
-        $scope.mainDesc = "Add new operational risk incident";
+        $scope.mainDesc = "Update operational risk incident";
 
         $scope.Form = {};
         $scope.RiskCategories = { List: [], SelCount: 0 };
 
         $scope.dpOptions = {
-            format: 'dd-mm-yyyy',
+            format: 'yyyy-mm-dd',
             autoclose: true
         };
 
@@ -78,6 +78,14 @@
 
         $scope.submitAction = function(){
             if($scope.Form.OpIncident.$invalid || $scope.Form.OpIncident.pristine) return false;
+/*
+
+            var filedata = new FormData();
+            for(var i in $scope.VM.auditFileModel){
+                filedata.append("uploadedFiles", $scope.VM.auditFileModel[i]);
+            }
+            console.log(filedata);
+            $scope.VM.auditFileModel = filedata;*/
             OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
                 if(res.status===200) $state.go('app.oprisk.incident.main');
             });
@@ -85,6 +93,8 @@
 
         OPRiskService.GetRiskIncident($stateParams.id).then(function(data){
             //console.log(data);
+            data.identifiedDate = moment(data.identifiedDate).format('YYYY-MM-DD');
+            data.remeDate = moment(data.remeDate).format('YYYY-MM-DD');
             $scope.VM = data;
             return OPRiskService.GetRiskCategories()
         }).then(function(data){
@@ -93,6 +103,5 @@
             });
             $rootScope.app.Mask = false;
         });
-
     }
 })();
