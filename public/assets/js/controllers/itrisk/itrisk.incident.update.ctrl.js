@@ -75,8 +75,14 @@
         };
 
         $scope.cancelAction = function(){
-            console.log($scope.Form.ITRisk.$pristine);
-            $state.go('app.policy');
+            if($scope.Form.ITRisk.$dirty){
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                confirm.result.then(function(){
+                    $state.go('app.itrisk.incident.main');
+                });
+                return false;
+            }
+            $state.go('app.itrisk.incident.main');
         };
 
         $scope.addNewAction = function () {

@@ -1,0 +1,58 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="mainTitle" >{{mainTitle}}</h1>
+			<span class="mainDescription">{{mainDesc}} </span>
+		</div>
+	</div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-white no-radius">
+				<div class="panel-body">
+					<div class="row">
+						<form class="form-inline">
+							<div class="btn-group dashchart-btn" uib-dropdown>
+								<button type="button" class="btn btn-sm btn-o btn-dark-azure btn-squared uib-dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+									{{CurrVendor}} <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li ng-repeat="ven in VendOpts" ng-class="{'active': ven===CurrVendor}">
+										<a ng-click="selectVendor(ven)">{{ven}}</a>
+									</li>
+								</ul>
+							</div>
+						</form>
+					</div>
+					<div class="row">
+						<div id="vendorHeatMap"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-white no-radius">
+				<div class=panel-heading>
+					<h5>Multivendor Heatmap</h5>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div id="multiVendHeatMap"></div>
+						<div class="col-xs-12 text-center">
+							<small class="text-azure">ORW - Overall Risk Weight</small>, <small class="text-azure">OFW - Overall Finding Weight</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

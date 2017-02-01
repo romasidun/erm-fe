@@ -71,12 +71,22 @@ app
                     var modelSetter = model.assign;
 
                     element.bind('change', function(){
+                        var values = [];
+                        angular.forEach(element[0].files, function (item) {
+                            var value = {
+                                name: item.name,
+                                size: item.size,
+                                url: URL.createObjectURL(item),
+                                _file: item
+                            };
+                            values.push(value);
+                        })
                         scope.$apply(function(){
                             if (attrs.multiple) {
-                                modelSetter(scope, element[0].files);
+                                modelSetter(scope, values);
                             }
                             else {
-                                modelSetter(scope, element[0].files[0]);
+                                modelSetter(scope, values[0]);
                             }
                         });
                     });

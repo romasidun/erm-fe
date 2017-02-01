@@ -17,10 +17,14 @@
         };
 
         $scope.cancelAction = function(){
-            if($scope.Form.Rcsa.$dirty){
+            if($scope.Form.ITRAM.$dirty){
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){ $state.go('app.oprisk.assessment.main'); });
+                confirm.result.then(function(){
+                    $state.go('app.itrisk.assessment.main');
+                });
+                return false;
             }
+            $state.go('app.itrisk.assessment.main');
         };
 
         ITRiskService.GetRamById($stateParams.id).then(function(data){

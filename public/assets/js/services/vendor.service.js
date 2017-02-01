@@ -45,3 +45,15 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     }
 
 }]);
+
+/**
+ * Created by Hafeez on 27/01/2017.
+ */
+
+app.service('RiskDataService', function(APIHandler){
+
+    this.GetRiskMetrics = function(){
+        return APIHandler.Get('riskdatametrics');
+    };
+
+});

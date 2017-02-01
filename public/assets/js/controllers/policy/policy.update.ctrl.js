@@ -18,6 +18,13 @@
         };
 
         $scope.cancelAction = function(){
+            if($scope.Form.Policy.$dirty){
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                confirm.result.then(function(){
+                    $state.go('app.policy.main');
+                });
+                return false;
+            }
             $state.go('app.policy.main');
         };
 

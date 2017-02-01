@@ -29,14 +29,14 @@
         };
 
         $scope.submitAction = function() {
-            if($scope.Form.TestResult.$invalid) return false;
+            if($scope.Form.TestPlan.$invalid) return false;
             ControlService.UpdateTestPlans($stateParams.id, $scope.VM).then(function (res) {
                 if(res.status===200) $state.go('app.control.testplan.main');
             });
         };
 
         $scope.cancelAction = function() {
-            if($scope.Form.TestResult.$dirty) {
+            if($scope.Form.TestPlan.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
                 confirm.result.then(function(){ $state.go('app.control.testplan.main'); });
                 return false;

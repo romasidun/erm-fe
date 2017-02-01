@@ -5,53 +5,86 @@
     function VendorriskStinfoController($rootScope, $state, ExcelFactory, VendorService, $timeout) {
         var vm = this;
         vm.mainTitle = 'Risk Assessment ';
-        vm.enterVendorTtileList = '';
+        vm.enterVendorTileList = '';
+        var vendordata_score = '';
 
-        function getVendorAssessmentList() {
-            $(".vendorNameList").select2({
+        function getVendorNameList() {
+            $(".vendornamelist").select2({
                 placeholder: "Pick Vendor dropdown of vendors"
             });
-            $(".vendorRiskTypeList").select2({
+            vm.vendornamelist = [{id: '', vendorName: ''}];
+            VendorService.GetVendorNameList().then(function (response) {
+                var re = angular.fromJson(response);
+                console.log('getVendorNameList',re);
+                for (var r in re) {
+                    vm.vendornamelist[vm.vendornamelist.length] = re[r];
+                }
+                vm.selectVendorNameOption = vm.vendornamelist[0];
+            });
+
+        }
+
+        function getRiskAssessmentTypeList() {
+            $(".riskassementtype").select2({
                 placeholder: "Show a list of Risk Assessments/Surveys/Questionaires"
+            });
+            vm.riskassementtype = [{id: '', riskType: ''}];
+            VendorService.GetRiskAssessmentTypeList().then(function (response) {
+                var re = angular.fromJson(response);
+                for (var r in re) {
+                    vm.riskassementtype[vm.riskassementtype.length] = re[r];
+                }
+                vm.selectRiskAssessmentTypeList = vm.riskassementtype[0];
+                console.log('vm.selectRiskAssessmentTypeList',vm.riskassementtype);
+            });
+        }
+
+        function getVendorAssessmentList() {
+            $(".vendorTitleList").select2({
+                placeholder: "Pick Vendor Title List"
             });
             $(".vendorPeriodList").select2({
                 placeholder: "Pick Vendor Period List"
             });
-            var vendorName = [''];
-            var vendorRiskType = [''];
+            var vendorTitle = [''];
             var vendorPeriod = [''];
-
             vm.vendorAMdata = [];
-
-            VendorService.GetVendorAssessmentList().then(function (response) {
-                vm.vendorAMdata = angular.fromJson(response);
+            VendorService.GetVendorAssessmentList().then(function (response1) {
+                vm.vendorAMdata = angular.fromJson(response1);
+                // start get assessment title
                 for(var i in vm.vendorAMdata){
-                    vendorName[vendorName.length] = vm.vendorAMdata[i]['vendorName'];
-                    vendorRiskType[vendorRiskType.length] = vm.vendorAMdata[i]['vendorRiskType'];
+                    vendorTitle[vendorTitle.length] = vm.vendorAMdata[i]['title'];
+                }
+                console.log('vm.vendorAMdata',vm.vendorAMdata);
+                vm.vendorTitleList = vendorTitle.filter(function(elem, index, self) {
+                    return index == self.indexOf(elem);
+                });
+                vm.selectVendorTitleList = vm.vendorTitleList[0];
+                // end
+
+                // start get assessment period
+                for(var i in vm.vendorAMdata){
                     vendorPeriod[vendorPeriod.length] = vm.vendorAMdata[i]['period'];
                 }
-                vm.vendorNameList = vendorName.filter(function(elem, index, self) {
-                   return index == self.indexOf(elem);
-                });
-                vm.vendorRiskTypeList = vendorRiskType.filter(function(elem, index, self) {
+                vm.vendorPeriodList = vendorPeriod.filter(function(elem, index, self){
                     return index == self.indexOf(elem);
                 });
-
-                vm.vendorPeriodList = vendorPeriod.filter(function(elem, index, self) {
-                    return index == self.indexOf(elem);
-                });
-                vm.selectVendorNameList = vm.vendorNameList[0];
-                vm.selectvendorRiskTypeList = vm.vendorRiskTypeList[0];
+                console.log('vendorPeriodList',vm.vendorPeriodList);
                 vm.selectVendorPeriodList = vm.vendorPeriodList[0];
+                // end
                 $rootScope.app.Mask = false;
             });
+
         }
 
         vm.createAssessment = createAssessment;
         function createAssessment() {
+
+            //validation Risk assessment
+            console.log(vm.selectVendorNameOption.id);
             vm.NameList_select = false;
             vm.Alert_namelist = '';
-            if (vm.selectVendorNameList === '' || angular.isUndefined(vm.selectVendorNameList)) {
+            if (vm.selectVendorNameOption.id === '' || angular.isUndefined(vm.selectVendorNameOption.id)) {
                 vm.NameList_select = true;
                 vm.Alert_namelist = 'Please Select a vendor Name.';
                 return false;
@@ -59,15 +92,23 @@
 
             vm.TypeList_select = false;
             vm.Alert_typelist = '';
-            if (vm.selectvendorRiskTypeList === '' || angular.isUndefined(vm.selectvendorRiskTypeList)) {
+            if (vm.selectRiskAssessmentTypeList.id === '' || angular.isUndefined(vm.selectRiskAssessmentTypeList.id)) {
                 vm.TypeList_select = true;
                 vm.Alert_typelist = 'Please Select a Risk Assessment Type.';
                 return false;
             }
 
+            // vm.TitleList_enter = false;
+            // vm.Alert_titlelist = '';
+            // if (vm.selectVendorTitleList == '') {
+            //     vm.TitleList_select = true;
+            //     vm.Alert_titlelist = 'Please Select a Risk Assessment Title.';
+            //     return false;
+            // }
+
             vm.TitleList_enter = false;
             vm.Alert_titlelist = '';
-            if(vm.enterVendorTtileList === '' || angular.isUndefined(vm.enterVendorTtileList)) {
+            if(vm.enterVendorTileList === '' || angular.isUndefined(vm.enterVendorTileList)) {
                 vm.TitleList_enter = true;
                 vm.Alert_titlelist = 'Please Enter a Risk Assessment Title.';
                 return false;
@@ -82,31 +123,24 @@
                 return false;
             }
             //end validation
-            var new_data = {
-                name : vm.selectVendorNameList,
-                risktype : vm.selectvendorRiskTypeList,
-                title : vm.enterVendorTtileList,
-                period : vm.selectVendorPeriodList
-            };
-            console.log(new_data);
-            //get assessment data
-            //
-            // var selected_vendorName = vm.selectVendorNameOption.vendorName;
-            //
-            // var riskASData_by_vendorNameObje = vm.vendorAMdata.filter(function(a){
-            //     return a.vendorName == selected_vendorName;
-            // });
-            // vm.riskASData_by_vendorName = riskASData_by_vendorNameObje[0];
-            // // end filter
-            // var set_data = {
-            //     Vendor_data_selected: vm.selectVendorNameOption,
-            //     RiskAssessmentType_selected: vm.selectRiskAssessmentTypeList,
-            //     AssessmentData_by_vendorName: vm.riskASData_by_vendorName,
-            //     Enter_title: vm.enterVendorTtileList
-            // };
 
-            // VendorService.SetAssessmentData(set_data);
-            // $state.go('app.vendorrisk.stinfo.create');
+            //get assessment data by filter
+            var selected_vendorName = vm.selectVendorNameOption.vendorName;
+
+            var riskASData_by_vendorNameObje = vm.vendorAMdata.filter(function(a){
+                return a.vendorName == selected_vendorName;
+            });
+            vm.riskASData_by_vendorName = riskASData_by_vendorNameObje[0];
+            // end filter
+            var set_data = {
+                Vendor_data_selected: vm.selectVendorNameOption,
+                RiskAssessmentType_selected: vm.selectRiskAssessmentTypeList,
+                AssessmentData_by_vendorName: vm.riskASData_by_vendorName,
+                Enter_title: vm.enterVendorTileList
+            };
+
+            VendorService.SetAssessmentData(set_data);
+            $state.go('app.vendorrisk.stinfo.create');
         }
 
         vm.downloadAssessment = downloadAssessment;
@@ -143,10 +177,9 @@
 
         initFunc();
         function initFunc() {
-            // getVendorNameList();
-            // getRiskAssessmentTypeList();
+            getVendorNameList();
+            getRiskAssessmentTypeList();
             getVendorAssessmentList();
         }
     }
 })();
-

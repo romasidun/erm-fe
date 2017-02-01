@@ -29,7 +29,6 @@
             filemodel: [],
             filename: "",
             frequency: "",
-            id: "",
             modifiedBy: "",
             modifiedOn: "",
             period: "",
@@ -38,21 +37,22 @@
             resPerson: ""
         };
 
-        $scope.submitAction = function () {
-            if ($scope.Form.Rcsa.$invalid) return false;
-            $scope.VM.assessId = moment().format('X');
-            SoxTpService.PostAssessment($scope.VM).then(function (res) {
-                if (res.status === 200) $state.go('app.compliance.soxtp.main');
+        $scope.submitAction = function() {
+            if($scope.Form.SoxTp.$invalid) return false;
+            ComplianceService.UpdateSOXTP($stateParams, $scope.VM).then(function (res) {
+                if(res.status===200) $state.go('app.compliance.soxtp.main');
             });
         };
 
-        $scope.cancelAction = function () {
-            if ($scope.Form.Rcsa.$dirty) {
+        $scope.cancelAction = function(){
+            if($scope.Form.SoxTp.$dirty){
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function () {
+                confirm.result.then(function(){
                     $state.go('app.compliance.soxtp.main');
                 });
+                return false;
             }
+            $state.go('app.compliance.soxtp.main');
         };
 
         $scope.setOpt = function (op) {

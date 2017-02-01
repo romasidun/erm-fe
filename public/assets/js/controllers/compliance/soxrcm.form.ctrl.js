@@ -29,7 +29,6 @@
             filemodel: [],
             filename: "",
             frequency: "",
-            id: "",
             modifiedBy: "",
             modifiedOn: "",
             period: "",
@@ -39,7 +38,7 @@
         };
 
         $scope.submitAction = function () {
-            if ($scope.Form.Rcsa.$invalid) return false;
+            if ($scope.Form.SoxRcm.$invalid) return false;
 
             $scope.VM.assessId = moment().format('X');
             SoxRcmService.PostAssessment($scope.VM).then(function (res) {
@@ -47,13 +46,15 @@
             });
         };
 
-        $scope.cancelAction = function () {
-            if ($scope.Form.Rcsa.$dirty) {
+        $scope.cancelAction = function(){
+            if($scope.Form.SoxRcm.$dirty){
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function () {
-                    $state.go('app.compliance.soxtp.main');
+                confirm.result.then(function(){
+                    $state.go('app.compliance.soxrcm.main');
                 });
+                return false;
             }
+            $state.go('app.compliance.soxrcm.main');
         };
 
         $scope.setOpt = function (op) {

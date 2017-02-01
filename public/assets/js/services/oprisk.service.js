@@ -74,7 +74,7 @@ app.service('OPRiskService', function($rootScope, APIHandler, Utils){
     };
 
     this.GetControlData = function(){
-            return APIHandler.Get('crtldata');
+        return APIHandler.Get('crtldata');
     };
 
     this.GetPolicyDocs = function(size, page){

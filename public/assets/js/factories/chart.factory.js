@@ -216,6 +216,43 @@
             return chartObj;
         };
 
+        ChartFactory.prototype.BuildHeatMap = function (el, opts) {
+
+            var chartObj = {
+                chart: {
+                    type: 'heatmap',
+                    marginTop: 40,
+                    marginBottom: 80,
+                    plotBorderWidth: 1
+                },
+                title: { text: opts.Title },
+                xAxis: {
+                    categories: opts.XCategories
+                },
+                yAxis: {
+                    categories: opts.YCategories,
+                    title: null
+                },
+                legend: false,
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> ratings <br><b>' +
+                            this.point.value + '</b> for <br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
+                    }
+                },
+                series: [{
+                    name: opts.SeriesName,
+                    borderWidth: 1,
+                    data: opts.SeriesData,
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000'
+                    }
+                }]
+            };
+
+            Highcharts.chart(el, chartObj);
+        };
 
         return new ChartFactory();
     });

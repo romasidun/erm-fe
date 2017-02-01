@@ -25,7 +25,6 @@
              controldataFileModel: [],
              createdBy: "",
              createdOn: "",
-             id: "",
              isEditable: "",
              modifiedBy: "",
              modifiedOn: "",

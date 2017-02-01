@@ -71,8 +71,8 @@
         </thead>
         <tbody>
             <tr class="white_blue_header" ng-repeat="vendorrisk in vrStinfoCT.vendorrisk track by $index">
-                <td>{{vendorrisk.name}}</td>
-                <td>{{vendorrisk.category}}</td>
+                 <td>{{vendorrisk.category}}</td>
+		 <td>{{vendorrisk.name}}</td>
                 <td class="res">
                     <input type="checkbox" ng-click="vrStinfoCT.vendorResponseVal('Y',this,$event)" class="Vendorresponse" name="Y" ng-model="vrStinfoCT.vendorrisk[$index].responseY">
                 </td>

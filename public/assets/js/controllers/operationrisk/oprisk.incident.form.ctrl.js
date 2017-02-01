@@ -163,6 +163,17 @@
                 if (res.status === 200) $state.go('app.oprisk.incident.main');
             });
         };
+        
+        $scope.cancelAction = function(){
+            if($scope.Form.OpIncident.$dirty){
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                confirm.result.then(function(){
+                    $state.go('app.oprisk.incident.main');
+                });
+                return false;
+            }
+            $state.go('app.oprisk.incident.main');
+        };
 
 
         OPRiskService.GetRiskCategories()

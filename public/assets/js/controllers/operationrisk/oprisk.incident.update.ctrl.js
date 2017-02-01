@@ -2,11 +2,11 @@
 
     "use strict";
 
-    OprIncFormController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'OPRiskService', 'Utils'];
+    OprIncFormController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'OPRiskService', 'Utils', 'FileUploadService'];
     app.controller('OprIncidentUpdateCtrl', OprIncFormController);
 
 
-    function OprIncFormController($scope, $rootScope, $state, $stateParams, OPRiskService, Utils){
+    function OprIncFormController($scope, $rootScope, $state, $stateParams, OPRiskService, Utils, FileUploadService){
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Update operational risk incident";
@@ -78,17 +78,24 @@
 
         $scope.submitAction = function(){
             if($scope.Form.OpIncident.$invalid || $scope.Form.OpIncident.pristine) return false;
-/*
 
-            var filedata = new FormData();
+            var formdata = new FormData();
             for(var i in $scope.VM.auditFileModel){
-                filedata.append("uploadedFiles", $scope.VM.auditFileModel[i]);
+                console.log(i);
+                formdata.append("uploadFile", $scope.VM.auditFileModel[i]._file);
             }
-            console.log(filedata);
-            $scope.VM.auditFileModel = filedata;*/
-            OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
-                if(res.status===200) $state.go('app.oprisk.incident.main');
+            console.log($scope.VM.auditFileModel);
+
+            console.log(formdata);
+            return;
+            FileUploadService.FileUpload($stateParams.id, formdata).then(function (res) {
+                console.log(res);
             });
+
+
+            /*OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
+                if(res.status===200) $state.go('app.oprisk.incident.main');
+            });*/
         };
 
         OPRiskService.GetRiskIncident($stateParams.id).then(function(data){

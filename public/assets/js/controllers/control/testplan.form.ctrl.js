@@ -8,29 +8,27 @@
 
         $scope.Form = {};
         $scope.VM = {
-            controlMethod: "",
-            controlPriority: "",
-            controlStatus: "",
-            createdBy: "",
-            createdOn: "",
-            department: [
-               {
-                    area: "",
-                    deptId: "",
-                    deptName: "",
-                    id: "string"
-               }
-            ],
-            id: "",
-            modifiedBy: "",
-            modifiedOn: "",
-            regionName: "",
-            testDueDate: "",
-            testPlanDesc: "",
-            testPlanFile: "",
-            testPlanName: "",
-            testplanFileModel: [],
-            controlDataModel: []
+             controlMethod: "",
+             controlPriority: "",
+             controlStatus: "",
+             createdBy: "",
+             createdOn: "",
+             department: [
+                {
+                     area: "",
+                     deptId: "",
+                     deptName: "",
+                     id: "string"
+                }
+             ],
+             modifiedBy: "",
+             modifiedOn: "",
+             regionName: "",
+             testDueDate: "",
+             testPlanDesc: "",
+             testPlanFile: "",
+             testPlanName: "",
+             testplanFileModel: []
         };
 
         $scope.addControls = function(){
@@ -46,7 +44,6 @@
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function(list){
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
-                    console.log($scope.VM.controlDataModel);
                 });
                 $rootScope.app.Mask = false;
             });
@@ -57,7 +54,7 @@
         };
 
         $scope.submitAction = function() {
-            if($scope.Form.TestResult.$invalid) return false;
+            if($scope.Form.TestPlan.$invalid) return false;
             ControlService.AddTestPlans($scope.VM).then(function (res) {
                 if(res.status===200) $state.go('app.control.testplan.main');
             });
@@ -114,7 +111,7 @@
         };
 
         $scope.cancelAction = function() {
-            if($scope.Form.TestResult.$dirty) {
+            if($scope.Form.TestPlan.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
                 confirm.result.then(function(){ $state.go('app.control.testplan.main'); });
                 return false;

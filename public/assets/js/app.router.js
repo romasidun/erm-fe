@@ -103,7 +103,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     })
 
     /*
-        ---- IT RISK Routes ----
+        ---- OP RISK Routes ----
     */
     .state('app.oprisk', {
         url: '/oprisk',
@@ -176,7 +176,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     }).state('app.vendorrisk.stinfo.main', {
         url: '',
         templateUrl: 'assets/views/vendorrisk/vendorrisk.stinfo.html',
-        title: 'Vendor Risk Standardized Info Gathering ',
+        title: 'Vendor Risk Assessments ',
         icon: 'ti-layout-media-left-alt',
         controller: 'VendorriskStinfoCtrl',
         controllerAs: 'vrStinfo',
@@ -200,12 +200,24 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     }).state('app.vendorrisk.assessment', {
         url: '/assessment',
         templateUrl: 'assets/views/vendorrisk/vendorrisk.stinfo.create.html',
-        title: 'Vendor Risk Standardized Info Gathering ',
+        title: 'Vendor Risk Assessment ',
         icon: 'ti-layout-media-left-alt',
         controller: 'VendorriskStinfoCtrl',
         controllerAs: 'vrStinfo',
         resolve: loadSequence('VendorriskStinfoCTCtrl')
+    }).state('app.vendorrisk.scorecard', {
+        url: '/scorecard',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.vendorrisk.scorecard.main', {
+        url: '',
+        templateUrl: "assets/views/vendorrisk/vendorrisk.scorecard.html",
+        title: 'Vendor Risk Scorecards',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'VendScoreCardCtrl',
+        resolve: loadSequence('VendScoreCardCtrl')
     })
+
     /*
         ---- IT RISK Routes ----
     */
@@ -266,7 +278,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     })
 
     /*
-        ---- IT RISK Routes ----
+        ---- CONTROL Routes ----
     */
     .state('app.control', {
         url: '/control',
@@ -464,21 +476,21 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     }).state('app.policy.main', {
         url: '',
         templateUrl: "assets/views/policy/policy.html",
-        title: 'Procedures and Policies Management',
+        title: 'Policies and Procedures Management',
         icon: 'ti-layout-media-left-alt',
         controller: 'PolicyCtrl',
         resolve: loadSequence('PolicyCtrl')
     }).state('app.policy.form', {
         url: '/manage',
         templateUrl: "assets/views/policy/policy.form.html",
-        title: 'Procedures and Policies Management',
+        title: 'Policies and Procedures Management',
         icon: 'ti-layout-media-left-alt',
         controller: 'PolicyFormCtrl',
         resolve: loadSequence('PolicyFormCtrl')
     }).state('app.policy.update', {
         url: '/:id/manage',
         templateUrl: "assets/views/policy/policy.form.html",
-        title: 'Update Procedures and Policies Management',
+        title: 'Update Policies and Procedures Management',
         icon: 'ti-layout-media-left-alt',
         controller: 'PolicyUpdateCtrl',
         resolve: loadSequence('PolicyUpdateCtrl')

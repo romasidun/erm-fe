@@ -70,6 +70,7 @@ app.constant('JS_REQUIRES', {
         'VendorriskStinfoCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.ctrl.js',
         'VendorriskStinfoCTCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.create.ctrl.js',
         'VendorStinfoUpdateCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.update.ctrl.js',
+        'VendScoreCardCtrl':     'assets/js/controllers/vendorrisk/vendorrisk.scorecard.ctrl.js',
 
         //Control related Controllers
         'RepoCtrl':             'assets/js/controllers/control/repo.ctrl.js',

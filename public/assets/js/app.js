@@ -8,9 +8,9 @@ function ($rootScope, $state, $stateParams) {
     $rootScope.$stateParams = $stateParams;
 
     $rootScope.app = {
-        name: 'Aarsi Control',
+        name: 'Aasri Control',
         author: 'Aasri Control',
-        description: 'Aarsi Control, Angular application',
+        description: 'Aasri Control, Angular application',
         version: '2.0',
         year: ((new Date()).getFullYear()),
         isMobile: (function () {
