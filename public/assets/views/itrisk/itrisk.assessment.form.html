@@ -18,15 +18,15 @@
 					<form name="Form.ITRAM" ng-submit="submitAction()" role="form" >
 						<div class="row">
 							<div class="col-xs-12 col-md-6">
-								<div class="form-group">
+								<div class="form-group" ng-class="{ 'has-error' : Form.ITRAM.assessName.$invalid && (!Form.ITRAM.assessName.$pristine || Form.ITRAM.assessName.$touched || Form.ITRAM.assessName.$submitted) }">
 									<label> Name </label>
-									<input type="text" name="assessName" ng-model="VM.assessName" placeholder="Name" class="form-control">
+									<input type="text" name="assessName" ng-model="VM.assessName" placeholder="Name" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="form-group">
+								<div class="form-group" ng-class="{ 'has-error' : Form.ITRAM.assessDesc.$invalid && (!Form.ITRAM.assessDesc.$pristine || Form.ITRAM.assessDesc.$touched || Form.ITRAM.assessDesc.$submitted) }">
 									<label> Description </label>
-									<input type="text" name="assessDesc" ng-model="VM.assessDesc" placeholder="Description" class="form-control">
+									<input type="text" name="assessDesc" ng-model="VM.assessDesc" placeholder="Description" class="form-control" required>
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
@@ -54,9 +54,9 @@
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="form-group">
+								<div class="form-group" ng-class="{ 'has-error' : Form.ITRAM.status.$invalid && (!Form.ITRAM.status.$pristine || Form.ITRAM.status.$touched || Form.ITRAM.status.$submitted) }">
 									<label> Status</label>
-									<select type="text" name="status" ng-model="VM.status" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004">
+									<select type="text" name="status" ng-model="VM.status" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
 										<option selected value>Select Status</option>
 									</select>
 								</div>
@@ -86,10 +86,10 @@
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="form-group">
+								<div class="form-group" ng-class="{ 'has-error' : Form.ITRAM.due_date.$invalid && (!Form.ITRAM.due_date.$pristine || Form.ITRAM.due_date.$touched || Form.ITRAM.due_date.$submitted) }">
 									<label> Due Date </label>
 									<datepicker date-format="yyyy-MM-dd" date-set="{{dueDate}}">
-										<input type="text" name="due_date" ng-model="VM.due_date" placeholder="Due Date" class="form-control">
+										<input type="text" name="due_date" ng-model="VM.due_date" placeholder="Due Date" class="form-control" required>
 									</datepicker>
 								</div>
 							</div>

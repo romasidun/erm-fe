@@ -20,9 +20,9 @@
                             <legend>Risk Event</legend>
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="{ 'has-error' : Form.OpIncident.rcsa_name.$invalid && (!Form.OpIncident.rcsa_name.$pristine || Form.OpIncident.rcsa_name.$touched || Form.OpIncident.rcsa_name.$submitted) }">
                                         <label> Name </label>
-                                        <input type="text" name="rcsa_name" ng-model="VM.rcsaName" placeholder="Name" class="form-control">
+                                        <input type="text" name="rcsa_name" ng-model="VM.rcsaName" placeholder="Name" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
@@ -32,31 +32,31 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="{ 'has-error' : Form.OpIncident.risk_description.$invalid && (!Form.OpIncident.risk_description.$pristine || Form.OpIncident.risk_description.$touched || Form.OpIncident.risk_description.$submitted) }">
                                         <label> Description </label>
-                                        <input type="text" name="risk_description" ng-model="VM.riskDescription"  placeholder="Description" class="form-control">
+                                        <input type="text" name="risk_description" ng-model="VM.riskDescription" required  placeholder="Description" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="{ 'has-error' : Form.OpIncident.risk_severity.$invalid && (!Form.OpIncident.risk_severity.$pristine || Form.OpIncident.risk_severity.$touched || Form.OpIncident.risk_severity.$submitted) }">
                                         <label> Severity </label>
-                                        <select type="text" name="risk_severity" ng-model="VM.riskSeverity" ng-options="op.key as op.val for op in app.Lookup.Severity" class="form-control">
+                                        <select type="text" name="risk_severity" ng-model="VM.riskSeverity" ng-options="op.key as op.val for op in app.Lookup.Severity" class="form-control" required>
                                             <option value="">Select Severity</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="{ 'has-error' : Form.OpIncident.identified_date.$invalid && (!Form.OpIncident.identified_date.$pristine || Form.OpIncident.identified_date.$touched || Form.OpIncident.identified_date.$submitted) }">
                                         <label> Identified Date </label>
                                         <datepicker date-format="yyyy-MM-dd" >
-                                            <input type="text" name="identified_date" ng-model="VM.identifiedDate" placeholder="Identified Date" class="form-control">
+                                            <input type="text" name="identified_date" ng-model="VM.identifiedDate" placeholder="Identified Date" class="form-control" required>
                                         </datepicker>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="{ 'has-error' : Form.OpIncident.rcsaStatus.$invalid && (!Form.OpIncident.rcsaStatus.$pristine || Form.OpIncident.rcsaStatus.$touched || Form.OpIncident.rcsaStatus.$submitted) }">
                                         <label> Status </label>
-                                        <select type="text" class="form-control" name="rcsaStatus" ng-model="VM.rcsaStatus" ng-options="st.key as st.val for st in app.Lookup.LIST004">
+                                        <select type="text" class="form-control" name="rcsaStatus" ng-model="VM.rcsaStatus" ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
                                             <option value="" selected>Select Status</option>
                                         </select>
                                     </div>

@@ -108,18 +108,18 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
         return deferred.promise;
     };
 
-    APIHandler.prototype.FileUpload = function get(idd, formdata) {
-        var url = baseUrl + '/policies/' + idd + '/multiUpload';
-        if (isDebug) console.info("PUT: " + url);
+    APIHandler.prototype.UploadFile = function (idd, formdata) {
+        var url = baseUrl + 'policies/' + idd + '/multiUpload';
+        if (isDebug) console.info("UPLOAD: " + url);
         if (isDebug) console.info("with body: ", formdata);
         var obj = {
             method: 'POST',
             url: url,
             data: formdata,
-            headers: {'Content-Type': undefined}
+            headers: {'Content-Type': 'application/octet-stream'}
         };
         var deferred = $q.defer();
-        $http(obj).success(function(data) {
+        $http(obj).then(function(data) {
             if (data.success == true) {
                 deferred.resolve(data);
             } else {

@@ -86,7 +86,7 @@ app
                                 modelSetter(scope, values);
                             }
                             else {
-                                modelSetter(scope, values[0]);
+                                modelSetter(scope, values);
                             }
                         });
                     });

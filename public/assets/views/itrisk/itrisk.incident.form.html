@@ -20,9 +20,9 @@
 							<legend>IT Risk Incident</legend>
 							<div class="row">
 								<div class="col-xs-12 col-md-6">
-									<div class="form-group">
+									<div class="form-group" ng-class="{ 'has-error' : Form.ITRisk.riskName.$invalid && (!Form.ITRisk.riskName.$pristine || Form.ITRisk.riskName.$touched || Form.ITRisk.riskName.$submitted) }">
 										<label> Name </label>
-										<input type="text"  name="riskName" ng-model="VM.riskName"  placeholder="Name" class="form-control">
+										<input type="text"  name="riskName" ng-model="VM.riskName"  placeholder="Name" class="form-control" required>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-6">
@@ -32,15 +32,15 @@
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="form-group">
+									<div class="form-group" ng-class="{ 'has-error' : Form.ITRisk.riskDesc.$invalid && (!Form.ITRisk.riskDesc.$pristine || Form.ITRisk.riskDesc.$touched || Form.ITRisk.riskDesc.$submitted) }">
 										<label> Description </label>
-										<input type="text" name="riskDesc" ng-model="VM.riskDesc"  placeholder="Description" class="form-control">
+										<input type="text" name="riskDesc" ng-model="VM.riskDesc"  placeholder="Description" class="form-control" required>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="form-group">
+									<div class="form-group" ng-class="{ 'has-error' : Form.ITRisk.riskSeverity.$invalid && (!Form.ITRisk.riskSeverity.$pristine || Form.ITRisk.riskSeverity.$touched || Form.ITRisk.riskSeverity.$submitted) }">
 										<label> Severity </label>
-										<select type="text" name="riskSeverity" ng-model="VM.riskSeverity"  class="form-control">
+										<select type="text" name="riskSeverity" ng-model="VM.riskSeverity"  class="form-control" required>
 											<option value="Low">Low</option>
 											<option value="Medium">Medium</option>
 											<option value="High">High</option>
@@ -48,17 +48,17 @@
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="form-group">
+									<div class="form-group" ng-class="{ 'has-error' : Form.ITRisk.identifiedDate.$invalid && (!Form.ITRisk.identifiedDate.$pristine || Form.ITRisk.identifiedDate.$touched || Form.ITRisk.identifiedDate.$submitted) }">
 										<label> Identified Date </label>
 										<datepicker date-format="yyyy-MM-dd" date-set="{{identifiedDate}}">
-											<input type="text" name="identifiedDate" ng-model="VM.identifiedDate" placeholder="Due Date" class="form-control">
+											<input type="text" name="identifiedDate" ng-model="VM.identifiedDate" placeholder="Due Date" class="form-control" required>
 										</datepicker>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="form-group">
+									<div class="form-group" ng-class="{ 'has-error' : Form.ITRisk.riskStatus.$invalid && (!Form.ITRisk.riskStatus.$pristine || Form.ITRisk.riskStatus.$touched || Form.ITRisk.riskStatus.$submitted) }">
 										<label> Status </label>
-										<select type="text" name="riskStatus" ng-model="VM.riskStatus" class="form-control">
+										<select type="text" name="riskStatus" ng-model="VM.riskStatus" class="form-control" required>
 											<option value="">Select Status</option>
 											<option value="Submitted">Submitted</option>
 											<option value="In Progress">In Progress</option>

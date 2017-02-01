@@ -159,6 +159,10 @@
         $scope.submitAction = function () {
             if ($scope.Form.OpIncident.$invalid || $scope.Form.OpIncident.pristine) return false;
             /*console.log(moment($scope.VM.identifiedDate).format('YYYY-MM-DD'));*/
+            if($scope.RiskCategories.SelCount < 1){
+                alert("Please select Risk Category.");
+                return false;
+            }
             OPRiskService.PostRisk($scope.VM).then(function (res) {
                 if (res.status === 200) $state.go('app.oprisk.incident.main');
             });

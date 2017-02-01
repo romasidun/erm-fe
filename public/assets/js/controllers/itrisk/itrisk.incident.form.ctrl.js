@@ -106,7 +106,10 @@
 
         $scope.submitAction = function () {
             if ($scope.Form.ITRisk.$pristine || $scope.Form.ITRisk.$invalid) return false;
-
+            if($scope.RiskCategories.SelCount < 1){
+                alert("Please select Risk Category.");
+                return false;
+            }
             ITRiskService.AddRim($scope.VM).then(function (res) {
                 if (res.status === 200) $state.go('app.itrisk.incident.main');
             });

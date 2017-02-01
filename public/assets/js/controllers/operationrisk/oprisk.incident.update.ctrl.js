@@ -78,24 +78,27 @@
 
         $scope.submitAction = function(){
             if($scope.Form.OpIncident.$invalid || $scope.Form.OpIncident.pristine) return false;
+            if($scope.RiskCategories.SelCount < 1){
+                alert("Please select Risk Category.");
+                return false;
+            }
+/*
 
             var formdata = new FormData();
             for(var i in $scope.VM.auditFileModel){
-                console.log(i);
+                console.log($scope.VM.auditFileModel[i].name);
                 formdata.append("uploadFile", $scope.VM.auditFileModel[i]._file);
             }
-            console.log($scope.VM.auditFileModel);
 
-            console.log(formdata);
-            return;
             FileUploadService.FileUpload($stateParams.id, formdata).then(function (res) {
-                console.log(res);
+                //console.log(res);
             });
+*/
 
 
-            /*OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
+            OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
                 if(res.status===200) $state.go('app.oprisk.incident.main');
-            });*/
+            });
         };
 
         OPRiskService.GetRiskIncident($stateParams.id).then(function(data){
