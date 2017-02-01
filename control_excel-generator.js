@@ -99,10 +99,6 @@ function excelGenerator(path, data, callback) {
     sheet1.width(6,15);
     sheet1.width(7,16);
 
-    sheet1.set(1, 1, 'here');
-    sheet1.font(1, 1, {name:'黑体',sz:'24',family:'3',scheme:'-',bold:'true',iter:'true', color: 'red'});
-    sheet1.fill(1, 1, {type:'solid', fgColor: 'cccccc'});
-
     // Save it
     workbook.save(function(err) {
         if (!err) {
