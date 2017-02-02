@@ -45,43 +45,43 @@
         };
 
         this.GetRam = function(){
-            return APIHandler.Get('itrisk/itram');
+            return APIHandler.Get('itram');
         };
 
         this.GetRamById = function(id){
-            return APIHandler.Get('itrisk/itram/'+id);
+            return APIHandler.Get('itram/'+id);
         };
 
         this.AddRam = function(params){
-            return APIHandler.Post('itrisk/itram', params);
+            return APIHandler.Post('itram', params);
         };
 
         this.DeleteRam = function(id){
-            return APIHandler.Delete('itrisk/itram/'+id);
+            return APIHandler.Delete('itram/'+id);
         };
 
         this.UpdateRam = function(id, params){
-            return APIHandler.Put('itrisk/itram/'+id, params);
+            return APIHandler.Put('itram/'+id, params);
         };
 
         this.GetRamDept = function(){
-            return APIHandler.Get('itrisk/itram/dept');
+            return APIHandler.Get('itram/dept');
         };
 
         this.GetRamPeriod = function(){
-            return APIHandler.Get('itrisk/itram/period');
+            return APIHandler.Get('itram/period');
         };
 
         this.GetRamRegion = function(){
-            return APIHandler.Get('itrisk/itram/region');
+            return APIHandler.Get('itram/region');
         };
 
         this.GetRamStatus = function(){
-            return APIHandler.Get('itrisk/itram/status');
+            return APIHandler.Get('itram/status');
         };
 
         this.GetRamTemplates = function(){
-            return APIHandler.Get('itrisk/itram/templates');
+            return APIHandler.Get('itram/templates');
         };
     });
 })();

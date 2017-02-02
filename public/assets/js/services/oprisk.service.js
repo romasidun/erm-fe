@@ -34,43 +34,43 @@ app.service('OPRiskService', function($rootScope, APIHandler, Utils){
     };
 
     this.GetAssessments = function(){
-        return APIHandler.Get('oprisk/rcsa');
+        return APIHandler.Get('rcsa');
     };
 
     this.GetAssessment = function(id){
-        return APIHandler.Get('oprisk/rcsa/' + id);
+        return APIHandler.Get('rcsa/' + id);
     };
 
     this.PostAssessment = function(params){
-        return APIHandler.Post('oprisk/rcsa', params);
+        return APIHandler.Post('rcsa', params);
     };
 
     this.DeleteAssessment = function(id){
-        return APIHandler.Delete('oprisk/rcsa/'+ id);
+        return APIHandler.Delete('rcsa/'+ id);
     };
 
     this.UpdateAssessment = function(id, params){
-        return APIHandler.Put('oprisk/rcsa/'+id, params);
+        return APIHandler.Put('rcsa/'+id, params);
     };
 
     this.GetRSADept = function(){
-        return APIHandler.Get('oprisk/rcsa/dept');
+        return APIHandler.Get('rcsa/dept');
     };
 
     this.GetRSATemplates = function(){
-        return APIHandler.Get('oprisk/rcsa/templates');
+        return APIHandler.Get('rcsa/templates');
     };
 
     this.GetRSAPeriod = function(){
-        return APIHandler.Get('oprisk/rcsa/period');
+        return APIHandler.Get('rcsa/period');
     };
 
     this.GetRSARegion = function(){
-        return APIHandler.Get('oprisk/rcsa/region');
+        return APIHandler.Get('rcsa/region');
     };
 
     this.GetRSAStatus = function(){
-        return APIHandler.Get('oprisk/rcsa/status');
+        return APIHandler.Get('rcsa/status');
     };
 
     this.GetControlData = function(){
