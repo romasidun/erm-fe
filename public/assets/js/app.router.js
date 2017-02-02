@@ -165,11 +165,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     /*
      ---- VENDOR RISK Routes ----
     */
-    .state('app.vendorrisk',{
-        url: '/vendorrisk',
-        template: '<div ui-view class="fade-in-up"></div>',
-        abstract: true
-    }).state('app.vendorrisk.stinfo', {
+   .state('app.vendorrisk.stinfo', {
         url: '/stinfo',
         template: '<div ui-view class="fade-in-up"></div>',
         abstract: true
@@ -195,7 +191,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         title: 'Update Vendor Risk Stinfo',
         icon: 'ti-layout-media-left-alt',
         controller: 'VendorStinfoUpdateCtrl',
-        ControllerAs: 'vrStinfoupdate',
+        controllerAs: 'vrStinfoupdate',
         resolve: loadSequence('VendorStinfoUpdateCtrl')
     }).state('app.vendorrisk.assessment', {
         url: '/assessment',

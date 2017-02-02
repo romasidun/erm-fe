@@ -97,8 +97,8 @@
                 <td>{{name.emailOrLink}}</td>
                 <td>{{name.riskScore}}</td>
                 <td class="action_tools">
-                    <a ui-sref="app.vendorrisk.stinfo.update({ id: r.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
-                    <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                    <a ui-sref="app.vendorrisk.stinfo.update({ id: name.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                    <a ng-click="deleteAction(name)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
                 </td>
             </tr>
         </tbody>

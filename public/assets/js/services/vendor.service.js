@@ -20,9 +20,12 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     };
 
     this.GetRimById = function(id){
-        return APIHandler.Get('itrisk/itrim/' + id);
+        return APIHandler.Get('vendorassessmentlist/' + id);
     };
 
+    this.UpdateRam = function(id, params){
+        return APIHandler.Put('vendorassessmentlist/'+id, params);
+    };
 
     this.SetAssessmentData = function(set_data) {
         $localStorage.Vendor_data_selected = set_data.Vendor_data_selected;
