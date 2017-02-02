@@ -20,6 +20,7 @@
                     c.Selected = false;
                     c.modifiedOn = Utils.createDate(c.modifiedOn);
                 });
+                console.log('data',data);
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function(list){
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
