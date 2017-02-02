@@ -109,24 +109,47 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
     };
 
     APIHandler.prototype.UploadFile = function (idd, formdata) {
-        var url = baseUrl + 'policies/' + idd + '/upload';
+        var url = baseUrl + 'policies/' + idd + '/multiUpload';
         if (isDebug) console.info("UPLOAD: " + url);
         if (isDebug) console.info("with body: ", formdata);
-        var obj = {
-            method: 'POST',
-            url: url,
-            data: formdata,
-            headers: {'Content-Type': undefined}
-        };
+
         var deferred = $q.defer();
-        $http(obj).then(function(data) {
-            if (data.success == true) {
-                deferred.resolve(data);
-            } else {
-                deferred.reject(data);
-            }
-        });
+        $http.post(url, formdata, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity,
+            params: formdata,
+            responseType: "arraybuffer"
+        })
+            .then(function (res) {
+                if (isDebug) console.log(res);
+                deferred.resolve(res);
+            }, function (err) {
+                if (isDebug) console.error(err);
+                deferred.reject(err);
+            });
         return deferred.promise;
+
+        /*
+         var obj = {
+         method: 'POST',
+         url: url,
+         data: formdata,
+         headers: {
+         'Content-Type': undefined,
+         'Authorization':'Basic dXNlcjo2aGYzOCElRFEwOTczNnYsMzIvZjg1QXhAIw=='
+         }
+         };
+         $http(obj).then(function(data) {
+         if (data.success == true) {
+         deferred.resolve(data);
+         } else {
+         deferred.reject(data);
+         }
+         });
+         */
     };
 
     return new APIHandler();

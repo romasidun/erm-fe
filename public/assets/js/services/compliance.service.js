@@ -65,6 +65,116 @@ app.service('ComplianceService', function(APIHandler){
 	  this.GetUsers = function(){
 	    return APIHandler.Get('users');
 	  };
+	  
+	  this.GetSOXPRADept = function(){
+		  return APIHandler.Get('compliance/soxpra/dept');
+	  };
 
+	  this.GetSOXPRAPeriod = function(){
+		  return APIHandler.Get('compliance/soxpra/period');
+	  };
+
+	  this.GetSOXPRARegion = function(){
+		  return APIHandler.Get('compliance/soxpra/region');
+	  };
+
+	  this.GetSOXPRAStatus = function(){
+		  return APIHandler.Get('compliance/soxpra/status');
+	  };
+	  
+	  this.GetSOXRCMDept = function(){
+		  return APIHandler.Get('compliance/soxrcm/dept');
+	  };
+
+	  this.GetSOXRCMPeriod = function(){
+		  return APIHandler.Get('compliance/soxrcm/period');
+	  };
+
+	  this.GetSOXRCMRegion = function(){
+		  return APIHandler.Get('compliance/soxrcm/region');
+	  };
+
+	  this.GetSOXRCMStatus = function(){
+		  return APIHandler.Get('compliance/soxrcm/status');
+	  };
+
+	  this.GetSOXTPDept = function(){
+		  return APIHandler.Get('compliance/soxtp/dept');
+	  };
+
+	  this.GetSOXTPPeriod = function(){
+		  return APIHandler.Get('compliance/soxtp/period');
+	  };
+
+	  this.GetSOXTPRegion = function(){
+		  return APIHandler.Get('compliance/soxtp/region');
+	  };
+
+	  this.GetSOXTPStatus = function(){
+		  return APIHandler.Get('compliance/soxrcm/status');
+	  };
+	  
+	  this.ExcelDownload = function(params){
+		  return APIHandler.Excel('/xlsx', params);
+	  }
+	  
+	  this.GetSOXPRAAssessments = function(){
+	        return APIHandler.Get('compliance/soxpra');
+	    };
+
+	    this.GetSOXPRAAssessment = function(id){
+	        return APIHandler.Get('compliance/soxpra/' + id);
+	    };
+
+	    this.PostSOXPRAAssessment = function(params){
+	        return APIHandler.Post('compliance/soxpra', params);
+	    };
+
+	    this.DeleteSOXPRAAssessment = function(id){
+	        return APIHandler.Delete('compliance/soxpra/'+ id);
+	    };
+
+	    this.UpdateSOXPRAAssessment = function(id, params){
+	        return APIHandler.Put('compliance/soxpra/'+id, params);
+	    };
+	    
+	    	this.GetSOXRCMAssessments = function(){
+	        return APIHandler.Get('compliance/soxrcm');
+	    };
+
+	    this.GetSOXRCMAssessment = function(id){
+	        return APIHandler.Get('compliance/soxrcm/' + id);
+	    };
+
+	    this.PostSOXRCMAssessment = function(params){
+	        return APIHandler.Post('compliance/soxrcm', params);
+	    };
+
+	    this.DeleteSOXRCMAssessment = function(id){
+	        return APIHandler.Delete('compliance/soxrcm/'+ id);
+	    };
+
+	    this.UpdateSOXRCMAssessment = function(id, params){
+	        return APIHandler.Put('compliance/soxrcm/'+id, params);
+	    };
+	    	this.GetSOXTPAssessments = function(){
+	        return APIHandler.Get('compliance/soxtp');
+	    };
+
+	    this.GetSOXTPAssessment = function(id){
+	        return APIHandler.Get('compliance/soxtp/' + id);
+	    };
+
+	    this.PostSOXTPAssessment = function(params){
+	        return APIHandler.Post('compliance/soxtp', params);
+	    };
+
+	    this.DeleteSOXTPAssessment = function(id){
+	        return APIHandler.Delete('compliance/soxtp/'+ id);
+	    };
+
+	    this.UpdateSOXTPAssessment = function(id, params){
+	        return APIHandler.Put('compliance/soxtp/'+id, params);
+	    };
 	});
 

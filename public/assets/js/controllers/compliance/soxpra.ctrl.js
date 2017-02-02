@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-    SOXPRAController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxPraService', 'ChartFactory', 'Utils'];
+    SOXPRAController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'ComplianceService', 'ChartFactory', 'Utils'];
     app.controller('SOXPRACtrl', SOXPRAController);
 
-    function SOXPRAController($scope, $rootScope, $state, $filter, $uibModal, SoxPraService, ChartFactory, Utils) {
+    function SOXPRAController($scope, $rootScope, $state, $filter, $uibModal, ComplianceService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "SUMMARY";
 
@@ -63,26 +63,26 @@
                 body: tbodyAry
             };
 
-            SoxPraService.ExcelDownload(senddata).then(function (response) {
+            ComplianceService.ExcelDownload(senddata).then(function (response) {
                 location.assign('/download-excel/' + response.data);
             }).catch(function (error) {
                 alert('error!');
             });
         };
 
-        SoxPraService.GetRSAStatus().then(function (data) {
+        ComplianceService.GetSOXPRAStatus().then(function (data) {
             var rcsaChrt = [];
             Object.keys(data).forEach(function (k) {
                 rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
             });
             setupPieChart(rcsaChrt);
-            return SoxPraService.GetRSAPeriod();
+            return ComplianceService.GetSOXPRAPeriod();
         }).then(function (data) {
             setupPeriodChart(data);
-            return SoxPraService.GetRSARegion();
+            return ComplianceService.GetSOXPRARegion();
         }).then(function (data) {
             setupStatusChart(data);
-            return SoxPraService.GetRSADept();
+            return ComplianceService.GetSOXPRADept();
         }).then(function (data) {
             setupDeptChart(data);
         });
@@ -97,7 +97,7 @@
             confirmation.result.then(function () {
                 console.log("U chose Yes");
                 $rootScope.app.Mask = true;
-                SoxPraService.DeleteAssessment(r.id).then(function (data) {
+                ComplianceService.DeleteSOXPRAAssessment(r.id).then(function (data) {
                     if (data.status === 200) loadAssessments();
                 });
             });
@@ -108,7 +108,7 @@
         };
 
         function loadAssessments() {
-            SoxPraService.GetAssessments().then(function (data) {
+        	ComplianceService.GetSOXPRAAssessments().then(function (data) {
                 $scope.Assess = data;
                 $rootScope.app.Mask = false;
             });

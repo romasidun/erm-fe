@@ -2,13 +2,13 @@
 
     "use strict";
 
-    SOXTestPlanUpdateController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'ComplianceService', 'Utils'];
-    app.controller('SOXTPUpdateCtrl', SOXTestPlanUpdateController);
+    SOXPRAUpdateController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'ComplianceService', 'Utils'];
+    app.controller('SOXPRAUpdateCtrl', SOXPRAUpdateController);
 
 
-    function SOXTestPlanUpdateController($scope, $rootScope, $state, $stateParams, ComplianceService, Utils) {
+    function SOXPRAUpdateController($scope, $rootScope, $state, $stateParams, ComplianceService, Utils) {
     	$scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "Upload a Sox Test Plan Assessment";
+        $scope.mainDesc = "Upload a SOX Process Risk Analysis";
 
         $scope.Form = {};
         $scope.addControls = function(){
@@ -33,19 +33,19 @@
         };
 
         $scope.submitAction = function() {
-            if($scope.Form.SoxTp.$invalid) return false;
-            ComplianceService.UpdateSOXTPAssessment($stateParams.id, $scope.VM).then(function (res) {
-                if(res.status===200) $state.go('app.compliance.soxtp.main');
+            if($scope.Form.SoxPra.$invalid) return false;
+            ComplianceService.UpdateSOXPRAAssessment($stateParams.id, $scope.VM).then(function (res) {
+                if(res.status===200) $state.go('app.compliance.soxpra.main');
             });
         };
 
         $scope.cancelAction = function() {
-            if($scope.Form.SoxTp.$dirty) {
+            if($scope.Form.SoxPra.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){ $state.go('app.compliance.soxtp.main'); });
+                confirm.result.then(function(){ $state.go('app.compliance.soxpra.main'); });
                 return false;
             }
-            $state.go('app.compliance.soxtp.main');
+            $state.go('app.compliance.soxpra.main');
         };
 
         $scope.removeItem = function (type, idx) {
@@ -119,7 +119,7 @@
             });
         };
 
-        ComplianceService.GetSOXTPAssessment($stateParams.id).then(function(data){
+        ComplianceService.GetSOXPRAAssessment($stateParams.id).then(function(data){
             data.due_date = moment(data.due_date).format('YYYY-MM-DD');
             $scope.VM = data;
             $rootScope.app.Mask = false;

@@ -1,8 +1,11 @@
+app.service('FileUploadService', function ($rootScope, APIHandler) {
 
-app.service('FileUploadService', function($rootScope, APIHandler){
-
-    this.FileUpload = function(idd, formdata){
-      return APIHandler.UploadFile(idd, formdata);
+    this.FileUpload = function (idd, fileModel) {
+        var formdata = new FormData();
+        for (var i in fileModel) {
+            formdata.append("uploadFile", fileModel[i]._file);
+        }
+        return APIHandler.UploadFile(idd, formdata);
     };
 
 });

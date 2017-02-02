@@ -407,8 +407,8 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         templateUrl: "assets/views/compliance/soxtp.form.html",
         title: 'Update SOX Test Plan',
         icon: 'ti-layout-media-left-alt',
-        controller: 'SOXTPFormmCtrl',
-        resolve: loadSequence('SOXTPFormCtrl')
+        controller: 'SOXTPUpdateCtrl',
+        resolve: loadSequence('SOXTPUpdateCtrl')
 
     }).state('app.compliance.soxpra', {
         url: '/soxpra',
@@ -433,8 +433,8 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         templateUrl: "assets/views/compliance/soxpra.form.html",
         title: 'Update SOX Process Risk Analysis',
         icon: 'ti-layout-media-left-alt',
-        controller: 'SOXPRAFormCtrl',
-        resolve: loadSequence('SOXPRAFormCtrl')
+        controller: 'SOXPRAUpdateCtrl',
+        resolve: loadSequence('SOXPRAUpdateCtrl')
 
     }).state('app.compliance.soxrcm', {
         url: '/soxrcm',
@@ -443,24 +443,24 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     }).state('app.compliance.soxrcm.main', {
         url: '',
         templateUrl: "assets/views/compliance/soxrcm.html",
-        title: 'SOX Process Risk Analysis',
+        title: 'SOX Risk Control Matrix',
         icon: 'ti-layout-media-left-alt',
         controller: 'SOXRCMCtrl',
         resolve: loadSequence('SOXRCMCtrl')
     }).state('app.compliance.soxrcm.form', {
         url: '/manage',
         templateUrl: "assets/views/compliance/soxrcm.form.html",
-        title: 'SOX Process Risk Analysis',
+        title: 'SOX Risk Control Matrix',
         icon: 'ti-layout-media-left-alt',
         controller: 'SOXRCMFormCtrl',
         resolve: loadSequence('SOXRCMFormCtrl')
     }).state('app.compliance.soxrcm.update', {
         url: '/:id/update',
         templateUrl: "assets/views/compliance/soxrcm.form.html",
-        title: 'Update SOX Process Risk Analysis',
+        title: 'Update SOX Risk Control Matrix',
         icon: 'ti-layout-media-left-alt',
-        controller: 'SOXRCMFormCtrl',
-        resolve: loadSequence('SOXRCMFormCtrl')
+        controller: 'SOXRCMUpdateCtrl',
+        resolve: loadSequence('SOXRCMUpdateCtrl')
 
     })
 

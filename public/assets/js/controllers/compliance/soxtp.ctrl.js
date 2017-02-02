@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-    SOXTestPlanController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'SoxTpService', 'ChartFactory', 'Utils'];
+    SOXTestPlanController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'ComplianceService', 'ChartFactory', 'Utils'];
     app.controller('SOXTPCtrl', SOXTestPlanController);
 
-    function SOXTestPlanController($scope, $rootScope, $state, $filter, $uibModal, SoxTpService, ChartFactory, Utils) {
+    function SOXTestPlanController($scope, $rootScope, $state, $filter, $uibModal, ComplianceService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "SUMMARY";
 
@@ -63,26 +63,26 @@
                 body: tbodyAry
             };
 
-            SoxTpService.ExcelDownload(senddata).then(function (response) {
+            ComplianceService.ExcelDownload(senddata).then(function (response) {
                 location.assign('/download-excel/' + response.data);
             }).catch(function (error) {
                 alert('error!');
             });
         };
 
-        SoxTpService.GetRSAStatus().then(function (data) {
+        ComplianceService.GetSOXTPStatus().then(function (data) {
             var rcsaChrt = [];
             Object.keys(data).forEach(function (k) {
                 rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
             });
             setupPieChart(rcsaChrt);
-            return SoxTpService.GetRSAPeriod();
+            return ComplianceService.GetSOXTPPeriod();
         }).then(function (data) {
             setupPeriodChart(data);
-            return SoxTpService.GetRSARegion();
+            return ComplianceService.GetSOXTPRegion();
         }).then(function (data) {
             setupStatusChart(data);
-            return SoxTpService.GetRSADept();
+            return ComplianceService.GetSOXTPDept();
         }).then(function (data) {
             setupDeptChart(data);
         });
@@ -97,7 +97,7 @@
             confirmation.result.then(function () {
                 console.log("U chose Yes");
                 $rootScope.app.Mask = true;
-                SoxTpService.DeleteAssessment(r.id).then(function (data) {
+                ComplianceService.DeleteSOXTPAssessment(r.id).then(function (data) {
                     if (data.status === 200) loadAssessments();
                 });
             });
@@ -108,7 +108,7 @@
         };
 
         function loadAssessments() {
-            SoxTpService.GetAssessments().then(function (data) {
+            ComplianceService.GetSOXTPAssessments().then(function (data) {
                 $scope.Assess = data;
                 $rootScope.app.Mask = false;
             });

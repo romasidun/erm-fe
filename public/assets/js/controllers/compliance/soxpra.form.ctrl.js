@@ -2,11 +2,11 @@
 
     "use strict";
 
-    SOXPRAFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxPraService', 'Utils'];
+    SOXPRAFormController.$inject = ['$scope', '$rootScope', '$state', 'ComplianceService', 'Utils'];
     app.controller('SOXPRAFormCtrl', SOXPRAFormController);
 
 
-    function SOXPRAFormController($scope, $rootScope, $state, SoxPraService, Utils) {
+    function SOXPRAFormController($scope, $rootScope, $state, ComplianceService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Upload a SOX Process Risk Assessment";
@@ -16,8 +16,8 @@
         $scope.VM = {
             actualName: "",
             approval: "",
-            asmntType: "",
-            asmntTypeName: "",
+            asmntType: "ACM013",
+            asmntTypeName: "SOXPRA",
             asmntType_name: "",
             assessDesc: "",
             assessId: 0,
@@ -41,7 +41,7 @@
             if ($scope.Form.SoxPra.$invalid) return false;
 
             $scope.VM.assessId = moment().format('X');
-            SoxPraService.PostAssessment($scope.VM).then(function (res) {
+            ComplianceService.PostSOXPRAAssessment($scope.VM).then(function (res) {
                 if (res.status === 200) $state.go('app.compliance.soxpra.main');
             });
         };

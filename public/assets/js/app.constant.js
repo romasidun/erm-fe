@@ -61,10 +61,13 @@ app.constant('JS_REQUIRES', {
         //Compliance Controllers
         'SOXTPCtrl':       'assets/js/controllers/compliance/soxtp.ctrl.js',
         'SOXTPFormCtrl':       'assets/js/controllers/compliance/soxtp.form.ctrl.js',
+        'SOXTPUpdateCtrl':       'assets/js/controllers/compliance/soxtp.update.ctrl.js',
         'SOXRCMCtrl':       'assets/js/controllers/compliance/soxrcm.ctrl.js',
         'SOXRCMFormCtrl':       'assets/js/controllers/compliance/soxrcm.form.ctrl.js',
+        'SOXRCMUpdateCtrl':       'assets/js/controllers/compliance/soxrcm.update.ctrl.js',
         'SOXPRACtrl':       'assets/js/controllers/compliance/soxpra.ctrl.js',
         'SOXPRAFormCtrl':       'assets/js/controllers/compliance/soxpra.form.ctrl.js',
+        'SOXPRAUpdateCtrl':       'assets/js/controllers/compliance/soxpra.update.ctrl.js',
 
         //Vendor Risk related Controllers
         'VendorriskStinfoCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.ctrl.js',

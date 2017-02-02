@@ -82,19 +82,28 @@
                 alert("Please select Risk Category.");
                 return false;
             }
+            console.clear();
+            console.log($scope.VM.auditFileModel);
+            var fileModel = $scope.VM.auditFileModel;
 
-            var formdata = new FormData();
-            for(var i in $scope.VM.auditFileModel){
-                console.log(i);
-                formdata.append("uploadFile", $scope.VM.auditFileModel[i]._file);
+            /*var fileNames = [];
+            console.log(fileModel);
+            for (var i in fileModel) {
+                fileNames.push(fileModel[i]);
             }
-
-            FileUploadService.FileUpload($stateParams.id, formdata).then(function (res) {
-                //console.log(res);
-            });
-
+            $scope.VM.auditFileModel = fileNames;*/
+            /*var identifiedDate = moment($scope.VM.identifiedDate).format();
+            var remeDate = moment($scope.VM.remeDate).format();
+            $scope.VM.identifiedDate = angular.isDate(identifiedDate) ? identifiedDate : '';
+            $scope.VM.remeDate = angular.isDate(remeDate) ? remeDate : '';*/
             OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
-                if(res.status===200) $state.go('app.oprisk.incident.main');
+                if(res.status===200) {
+                    FileUploadService.FileUpload($stateParams.id, fileModel).then(function (res) {
+                        //console.log(res);
+                    });
+
+                    $state.go('app.oprisk.incident.main');
+                }
             });
         };
 
@@ -103,6 +112,7 @@
             data.identifiedDate = moment(data.identifiedDate).format('YYYY-MM-DD');
             data.remeDate = moment(data.remeDate).format('YYYY-MM-DD');
             $scope.VM = data;
+            console.log($scope.VM.auditFileModel);
             return OPRiskService.GetRiskCategories()
         }).then(function(data){
             Object.keys(data.categories).forEach(function(c){

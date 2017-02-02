@@ -2,11 +2,11 @@
 
     "use strict";
 
-    SOXTestPlanFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxTpService', 'Utils'];
+    SOXTestPlanFormController.$inject = ['$scope', '$rootScope', '$state', 'ComplianceService', 'Utils'];
     app.controller('SOXTPFormCtrl', SOXTestPlanFormController);
 
 
-    function SOXTestPlanFormController($scope, $rootScope, $state, SoxTpService, Utils) {
+    function SOXTestPlanFormController($scope, $rootScope, $state, ComplianceService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Upload a Sox Test Plan Assessment";
@@ -16,8 +16,8 @@
         $scope.VM = {
             actualName: "",
             approval: "",
-            asmntType: "",
-            asmntTypeName: "",
+            asmntType: "ACM011",
+            asmntTypeName: "SOXTP",
             asmntType_name: "",
             assessDesc: "",
             assessId: 0,
@@ -37,10 +37,12 @@
             resPerson: ""
         };
 
-        $scope.submitAction = function() {
-            if($scope.Form.SoxTp.$invalid) return false;
-            ComplianceService.UpdateSOXTP($stateParams, $scope.VM).then(function (res) {
-                if(res.status===200) $state.go('app.compliance.soxtp.main');
+        $scope.submitAction = function () {
+            if ($scope.Form.SoxTp.$invalid) return false;
+
+            $scope.VM.assessId = moment().format('X');
+            ComplianceService.PostSOXTPAssessment($scope.VM).then(function (res) {
+                if (res.status === 200) $state.go('app.compliance.soxtp.main');
             });
         };
 

@@ -2,11 +2,11 @@
 
     "use strict";
 
-    SOXRCMFormController.$inject = ['$scope', '$rootScope', '$state', 'SoxRcmService', 'Utils'];
+    SOXRCMFormController.$inject = ['$scope', '$rootScope', '$state', 'ComplianceService', 'Utils'];
     app.controller('SOXRCMFormCtrl', SOXRCMFormController);
 
 
-    function SOXRCMFormController($scope, $rootScope, $state, SoxRcmService, Utils) {
+    function SOXRCMFormController($scope, $rootScope, $state, ComplianceService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Upload a Risk Control Matrix Assessment";
@@ -16,8 +16,8 @@
         $scope.VM = {
             actualName: "",
             approval: "",
-            asmntType: "",
-            asmntTypeName: "",
+            asmntType: "ACM012",
+            asmntTypeName: "SOXRCM",
             asmntType_name: "",
             assessDesc: "",
             assessId: 0,
@@ -41,7 +41,7 @@
             if ($scope.Form.SoxRcm.$invalid) return false;
 
             $scope.VM.assessId = moment().format('X');
-            SoxRcmService.PostAssessment($scope.VM).then(function (res) {
+            ComplianceService.PostSOXRCMAssessment($scope.VM).then(function (res) {
                 if (res.status === 200) $state.go('app.compliance.soxrcm.main');
             });
         };
