@@ -479,14 +479,30 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'AuditMainCtrl',
         controllerAs: 'AuditMain',
         resolve: loadSequence('AuditMainCtrl')
-    }).state('app.audit.add', {
-        url: '/audit.add',
-        templateUrl: "assets/views/audit/audit.add.html",
+    }).state('app.audit.add_audit', {
+        url: '/audit.add_audit',
+        templateUrl: "assets/views/audit/audit.add_audit.html",
         title: 'Audit Add',
         icon: 'ti-layout-media-left-alt',
-        controller: 'AuditAddCtrl',
+        controller: 'AuditAdd_AuditCtrl',
         controllerAs: 'AuditAdd',
-        resolve: loadSequence('AuditAddCtrl')
+        resolve: loadSequence('AuditAdd_AuditCtrl')
+    }).state('app.audit.add_topic', {
+        url: '/audit.add_topic',
+        templateUrl: "assets/views/audit/audit.add_topic.html",
+        title: 'Topic Add',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'AuditAdd_TopicCtrl',
+        controllerAs: 'TopicAdd',
+        resolve: loadSequence('AuditAdd_TopicCtrl')
+    }).state('app.audit.add_action', {
+        url: '/audit.add_action',
+        templateUrl: "assets/views/audit/audit.add_action.html",
+        title: 'Topic Add',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'AuditAdd_ActionCtrl',
+        controllerAs: 'ActionAdd',
+        resolve: loadSequence('AuditAdd_ActionCtrl')
     })
 
 

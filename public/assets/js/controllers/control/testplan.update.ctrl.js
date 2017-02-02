@@ -29,9 +29,13 @@
         };
 
         $scope.submitAction = function() {
+            $rootScope.app.Mask = true;
             if($scope.Form.TestPlan.$invalid) return false;
             ControlService.UpdateTestPlans($stateParams.id, $scope.VM).then(function (res) {
-                if(res.status===200) $state.go('app.control.testplan.main');
+                if(res.status===200) {
+                    $rootScope.app.Mask = false;
+                    $state.go('app.control.testplan.main');
+                }
             });
         };
 
