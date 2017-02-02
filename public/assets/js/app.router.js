@@ -464,6 +464,32 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
 
     })
 
+    /*
+     ---- Audit  ----
+     */
+    .state('app.audit',{
+        url: '/audit',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.audit.main', {
+        url: '',
+        templateUrl: "assets/views/audit/audit.main.html",
+        title: 'Audit main',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'AuditMainCtrl',
+        controllerAs: 'AuditMain',
+        resolve: loadSequence('AuditMainCtrl')
+    }).state('app.audit.add', {
+        url: '/audit.add',
+        templateUrl: "assets/views/audit/audit.add.html",
+        title: 'Audit Add',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'AuditAddCtrl',
+        controllerAs: 'AuditAdd',
+        resolve: loadSequence('AuditAddCtrl')
+    })
+
+
 
 
     /*
