@@ -43,6 +43,12 @@
             });
         }
 
+        vm.cancelAction = cancelAction;
+
+        function cancelAction(){
+            $state.go('app.vendorrisk.stinfo.main');
+        };
+
         function submitAction(){
             vm.data.vendorName = vm.selectVendorNameOption;
             vm.data.vendorRiskType = vm.selectVendorTypeOption;
