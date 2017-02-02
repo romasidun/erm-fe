@@ -82,7 +82,7 @@
     "angular-image": "^0.0.4",
     "angular-google-chart": "^0.1.0",
     "angular-notification-icons": "^0.4.4",
-    "highcharts": "^5.0.6",
+    "highcharts": "5.0.6",
     "highcharts-ng": "^0.0.13",
     "angular-base64": "^2.0.5",
     "angular-datepicker": "^2.0.3",
