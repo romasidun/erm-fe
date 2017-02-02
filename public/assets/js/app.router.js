@@ -165,7 +165,11 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     /*
      ---- VENDOR RISK Routes ----
     */
-   .state('app.vendorrisk.stinfo', {
+    .state('app.vendorrisk',{
+        url: '/vendorrisk',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.vendorrisk.stinfo', {
         url: '/stinfo',
         template: '<div ui-view class="fade-in-up"></div>',
         abstract: true
