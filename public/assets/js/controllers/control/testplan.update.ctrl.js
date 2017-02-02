@@ -39,12 +39,12 @@
             });
         };
 
-        $scope.cancelAction = function() {
-            if($scope.Form.TestPlan.$dirty) {
-                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){ $state.go('app.control.testplan.main'); });
-                return false;
-            }
+        $scope.cancelActions = function() {
+            // if($scope.Form.TestPlan.$dirty) {
+            //     var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+            //     confirm.result.then(function(){ $state.go('app.control.testplan.main'); });
+            //     return false;
+            // }
             $state.go('app.control.testplan.main');
         };
 
