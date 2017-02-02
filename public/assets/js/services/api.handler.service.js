@@ -109,14 +109,14 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
     };
 
     APIHandler.prototype.UploadFile = function (idd, formdata) {
-        var url = baseUrl + 'policies/' + idd + '/multiUpload';
+        var url = baseUrl + 'policies/' + idd + '/upload';
         if (isDebug) console.info("UPLOAD: " + url);
         if (isDebug) console.info("with body: ", formdata);
         var obj = {
             method: 'POST',
             url: url,
             data: formdata,
-            headers: {'Content-Type': 'application/octet-stream'}
+            headers: {'Content-Type': undefined}
         };
         var deferred = $q.defer();
         $http(obj).then(function(data) {

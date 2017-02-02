@@ -82,19 +82,16 @@
                 alert("Please select Risk Category.");
                 return false;
             }
-/*
 
             var formdata = new FormData();
             for(var i in $scope.VM.auditFileModel){
-                console.log($scope.VM.auditFileModel[i].name);
+                console.log(i);
                 formdata.append("uploadFile", $scope.VM.auditFileModel[i]._file);
             }
 
             FileUploadService.FileUpload($stateParams.id, formdata).then(function (res) {
                 //console.log(res);
             });
-*/
-
 
             OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
                 if(res.status===200) $state.go('app.oprisk.incident.main');
