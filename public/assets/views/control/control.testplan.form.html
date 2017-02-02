@@ -10,7 +10,6 @@
 <!-- End: Page Header -->
 
 <div class="container-fluid container-fullw bg-white">
-
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-transparent">
@@ -48,7 +47,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Test Status </label>
-									<select name="testStatus" ng-model="VM.testStatus" ng-options="op.key as op.val for op in app.Lookup.LIST016" class="form-control">
+									<select name="testStatus" ng-model="VM.controlStatus" ng-options="op.key as op.val for op in app.Lookup.LIST016" class="form-control">
 										<option value="">Select Status</option>
 									</select>
 								</div>
@@ -56,7 +55,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Test method </label>
-									<select name="testMethod" ng-model="VM.testMethod" ng-options="op.key as op.val for op in app.Lookup.LIST014" class="form-control">
+									<select name="testMethod" ng-model="VM.controlMethod" ng-options="op.key as op.val for op in app.Lookup.LIST014" class="form-control">
 										<option value="">Select Method</option>
 									</select>
 								</div>
@@ -64,7 +63,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Test Plan Frequency </label>
-									<select name="frequency" ng-model="VM.frequency" ng-options="op.key as op.val for op in app.Lookup.LIST012" class="form-control">
+									<select name="controlFrequency" ng-model="VM.controlFrequency" ng-options="op.key as op.val for op in app.Lookup.LIST012" class="form-control">
 										<option value="">Select Frequency</option>
 									</select>
 								</div>
@@ -72,7 +71,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Criticality </label>
-									<select name="criticality" ng-model="VM.criticality" ng-options="op.key as op.val for op in app.Lookup.Severity" class="form-control">
+									<select name="criticality" ng-model="VM.controlPriority" ng-options="op.key as op.val for op in app.Lookup.Severity" class="form-control">
 										<option value=""  >Select Criticality</option>
 									</select>
 								</div>
@@ -83,7 +82,7 @@
 								<div class="form-group">
 									<label> Current Due Date </label>
 									<datepicker date-format="dd-MM-yyyy">
-										<input type="text" name="controlEffectiveStartdate" ng-model="VM.controlEffectiveStartdate" placeholder="Due Date" class="form-control">
+										<input type="text" name="testDueDate" ng-model="VM.testDueDate" placeholder="Due Date" class="form-control">
 									</datepicker>
 								</div>
 							</div>
@@ -91,7 +90,7 @@
 								<div class="form-group">
 									<label> Next Due Date </label>
 									<datepicker date-format="dd-MM-yyyy">
-										<input type="text" name="controlEffectiveEnddate" ng-model="VM.controlEffectiveEnddate" placeholder="Due Date" class="form-control">
+										<input type="text" name="nextDueDate" ng-model="VM.nextDueDate" placeholder="Due Date" class="form-control">
 									</datepicker>
 								</div>
 							</div>
@@ -100,7 +99,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Files to upload </label>
-									<input type="file" file-model="VM.testresultFileModel" multiple class="form-control" />
+									<input type="file" file-model="VM.testplanFileModel" multiple class="form-control" />
 									<ul class="file-list-group col-xs-12">
 										<li class="file-list-item" ng-repeat="file in VM.testresultFileModel"> <i class="fa fa-file"></i> {{file.name}}</li>
 									</ul>
@@ -109,7 +108,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Test Plan File </label>
-									<input type="text" name="controlRefID" ng-model="VM.controlRefID" placeholder="Control Ref ID" class="form-control">
+									<input type="text" name="controlRefID" ng-model="VM.testPlanFile" placeholder="Control Ref ID" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
@@ -137,7 +136,7 @@
 							<button type="button" ng-click="downloadExcel()" class="btn btn-squared btn-dark-blue" ng-disabled="!VM.controlDataModel.length"><i class="fa fa-download"></i> Excel download</button>
 							<button class="btn btn-squared btn-dark-blue" ng-disabled="Form.TestPlan.$invalid" type="submit"><i class="fa fa-save"></i> Save</button>
 							<!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
-							<button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+							<button class="btn btn-squared btn-dark-blue" type="button" ng-click="cancelActions()"><i class="fa fa-times"></i>  Cancel</button>
 						</div>
 					</form>
 				</div>
