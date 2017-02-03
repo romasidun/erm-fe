@@ -32,39 +32,66 @@
         };
 
         $scope.downloadTemp = function () {
-            var theadAry = [];
-            var tbodyAry = [];
             var checkedRow = $('.table>tbody').find('input:checkbox:checked');
-            /*if (checkedRow.length < 1) {
+            if (checkedRow.length < 1) {
                 alert('Please select at least one record');
                 return;
-            }*/
+            }
+
+
+            var data = {};
+            data.sheetName = "Sox Test Plan";
+            data.body = [];
+
+            data.body.push({
+                col: 3,
+                row: 2,
+                text: 'Sox Test Plan Assessments',
+                font: { name: 'Calibri', sz: '16', family: '3', scheme: '-', bold: 'true'},
+                fill: { type: 'solid', fgColor: 'FFFFFF' }
+            });
 
             $('.table>thead>tr').find('th').slice(1, 7).each(function (i) {
-                theadAry.push({
-                    bgcolor: 'ffffff',
-                    width: 20,
-                    text: $(this).text()
+                data.body.push({
+                    col: (+i + 1),
+                    row: 3,
+                    text: $(this).text(),
+                    font: { name: 'Calibri', sz: '13', family: '2', scheme: '-', bold: 'true'},
+                    fill: { type: 'solid', fgColor: 'CCCCCC' },
+                    border : { left: 'thin', top: 'thin', right: 'thin', bottom: 'thin' }
                 });
             });
 
+            var row = 2, col = 0;
             checkedRow.each(function (i) {
-                /*tableHtml += '<tr>';*/
-                var rowArray = [];
+                row = i;
                 var tdObj = $(this).closest('tr').find('td');
                 tdObj.each(function (i) {
-                    rowArray.push($(this).text());
+                    col = i;
+                    data.body.push({
+                        col: +col + 1,
+                        row: +row + 4,
+                        text: $(this).text(),
+                        border : { left: 'thin', top: 'thin', right: 'thin', bottom: 'thin' }
+                    });
                 });
-                tbodyAry.push(rowArray);
             });
 
-            var senddata = {
-                head: theadAry,
-                body: tbodyAry
-            };
+            data.cols = 7;
+            data.rows = +row + 5;
 
-            ComplianceService.ExcelDownload(senddata).then(function (response) {
-                location.assign('/download-excel/' + response.data);
+            data.widths = [];
+            for(var c = 1; c <= data.cols; c++){
+                data.widths.push({col: c, width: 25});
+            }
+
+            data.heights = [];
+            for(var r = 1; r <= data.rows; r++){
+                data.heights.push({row: r, height: 25});
+            }
+
+            ComplianceService.DownloadExcel(data).then(function (response) {
+                location.assign('/downloadExcel/' + response.data);
             }).catch(function (error) {
                 alert('error!');
             });

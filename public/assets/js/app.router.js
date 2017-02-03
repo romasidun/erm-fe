@@ -461,7 +461,13 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         icon: 'ti-layout-media-left-alt',
         controller: 'SOXRCMUpdateCtrl',
         resolve: loadSequence('SOXRCMUpdateCtrl')
-
+    }).state('app.compliance.soxrcm.create', {
+        url: '/create',
+        templateUrl: "assets/views/compliance/soxrcm.create.html",
+        title: 'SOX Risk Control Matrix',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXRCMCreateCtrl',
+        resolve: loadSequence('SOXRCMCreateCtrl')
     })
 
     /*
