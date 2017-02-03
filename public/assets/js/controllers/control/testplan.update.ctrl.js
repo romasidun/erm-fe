@@ -1,8 +1,8 @@
 (function(){
-    TestPlanUpdateController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'ControlService', 'OPRiskService', 'Utils', 'SoxTpService'];
+    TestPlanUpdateController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'ControlService', 'OPRiskService', 'Utils'];
     app.controller('TestPlanUpdateCtrl', TestPlanUpdateController);
 
-    function TestPlanUpdateController ($scope, $rootScope, $state, $stateParams, ControlService, OPRiskService, Utils, SoxTpService){
+    function TestPlanUpdateController ($scope, $rootScope, $state, $stateParams, ControlService, OPRiskService, Utils){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Control Test Plan";
 

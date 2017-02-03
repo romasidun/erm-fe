@@ -1,8 +1,8 @@
 (function () {
-    TestPlanFormController.$inject = ['$scope', '$rootScope', '$state', 'OPRiskService', 'SoxTpService', 'Utils', 'ControlService'];
+    TestPlanFormController.$inject = ['$scope', '$rootScope', '$state', 'OPRiskService', 'Utils', 'ControlService'];
     app.controller('TestPlanFormCtrl', TestPlanFormController);
 
-    function TestPlanFormController($scope, $rootScope, $state, OPRiskService, SoxTpService, Utils, ControlService) {
+    function TestPlanFormController($scope, $rootScope, $state, OPRiskService, Utils, ControlService) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Control Test Plan";
 
