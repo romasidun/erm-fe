@@ -6,6 +6,7 @@ var fs = require('fs');
 var guid = require('guid');
 
 var excel = require('./excel-generator');
+var excel_generator = require('./excel-generator-common');
 var control_excel = require('./control_excel-generator');
 
 var port = process.env.PORT || 8000;
@@ -19,6 +20,41 @@ app.use(express.static(__dirname + '/public'));
 /* GET home page. */
 app.get('/', function (req, res, next) {
     res.status(200).sendFile(__dirname + '/public/index.html');
+});
+
+/* Create Excel Temp File */
+app.post('/createExcel', function (req, res, next) {
+    var data = req.body;
+    var fileName = guid.raw();
+    data.filename = fileName;
+    excel_generator(xlsDirectory, data, function (err, location) {
+        if (!err) {
+            res.status(200);
+            res.end(fileName);
+        } else {
+            res.status(500);
+            res.end('Cannot fulfill the request. We are so sorry.');
+        }
+    });
+});
+
+/* Download Excel File and Delete temp file */
+app.get('/downloadExcel/:fileName', function (req, res, next) {
+    var fileName = req.params.fileName;
+    var filePath = xlsDirectory + fileName;
+
+    if (fs.existsSync(filePath)) {
+        res.status(200);
+        res.append('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.append('Content-Disposition', 'attachment; filename=output.xlsx')
+        fs.readFile(filePath, function(err, data) {
+            res.end(data);
+            fs.unlink(filePath);
+        });
+    } else {
+        res.status(404);
+        res.end('Requested file does not exist!');
+    }
 });
 
 app.post('/xlsx', function (req, res, next) {
