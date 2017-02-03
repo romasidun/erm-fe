@@ -7,27 +7,29 @@
 
 
     function SOXRCMUpdateController($scope, $rootScope, $state, $stateParams, ComplianceService, Utils) {
-    	$scope.mainTitle = $state.current.title;
+        $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Upload a SOX Risk Control Matrix";
 
         $scope.Form = {};
-        $scope.submitAction = function() {
-            if($scope.Form.SoxRcm.$invalid) return false;
+        $scope.submitAction = function () {
+            if ($scope.Form.SoxRcm.$invalid) return false;
             ComplianceService.UpdateSOXRCMAssessment($stateParams.id, $scope.VM).then(function (res) {
-                if(res.status===200) $state.go('app.compliance.soxrcm.main');
+                if (res.status === 200) $state.go('app.compliance.soxrcm.main');
             });
         };
 
-        $scope.cancelAction = function() {
-            if($scope.Form.SoxRcm.$dirty) {
+        $scope.cancelAction = function () {
+            if ($scope.Form.SoxRcm.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){ $state.go('app.compliance.soxrcm.main'); });
+                confirm.result.then(function () {
+                    $state.go('app.compliance.soxrcm.main');
+                });
                 return false;
             }
             $state.go('app.compliance.soxrcm.main');
         };
 
-        ComplianceService.GetSOXRCMAssessment($stateParams.id).then(function(data){
+        ComplianceService.GetSOXRCMAssessment($stateParams.id).then(function (data) {
             data.due_date = moment(data.due_date).format('YYYY-MM-DD');
             $scope.VM = data;
             $scope.VM.controlDataModel = [];
@@ -55,10 +57,23 @@
             $scope.VM[type].splice(idx, 1);
         };
         $scope.downloadExcel = function () {
-            var head_obj = [];
+            var data = {};
+            data.sheetName = "Risk Control Matrix";
+            data.body = [];
+
             var head_txt = ['Control Category', 'Control Name', 'Control ID', 'Control Source', 'Business Process', 'Owner', 'status'];
-            var body_txt = [];
-            var testPlan_data = [
+            for (var i = 0; i < head_txt.length; i++) {
+                data.body.push({
+                    col: (+i + 1),
+                    row: 6,
+                    text: head_txt[i],
+                    font: {name: 'Calibri', sz: '13', family: '2', scheme: '-', bold: 'true'},
+                    fill: {type: 'solid', fgColor: '666666'},
+                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+                });
+            }
+
+            var inputdata = [
                 [
                     "Name",
                     angular.isUndefined($scope.VM.assessName) ? "" : $scope.VM.assessName + "",
@@ -95,34 +110,54 @@
                  angular.isUndefined($scope.VM.filemodel) ? "" : $scope.VM.filemodel + ""
                  ]*/
             ];
-            var control_data = $scope.VM.controlDataModel;
+            for (var i = 0; i < inputdata.length; i++) {
+                for (var j = 0; j < inputdata[i].length; j++) {
+                    data.body.push({
+                        col: +j + 2,
+                        row: +i + 1,
+                        text: inputdata[i][j],
+                        fill: {type: 'solid', fgColor: '99b8ca'}
+                    });
+                }
+            }
 
-            for (var i in head_txt) {
-                head_obj.push({
-                    bgcolor: '99b8ca',
-                    text: head_txt[i]
+
+            var control_data = $scope.VM.controlDataModel;
+            var fieldAry = ['controlCategory', 'controlName', 'id', 'controlSource', 'businessProcess', 'controlOwner'];
+            var status = angular.isUndefined($scope.VM.testStatus) ? "" : $scope.VM.testStatus + "";
+            for (var i in control_data) {
+                for (var j = 0; j < fieldAry.length; j++) {
+                    data.body.push({
+                        col: +j + 1,
+                        row: +i + 7,
+                        text: control_data[i][fieldAry[j]],
+                        border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+                    });
+                }
+                data.body.push({
+                    col: +j + 1,
+                    row: +i + 7,
+                    text: status,
+                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
                 });
             }
+            data.cols = +j + 5;
+            data.rows = +i + 12;
 
-            for (var i in control_data) {
-                body_txt.push([
-                    control_data[i].controlCategory + "",
-                    control_data[i].controlName + "",
-                    control_data[i].id + "",
-                    control_data[i].controlSource + "",
-                    control_data[i].businessProcess + "",
-                    control_data[i].controlOwner + "",
-                    angular.isUndefined($scope.VM.testStatus) ? "" : $scope.VM.testStatus + ""
-                ]);
+            data.widths = [];
+            for (var c = 1; c <= data.cols; c++) {
+                data.widths.push({col: c, width: 25});
+            }
+            data.widths[1].width = 45;
+            data.widths[2].width = 35;
+
+            data.heights = [];
+            for (var r = 1; r <= data.rows; r++) {
+                data.heights.push({row: r, height: 25});
             }
 
-            var senddata = {
-                head: head_obj,
-                body: body_txt,
-                testPlan_data: testPlan_data
-            };
-            ComplianceService.DTExcelDownload(senddata).then(function (response) {
-                location.assign('/control_excel_download/' + response.data);
+            ComplianceService.DownloadExcel(data).then(function (response) {
+                location.assign('/downloadExcel/' + response.data);
             }).catch(function (error) {
                 alert('error!');
             });
