@@ -60,6 +60,12 @@
             var head_obj = [];
             var head_txt = ['Control Category', 'Control Name', 'Control ID', 'Control Source', 'Business Process', 'Owner', 'status'];
             var body_txt = [];
+            if($scope.VM.department.length>0){
+                $scope.VM.department = $scope.VM.department[0].deptName + "";
+            }
+            else{
+                $scope.VM.department = "";
+            }
             var testPlan_data = [
                 [
                     "Test Plan Name",
@@ -73,7 +79,7 @@
                     angular.isUndefined($scope.VM.regionName) ? "" : $scope.VM.regionName + "",
                     "",
                     "Department",
-                    angular.isUndefined($scope.VM.department) ? "" : $scope.VM.department[0].deptName + "",
+                    $scope.VM.department
                 ],
                 [
                     "Test Due Date",
