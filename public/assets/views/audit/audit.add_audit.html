@@ -1,0 +1,609 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle">{{AuditAdd.mainTitle}}</h1>
+            <span class="mainDescription">{{AuditAdd.mainDesc}}</span>
+        </div>
+    </div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-transparent">
+                <div class="panel-body">
+                    <form name="add" id="Form.auditadd" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                        <fieldset class="mb15">
+                            <div class="form-group">
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Audit Name</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="audititemname_errorBox"></div>
+                                    <input id="auditId" type="hidden" name="auditId"
+                                           value="<%=ITAuditModel[0]._id %>"/>
+                                    <input id="audititemname" class="input form-control"
+                                           name="audititemname" type="text" placeholder="Audit Name"
+                                           value="<%= typeof ITAuditModel[0].audit_name!='undefined' ? ITAuditModel[0].audit_name : '' %>"
+                                           onkeyup="clearErrorMsg(this.id)" required/>
+                                </div>
+
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Audit
+                                    Description</label>
+                                <div class="col-md-4">
+                                    <input id="auditDescription" class="input form-control"
+                                           name="auditDescription" type="text"
+                                           placeholder="Audit Description"
+                                           value="<%= typeof ITAuditModel[0].audit_desc!='undefined' ? ITAuditModel[0].audit_desc : '' %>"
+                                           onkeyup="clearErrorMsg(this.id)"/>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Region</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="regionpicker_errorBox"></div>
+                                    <select class="regionpicker form-control" id="regionpicker"
+                                            name="regionpicker" onchange="clearErrorMsg(this.id)" required>
+                                        <option value="">Select</option>
+                                        <% if( RegionListModel ) {%>
+                                        <% RegionListModel.forEach( function( DynamicListModel ){ %>
+                                        <% if(ITAuditModel[0].region != DynamicListModel.ac_dylist_desc )
+                                        {%>
+                                        <option value="<%= DynamicListModel.ac_dylist_desc %>"><%=
+                                            DynamicListModel.ac_dylist_desc %>
+                                        </option>
+                                        <% } else {%>
+                                        <option value="<%= DynamicListModel.ac_dylist_desc %>" selected><%=
+                                            DynamicListModel.ac_dylist_desc %>
+                                        </option>
+                                        <% } %>
+                                        <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <label for="id_email"
+                                       class="control-label col-md-2 pt0 pr0">Department</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="deptpicker_errorBox"></div>
+
+                                    <select class="deptpicker form-control" id="deptpicker"
+                                            name="deptpicker" onchange="clearErrorMsg(this.id)" required>
+                                        <option value="">Select</option>
+                                        <% DepartmentModel.forEach( function( DepartmentModel ){ %>
+                                        <% if(DepartmentModel.dept_name != ITAuditModel[0].department) {%>
+                                        <option value="<%= DepartmentModel.dept_name %>"><%=
+                                            DepartmentModel.dept_name %>
+                                        </option>
+
+                                        <% } else {%>
+                                        <option value="<%= DepartmentModel.dept_name %>" selected><%=
+                                            DepartmentModel.dept_name %>
+                                        </option>
+
+                                        <% }%>
+                                        <% }); %>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Status</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="statuspicker_errorBox"></div>
+                                    <select class="statuspicker form-control" id="statuspicker"
+                                            name="statuspicker" onchange="clearErrorMsg(this.id)">
+                                        <% if( AuditStatusListModel ) {%>
+                                        <% AuditStatusListModel.forEach( function( DynamicListModel ){ %>
+                                        <% if(ITAuditModel[0].audit_status!= DynamicListModel.ac_dylist_desc
+                                        ) {%>
+                                        <option value="<%= DynamicListModel.ac_dylist_desc %>"><%=
+                                            DynamicListModel.ac_dylist_desc %>
+                                        </option>
+                                        <% } else {%>
+                                        <option value="<%= DynamicListModel.ac_dylist_desc %>" selected><%=
+                                            DynamicListModel.ac_dylist_desc %>
+                                        </option>
+                                        <% } %>
+                                        <% }); %>
+                                        <% } %>
+
+                                    </select>
+
+                                </div>
+
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Related To
+                                    Control(s)</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="auditcontrolpicker_errorBox"></div>
+                                    <select class="auditcontrolpicker form-control"
+                                            id="auditcontrolpicker" name="auditcontrolpicker"
+                                            onchange="clearErrorMsg(this.id)" required>
+                                        <option value="">Select</option>
+                                        <option value="Yes"
+                                        <% if(ITAuditModel[0].audit_control_validated ==
+                                        'Yes'){%>selected<%}%>>Yes</option>
+                                        <option value="No"
+                                        <% if(ITAuditModel[0].audit_control_validated ==
+                                        'No'){%>selected<%}%>>No</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Audit Start
+                                    Date</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="occurdate_errorBox"></div>
+
+
+                                    <input type="text" id="occurdate"
+                                           class="form-control datepicker" name="occurdate" id="occurdate"
+                                           placeholder="Audit Start Date"
+                                           value="<%= typeof ITAuditModel[0].date_occurance!='undefined' ? moment(ITAuditModel[0].date_occurance).format('DD-MMM-YYYY') : '' %>"
+                                           onchange="clearErrorMsg(this.id)" required>
+                                </div>
+
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Target End
+                                    Date</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="duedate_errorBox"></div>
+                                    <input type="text" id="duedate" class="form-control datepicker"
+                                           name="duedate" placeholder="Target End Date"
+                                           value="<%= typeof ITAuditModel[0].due_date!='undefined' ? moment(ITAuditModel[0].due_date).format('DD-MMM-YYYY') : '' %>"
+                                           onchange="clearErrorMsg(this.id)" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_email" class="control-label col-md-2 pt0 pr0">Responsible
+                                    Person</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="auditcontrolpicker_errorBox"></div>
+                                    <select class="responsible_person_picker form-control "
+                                            id="responsible_person_picker" name="responsible_person_picker"
+                                            required>
+                                        <option value="">Select</option>
+
+                                        <% UserModel.forEach( function( UserModel ){ %>
+                                        <% if(UserModel.role[0].role_desc == 'RESPONSIBLE PARTY') {%>
+                                        <% if(UserModel.username != ITAuditModel[0].res_user_name) {%>
+                                        <option value="<%= UserModel.username %>"><%= UserModel.username
+                                            %>
+                                        </option>
+
+                                        <% } else {%>
+                                        <option value="<%= UserModel.username %>" selected><%=
+                                            UserModel.username %>
+                                        </option>
+                                        <% }%>
+                                        <% }%>
+                                        <% }); %>
+                                    </select>
+                                </div>
+
+                                <label for="id_email"
+                                       class="control-label col-md-2 pt0 pr0">Priority</label>
+                                <div class="col-md-4">
+                                    <div class="error_msg_style" id="prioritypicker_errorBox"></div>
+                                    <select class="prioritypicker form-control" id="prioritypicker"
+                                            name="prioritypicker" onchange="clearErrorMsg(this.id)"
+                                            required>
+                                        <option value="">Select</option>
+                                        <% if( PriorityListModel ) {%>
+                                        <% PriorityListModel.forEach( function( DynamicListModel ){ %>
+                                        <% if(ITAuditModel[0].priority != DynamicListModel.ac_dylist_desc )
+                                        {%>
+                                        <option value="<%= DynamicListModel.ac_dylist_desc %>"><%=
+                                            DynamicListModel.ac_dylist_desc %>
+                                        </option>
+                                        <% } else {%>
+                                        <option value="<%= DynamicListModel.ac_dylist_desc %>" selected><%=
+                                            DynamicListModel.ac_dylist_desc %>
+                                        </option>
+                                        <% } %>
+                                        <% }); %>
+                                        <% } %>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label for="id_email"
+                                       class="control-label col-md-2 pt0 pr0">Policies</label>
+                                <div class="col-md-4">
+
+
+                                    <select size="5" class="associate_ctrl" name="policies_ctrl"
+                                            id="policies_ctrl" multiple>
+                                        <% ITAuditModel.forEach( function( ITAuditModel ){ %>
+                                        <% ITAuditModel.policies_data.forEach(function(dobj){ %>
+
+                                        <option value="<%=dobj._id%>">
+                                            <% if ( typeof dobj.doc_name != 'undefined' ) { %>
+                                            <%=dobj.doc_name %> :
+                                            <% } %>
+                                            <% if ( typeof dobj.assessment_type[0] != 'undefined' ) { %>
+                                            <%=dobj.assessment_type[0].as_type_desc %>
+                                            <% } %>
+                                        </option>
+                                        <% }); %>
+                                        <% }); %>
+                                    </select>
+
+                                    <a href="#openModal"><img src="../images/search.gif"/></a>
+
+                                    <div class="mt-10">
+                                        <div style="margin-top:10px" class="text-center">
+                                            <button class="btn btn-xs" type="button"
+                                                    onclick="clearAssociateControls('policies_ctrl');">
+
+                                                Clear
+                                            </button>
+
+                                            &nbsp; &nbsp; &nbsp;
+                                            <button class="btn btn-xs" type="button"
+                                                    onclick="clearAllAstControls('policies_ctrl');">
+
+                                                Clear All
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div>
+                                    <label for="id_accomodation" class="control-label col-md-2 pt0 pr0">Files
+                                        to upload</label>
+                                    <div class="col-md-4">
+                                        <input type="file" id="fileselect" name="fileselect"
+                                               multiple="multiple"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <div id="messages">
+                            <p></p>
+                        </div>
+                        <div class="clearfix form-actions" style="border-top:none;">
+                            <div class=" col-md-11 align-center">
+                                <button class="btn btn-info"
+                                        onclick="submitITAudit();" type="submit">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    Submit
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-xl btn-danger" type="button"
+                                        onclick="javascript:window.history.back();">
+                                    <i class="ace-icon fa fa-times"></i>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <% if(action_type == 'UPDATE') { %>
+                        <div class="row-fluid border-bottom1 mt20">
+                            <div class="span9 op-sub-title ml0-topic">Documents</div>
+                        </div>
+
+                        <div class="row margin-top">
+                            <div>
+                                <table id="dynamic-table" width="100%" style="width:973px !important;"
+                                       class="table table-striped table-bordered table-hover"
+                                       style="width:973px !important;">
+                                    <thead>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>Name</td>
+
+                                        <td>Action</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% if (ITAuditModel) { %>
+                                    <% ITAuditModel.forEach( function( ITAuditModel ){ %>
+                                    <% count=1;length=ITAuditModel.audit_file_model.length;%>
+                                    <% ITAuditModel.audit_file_model.forEach(function(dobj){ %>
+                                    <tr>
+                                        <td align="center" valign="middle" width="2%"><input
+                                                type="checkbox"></td>
+                                        <td width="8%" valign="middle" align="left" class="capitalize">
+                                            <a href="/tmpUplds/download?file_id=<%= dobj._id %>&type=ITAudit"><%=
+                                                dobj.original_name %></a>
+                                        </td>
+                                        <td width="8%" valign="middle" align="center">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="#"
+                                                           onclick="removeAttachment('<%= dobj._id %>','<%= dobj.file_name %>','<%= ITAuditModel._id %>')"><img
+                                                                src="../images/close.png"/></a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                    <% }); %>
+                                    <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <% } %>
+
+                        <div class="row-fluid border-bottom1 mt20">
+                            <div class="col-md-8 op-sub-title">Topics</div>
+                            <div class="col-md-12 text-right" style=" margin-bottom:10px;" id="addtopic">
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                        <div class="row margin-top">
+                            <div>
+                                <table id="dynamic-table1" style="width:973px !important;" width="100%"
+                                       class="table table-striped table-bordered table-hover"
+                                       style="width:973px !important;">
+                                    <thead>
+                                    <tr>
+                                        <td align="center" valign="middle" width="2%"><input
+                                                type="checkbox"></td>
+                                        <td width="4%" align="left" valign="middle">Name</td>
+                                        <td width="8%" valign="middle" align="center">Description</td>
+                                        <td width="8%" valign="middle" align="center">Documents</td>
+                                        <td width="8%" valign="middle" align="center">Responsible</td>
+                                        <td width="8%" valign="middle" align="center">Action</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <% if (ITAuditTopicModel) { %>
+                                    <% ITAuditTopicModel.forEach( function( ITAuditTopicModel ){ %>
+                                    <tr>
+                                        <td align="center" valign="middle" width="2%"><input
+                                                type="checkbox"></td>
+                                        <td width="4%" align="left" valign="middle"> <%=
+                                            ITAuditTopicModel.topic_name %>
+                                        </td>
+                                        <td width="8%" valign="middle" align="center"><%=
+                                            ITAuditTopicModel.topic_desc %>
+                                        </td>
+
+
+                                        <% count=1;length=ITAuditTopicModel.topicfile_model.length;%>
+                                        <td width="8%" valign="middle" align="center" class="capitalize">
+                                            <% ITAuditTopicModel.topicfile_model.forEach(function(dobj){ %>
+                                            <a href="/tmpUplds/download?file_id=<%= dobj._id %>&type=ITTopic"><%=
+                                                dobj.original_name %></a>
+                                            <% if(count < length){ %>,<% }count++; %>
+                                            <% }) %>
+                                        </td>
+
+                                        <td width="8%" valign="middle" align="center"><%=
+                                            ITAuditTopicModel.res_user_name %>
+                                        </td>
+                                        <td width="8%" valign="middle" align="center">
+
+                                            <div class="hidden-sm hidden-xs btn-group">
+                                                <button type="button" class="btn btn-xs btn-info"
+                                                        onclick="editTopicForm('<%= ITAuditTopicModel._id %>','<%= ITAuditTopicModel.audit_id%>')">
+                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-xs btn-danger"
+                                                        onclick="removeTopicForm('<%= ITAuditTopicModel._id %>','<%=ITAuditTopicModel.audit_id%>')">
+                                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                </button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                    <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="launchAuditForm" name="launchAuditForm" action="" method="POST"
+                          onsubmit="return onsubmitform();">
+                        <input id="auditId" type="hidden" name="auditId" value="<%=auditId %>"/>
+                        <% if (role_name == "CONTROLLER" && ITAuditModel[0].audit_status == 'Draft' ) { %>
+
+                        <div class="clearfix form-actions" style="border-top:none;">
+                            <div class="col-md-offset-4 col-md-11">
+                                <button value="Launch" class="btn btn-info" name="operation"
+                                        onclick="document.pressed=this.value">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    Launch
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-xl btn-danger" name="operation" value="Cancel"
+                                        onclick="document.pressed=this.value">
+                                    <i class="ace-icon fa fa-times"></i>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+
+                        <% } %>
+                    </form>
+                    <div id="openModal" class="modalDialog ">
+                        <div class="main-container" id="main-container"
+                             style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">
+
+                            <div class="row-fluid border-bottom1">
+                                <div class="op-title" style="margin-bottom:20px;">Policies Control Data</div>
+                                <a href="#close" title="Close" class="close">X</a>
+                                <div style="clear:both"></div>
+                            </div>
+
+
+                            <table id="dynamic-table12"
+                                   class="table table-striped table-bordered table-hover main-container"
+                                   style="width:700px;height:200px;">
+                                <thead>
+                                <tr>
+                                    <th valign="middle" align="left"><input type="checkbox" name="checkall"
+                                                                            id="checkall"
+                                                                            onclick="checkAll();"></th>
+                                    <th valign="middle" align="left">Document Name</th>
+                                    <th valign="middle" align="left">Document Description</th>
+                                    <th valign="middle" align="left">Type</th>
+                                    <th valign="middle" align="left">File Name</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% if(typeof PoliciesProceduresModel != null || typeof PoliciesProceduresModel !=
+                                'undefined'){ %>
+                                <% PoliciesProceduresModel.forEach( function( PoliciesProceduresModel ){ %>
+                                <tr>
+                                    <td width="1%" valign="middle" align="left"><input type="checkbox" name="CB12"
+                                                                                       id="CB"
+                                                                                       value="<%=PoliciesProceduresModel._id %> : <%=PoliciesProceduresModel.doc_name %> :  <%=PoliciesProceduresModel.assessment_type[0].as_type_desc %>   ">
+                                    </td>
+                                    <td width="4%" align="left" valign="middle">
+                                        <% if ( typeof PoliciesProceduresModel.doc_name != 'undefined' ) { %>
+                                        <%= PoliciesProceduresModel.doc_name %>
+                                        <%}%>
+                                    </td>
+                                    <td width="6%" align="left" valign="middle">
+                                        <% if ( typeof PoliciesProceduresModel.doc_desc != 'undefined' ) { %>
+                                        <%= PoliciesProceduresModel.doc_desc %> <%}%>
+                                    </td>
+                                    <td width="4%" align="left" valign="middle">
+                                        <% if ( typeof PoliciesProceduresModel.assessment_type[0].as_type_desc !=
+                                        'undefined' ) { %>
+                                        <%= PoliciesProceduresModel.assessment_type[0].as_type_desc %> <%}%>
+                                    </td>
+
+                                    <td width="4%" valign="middle" align="left">
+                                        <% PoliciesProceduresModel.file_model.forEach(function(dobj){ %>
+                                        <% count=1;length=PoliciesProceduresModel.file_model.length;%>
+                                        <%= dobj.original_name %>
+                                        <% if(count < length){ %>,<% }count++; %>
+
+                                        <% }); %>
+                                    </td>
+
+
+                                </tr>
+                                <% }); %>
+                                <% } %>
+                                </tbody>
+                            </table>
+                            <div class="col-md-11"
+                                 style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">
+                                <input type="hidden" name="action" value="submit"/>
+                                <button class="btn btn-info"
+                                        type="submit" onclick="javascript:setPoliciesControl();">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    Select
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-xl btn-danger" type="button"
+                                        onclick="javascript:window.history.back();">
+                                    <i></i>
+                                    Cancel
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="openModal_Policies" class="modalDialog ">
+                        <div class="main-container" id="main-container"
+                             style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">
+                            <div class="row-fluid border-bottom1">
+                                <div class="op-title" style="margin-bottom:20px;">Associate Control Data</div>
+                                <a href="#close" title="Close" class="close">X</a>
+                                <div style="clear:both"></div>
+
+                            </div>
+
+                            <table id="dynamic-table_Policies"
+                                   class="table table-striped table-bordered table-hover main-container"
+                                   style="width:700px;height:200px;">
+                                <thead>
+                                <tr>
+                                    <th valign="middle" align="left"><input type="checkbox" name="checkall"
+                                                                            id="checkall"
+                                                                            onclick="checkAll();"></th>
+                                    <th valign="middle" align="left">Control Category</th>
+                                    <th valign="middle" align="left">Control Ref ID</th>
+                                    <th valign="middle" align="left">Control Source</th>
+                                    <th valign="middle" align="left">Business Process</th>
+                                    <th valign="middle" align="left">Control Name</th>
+                                    <th valign="middle" align="left">Control Owner</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% ControlDataModel.forEach( function( ControlDataModel ){ %>
+                                <tr>
+                                    <td width="4%" valign="middle" align="left"><input type="checkbox" name="CB" id="CB"
+                                                                                       value="<%=ControlDataModel._id %> : <%=ControlDataModel.Control_Name %> : <%=ControlDataModel.Control_Ref_ID %> : <%=ControlDataModel.Control_Source %>   ">
+                                    </td>
+                                    <td width="4%" align="left" valign="middle">
+                                        <% if ( typeof ControlDataModel.Control_Category != 'undefined' ) { %>
+                                        <%= ControlDataModel.Control_Category %>
+                                        <%}%>
+                                    </td>
+                                    <td width="4%" align="left" valign="middle">
+                                        <% if ( typeof ControlDataModel.Control_Ref_ID != 'undefined' ) { %>
+                                        <%= ControlDataModel.Control_Ref_ID %> <%}%>
+                                    </td>
+                                    <td width="4%" align="left" valign="middle">
+                                        <% if ( typeof ControlDataModel.Control_Source != 'undefined' ) { %>
+                                        <%= ControlDataModel.Control_Source %> <%}%>
+                                    </td>
+
+                                    <td width="4%" valign="middle" align="left">
+                                        <% if ( typeof ControlDataModel.Business_Process != 'undefined' ) { %>
+                                        <%= ControlDataModel.Business_Process %> <%}%>
+                                    </td>
+                                    <td width="4%" valign="middle" align="left">
+                                        <% if ( typeof ControlDataModel.Control_Name != 'undefined' ) { %>
+                                        <%= ControlDataModel.Control_Name %> <%}%>
+                                    </td>
+                                    <td width="4%" valign="middle" align="left">
+                                        <% if ( typeof ControlDataModel.Control_Owner != null ) { %>
+                                        <%= ControlDataModel.Control_Owner %> <%}%>
+                                    </td>
+
+                                </tr>
+                                <% }); %>
+                                </tbody>
+
+                            </table>
+                            <div class="col-md-11"
+                                 style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">
+                                <input type="hidden" name="action" value="submit"/>
+                                <button class="btn btn-info"
+                                        type="submit" onclick="javascript:setAssociateControl();">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    Select
+                                </button>
+                                <button class="btn btn-xl btn-danger" type="button"
+                                        onclick="javascript:window.history.back();">
+                                    <i></i>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

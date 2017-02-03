@@ -4,9 +4,9 @@
     app.controller('VendorriskStinfoCtrl', VendorriskStinfoController);
     function VendorriskStinfoController($rootScope, $state, ExcelFactory, VendorService, $timeout) {
         var vm = this;
-        vm.mainTitle = 'Risk Assessment ';
+        vm.mainTitle = $state.current.title;
+        vm.mainDesc = 'Risk Assessment';
         vm.enterVendorTileList = '';
-        var vendordata_score = '';
 
         function getVendorNameList() {
             $(".vendornamelist").select2({
@@ -81,7 +81,6 @@
         function createAssessment() {
 
             //validation Risk assessment
-            console.log(vm.selectVendorNameOption.id);
             vm.NameList_select = false;
             vm.Alert_namelist = '';
             if (vm.selectVendorNameOption.id === '' || angular.isUndefined(vm.selectVendorNameOption.id)) {
@@ -97,14 +96,6 @@
                 vm.Alert_typelist = 'Please Select a Risk Assessment Type.';
                 return false;
             }
-
-            // vm.TitleList_enter = false;
-            // vm.Alert_titlelist = '';
-            // if (vm.selectVendorTitleList == '') {
-            //     vm.TitleList_select = true;
-            //     vm.Alert_titlelist = 'Please Select a Risk Assessment Title.';
-            //     return false;
-            // }
 
             vm.TitleList_enter = false;
             vm.Alert_titlelist = '';
