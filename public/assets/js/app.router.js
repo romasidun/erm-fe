@@ -181,14 +181,14 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'VendorriskStinfoCtrl',
         controllerAs: 'vrStinfo',
         resolve: loadSequence('VendorriskStinfoCtrl')
-    }).state('app.vendorrisk.stinfo.create', {
-        url: '/stinfocreate',
-        templateUrl: 'assets/views/vendorrisk/vendorrisk.stinfo.create.html',
-        title: 'Creating Vendor Risk ',
+    }).state('app.vendorrisk.stinfo.form', {
+        url: '/manage',
+        templateUrl: 'assets/views/vendorrisk/vendorrisk.stinfo.form.html',
+        title: 'VendorRisk Management',
         icon: 'ti-layout-media-left-alt',
-        controller: 'VendorriskStinfoCTCtrl',
-        controllerAs: 'vrStinfoCT',
-        resolve: loadSequence('VendorriskStinfoCTCtrl')
+        controller: 'VendorriskStinfoFormCtrl',
+        controllerAs: 'VrStinfoForm',
+        resolve: loadSequence('VendorriskStinfoFormCtrl')
     }).state('app.vendorrisk.stinfo.update', {
         url: '/:id/update',
         templateUrl: "assets/views/vendorrisk/vendorrisk.stinfo.form.html",

@@ -3,6 +3,10 @@
  * Created by Star on 1/24/2017.
  */
 app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler, $localStorage) {
+    this.GetRim = function(){
+        return APIHandler.Get('vendorriskassessment');
+    };
+
     this.GetVendorAssessment = function (sourceName) {
         return APIHandler.Get('crtldata/vr/questions?sourcename=' + sourceName);
     };
@@ -45,7 +49,11 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
 
     this.PostVendorData = function(data){
         return APIHandler.Post('vendorriskassessment', data);
-    }
+    };
+
+    this.GetRimStatus = function(){
+        return APIHandler.Get('itrisk/itrim/status');
+    };
 
 }]);
 

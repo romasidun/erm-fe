@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    VendorriskStinfoCTController.$inject = ['$rootScope', '$state', 'VendorService'];
-    app.controller('VendorriskStinfoCTCtrl', VendorriskStinfoCTController);
-    function VendorriskStinfoCTController($rootScope, $state, VendorService) {
+    VendorriskStinfoFormController.$inject = ['$rootScope', '$state', 'VendorService'];
+    app.controller('VendorriskStinfoFormCtrl', VendorriskStinfoFormController);
+    function VendorriskStinfoFormController($rootScope, $state, VendorService) {
         var vm = this;
         vm.saveVendorData = saveVendorData;
         vm.mainTitle = "Vendor Risk Assessment";

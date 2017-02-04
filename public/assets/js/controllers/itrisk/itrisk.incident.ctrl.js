@@ -67,9 +67,12 @@
 
         function loadRim() {
             ITRiskService.GetRim().then(function (data) {
+                console.log('data',data);
                 data.forEach(function (r) {
                     r.IDate = Utils.createDate(r.identifiedDate);
                 });
+
+                console.log('data',data);
                 $scope.Incidents = data;
                 $rootScope.app.Mask = false;
             });
