@@ -62,6 +62,7 @@ app.constant('JS_REQUIRES', {
         'SOXTPCtrl':       'assets/js/controllers/compliance/soxtp.ctrl.js',
         'SOXTPFormCtrl':       'assets/js/controllers/compliance/soxtp.form.ctrl.js',
         'SOXTPUpdateCtrl':       'assets/js/controllers/compliance/soxtp.update.ctrl.js',
+        'SOXTPCreateCtrl':       'assets/js/controllers/compliance/soxtp.create.ctrl.js',
         'SOXRCMCtrl':       'assets/js/controllers/compliance/soxrcm.ctrl.js',
         'SOXRCMFormCtrl':       'assets/js/controllers/compliance/soxrcm.form.ctrl.js',
         'SOXRCMUpdateCtrl':       'assets/js/controllers/compliance/soxrcm.update.ctrl.js',

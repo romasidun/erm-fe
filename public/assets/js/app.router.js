@@ -409,6 +409,13 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         icon: 'ti-layout-media-left-alt',
         controller: 'SOXTPUpdateCtrl',
         resolve: loadSequence('SOXTPUpdateCtrl')
+    }).state('app.compliance.soxtp.create', {
+        url: '/create',
+        templateUrl: "assets/views/compliance/soxtp.create.html",
+        title: 'SOX Test Plan',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'SOXTPCreateCtrl',
+        resolve: loadSequence('SOXTPCreateCtrl')
 
     }).state('app.compliance.soxpra', {
         url: '/soxpra',
