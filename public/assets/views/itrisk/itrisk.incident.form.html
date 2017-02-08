@@ -258,7 +258,9 @@
 										<label> Files to upload </label>
 										<input type="file" file-model="VM.auditFileModel" multiple class="form-control" />
 										<ul class="file-list-group col-xs-12">
-											<li class="file-list-item" ng-repeat="file in VM.auditFileModel"> <i class="fa fa-file"></i> {{file.name}}</li>
+											<li class="file-list-item" ng-repeat="file in VM.auditFileModel">
+												<a ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.fileName}}</a>
+											</li>
 										</ul>
 									</div>
 								</div>
