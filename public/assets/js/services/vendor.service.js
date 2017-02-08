@@ -4,7 +4,15 @@
  */
 app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler, $localStorage) {
     this.GetRim = function(){
-        return APIHandler.Get('vendorriskassessment');
+        return APIHandler.Get('vendorassessmentlist');
+    };
+
+    this.GetRimById = function(id){
+        return APIHandler.Get('vendorassessmentlist/' + id);
+    };
+
+    this.UpdateRam = function(id, params){
+        return APIHandler.Put('vendorassessmentlist/'+id, params);
     };
 
     this.GetVendorAssessment = function (sourceName) {
@@ -17,18 +25,6 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
 
     this.GetRiskAssessmentTypeList = function () {
         return APIHandler.Get('vendorriskassessmenttype');
-    };
-
-    this.GetVendorAssessmentList = function () {
-        return APIHandler.Get('vendorassessmentlist');
-    };
-
-    this.GetRimById = function(id){
-        return APIHandler.Get('vendorassessmentlist/' + id);
-    };
-
-    this.UpdateRam = function(id, params){
-        return APIHandler.Put('vendorassessmentlist/'+id, params);
     };
 
     this.SetAssessmentData = function(set_data) {
@@ -52,8 +48,17 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     };
 
     this.GetRimStatus = function(){
-        return APIHandler.Get('itrisk/itrim/status');
+        return APIHandler.Get('vendorassessmentlist/status');
     };
+
+    this.GetRimPeriod = function(){
+        return APIHandler.Get('vendorassessmentlist/period');
+    };
+
+    this.GetRimRiskCategory = function(){
+        return APIHandler.Get('itrisk/itrim/riskCategory');
+    };
+
 
 }]);
 

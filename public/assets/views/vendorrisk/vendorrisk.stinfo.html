@@ -2,39 +2,46 @@
 <section id="page-title" class="padding-top-15 padding-bottom-15">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="mainTitle">{{vrStinfo.mainTitle}}</h1>
-            <span class="mainDescription">{{vrStinfo.mainDesc}} </span>
+            <h1 class="mainTitle">{{mainTitle}}</h1>
+            <span class="mainDescription">{{mainDesc}} </span>
         </div>
     </div>
 </section>
 <!-- End: Page Header -->
 
 <div class="container-fluid container-fullw bg-white">
-    <div class="row">
-        <div class="col-xs-12 col-md-6 col-lg-4">
+    <div class="row chart_panels">
+        <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="panel panel-white">
                 <div class="panel-body no-padding">
                     <div id="statusChart" class="col-xs-12"></div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-6 col-lg-4">
+        <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="panel panel-white">
                 <div class="panel-body no-padding">
                     <div id="periodChart" class="col-xs-12"></div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-6 col-lg-4">
+        <div class="col-xs-12 col-md-6 col-lg-3">
             <div class="panel panel-white">
                 <div class="panel-body no-padding">
-                    <div id="catChart" class="col-xs-12"></div>
+                    <div id="regionChart" class="col-xs-12"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="panel panel-white">
+                <div class="panel-body no-padding">
+                    <div id="deptChart" class="col-xs-12"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row data_tables">
         <div class="col-md-12">
             <div class="panel panel-white no-radius">
                 <div class="panel-heading">
@@ -64,35 +71,59 @@
                             <thead>
                             <tr class="sortable-headers">
                                 <th><input type="checkbox"></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='riskName' }"
-                                       ng-click="sortMe('rcsa_name')"><i class="fa {{resSort('riskName')}}"></i>
-                                    Name</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='IDate' }" ng-click="sortMe('IDate')"><i
-                                        class="fa {{resSort('IDate')}}"></i> Identified Date</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='riskSeverity' }"
-                                       ng-click="sortMe('riskSeverity')"><i class="fa {{resSort('riskSeverity')}}"></i>
-                                    Severity</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='riskStatus' }"
-                                       ng-click="sortMe('riskStatus')"><i class="fa {{resSort('riskStatus')}}"></i>
-                                    Status</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='riskCategory' }"
-                                       ng-click="sortMe('riskCategory')"><i class="fa {{resSort('riskCategory')}}"></i>
-                                    RiskCategory</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='title' }"
+                                       ng-click="sortMe('title')"><i class="fa {{resSort('title')}}"></i>
+                                    Title</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='period' }" ng-click="sortMe('period')"><i
+                                        class="fa {{resSort('period')}}"></i> Period</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='approval' }"
+                                       ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i>
+                                    Approval</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='approvdate' }"
+                                       ng-click="sortMe('approvdate')"><i class="fa {{resSort('approvdate')}}"></i>
+                                    Approved Date</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='approvalStatus' }"
+                                       ng-click="sortMe('approvalStatus')"><i class="fa {{resSort('approvalStatus')}}"></i>
+                                    Approval Status</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='vendorRiskType' }"
+                                       ng-click="sortMe('vendorRiskType')"><i class="fa {{resSort('vendorRiskType')}}"></i>
+                                    Vendor Risk Type</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='docType' }"
+                                       ng-click="sortMe('docType')"><i class="fa {{resSort('docType')}}"></i>
+                                    Doc type</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='vendorName' }"
+                                       ng-click="sortMe('vendorName')"><i class="fa {{resSort('vendorName')}}"></i>
+                                    Vendor Name</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='assessdate' }"
+                                       ng-click="sortMe('assessdate')"><i class="fa {{resSort('assessdate')}}"></i>
+                                    Assessments date</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='assessmentBy' }"
+                                       ng-click="sortMe('assessmentBy')"><i class="fa {{resSort('assessmentBy')}}"></i>
+                                    Assessment By</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='vendorContact' }"
+                                       ng-click="sortMe('vendorContact')"><i class="fa {{resSort('vendorContact')}}"></i>
+                                    Vendor Contact</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='emailOrLink' }"
+                                       ng-click="sortMe('emailOrLink')"><i class="fa {{resSort('emailOrLink')}}"></i>
+                                    Email/Link</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='riskScore' }"
+                                       ng-click="sortMe('riskScore')"><i class="fa {{resSort('riskScore')}}"></i>
+                                    Risk Score</a></th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="r in Incidents | orderBy: CurrCol:IsAsc | filter: CurrFilt">
-                                <tr ng-repeat="name in vrStinfo.vendorAMdata track by $index">
+                                <tr ng-repeat="name in vendorAMdata | orderBy: CurrCol:IsAsc | filter: CurrFilt">
+                                    <td><input type="checkbox"></td>
                                     <td>{{name.title}}</td>
                                     <td>{{name.period}}</td>
-                                    <td>{{name.approver}}</td>
-                                    <td>{{name.approvedDate}}</td>
+                                    <td>{{name.approval}}</td>
+                                    <td>{{name.approvdate | date}}</td>
                                     <td>{{name.approvalStatus}}</td>
                                     <td>{{name.vendorRiskType}}</td>
                                     <td>{{name.docType}}</td>
                                     <td>{{name.vendorName}}</td>
-                                    <td>{{name.assessmentDate}}</td>
+                                    <td>{{name.assessdate | date}}</td>
                                     <td>{{name.assessmentBy}}</td>
                                     <td>{{name.vendorContact}}</td>
                                     <td>{{name.emailOrLink}}</td>
