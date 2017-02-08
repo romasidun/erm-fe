@@ -17,23 +17,50 @@ function excelGenerator(path, data, callback) {
 
     for (var i in data.body) {
         var cell = data.body[i];
-        if (typeof cell.merge == 'object') sheet.merge(cell.merge.to, cell.merge.from); //cell.merge = { to : { col: x, row: y }, from : { col: x1, row: y1 } }
+        if (cell.merge) {
+            sheet.merge(cell.merge.to, cell.merge.from); //cell.merge = { to : { col: x, row: y }, from : { col: x1, row: y1 } }
 
-        sheet.set(cell.col, cell.row, cell.text);    //cell.text = string
+            if (cell.border) {
+                for (var i = cell.merge.to.row; i <= cell.merge.from.row; i++) {
+                    for (var j = cell.merge.to.col; j <= cell.merge.from.col; j++) {
 
-        cell.font = cell.font || { name: 'Calibri', sz: '13', family: '1', scheme: '-'};
-        sheet.font(cell.col, cell.row, cell.font);  //cell.font = { name: 'Calibri', sz: '18', family: '3', scheme: '-', bold: 'true' }
+                        var borderObj = {};
 
-        cell.valign = cell.valign || 'middle';
+                        if(j == cell.merge.to.col)
+                            borderObj.left = cell.border.left;
+
+                        if(j == cell.merge.from.col)
+                            borderObj.right = cell.border.right;
+
+                        if(i == cell.merge.to.row)
+                            borderObj.top = cell.border.top;
+
+                        if(i == cell.merge.from.row)
+                            borderObj.bottom = cell.border.bottom;
+
+                        sheet.border(j, i, borderObj)
+                    }
+                }
+            }
+        }
+
+        if (cell.text)
+            sheet.set(cell.col, cell.row, cell.text);    //cell.text = string
+
+        if (cell.font)
+            sheet.font(cell.col, cell.row, cell.font);  //cell.font = { name: 'Calibri', sz: '18', family: '3', scheme: '-', bold: 'true' }
+
+        cell.valign = cell.valign || 'center';
         sheet.valign(cell.col, cell.row, cell.valign);  //cell.valign = top, middle, bottom
 
         cell.align = cell.align || 'center';
         sheet.align(cell.col, cell.row, cell.align);  //cell.align = left, center, right
 
-        cell.fill = cell.fill || { type: 'solid', fgColor: 'FFFFFF' };
-        sheet.fill(cell.col, cell.row, cell.fill);   //cell.fill = { type: 'solid', fgColor: 'BFBFBF' }
+        if (cell.fill)
+            sheet.fill(cell.col, cell.row, cell.fill);   //cell.fill = { type: 'solid', fgColor: 'BFBFBF' }
 
-        sheet.border(cell.col, cell.row, cell.border); //cell.border = { left: 'thin', top: 'thin', right: 'thin', bottom: 'thin' }
+        if (cell.border && !cell.merge)
+            sheet.border(cell.col, cell.row, cell.border); //cell.border = { left: 'thin', top: 'thin', right: 'thin', bottom: 'thin' }
 
         sheet.wrap(cell.col, cell.row, cell.wrap);  //cell.wrap = true or false
     }

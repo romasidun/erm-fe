@@ -34,111 +34,88 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Assertion </label>
-                                    <select type="text" name="region" ng-model="VM.region" class="form-control"
-                                            ng-options="r.key as r.val for r in app.Lookup.LIST001">
-                                        <option selected value>Select Region</option>
-                                    </select>
+                                    <input type="text" name="assertion" ng-model="VM.assertion" placeholder="Assertion"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Risk </label>
-                                    <select type="text" ng-model="VM.department" class="form-control"
-                                            ng-options="d.deptId as d.deptName for d in app.Lookup.Departments">
-                                        <option selected value>Select Department</option>
-                                    </select>
+                                    <input type="text" name="Risk" ng-model="VM.Risk" placeholder="Risk"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Control Activity Short Description </label>
-                                    <select type="text" name="frequency" ng-model="VM.frequency" class="form-control"
-                                            ng-options="op.key as op.val for op in app.Lookup.LIST003">
-                                        <option selected value>Select Frequency</option>
-                                    </select>
+                                    <input type="text" name="shortdesk" ng-model="VM.shortdesk" placeholder="Short Description"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Name of IT Applications</label>
-                                    <select type="text" name="status" ng-model="VM.status" class="form-control"
-                                            ng-options="st.key as st.val for st in app.Lookup.LIST004">
-                                        <option selected value>Select Status</option>
-                                    </select>
+                                    <input type="text" name="itAppname" ng-model="VM.itAppname" placeholder="Name of IT Applications"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Type of Control </label>
-                                    <select type="text" name="priority" ng-model="VM.priority" class="form-control"
-                                            ng-options="p.key as p.val for p in app.Lookup.LIST005">
-                                        <option selected value>Select Priority</option>
-                                    </select>
+                                    <input type="text" name="ctrlType" ng-model="VM.ctrlType" placeholder="Type of Control"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Control Level </label>
-                                    <select type="text" name="resPerson" ng-model="VM.resPerson" class="form-control"
-                                            ng-options="op.id as op.name for op in app.Lookup.Users">
-                                        <option selected value>Select Person</option>
-                                    </select>
+                                    <input type="text" name="ctrlLabel" ng-model="VM.ctrlLabel" placeholder="Control Level"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Effective Date </label>
-                                    <select type="text" name="period" ng-model="VM.period" class="form-control"
-                                            ng-options="per.key as per.val for per in app.Lookup.LIST002">
-                                        <option selected value>Select Period</option>
-                                    </select>
+                                    <datepicker date-format="yyyy-MM-dd">
+                                        <input type="text" name="effective_date" ng-model="VM.effective_date" placeholder="Effective Date"
+                                               class="form-control">
+                                    </datepicker>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Control Frequency </label>
-                                    <datepicker date-format="yyyy-MM-dd">
-                                        <input type="text" name="due_date" ng-model="VM.due_date" placeholder="Due Date"
-                                               class="form-control">
-                                    </datepicker>
-                                    <div class="clearfix"></div>
-
+                                    <input type="text" name="ctrlFrequency" ng-model="VM.ctrlFrequency" placeholder="Control Frequency"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Control Method </label>
-                                    <select type="text" name="period" ng-model="VM.period" class="form-control"
-                                            ng-options="per.key as per.val for per in app.Lookup.LIST002">
-                                        <option selected value>Select Period</option>
-                                    </select>
+
+                                    <input type="text" name="ctrlMethod" ng-model="VM.ctrlMethod" placeholder="Control Method"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Testing Size </label>
-                                    <select type="text" name="period" ng-model="VM.period" class="form-control"
-                                            ng-options="per.key as per.val for per in app.Lookup.LIST002">
-                                        <option selected value>Select Period</option>
-                                    </select>
+                                    <input type="text" name="testSize" ng-model="VM.testSize" placeholder="Testing Size"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Control Type </label>
-                                    <select type="text" name="period" ng-model="VM.period" class="form-control"
-                                            ng-options="per.key as per.val for per in app.Lookup.LIST002">
-                                        <option selected value>Select Period</option>
-                                    </select>
+                                    <input type="text" name="ctrlType" ng-model="VM.ctrlType" placeholder="Control Type"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Est Annual Vol Control Occurrences </label>
-                                    <select type="text" name="period" ng-model="VM.period" class="form-control"
-                                            ng-options="per.key as per.val for per in app.Lookup.LIST002">
-                                        <option selected value>Select Period</option>
-                                    </select>
+                                    <input type="text" name="ctrlOccur" ng-model="VM.ctrlOccur" placeholder="Est Annual Vol Control Occurrences"
+                                           class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
@@ -155,9 +132,8 @@
                         </div>
                         <hr class="hrule4"/>
                         <div class="col-xs-12 text-right">
-                            <button type="button" ng-click="downloadExcel()" class="btn btn-squared btn-dark-blue"
-                                    ng-disabled="!VM.controlDataModel.length"><i class="fa fa-download"></i> Excel
-                                download
+                            <button type="button" ng-click="downloadExcel()" class="btn btn-squared btn-dark-blue" >
+                                <i class="fa fa-download"></i> Excel download
                             </button>
                             <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i>
                                 Save
@@ -167,7 +143,6 @@
                                     class="fa fa-times"></i> Cancel
                             </button>
                         </div>
-
                     </form>
                 </div>
             </div>

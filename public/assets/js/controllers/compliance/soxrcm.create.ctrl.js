@@ -94,100 +94,153 @@
             data.sheetName = "Risk Control Matrix";
             data.body = [];
 
-            var head_txt = ['Control Category', 'Control Name', 'Control ID', 'Control Source', 'Business Process', 'Owner', 'status'];
+            var head_txt = ['Control Ref#', 'Design Effective/Remediate', 'Assertion', 'Risk', 'Control Activity Short Description', 'Name of IT Application', 'Type of Control', '2008 Control Level', 'Effective Date', 'Control Frequency', 'Control Method', 'Testing Size', 'Control Type', 'Est Annual Vol Control Occurrences', 'Control Element', 'Control Owner', 'Owner Supervisor', 'Fraud Control Scenario', 'Control Activity Detailed Description', 'Test Procedures', 'Type of Test', 'Document Request', 'Document Keeper', 'Population Definition', 'Population Source', 'Expected Testing Hours', '2007 Control', 'Control Level Change', 'Detailed Change Reason', 'Financial Reporting Objective'];
             for (var i = 0; i < head_txt.length; i++) {
                 data.body.push({
-                    col: (+i + 1),
-                    row: 6,
+                    col: (+i + 2),
+                    row: 11,
                     text: head_txt[i],
-                    font: { name: 'Calibri', sz: '13', family: '2', scheme: '-', bold: 'true'},
-                    fill: { type: 'solid', fgColor: '666666' },
-                    border : { left: 'thin', top: 'thin', right: 'thin', bottom: 'thin' }
+                    font: {name: 'Calibri', sz: '11', family: '3', scheme: '-'},
+                    fill: {type: 'solid', fgColor: 'FFFF00'},
+                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                    wrap: 'true'
                 });
             }
 
-            var inputdata = [
-                [
-                    "Name",
-                    angular.isUndefined($scope.VM.assessName) ? "" : $scope.VM.assessName + "",
-                    "",
-                    "Description",
-                    angular.isUndefined($scope.VM.assessDesc) ? "" : $scope.VM.assessDesc + "",
-                ],
-                [
-                    "Region",
-                    angular.isUndefined($scope.VM.region) ? "" : $scope.VM.region + "",
-                    "",
-                    "Department",
-                    angular.isUndefined($scope.VM.department) ? "" : $scope.VM.department[0].deptName + "",
-                ],
-                [
-                    "Frequency",
-                    angular.isUndefined($scope.VM.frequency) ? "" : $scope.VM.frequency + "",
-                    "",
-                    "Status",
-                    angular.isUndefined($scope.VM.status) ? "" : $scope.VM.status + "",
-                ],
-                [
-                    "Priority",
-                    angular.isUndefined($scope.VM.priority) ? "" : $scope.VM.priority + "",
-                    "",
-                    "Responsible Person",
-                    angular.isUndefined($scope.VM.resPerson) ? "" : $scope.VM.resPerson + ""
-                ]/*,
-                 [
-                 "Due Date",
-                 angular.isUndefined($scope.VM.due_date) ? "" : $scope.VM.due_date + "",
-                 "",
-                 "Files to upload",
-                 angular.isUndefined($scope.VM.filemodel) ? "" : $scope.VM.filemodel + ""
-                 ]*/
-            ];
-            for(var i = 0; i < inputdata.length; i++){
-                for(var j = 0; j < inputdata[i].length; j++){
-                    data.body.push({
-                        col: +j + 2,
-                        row: +i + 1,
-                        text: inputdata[i][j],
-                        fill: { type: 'solid', fgColor: '99b8ca' }
-                    });
-                }
-            }
+            data.body.push({
+                col: 2, row: 5, text: 'Any Company', valign: 'top', align: 'left',
+                merge: {to: {col: 2, row: 5}, from: {col: 4, row: 6}},
+                font: {name: 'Calibri', sz: '18', family: '3', scheme: '-', bold: 'true'}
+            });
+            data.body.push({
+                col: 2, row: 7, text: 'Risk Control Matrix (RCM)', align: 'left',
+                font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
+            });
+            data.body.push({
+                col: 2, row: 8, text: 'Business Process', align: 'left',
+                merge: {to: {col: 2, row: 8}, from: {col: 3, row: 8}},
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-'}
+            });
+            data.body.push({
+                col: 2, row: 9, text: 'Business Subprocess', align: 'left',
+                merge: {to: {col: 2, row: 9}, from: {col: 3, row: 9}},
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-'}
+            });
+            data.body.push({
+                col: 4, row: 8, text: '02 Taxes',
+                font: {name: 'Calibri', sz: '12', family: '3', scheme: '-', bold: 'true'}
+            });
+            data.body.push({
+                col: 4, row: 9, text: '02.1 Taxes',
+                font: {name: 'Calibri', sz: '12', family: '3', scheme: '-', bold: 'true'}
+            });
+
+            data.body.push({
+                col: 6, row: 5, text: 'Process Risk Level',
+                font: {name: 'Calibri', sz: '10', family: '3', scheme: '-', bold: 'true'},
+                fill: {type: 'solid', fgColor: 'BFBFBF'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 6, row: 6, text: 'High',
+                merge: {to: {col: 6, row: 6}, from: {col: 6, row: 7}},
+                font: {name: 'Calibri', sz: '10', family: '3', scheme: '-', bold: 'true'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
 
 
-            var control_data = $scope.VM.controlDataModel;
-            var fieldAry = ['controlCategory', 'controlName', 'id', 'controlSource', 'businessProcess', 'controlOwner'];
-            var status = angular.isUndefined($scope.VM.testStatus) ? "" : $scope.VM.testStatus + "";
-            for (var i in control_data) {
-                for (var j = 0; j < fieldAry.length; j++) {
-                    data.body.push({
-                        col: +j + 1,
-                        row: +i + 7,
-                        text: control_data[i][fieldAry[j]],
-                        border : { left: 'thin', top: 'thin', right: 'thin', bottom: 'thin' }
-                    });
-                }
-                data.body.push({
-                    col: +j + 1,
-                    row: +i + 7,
-                    text: status,
-                    border : { left: 'thin', top: 'thin', right: 'thin', bottom: 'thin' }
-                });
-            }
-            data.cols = +j + 5;
-            data.rows = +i + 12;
+            data.body.push({
+                col: 8, row: 5, text: 'Financial Disclosure Areas and Disclosure Objectives',
+                merge: {to: {col: 8, row: 5}, from: {col: 14, row: 5}},
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                fill: {type: 'solid', fgColor: 'BFBFBF'},
+                border: {left: 'thin', top: 'thin', bottom: 'thin'}
+            });
 
+            data.body.push({
+                col: 8, row: 6, text: '* INCOME TAX EXPENSE/BENEFIT: is determined in accordance with tax law, and recorded against the applicable component of net income, or equity.',
+                merge: {to: {col: 8, row: 6}, from: {col: 14, row: 8}},
+                valign: 'center',
+                font: {name: 'Calibri', sz: '10', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin'},
+                wrap : 'true'
+            });
+
+            data.body.push({
+                col: 16, row: 6, text: 'Key Control',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 16, row: 7, text: 'Standard Controls',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 16, row: 8, text: 'Total Controls',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 5, text: 'Count',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                fill: {type: 'solid', fgColor: 'BFBFBF'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 5, text: 'Testing Hours',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                fill: {type: 'solid', fgColor: 'BFBFBF'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 6, text: '5',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 6, text: '15',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 7, text: '0',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 7, text: '0',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 8, text: '5',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 8, text: '15',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+
+            data.cols = 35;
+            data.rows = 15;
+
+            var wval = [14, 21, 15, 24, 25, 26, 17, 14, 11, 19, 16, 14, 14, 16, 20, 15, 13, 12, 30, 30, 16, 24, 25, 16, 23, 12, 14, 24, 19, 23];
             data.widths = [];
-            for(var c = 1; c <= data.cols; c++){
-                data.widths.push({col: c, width: 25});
+            for(var i=0;i<wval.length;i++){
+                data.widths.push({col: +i+2, width: wval[i]});
             }
-            data.widths[1].width = 45;
-            data.widths[2].width = 35;
 
             data.heights = [];
-            for(var r = 1; r <= data.rows; r++){
-                data.heights.push({row: r, height: 25});
-            }
+            data.heights.push({row: 5, height: 25});
+            data.heights.push({row: 11, height: 45});
 
             ComplianceService.DownloadExcel(data).then(function (response) {
                 location.assign('/downloadExcel/' + response.data);
