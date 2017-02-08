@@ -115,8 +115,9 @@
                     var fileModel = $scope.VM.auditFileModel;
                     ITRiskService.FileUpload(res.id, fileModel).then(function (res) {
                         console.log(res);
+                    }).finally(function () {
+                        $state.go('app.itrisk.incident.main');
                     });
-                    $state.go('app.itrisk.incident.main');
                 }
             });
         };

@@ -188,11 +188,14 @@ app.service('ComplianceService', function (APIHandler) {
     };
 
     this.FileUpload = function (idd, fileModel) {
+        if(fileModel.length() < 1){
+            return APIHandler.NullPromise();
+        }
         var formdata = new FormData();
         for (var i in fileModel) {
             formdata.append("uploadFile", fileModel[i]._file);
         }
-        var url = baseUrl + 'compliance/' + idd + '/multiUpload';
+        var url = 'compliance/' + idd + '/multiUpload';
         return APIHandler.UploadFile(url, formdata);
     };
 });

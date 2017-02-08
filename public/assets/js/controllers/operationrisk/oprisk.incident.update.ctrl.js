@@ -88,8 +88,9 @@
                     var fileModel = $scope.VM.auditFileModel;
                     OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
                         console.log(res);
+                    }).finally(function () {
+                        $state.go('app.oprisk.incident.main');
                     });
-                    $state.go('app.oprisk.incident.main');
                 }
             });
         };

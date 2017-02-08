@@ -21,9 +21,10 @@
                     var fileModel = $scope.VM.filemodel;
                     OPRiskService.FileUpload(res.id, fileModel).then(function (res) {
                         console.log(res);
+                    }).finally(function () {
+                        $state.go('app.oprisk.assessment.main');
                     });
 
-                    $state.go('app.oprisk.assessment.main');
                 }
             });
         };

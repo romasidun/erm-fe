@@ -39,8 +39,9 @@
                     var fileModel = $scope.VM.filemodel;
                     ComplianceService.FileUpload($stateParams.id, fileModel).then(function (res) {
                         console.log(res);
+                    }).finally(function () {
+                        $state.go('app.compliance.soxpra.main');
                     });
-                    $state.go('app.compliance.soxpra.main');
                 }
             });
         };

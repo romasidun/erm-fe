@@ -47,8 +47,9 @@
                     var fileModel = $scope.VM.filemodel;
                     ComplianceService.FileUpload(res.id, fileModel).then(function (res) {
                         console.log(res);
+                    }).finally(function () {
+                        $state.go('app.compliance.soxtp.main');
                     });
-                    $state.go('app.compliance.soxtp.main');
                 }
             });
         };

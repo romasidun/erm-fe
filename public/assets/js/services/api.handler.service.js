@@ -109,6 +109,7 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
     };
 
     APIHandler.prototype.UploadFile = function (url, formdata) {
+        url = baseUrl + url;
         if (isDebug) console.info("UPLOAD: " + url);
         if (isDebug) console.info("with body: ", formdata);
 
@@ -128,25 +129,12 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
                 deferred.reject(err);
             });
         return deferred.promise;
+    };
 
-        /*
-         var obj = {
-         method: 'POST',
-         url: url,
-         data: formdata,
-         headers: {
-         'Content-Type': undefined,
-         'Authorization':'Basic dXNlcjo2aGYzOCElRFEwOTczNnYsMzIvZjg1QXhAIw=='
-         }
-         };
-         $http(obj).then(function(data) {
-         if (data.success == true) {
-         deferred.resolve(data);
-         } else {
-         deferred.reject(data);
-         }
-         });
-         */
+    APIHandler.prototype.NullPromise = function (url, formdata) {
+        var deferred = $q.defer();
+        deferred.reject(null);
+        return deferred.promise;
     };
 
     return new APIHandler();

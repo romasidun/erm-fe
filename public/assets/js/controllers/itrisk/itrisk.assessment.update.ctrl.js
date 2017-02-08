@@ -16,8 +16,9 @@
                     var fileModel = $scope.VM.filemodel;
                     ITRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
                         console.log(res);
+                    }).finally(function () {
+                        $state.go('app.itrisk.assessment.main');
                     });
-                    $state.go('app.itrisk.assessment.main');
                 }
             });
         };

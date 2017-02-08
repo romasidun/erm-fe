@@ -73,13 +73,15 @@
                 alert("Please select Risk Category.");
                 return false;
             }
+            console.log($scope.VM.auditFileModel);
             ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
                 if(res.status === 200) {
                     var fileModel = $scope.VM.auditFileModel;
                     ITRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
                         console.log(res);
+                    }).finally(function () {
+                        $state.go('app.itrisk.incident.main');
                     });
-                    $state.go('app.itrisk.incident.main');
                 }
             });
         };

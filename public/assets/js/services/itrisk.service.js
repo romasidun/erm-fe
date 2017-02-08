@@ -85,11 +85,14 @@
         };
 
         this.FileUpload = function (idd, fileModel) {
+            if(fileModel.length() < 1){
+                return APIHandler.NullPromise();
+            }
             var formdata = new FormData();
             for (var i in fileModel) {
                 formdata.append("uploadFile", fileModel[i]._file);
             }
-            var url = baseUrl + 'itrisk/' + idd + '/multiUpload';
+            var url = 'itrisk/' + idd + '/multiUpload';
             return APIHandler.UploadFile(url, formdata);
         };
     });
