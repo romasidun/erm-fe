@@ -108,8 +108,7 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
         return deferred.promise;
     };
 
-    APIHandler.prototype.UploadFile = function (idd, formdata) {
-        var url = baseUrl + 'policies/' + idd + '/multiUpload';
+    APIHandler.prototype.UploadFile = function (url, formdata) {
         if (isDebug) console.info("UPLOAD: " + url);
         if (isDebug) console.info("with body: ", formdata);
 
@@ -119,9 +118,7 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
             headers: {
                 'Content-Type': undefined
             },
-            transformRequest: angular.identity,
-            params: formdata,
-            responseType: "arraybuffer"
+            transformRequest: angular.identity
         })
             .then(function (res) {
                 if (isDebug) console.log(res);

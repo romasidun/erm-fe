@@ -83,5 +83,14 @@
         this.GetRamTemplates = function(){
             return APIHandler.Get('itram/templates');
         };
+
+        this.FileUpload = function (idd, fileModel) {
+            var formdata = new FormData();
+            for (var i in fileModel) {
+                formdata.append("uploadFile", fileModel[i]._file);
+            }
+            var url = baseUrl + 'itrisk/' + idd + '/multiUpload';
+            return APIHandler.UploadFile(url, formdata);
+        };
     });
 })();

@@ -43,7 +43,13 @@
 
             $scope.VM.assessId = moment().format('X');
             ComplianceService.PostSOXTPAssessment($scope.VM).then(function (res) {
-                if (res.status === 200) $state.go('app.compliance.soxtp.main');
+                if (res.status === 200) {
+                    var fileModel = $scope.VM.filemodel;
+                    ComplianceService.FileUpload(res.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+                    $state.go('app.compliance.soxtp.main');
+                }
             });
         };
 

@@ -15,7 +15,13 @@
         $scope.submitAction = function() {
             if($scope.Form.SoxTp.$invalid) return false;
             ComplianceService.UpdateSOXTPAssessment($stateParams.id, $scope.VM).then(function (res) {
-                if(res.status===200) $state.go('app.compliance.soxtp.main');
+                if(res.status===200) {
+                    var fileModel = $scope.VM.filemodel;
+                    ComplianceService.FileUpload($stateParams.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+                    $state.go('app.compliance.soxtp.main');
+                }
             });
         };
 

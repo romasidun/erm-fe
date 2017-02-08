@@ -14,7 +14,13 @@
         $scope.submitAction = function () {
             if ($scope.Form.SoxRcm.$invalid) return false;
             ComplianceService.UpdateSOXRCMAssessment($stateParams.id, $scope.VM).then(function (res) {
-                if (res.status === 200) $state.go('app.compliance.soxrcm.main');
+                if (res.status === 200) {
+                    var fileModel = $scope.VM.filemodel;
+                    ComplianceService.FileUpload($stateParams.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+                    $state.go('app.compliance.soxrcm.main');
+                }
             });
         };
 

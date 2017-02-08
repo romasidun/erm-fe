@@ -69,6 +69,11 @@ app
                 link: function(scope, element, attrs) {
                     var model = $parse(attrs.fileModel);
                     var modelSetter = model.assign;
+                    /*element.bind('change', function(){
+                        scope.$apply(function(){
+                            modelSetter(scope, element[0].files);
+                        });
+                    });*/
 
                     element.bind('change', function(){
                         var values = [];
@@ -77,10 +82,17 @@ app
                                 name: item.name,
                                 size: item.size,
                                 url: URL.createObjectURL(item),
-                                _file: item
+                                _file: item,
+                                file: item,
+                                fileName: item.name,
+                                filePath: URL.createObjectURL(item),
+                                fileSize: item.size,
+                                fileType: item.type,
+                                id: 123,
+                                originalName: item.name
                             };
                             values.push(value);
-                        })
+                        });
                         scope.$apply(function(){
                             if (attrs.multiple) {
                                 modelSetter(scope, values);

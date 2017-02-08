@@ -41,7 +41,14 @@
             if($scope.Form.Rcsa.$invalid) return false;
 
             OPRiskService.PostAssessment($scope.VM).then(function(res){
-                if(res.status === 200) $state.go('app.oprisk.assessment.main');
+                if(res.status === 200) {
+                    var fileModel = $scope.VM.filemodel;
+                    OPRiskService.FileUpload(res.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+
+                    $state.go('app.oprisk.assessment.main');
+                }
             });
         };
 

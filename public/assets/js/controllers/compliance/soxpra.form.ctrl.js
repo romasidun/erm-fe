@@ -42,7 +42,13 @@
 
             $scope.VM.assessId = moment().format('X');
             ComplianceService.PostSOXPRAAssessment($scope.VM).then(function (res) {
-                if (res.status === 200) $state.go('app.compliance.soxpra.main');
+                if (res.status === 200) {
+                    var fileModel = $scope.VM.filemodel;
+                    ComplianceService.FileUpload(res.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+                    $state.go('app.compliance.soxpra.main');
+                }
             });
         };
         

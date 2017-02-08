@@ -186,5 +186,14 @@ app.service('ComplianceService', function (APIHandler) {
     this.GetControlData = function () {
         return APIHandler.Get('crtldata');
     };
+
+    this.FileUpload = function (idd, fileModel) {
+        var formdata = new FormData();
+        for (var i in fileModel) {
+            formdata.append("uploadFile", fileModel[i]._file);
+        }
+        var url = baseUrl + 'compliance/' + idd + '/multiUpload';
+        return APIHandler.UploadFile(url, formdata);
+    };
 });
 

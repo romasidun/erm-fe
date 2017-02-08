@@ -159,19 +159,25 @@
         $scope.submitAction = function () {
             if ($scope.Form.OpIncident.$invalid || $scope.Form.OpIncident.pristine) return false;
             /*console.log(moment($scope.VM.identifiedDate).format('YYYY-MM-DD'));*/
-            if($scope.RiskCategories.SelCount < 1){
+            if ($scope.RiskCategories.SelCount < 1) {
                 alert("Please select Risk Category.");
                 return false;
             }
             OPRiskService.PostRisk($scope.VM).then(function (res) {
-                if (res.status === 200) $state.go('app.oprisk.incident.main');
+                if (res.status === 200) {
+                    var fileModel = $scope.VM.auditFileModel;
+                    OPRiskService.FileUpload(res.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+                    $state.go('app.oprisk.incident.main');
+                }
             });
         };
-        
-        $scope.cancelAction = function(){
-            if($scope.Form.OpIncident.$dirty){
+
+        $scope.cancelAction = function () {
+            if ($scope.Form.OpIncident.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){
+                confirm.result.then(function () {
                     $state.go('app.oprisk.incident.main');
                 });
                 return false;

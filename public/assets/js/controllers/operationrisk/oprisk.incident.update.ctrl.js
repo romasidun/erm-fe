@@ -2,11 +2,11 @@
 
     "use strict";
 
-    OprIncFormController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'OPRiskService', 'Utils', 'FileUploadService'];
+    OprIncFormController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'OPRiskService', 'Utils'];
     app.controller('OprIncidentUpdateCtrl', OprIncFormController);
 
 
-    function OprIncFormController($scope, $rootScope, $state, $stateParams, OPRiskService, Utils, FileUploadService){
+    function OprIncFormController($scope, $rootScope, $state, $stateParams, OPRiskService, Utils){
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Update operational risk incident";
@@ -82,26 +82,13 @@
                 alert("Please select Risk Category.");
                 return false;
             }
-            console.clear();
-            console.log($scope.VM.auditFileModel);
-            var fileModel = $scope.VM.auditFileModel;
 
-            /*var fileNames = [];
-            console.log(fileModel);
-            for (var i in fileModel) {
-                fileNames.push(fileModel[i]);
-            }
-            $scope.VM.auditFileModel = fileNames;*/
-            /*var identifiedDate = moment($scope.VM.identifiedDate).format();
-            var remeDate = moment($scope.VM.remeDate).format();
-            $scope.VM.identifiedDate = angular.isDate(identifiedDate) ? identifiedDate : '';
-            $scope.VM.remeDate = angular.isDate(remeDate) ? remeDate : '';*/
             OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function(res){
                 if(res.status===200) {
-                    FileUploadService.FileUpload($stateParams.id, fileModel).then(function (res) {
-                        //console.log(res);
+                    var fileModel = $scope.VM.auditFileModel;
+                    OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
+                        console.log(res);
                     });
-
                     $state.go('app.oprisk.incident.main');
                 }
             });

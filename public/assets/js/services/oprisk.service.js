@@ -81,5 +81,14 @@ app.service('OPRiskService', function($rootScope, APIHandler, Utils){
         return APIHandler.Get('policies?pagesize=' + size + '&page=' + page);
     };
 
+    this.FileUpload = function (idd, fileModel) {
+        var formdata = new FormData();
+        for (var i in fileModel) {
+            formdata.append("uploadFile", fileModel[i]._file);
+        }
+        var url = baseUrl + 'oprisk/' + idd + '/multiUpload';
+        return APIHandler.UploadFile(url, formdata);
+    };
+
 
 });

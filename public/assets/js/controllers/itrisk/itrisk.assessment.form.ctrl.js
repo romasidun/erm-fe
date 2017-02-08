@@ -36,7 +36,14 @@
             if($scope.Form.ITRAM.$invalid) return false;
 
             ITRiskService.AddRam($scope.VM).then(function(res){
-                if(res.status === 200) $state.go('app.itrisk.assessment.main');
+                if(res.status === 200) {
+                    var fileModel = $scope.VM.filemodel;
+                    ITRiskService.FileUpload(res.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+
+                    $state.go('app.itrisk.assessment.main');
+                }
             });
         };
 

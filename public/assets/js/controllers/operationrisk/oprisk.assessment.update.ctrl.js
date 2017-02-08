@@ -17,7 +17,14 @@
             if($scope.Form.Rcsa.$invalid || $scope.Form.Rcsa.$pristine) return false;
 
             OPRiskService.UpdateAssessment($stateParams.id, $scope.VM).then(function(res){
-                if(res.status === 200) $state.go('app.oprisk.assessment.main');
+                if(res.status === 200){
+                    var fileModel = $scope.VM.filemodel;
+                    OPRiskService.FileUpload(res.id, fileModel).then(function (res) {
+                        console.log(res);
+                    });
+
+                    $state.go('app.oprisk.assessment.main');
+                }
             });
         };
 
