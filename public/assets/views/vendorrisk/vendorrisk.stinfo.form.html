@@ -31,7 +31,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group" ng-class="{ 'has-error' : Form.VendorRisk.assessmentBy.$invalid && (!Form.VendorRisk.assessmentBy.$pristine || Form.VendorRisk.assessmentBy.$touched || Form.VendorRisk.assessmentBy.$submitted) }">
                                     <label> Assessment By </label>
-                                    <select name="assessmentBy" ng-model="VM.assessmentBy" ng-options="u.name as u.name for u in userList" class="form-control" required>
+                                    <select name="assessmentBy" ng-model="VM.assessmentBy" ng-options="u.name as u.name for u in app.Lookup.Users" class="form-control" required>
                                         <option value=""> Assessment By </option>
                                     </select>
                                 </div>
@@ -48,12 +48,6 @@
                                     <select name="approver" ng-model="VM.approver" ng-options="u.name as u.name for u in app.Lookup.Users" class="form-control" required>
                                         <option value=""> Approver </option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.VendorRisk.vendorContact.$invalid && (!Form.VendorRisk.vendorContact.$pristine || Form.VendorRisk.vendorContact.$touched || Form.VendorRisk.vendorContact.$submitted) }">
-                                    <label> VendorContact </label>
-                                    <input type="text"  name="vendorContact" ng-model="VM.vendorContact"  placeholder="VendorContact" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
@@ -79,9 +73,9 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.VendorRisk.overallRiskScore.$invalid && (!Form.VendorRisk.overallRiskScore.$pristine || Form.VendorRisk.overallRiskScore.$touched || Form.VendorRisk.overallRiskScore.$submitted) }">
-                                    <label> Overall Risk Score </label>
-                                    <input type="text"  name="overallRiskScore" ng-model="VM.overallRiskScore"  placeholder=" Overall Risk Score " class="form-control" required>
+                                <div class="form-group" ng-class="{ 'has-error' : Form.VendorRisk.riskScore.$invalid && (!Form.VendorRisk.riskScore.$pristine || Form.VendorRisk.riskScore.$touched || Form.VendorRisk.riskScore.$submitted) }">
+                                    <label> Overwall Risk Score </label>
+                                    <input type="text"  name="riskScore" ng-model="VM.riskScore"  placeholder="Overwall Risk Score " class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
@@ -95,7 +89,16 @@
                                     <label> Vendor Name </label>
                                     <select name="vendorName" class="vendorName font-sans-serif form-control white_background_style" ng-model="VM.vendorName"
                                             ng-options="item.vendorName as item.vendorName for item in vendor track by item.id" required>
-                                        <option value>Selct VendorName</option>
+                                        <option value> Select VendorName</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" ng-class="{ 'has-error' : Form.VendorRisk.primaryContact.$invalid && (!Form.VendorRisk.primaryContact.$pristine || Form.VendorRisk.primaryContact.$touched || Form.VendorRisk.primaryContact.$submitted) }">
+                                    <label> VendorContact </label>
+                                    <select name="vendorContact" class="vendorName font-sans-serif form-control white_background_style" ng-model="VM.primaryContact"
+                                            ng-options="item.primaryContact as item.primaryContact for item in vendor track by item.id" class="form-control" required>
+                                        <option value=""> Select VendorContact </option>
                                     </select>
                                 </div>
                             </div>
@@ -129,7 +132,7 @@
                         </div>
                         <hr class="hrule4" />
                         <div class="col-xs-12 text-right">
-                            <!--<a class="btn btn-squared btn-dark-blue"  ng-show="showExcelButton" type="button" ui-sref="app.vendorrisk.assessment"><i class="fa fa-newspaper-o"></i> Create Assessment </a>-->
+                            <a class="btn btn-squared btn-dark-blue"  ng-show="showExcelButton" type="button" ui-sref="app.vendorrisk.assessment"><i class="fa fa-newspaper-o"></i> Create Assessment </a>
                             <!--<button class="btn btn-squared btn-dark-blue" ng-show="showExcelButton" ng-disabled="Form.VendorRisk.$invalid" type="button"><i class="fa fa-download"></i> Download Excel </button>-->
                             <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i> Save </button>
                             <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()" type="button"><i class="fa fa-times"></i>  Cancel </button>

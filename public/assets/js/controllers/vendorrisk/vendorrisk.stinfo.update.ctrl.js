@@ -22,6 +22,7 @@
            $scope.approvedDate = Utils.GetDPDate(data.approvedDate);
            $scope.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
            $scope.VM = data;
+           console.log('datadatadatadatadatadatadatadata',data);
            $rootScope.app.Mask = false;
         });
 
@@ -34,6 +35,18 @@
                 }
             });
         };
+
+        // VendorService.GerUserList().then(function(user){
+        //     $scope.userList = user;
+        // });
+
+        VendorService.GetRiskType().then(function(risktype){
+            $scope.riskTypeList = risktype;
+        });
+
+        VendorService.GetVendor().then(function(vendor){
+            $scope.vendor = vendor;
+        });
 
         // var vm = this;
         // vm.submitAction = submitAction;
