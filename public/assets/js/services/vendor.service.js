@@ -4,22 +4,6 @@
  */
 app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler, $localStorage) {
     this.GetRim = function(){
-        return APIHandler.Get('vendorriskassessment');
-    };
-
-    this.GetVendorAssessment = function (sourceName) {
-        return APIHandler.Get('crtldata/vr/questions?sourcename=' + sourceName);
-    };
-
-    this.GetVendorNameList = function () {
-        return APIHandler.Get('vendor');
-    };
-
-    this.GetRiskAssessmentTypeList = function () {
-        return APIHandler.Get('vendorriskassessmenttype');
-    };
-
-    this.GetVendorAssessmentList = function () {
         return APIHandler.Get('vendorassessmentlist');
     };
 
@@ -27,8 +11,60 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorassessmentlist/' + id);
     };
 
+    this.AddRim = function(data){
+        return APIHandler.Post('vendorassessmentlist', data);
+    };
+
+    this.GetRimStatus = function(){
+        return APIHandler.Get('vendorassessmentlist/status');
+    };
+
+    this.GetRimPeriod = function(){
+        return APIHandler.Get('vendorassessmentlist/period');
+    };
+
+    this.DeleteRim = function(id){
+        return APIHandler.Delete('vendorassessmentlist/'+id);
+    };
+
+    this.GetRimEpriod = function(){
+        return APIHandler.Get('vendorassessmentlist/epriod');
+    };
+
+    this.GetRimVendor = function(){
+        return APIHandler.Get('vendorassessmentlist/vendor');
+    };
+
+    this.GetRimRiskStore = function(){
+        return APIHandler.Get('vendorassessmentlist/riskStore');
+    };
+
+    this.GetRimDocType = function(){
+        return APIHandler.Get('vendorassessmentlist/docType');
+    };
+
+    this.GetRimRiskType = function(){
+        return APIHandler.Get('vendorassessmentlist/riskType');
+    };
+
     this.UpdateRam = function(id, params){
         return APIHandler.Put('vendorassessmentlist/'+id, params);
+    };
+
+    this.GetVendorAssessment = function (sourceName) {
+        return APIHandler.Get('crtldata/vr/questions?sourcename=' + sourceName);
+    };
+
+    this.GetVendor = function () {
+        return APIHandler.Get('vendor');
+    };
+
+    this.GerUserList = function () {
+        return APIHandler.Get('users');
+    };
+
+    this.GetRiskType = function () {
+        return APIHandler.Get('vendorriskassessmenttype');
     };
 
     this.SetAssessmentData = function(set_data) {
@@ -47,13 +83,8 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         }
     };
 
-    this.PostVendorData = function(data){
-        return APIHandler.Post('vendorriskassessment', data);
-    };
 
-    this.GetRimStatus = function(){
-        return APIHandler.Get('itrisk/itrim/status');
-    };
+
 
 }]);
 

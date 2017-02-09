@@ -1,22 +1,235 @@
 (function () {
     'use strict';
-    VendorriskStinfoController.$inject = ['$rootScope', '$state', 'ExcelFactory', 'VendorService', '$timeout'];
+    VendorriskStinfoController.$inject = ['$scope','$rootScope', '$state', 'ExcelFactory', 'VendorService', '$timeout', 'Utils', 'ChartFactory'];
     app.controller('VendorriskStinfoCtrl', VendorriskStinfoController);
-    function VendorriskStinfoController($rootScope, $state, ExcelFactory, VendorService, $timeout) {
-        var vm = this;
-        vm.mainTitle = $state.current.title;
-        vm.mainDesc = 'Risk Assessment';
-        loadRim();
+    function VendorriskStinfoController($scope,$rootScope, $state, ExcelFactory, VendorService, $timeout, Utils, ChartFactory) {
+        $scope.mainTitle = $state.current.title;
+        $scope.mainDesc = 'Risk Assessment';
+
+        // start sort
+        $scope.OpList = [10, 25, 50, 100];
+        $scope.PerPage = 10;
+
+        $scope.sortMe = function (col) {
+            if ($scope.CurrCol === col)
+                $scope.IsAsc = !$scope.IsAsc;
+            else
+                $scope.CurrCol = col;
+        };
+
+        $scope.resSort = function (col) {
+            if ($scope.CurrCol === col) {
+                return $scope.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+            } else {
+                return 'fa-unsorted';
+            }
+        };
+        // end sort
+
+        VendorService.GetRimStatus()
+            .then(function (data) {
+                var ristInc = [];
+                Object.keys(data).forEach(function (k) {
+                    ristInc.push({key: Utils.camelizeString(k), val: data[k]});
+                });
+                setupPieChart(ristInc);
+                return VendorService.GetRimPeriod()
+            })
+            .then(function (data) {
+                setupPeriodChart(data);
+                $scope.$watch('PerPage', function (n, o) {
+                    $rootScope.app.Mask = true;
+                    loadRim();
+                });
+            });
+            // .then(function (data) {
+            //     var ristInc = [];
+            //     Object.keys(data).forEach(function (k) {
+            //         ristInc.push({key: Utils.camelizeString(k), val: data[k]});
+            //     });
+            //     setupPieChart(ristInc);
+            //     return VendorService.GetRimPeriod()
+            // })
+            // // .then(function (data) {
+            // //     setupRiskStoreChart(data);
+            // //     return VendorService.GetRimEpriod();
+            // // })
+            // // .then(function (data){
+            // //     setupEpriodChart(data);
+            // //     return VendorService.GetRimDocType();
+            // // })
+            // // .then(function (data){
+            // //     setupDecTypeChart(data);
+            // //     return VendorService.GetRimVendor();
+            // // })
+            // // .then(function (data){
+            // //     setupVendorChart(data);
+            // //     return VendorService.GetRimRiskType();
+            // // })
+            // // .then(function (data){
+            // //     setupRiskTypeChart(data);
+            // //     return VendorService.GetRimRiskStore();
+            // // })
+            // .then(function(){
+            //     setupPeriodChart(data);
+            //     $scope.$watch('PerPage', function (n, o) {
+            //         $rootScope.app.Mask = true;
+            //         loadRim();
+            //     });
+            // });
+
+
+        function setupPieChart(data) {
+            var dataList = [];
+            data.forEach(function (o) {
+                dataList.push([o.key, o.val]);
+            });
+            var chartObj = ChartFactory.CreatePieChartTemplate('VendorRisk by Status', 'VendorRisk by Status', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
+            Highcharts.chart('statusChart', chartObj);
+        }
+
+        function setupEpriodChart(data) {
+
+        }
+
+        function setupDecTypeChart(data){
+
+        }
+
+        function setupVendorChart(data){
+
+        }
+
+        function setupRiskTypeChart(){
+
+        }
+
+        function setupRiskStoreChart(){
+
+        }
+
+        function setupPeriodChart(data) {
+            var month, opts = {
+                Title: "Vendor By Period",
+                YText: "Values",
+                Categories: [],
+                Series: [
+                    {name: "Low", data: []},
+                    {name: "Medium", data: []},
+                    {name: "High", data: []}
+                ],
+                Colors: ['#DFC600', '#2E8AE5', '#ED0C00']
+            };
+            Object.keys(data).forEach(function (k) {
+                if (k.indexOf('Low') > -1) {
+                    month = Utils.camelizeString(k.split('Low')[0]);
+                    opts.Series[0].data.push(data[k]);
+                }
+                if (k.indexOf('Med') > -1) {
+                    month = Utils.camelizeString(k.split('Med')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if (k.indexOf('High') > -1) {
+                    month = Utils.camelizeString(k.split('High')[0]);
+                    opts.Series[2].data.push(data[k]);
+                }
+                if (opts.Categories.indexOf(month) === -1)
+                    opts.Categories.push(month);
+            });
+
+            ChartFactory.SetupMultiColChart('periodChart', opts);
+        }
+
         function loadRim() {
             VendorService.GetRim().then(function (data) {
-                console.log('data',data);
-                    data.forEach(function (r) {
-                    r.IDate = Utils.createDate(r.identifiedDate);
+                data.forEach(function (r) {
+                    r.assessdate = Utils.createDate(r.due_date);
+                    r.approvdate = Utils.createDate(r.approvedDate);
                 });
-                // $scope.Incidents = data;
-                // $rootScope.app.Mask = false;
+
+                $scope.vendorAMdata = data;
+                $rootScope.app.Mask = false;
             });
         }
+
+        $scope.downloadExcel = function(){
+            var head_row = $('table.VendorTable thead tr');
+            var body_row = $('table.VendorTable tbody tr');
+            var head_row_col = head_row.children('th');
+            var tableHtml = '<table>';
+            tableHtml += '<tr>';
+            head_row_col.slice(1, head_row_col.length-1).each(function (i) {
+                tableHtml += '<td>' + $(this).children('a').text() + '</td>';
+            });
+            tableHtml += '</tr>';
+
+            body_row.each(function (i) {
+                tableHtml += '<tr>';
+                var tdObj = $(this).closest('tr').find('td');
+                tdObj.each(function (i) {
+
+                    if(i == 0 || i == tdObj.length){
+                        return;
+                    }
+                    tableHtml += '<td>' + $(this).html() + '</td>';
+                });
+                tableHtml += '</tr>';
+            });
+            tableHtml += '</table>';
+            console.log('tableHtmltableHtmltableHtml',tableHtml);
+            // return;
+            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
+            $timeout(function () {
+                location.href = exportHref;
+            }, 100); // trigger download
+            /*window.open('data:application/vnd.ms-excel,'+tableHtml);
+             e.preventDefault();*/
+        };
+
+        $scope.deleteAction = function (name) {
+            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
+            confirmation.result.then(function () {
+                $rootScope.app.Mask = true;
+                VendorService.DeleteRim(name.id).then(function (data) {
+                    if (data.status === 200) loadRim();
+                });
+            });
+        };
+
+
+        // loadRim();
+        // function loadRim() {
+        //     VendorService.GetRim().then(function (data) {
+        //         vm.vendorAMdata = angular.fromJson(data);
+        //         data.forEach(function (r) {
+        //             r.IDate = Utils.createDate(r.due_date);
+        //         });
+        //         console.log('data',data);
+        //         vm.vendorData = data;
+        //         $rootScope.app.Mask = false;
+        //     });
+        // }
+        //
+        // $scope.CurrCol = 'period';
+        // $scope.IsAsc = true;
+        //
+        // $scope.OpList = [10, 25, 50, 100];
+        // $scope.PerPage = 10;
+        //
+        // $scope.sortMe = function (col) {
+        //     if ($scope.CurrCol === col)
+        //         $scope.IsAsc = !$scope.IsAsc;
+        //     else
+        //         $scope.CurrCol = col;
+        // };
+        //
+        // $scope.resSort = function (col) {
+        //     if ($scope.CurrCol === col) {
+        //         return $scope.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+        //     } else {
+        //         return 'fa-unsorted';
+        //     }
+        // };
 
 
 
