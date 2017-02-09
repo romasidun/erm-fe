@@ -20,7 +20,7 @@
             asmntTypeName: "",
             asmntType_name: "",
             assessDesc: "",
-            assessId: 0,
+            // assessId: 0,
             assessName: "",
             assessmentBy: "",
             assessmentDtStr: "",

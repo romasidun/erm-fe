@@ -23,6 +23,10 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorassessmentlist/period');
     };
 
+    this.DeleteRim = function(id){
+        return APIHandler.Delete('vendorassessmentlist/'+id);
+    };
+
     this.GetRimEpriod = function(){
         return APIHandler.Get('vendorassessmentlist/epriod');
     };

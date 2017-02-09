@@ -185,6 +185,18 @@
             /*window.open('data:application/vnd.ms-excel,'+tableHtml);
              e.preventDefault();*/
         };
+
+        $scope.deleteAction = function (name) {
+            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
+            confirmation.result.then(function () {
+                $rootScope.app.Mask = true;
+                VendorService.DeleteRim(name.id).then(function (data) {
+                    if (data.status === 200) loadRim();
+                });
+            });
+        };
+
+
         // loadRim();
         // function loadRim() {
         //     VendorService.GetRim().then(function (data) {
