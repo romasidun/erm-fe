@@ -19,11 +19,15 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('crtldata/vr/questions?sourcename=' + sourceName);
     };
 
-    this.GetVendorNameList = function () {
+    this.GetVendor = function () {
         return APIHandler.Get('vendor');
     };
 
-    this.GetRiskAssessmentTypeList = function () {
+    this.GerUserList = function () {
+        return APIHandler.Get('users');
+    };
+
+    this.GetRiskType = function () {
         return APIHandler.Get('vendorriskassessmenttype');
     };
 
@@ -43,8 +47,8 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         }
     };
 
-    this.PostVendorData = function(data){
-        return APIHandler.Post('vendorriskassessment', data);
+    this.AddRim = function(data){
+        return APIHandler.Post('vendorassessmentlist', data);
     };
 
     this.GetRimStatus = function(){

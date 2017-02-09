@@ -78,7 +78,7 @@
                                         class="fa {{resSort('period')}}"></i> Period</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='approval' }"
                                        ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i>
-                                    Approval</a></th>
+                                    Approver</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='approvdate' }"
                                        ng-click="sortMe('approvdate')"><i class="fa {{resSort('approvdate')}}"></i>
                                     Approved Date</a></th>
@@ -117,7 +117,7 @@
                                     <td><input type="checkbox"></td>
                                     <td>{{name.title}}</td>
                                     <td>{{name.period}}</td>
-                                    <td>{{name.approval}}</td>
+                                    <td>{{name.approver}}</td>
                                     <td>{{name.approvdate | date}}</td>
                                     <td>{{name.approvalStatus}}</td>
                                     <td>{{name.vendorRiskType}}</td>
