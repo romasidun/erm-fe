@@ -131,9 +131,9 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
         return deferred.promise;
     };
 
-    APIHandler.prototype.NullPromise = function (url, formdata) {
+    APIHandler.prototype.NullPromise = function () {
         var deferred = $q.defer();
-        deferred.reject(null);
+        deferred.reject({status: null});
         return deferred.promise;
     };
 

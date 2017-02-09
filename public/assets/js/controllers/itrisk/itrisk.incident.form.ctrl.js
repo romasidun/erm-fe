@@ -111,7 +111,9 @@
                 return false;
             }
             ITRiskService.AddRim($scope.VM).then(function (res) {
+                console.log(res);
                 if (res.status === 200) {
+                    console.log(34565);
                     var fileModel = $scope.VM.auditFileModel;
                     ITRiskService.FileUpload(res.id, fileModel).then(function (res) {
                         console.log(res);
@@ -119,6 +121,8 @@
                         $state.go('app.itrisk.incident.main');
                     });
                 }
+                console.log(1234);
+                $state.go('app.itrisk.incident.main');
             });
         };
 

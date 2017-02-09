@@ -48,7 +48,7 @@
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group" ng-class="{ 'has-error' : Form.OpIncident.identified_date.$invalid && (!Form.OpIncident.identified_date.$pristine || Form.OpIncident.identified_date.$touched || Form.OpIncident.identified_date.$submitted) }">
                                         <label> Identified Date </label>
-                                        <datepicker date-format="yyyy-MM-dd" >
+                                        <datepicker date-format="MM-dd-yyyy" >
                                             <input type="text" name="identified_date" ng-model="VM.identifiedDate" placeholder="Identified Date" class="form-control" required>
                                         </datepicker>
                                     </div>
@@ -195,7 +195,7 @@
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
                                         <label> Remediation Date </label>
-                                        <datepicker date-format="yyyy-MM-dd">
+                                        <datepicker date-format="MM-dd-yyyy">
                                             <input type="text" name="remeDate" ng-model="VM.remeDate" placeholder="Remediation Date" class="form-control">
                                         </datepicker>
                                     </div>

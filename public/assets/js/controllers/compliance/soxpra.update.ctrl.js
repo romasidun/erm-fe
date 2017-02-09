@@ -127,7 +127,7 @@
         };
 
         ComplianceService.GetSOXPRAAssessment($stateParams.id).then(function(data){
-            data.due_date = moment(data.due_date).format('YYYY-MM-DD');
+            data.due_date = moment(data.due_date).format('MM-DD-YYYY');
             $scope.VM = data;
             $rootScope.app.Mask = false;
         });

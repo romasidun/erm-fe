@@ -15,7 +15,7 @@
         $scope.RiskCategories = { List: [], SelCount: 0 };
 
         $scope.dpOptions = {
-            format: 'yyyy-mm-dd',
+            format: 'MM-DD-YYYY',
             autoclose: true
         };
 
@@ -97,8 +97,8 @@
 
         OPRiskService.GetRiskIncident($stateParams.id).then(function(data){
             //console.log(data);
-            data.identifiedDate = moment(data.identifiedDate).format('YYYY-MM-DD');
-            data.remeDate = moment(data.remeDate).format('YYYY-MM-DD');
+            data.identifiedDate = moment(data.identifiedDate).format('MM-DD-YYYY');
+            data.remeDate = moment(data.remeDate).format('MM-DD-YYYY');
             $scope.VM = data;
             console.log($scope.VM.auditFileModel);
             return OPRiskService.GetRiskCategories()

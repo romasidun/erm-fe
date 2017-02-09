@@ -188,7 +188,7 @@ app.service('ComplianceService', function (APIHandler) {
     };
 
     this.FileUpload = function (idd, fileModel) {
-        if(fileModel.length() < 1){
+        if(fileModel.length < 1){
             return APIHandler.NullPromise();
         }
         var formdata = new FormData();

@@ -88,7 +88,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group" ng-class="{ 'has-error' : Form.Rcsa.due_date.$invalid && (!Form.Rcsa.due_date.$pristine || Form.Rcsa.due_date.$touched || Form.Rcsa.due_date.$submitted) }">
                                     <label> Due Date </label>
-                                    <datepicker date-format="yyyy-MM-dd">
+                                    <datepicker date-format="MM-dd-yyyy">
                                         <input type="text" name="due_date" ng-model="VM.dueDtStr" placeholder="Due Date" class="form-control" required>
                                     </datepicker>
                                 </div>

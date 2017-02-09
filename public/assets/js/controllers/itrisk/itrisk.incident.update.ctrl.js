@@ -75,7 +75,9 @@
             }
             console.log($scope.VM.auditFileModel);
             ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
-                if(res.status === 200) {
+                console.log(res);
+                if (res.status === 200) {
+                    console.log(34565);
                     var fileModel = $scope.VM.auditFileModel;
                     ITRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
                         console.log(res);
@@ -83,6 +85,7 @@
                         $state.go('app.itrisk.incident.main');
                     });
                 }
+                $state.go('app.itrisk.incident.main');
             });
         };
 
