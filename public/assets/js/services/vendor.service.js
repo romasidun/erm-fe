@@ -35,8 +35,8 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorassessmentlist/vendor');
     };
 
-    this.GetRimRiskStore = function(){
-        return APIHandler.Get('vendorassessmentlist/riskStore');
+    this.GetRimRiskScore = function(){
+        return APIHandler.Get('vendorassessmentlist/riskScore');
     };
 
     this.GetRimDocType = function(){

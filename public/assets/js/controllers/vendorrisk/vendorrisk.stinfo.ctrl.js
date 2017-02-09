@@ -32,80 +32,42 @@
                 Object.keys(data).forEach(function (k) {
                     ristInc.push({key: Utils.camelizeString(k), val: data[k]});
                 });
-                setupPieChart(ristInc);
-                return VendorService.GetRimPeriod()
+                setupStatusChart(ristInc);
+                return VendorService.GetRimPeriod();
             })
             .then(function (data) {
                 setupPeriodChart(data);
+                return VendorService.GetRimDocType();
+            })
+            .then(function (data){
+                setupDocTypeChart(data);
+                return VendorService.GetRimVendor();
+            })
+            .then(function (data) {
+                setupVendorChart(data);
+                return VendorService.GetRimRiskType();
+            })
+            .then(function (data){
+                setupRiskTypeChart(data);
+                return VendorService.GetRimRiskScore();
+            })
+            .then(function(data){
+                setupRiskScoreChart(data);
                 $scope.$watch('PerPage', function (n, o) {
                     $rootScope.app.Mask = true;
                     loadRim();
                 });
             });
-            // .then(function (data) {
-            //     var ristInc = [];
-            //     Object.keys(data).forEach(function (k) {
-            //         ristInc.push({key: Utils.camelizeString(k), val: data[k]});
-            //     });
-            //     setupPieChart(ristInc);
-            //     return VendorService.GetRimPeriod()
-            // })
-            // // .then(function (data) {
-            // //     setupRiskStoreChart(data);
-            // //     return VendorService.GetRimEpriod();
-            // // })
-            // // .then(function (data){
-            // //     setupEpriodChart(data);
-            // //     return VendorService.GetRimDocType();
-            // // })
-            // // .then(function (data){
-            // //     setupDecTypeChart(data);
-            // //     return VendorService.GetRimVendor();
-            // // })
-            // // .then(function (data){
-            // //     setupVendorChart(data);
-            // //     return VendorService.GetRimRiskType();
-            // // })
-            // // .then(function (data){
-            // //     setupRiskTypeChart(data);
-            // //     return VendorService.GetRimRiskStore();
-            // // })
-            // .then(function(){
-            //     setupPeriodChart(data);
-            //     $scope.$watch('PerPage', function (n, o) {
-            //         $rootScope.app.Mask = true;
-            //         loadRim();
-            //     });
-            // });
 
 
-        function setupPieChart(data) {
+        function setupStatusChart(data) {
             var dataList = [];
             data.forEach(function (o) {
                 dataList.push([o.key, o.val]);
             });
+            console.log('dataListdataListdataList',dataList);
             var chartObj = ChartFactory.CreatePieChartTemplate('VendorRisk by Status', 'VendorRisk by Status', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
             Highcharts.chart('statusChart', chartObj);
-        }
-
-        function setupEpriodChart(data) {
-
-        }
-
-        function setupDecTypeChart(data){
-
-        }
-
-        function setupVendorChart(data){
-
-        }
-
-        function setupRiskTypeChart(){
-
-        }
-
-        function setupRiskStoreChart(){
-
         }
 
         function setupPeriodChart(data) {
@@ -138,6 +100,42 @@
             });
 
             ChartFactory.SetupMultiColChart('periodChart', opts);
+        }
+
+        function setupDocTypeChart(data){
+            var dataList = [];
+            angular.forEach(data,function(value, key){
+                dataList.push([key, value]);
+            });
+            var chartObj = ChartFactory.CreatePieChartTemplate('VendorRisk by DocType', 'VendorRisk by DocType', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
+            Highcharts.chart('docTypeChart', chartObj);
+        }
+
+        function setupVendorChart(data){
+            var datalist = [];
+            angular.forEach(data, function(val, key){
+                datalist.push([key, val]);
+            });
+            var cht = ChartFactory.CreatePieChartTemplate('VendorRisk by Vendor', 'VendorRisk by Vendor', datalist,  ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
+            Highcharts.chart('vendorChart', cht);
+        }
+
+        function setupRiskTypeChart(data){
+            var datalist = [];
+            angular.forEach(data, function(val, key){
+                datalist.push([key, val]);
+            });
+            var cht = ChartFactory.CreatePieChartTemplate('VendorRisk by RiskType', 'VendorRisk by RiskType', datalist,  ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
+            Highcharts.chart('riskTypeChart', cht);
+        }
+
+        function setupRiskScoreChart(data){
+            var datalist = [];
+            angular.forEach(data, function(val, key){
+                datalist.push([key, val]);
+            });
+            var cht = ChartFactory.CreatePieChartTemplate('VendorRisk by RiskStore', 'VendorRisk by RiskStore', datalist,  ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
+            Highcharts.chart('riskScoreChart', cht);
         }
 
         function loadRim() {
@@ -181,9 +179,7 @@
             var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
             $timeout(function () {
                 location.href = exportHref;
-            }, 100); // trigger download
-            /*window.open('data:application/vnd.ms-excel,'+tableHtml);
-             e.preventDefault();*/
+            }, 100);
         };
 
         $scope.deleteAction = function (name) {
