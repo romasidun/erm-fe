@@ -23,8 +23,24 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorassessmentlist/period');
     };
 
-    this.GetRimRiskCategory = function(){
-        return APIHandler.Get('itrisk/itrim/riskCategory');
+    this.GetRimEpriod = function(){
+        return APIHandler.Get('vendorassessmentlist/epriod');
+    };
+
+    this.GetRimVendor = function(){
+        return APIHandler.Get('vendorassessmentlist/vendor');
+    };
+
+    this.GetRimRiskStore = function(){
+        return APIHandler.Get('vendorassessmentlist/riskStore');
+    };
+
+    this.GetRimDocType = function(){
+        return APIHandler.Get('vendorassessmentlist/docType');
+    };
+
+    this.GetRimRiskType = function(){
+        return APIHandler.Get('vendorassessmentlist/riskType');
     };
 
     this.UpdateRam = function(id, params){
