@@ -6,6 +6,7 @@
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Manage VendorRisk Form";
         $rootScope.app.Mask = false;
+        $scope.showExcelButton = false;
 
         $scope.VM = {
             actualName: "",

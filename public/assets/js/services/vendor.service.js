@@ -11,6 +11,22 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorassessmentlist/' + id);
     };
 
+    this.AddRim = function(data){
+        return APIHandler.Post('vendorassessmentlist', data);
+    };
+
+    this.GetRimStatus = function(){
+        return APIHandler.Get('vendorassessmentlist/status');
+    };
+
+    this.GetRimPeriod = function(){
+        return APIHandler.Get('vendorassessmentlist/period');
+    };
+
+    this.GetRimRiskCategory = function(){
+        return APIHandler.Get('itrisk/itrim/riskCategory');
+    };
+
     this.UpdateRam = function(id, params){
         return APIHandler.Put('vendorassessmentlist/'+id, params);
     };
@@ -47,21 +63,7 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         }
     };
 
-    this.AddRim = function(data){
-        return APIHandler.Post('vendorassessmentlist', data);
-    };
 
-    this.GetRimStatus = function(){
-        return APIHandler.Get('vendorassessmentlist/status');
-    };
-
-    this.GetRimPeriod = function(){
-        return APIHandler.Get('vendorassessmentlist/period');
-    };
-
-    this.GetRimRiskCategory = function(){
-        return APIHandler.Get('itrisk/itrim/riskCategory');
-    };
 
 
 }]);

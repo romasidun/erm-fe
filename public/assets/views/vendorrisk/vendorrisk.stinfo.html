@@ -47,7 +47,8 @@
                 <div class="panel-heading">
                     <h5>Operation Vendor Risk</h5>
                     <div class="panel-tools">
-                        <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.vendorrisk.stinfo.form">Add Risk Assessment</a>
+                        <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.vendorrisk.stinfo.form"><i class="fa fa-plus"></i> Add Risk Assessment</a>
+                        <a class="btn btn-xs btn-success btn-squared" ng-click="downloadExcel()"><i class="fa fa-download"></i> Download Excel</a>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -67,48 +68,36 @@
                         </div>
                     </div>
                     <div class="row">
-                        <table class="table table-striped table-responsive col-xs-12">
+                        <table class="VendorTable table table-striped table-responsive col-xs-12">
                             <thead>
                             <tr class="sortable-headers">
                                 <th><input type="checkbox"></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='title' }"
-                                       ng-click="sortMe('title')"><i class="fa {{resSort('title')}}"></i>
-                                    Title</a></th>
+                                       ng-click="sortMe('title')"><i class="fa {{resSort('title')}}"></i>Title</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='period' }" ng-click="sortMe('period')"><i
-                                        class="fa {{resSort('period')}}"></i> Period</a></th>
+                                        class="fa {{resSort('period')}}"></i>Period</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='approval' }"
-                                       ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i>
-                                    Approver</a></th>
+                                       ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i>Approver</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='approvdate' }"
-                                       ng-click="sortMe('approvdate')"><i class="fa {{resSort('approvdate')}}"></i>
-                                    Approved Date</a></th>
+                                       ng-click="sortMe('approvdate')"><i class="fa {{resSort('approvdate')}}"></i>Approved Date</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='approvalStatus' }"
-                                       ng-click="sortMe('approvalStatus')"><i class="fa {{resSort('approvalStatus')}}"></i>
-                                    Approval Status</a></th>
+                                       ng-click="sortMe('approvalStatus')"><i class="fa {{resSort('approvalStatus')}}"></i>Approval Status</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='vendorRiskType' }"
-                                       ng-click="sortMe('vendorRiskType')"><i class="fa {{resSort('vendorRiskType')}}"></i>
-                                    Vendor Risk Type</a></th>
+                                       ng-click="sortMe('vendorRiskType')"><i class="fa {{resSort('vendorRiskType')}}"></i>Vendor Risk Type</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='docType' }"
-                                       ng-click="sortMe('docType')"><i class="fa {{resSort('docType')}}"></i>
-                                    Doc type</a></th>
+                                       ng-click="sortMe('docType')"><i class="fa {{resSort('docType')}}"></i>Doc type</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='vendorName' }"
-                                       ng-click="sortMe('vendorName')"><i class="fa {{resSort('vendorName')}}"></i>
-                                    Vendor Name</a></th>
+                                       ng-click="sortMe('vendorName')"><i class="fa {{resSort('vendorName')}}"></i>Vendor Name</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='assessdate' }"
-                                       ng-click="sortMe('assessdate')"><i class="fa {{resSort('assessdate')}}"></i>
-                                    Assessments date</a></th>
+                                       ng-click="sortMe('assessdate')"><i class="fa {{resSort('assessdate')}}"></i>Assessments date</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='assessmentBy' }"
-                                       ng-click="sortMe('assessmentBy')"><i class="fa {{resSort('assessmentBy')}}"></i>
-                                    Assessment By</a></th>
+                                       ng-click="sortMe('assessmentBy')"><i class="fa {{resSort('assessmentBy')}}"></i>Assessment By</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='vendorContact' }"
-                                       ng-click="sortMe('vendorContact')"><i class="fa {{resSort('vendorContact')}}"></i>
-                                    Vendor Contact</a></th>
+                                       ng-click="sortMe('vendorContact')"><i class="fa {{resSort('vendorContact')}}"></i>Vendor Contact</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='emailOrLink' }"
-                                       ng-click="sortMe('emailOrLink')"><i class="fa {{resSort('emailOrLink')}}"></i>
-                                    Email/Link</a></th>
+                                       ng-click="sortMe('emailOrLink')"><i class="fa {{resSort('emailOrLink')}}"></i>Email/Link</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='riskScore' }"
-                                       ng-click="sortMe('riskScore')"><i class="fa {{resSort('riskScore')}}"></i>
-                                    Risk Score</a></th>
+                                       ng-click="sortMe('riskScore')"><i class="fa {{resSort('riskScore')}}"></i>Risk Score</a></th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -138,7 +127,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-4">
-                            Showing {{1}} to {{7}} of {{7}} entries
+                            Showing {{1}} to {{vendorAMdata.length}} of {{vendorAMdata.length}} entries
                         </div>
                         <div class="col-xs-12 col-sm-8 pagination-right">
                             <uib-pagination total-items="totalItems" ng-model="currentPage"

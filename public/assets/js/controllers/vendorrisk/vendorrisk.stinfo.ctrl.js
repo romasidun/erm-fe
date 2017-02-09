@@ -99,6 +99,37 @@
                 $rootScope.app.Mask = false;
             });
         }
+
+        $scope.downloadExcel = function(){
+            var head_row = $('table.VendorTable thead tr');
+            var body_row = $('table.VendorTable tbody tr');
+            var head_row_col = head_row.children('th');
+            var tableHtml = '<table>';
+            tableHtml += '<tr>';
+            head_row_col.slice(1, head_row_col.length-1).each(function (i) {
+                tableHtml += '<td>' + $(this).children('a').text() + '</td>';
+            });
+            tableHtml += '</tr>';
+
+            body_row.each(function (i) {
+                tableHtml += '<tr>';
+                var tdObj = $(this).closest('tr').find('td');
+                tdObj.each(function (i) {
+                    console.log(tdObj.length);
+                    console.log(i);
+                    if(i == 0 || i == tdObj.length-1){
+                        return;
+                    }
+                    tableHtml += '<td>' + $(this).html() + '</td>';
+                });
+                tableHtml += '</tr>';
+            });
+            tableHtml += '</table>';
+            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
+            $timeout(function () {
+                location.href = exportHref;
+            }, 100);
+        };
         // loadRim();
         // function loadRim() {
         //     VendorService.GetRim().then(function (data) {

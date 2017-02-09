@@ -198,13 +198,13 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controllerAs: 'vrStinfoupdate',
         resolve: loadSequence('VendorStinfoUpdateCtrl')
     }).state('app.vendorrisk.assessment', {
-        url: '/assessment',
-        templateUrl: 'assets/views/vendorrisk/vendorrisk.stinfo.create.html',
+        url: '/assess.create',
+        templateUrl: 'assets/views/vendorrisk/vendorrisk.assess.create.html',
         title: 'Vendor Risk Assessment ',
         icon: 'ti-layout-media-left-alt',
-        controller: 'VendorriskStinfoCtrl',
-        controllerAs: 'vrStinfo',
-        resolve: loadSequence('VendorriskStinfoCTCtrl')
+        controller: 'VendorAssessmentCtrl',
+        controllerAs: 'vdorAssment',
+        resolve: loadSequence('VendorAssessmentCtrl')
     }).state('app.vendorrisk.scorecard', {
         url: '/scorecard',
         template: '<div ui-view class="fade-in-up"></div>',

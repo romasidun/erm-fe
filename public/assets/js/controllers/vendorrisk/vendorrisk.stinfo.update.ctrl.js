@@ -1,10 +1,10 @@
 (function(){
-    VendorStinfoUpdateController.inject = ['$scope','$rootScope','$state', '$stateParams', 'VendorService', 'Utils'];
+    VendorStinfoUpdateController.inject = ['$scope','$rootScope','$state', 'VendorService', 'Utils'];
     app.controller('VendorStinfoUpdateCtrl',VendorStinfoUpdateController);
-    function VendorStinfoUpdateController($scope, $rootScope, $state, $stateParams, VendorService, Utils){
-        $rootScope.app.Mask = false;
+    function VendorStinfoUpdateController($scope, $rootScope, $state, VendorService, Utils){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "VENDOR UPDATE PAGE";
+        $scope.showExcelButton = true;
 
         $scope.cancelAction = function(){
             if($scope.Form.VendorRisk.$dirty){
@@ -17,9 +17,23 @@
             $state.go('app.vendorrisk.stinfo.main');
         };
 
-        console.log('app.Lookup.Users',app);
+        VendorService.GetRimById($state.params.id).then(function(data){
+           data.approvedDate = new Date(data.approvedDate);
+           $scope.approvedDate = Utils.GetDPDate(data.approvedDate);
+           $scope.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
+           $scope.VM = data;
+           $rootScope.app.Mask = false;
+        });
 
-
+        $scope.submitAction = function() {
+            if($scope.Form.VendorRisk.$invalid) return false;
+            VendorService.UpdateRam($state.params.id, $scope.VM).then(function (res) {
+                if(res.status===200) {
+                    $rootScope.app.Mask = false;
+                    $state.go('app.control.testplan.main');
+                }
+            });
+        };
 
         // var vm = this;
         // vm.submitAction = submitAction;
