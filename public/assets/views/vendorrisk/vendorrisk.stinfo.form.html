@@ -132,7 +132,7 @@
                         </div>
                         <hr class="hrule4" />
                         <div class="col-xs-12 text-right">
-                            <a class="btn btn-squared btn-dark-blue"  ng-show="showExcelButton" type="button" ui-sref="app.vendorrisk.assessment"><i class="fa fa-newspaper-o"></i> Create Assessment </a>
+                            <a class="btn btn-squared btn-dark-blue"  ng-show="showExcelButton" type="button" ng-click="createAssessmentAction()"><i class="fa fa-newspaper-o"></i> Create Assessment </a>
                             <!--<button class="btn btn-squared btn-dark-blue" ng-show="showExcelButton" ng-disabled="Form.VendorRisk.$invalid" type="button"><i class="fa fa-download"></i> Download Excel </button>-->
                             <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i> Save </button>
                             <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()" type="button"><i class="fa fa-times"></i>  Cancel </button>

@@ -1,9 +1,10 @@
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope', '$state', 'VendorService'];
+    VendorAssessmentController.$inject = ['$rootScope','$scope', '$state', 'VendorService'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $state, VendorService) {
-        alert();
+    function VendorAssessmentController($rootScope, $scope, $state, VendorService) {
+        $scope.mainTitle = $state.current.title;
+        $scope.mainDesc = "Vendor Assessment";
         var vm = this;
         vm.saveVendorData = saveVendorData;
         vm.mainTitle = "Vendor Risk Assessment";
