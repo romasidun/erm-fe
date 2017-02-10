@@ -578,24 +578,17 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         url: '/penetration',
         template: '<div ui-view class="fade-in-up"></div>',
         abstract: true
-    }).state('app.measure.pentest.main', {
-        url: '',
-        templateUrl: "assets/views/measure/penetration.html",
-        title: 'Penetration Testing',
-        icon: 'ti-layout-media-left-alt',
-        controller: 'PenetrationCtrl',
-        resolve: loadSequence('PenetrationCtrl')
-    }).state('app.measure.vluner', {
-        url: '/vulnerability',
+    }).state('app.measure.vulner', {
+        url: '/vulner',
         template: '<div ui-view class="fade-in-up"></div>',
         abstract: true
     }).state('app.measure.vulner.main', {
         url: '',
-        templateUrl: "assets/views/control/control.repo.html",
-        title: 'Control Repository',
+        templateUrl: "assets/views/measure/vulnerability.html",
+        title: 'Vulnerability',
         icon: 'ti-layout-media-left-alt',
         controller: 'VulnerabilityCtrl',
-        resolve: loadSequence('RepoCtrl')
+        resolve: loadSequence('VulnerabilityCtrl')
     })
 
 

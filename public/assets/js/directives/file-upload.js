@@ -83,12 +83,10 @@ app
                                 size: item.size,
                                 url: URL.createObjectURL(item),
                                 _file: item,
-                                file: item,
                                 fileName: item.name,
                                 filePath: URL.createObjectURL(item),
                                 fileSize: item.size,
                                 fileType: item.type,
-                                id: 123,
                                 originalName: item.name
                             };
                             values.push(value);

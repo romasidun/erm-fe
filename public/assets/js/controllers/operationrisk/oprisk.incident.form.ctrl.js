@@ -163,8 +163,15 @@
                 alert("Please select Risk Category.");
                 return false;
             }
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.identifiedDate);
+            var d2 = moment($scope.VM.remeDate);
+            $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
+
             OPRiskService.PostRisk($scope.VM).then(function (res) {
-                if (res.status === 200) {
+                if (res.status === 200){
                     var fileModel = $scope.VM.auditFileModel;
                     OPRiskService.FileUpload(res.id, fileModel).then(function (res) {
                         console.log(res);
