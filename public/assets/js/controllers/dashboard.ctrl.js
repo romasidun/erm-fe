@@ -8,6 +8,7 @@
         $scope.mainTitle = $state.current.title;
 
         $scope.OpList = [10, 25, 50, 100];
+
         $scope.TVM = {
             PerPage: 10,
             CurrPage: 1,
@@ -52,23 +53,62 @@
             }
         };
 
-        $scope.CAnalOpts = [
-            { key: 1, val: "Assessments" },
-            { key: 2, val: "Audit" },
-            { key: 3, val: "IT Risk" },
-            { key: 4, val: "RCSA" }
-        ];
+        $scope.setCAOpt = function(key){
+            var dataList = [];
+            angular.forEach($scope.ANchartData[key], function(value, key){
+                dataList.push([key, value]);
+            });
+            $scope.selectedANKey = key;
+            controlanalyticsChart(dataList);
+        };
 
-        $scope.OpItemsOpts = [
-            { key: 1, val: "All" },
-            { key: 2, val: "Audit" },
-            { key: 3, val: "IT Risk" },
-            { key: 4, val: "RCSA" },
-            { key: 5, val: "SOX" }
-        ];
+        DashboardService.GetctrlAntic().then(function(data){
+            $scope.ANchartData = data;
+            var dataList = [];
+            $scope.selectedANKey = Object.keys($scope.ANchartData)[0];
+            angular.forEach($scope.ANchartData[$scope.selectedANKey], function(value, key){
+                dataList.push([key, value]);
+            });
+            controlanalyticsChart(dataList);
+        });
 
-        $scope.setCAOpt = function(opt){ $scope.currCA = opt; };
-        $scope.setOpen = function(opt){ $scope.currOP = opt; };
+        $scope.setOPOpt = function(key){
+            var dataList = [];
+            angular.forEach($scope.OPchartData[key], function(value, key){
+                dataList.push([key, value]);
+            });
+            $scope.selectedOPKey = key;
+            openitemChart(dataList);
+        };
+
+        DashboardService.Openitem().then(function(data){
+            $scope.OPchartData = data;
+            var dataList = [];
+            $scope.selectedOPKey = Object.keys($scope.OPchartData)[0];
+            angular.forEach($scope.OPchartData[$scope.selectedOPKey], function(value, key){
+                dataList.push([key, value]);
+            });
+            openitemChart(dataList);
+        });
+
+        function controlanalyticsChart(data){
+            var chartObj = ChartFactory.CreatePieChartTemplate('Control Analytics', 'Control Analytics', data, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
+            Highcharts.chart('ctrlAnticChart', chartObj);
+        }
+
+        function openitemChart(data) {
+            var opts = {
+                Title: "Open Item",
+                subTitle: "",
+                yTitle: "",
+                tooltip: "",
+                Categories : [],
+                Series: 'Openitem',
+                Data : data
+            };
+            var chartObj = ChartFactory.SetupLabelChart(opts);
+            Highcharts.chart('openitemChart', chartObj);
+        }
 
         var chart1 = {};
         chart1.type = "PieChart";
@@ -92,7 +132,7 @@
 
         $scope.chart1 = chart1;
 
-        setopenitemChart();
+
 
         DashboardService.GetDashboard().then(function(data){
             $scope.Activities = data;

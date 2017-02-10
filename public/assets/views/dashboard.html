@@ -114,20 +114,20 @@
 				<div class="panel-heading">
 					<h5>Control Analytics</h5>
 					<div class="panel-tools">
-						<div class="btn-group" uib-dropdown ng-init="currCA=CAnalOpts[0]">
+						<div class="btn-group" uib-dropdown ng-model="selectedANKey">
 							<button type="button" class="btn btn-xs btn-o btn-dark-azure btn-squared uib-dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
-								{{currCA.val}} <span class="caret"></span>
+								{{selectedANKey}} <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
-								<li ng-repeat="op in CAnalOpts" ng-class="{'active': op.key===currCA.key}">
-									<a ng-click="setCAOpt(op)">{{op.val}}</a>
+								<li ng-repeat="(key, val) in ANchartData">
+									<a ng-click="setCAOpt(key)">{{key}}</a>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<div class="panel-body">
-					<div google-chart chart="chart1" style="width:100%; height: 300px;"> </div>
+					<div id="ctrlAnticChart"></div>
 				</div>
 			</div>
 		</div>
@@ -136,13 +136,13 @@
 				<div class="panel-heading">
 					<h5>Open Items</h5>
 					<div class="panel-tools">
-						<div class="btn-group" uib-dropdown ng-init="currOP=OpItemsOpts[0]">
+						<div class="btn-group" uib-dropdown ng-model="selectedOPKey">
 							<button type="button" class="btn btn-xs btn-o btn-dark-azure btn-squared uib-dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
-								{{currCA.val}} <span class="caret"></span>
+								{{selectedOPKey}} <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right" role="menu">
-								<li ng-repeat="op in OpItemsOpts" ng-class="{'active': op.key===currOP.key}">
-									<a ng-click="setOpen(op)">{{op.val}}</a>
+								<li ng-repeat="(key, val) in OPchartData">
+									<a ng-click="setOPOpt(key)">{{key}}</a>
 								</li>
 							</ul>
 						</div>

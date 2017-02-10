@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope','$scope', '$state', 'VendorService', 'Utils'];
+    VendorAssessmentController.$inject = ['$rootScope','$scope', '$state', 'VendorService', 'Utils', 'ExcelFactory', '$timeout'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils) {
+    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils, ExcelFactory, $timeout) {
         $scope.mainTitle = $state.current.title;
         VendorService.GetRimById($state.params.id).then(function(data){
             data.approvedDate = new Date(data.approvedDate);
@@ -20,6 +20,32 @@
                 console.log($scope.vendor);
             });
         });
+
+        $scope.downloadExcel = function(){
+            var head_row = $('table.VendorAssessment thead tr');
+            var body_row = $('table.VendorAssessment tbody tr');
+            var head_row_col = head_row.children('th');
+            var tableHtml = '<table>';
+            tableHtml += '<tr>';
+            head_row_col.each(function (i) {
+                tableHtml += '<td>' + $(this).text() + '</td>';
+            });
+            tableHtml += '</tr>';
+
+            body_row.each(function (i) {
+                tableHtml += '<tr>';
+                var tdObj = $(this).closest('tr').find('td');
+                tdObj.each(function (i) {
+                    tableHtml += '<td>' + $(this).text() + '</td>';
+                });
+                tableHtml += '</tr>';
+            });
+            tableHtml += '</table>';
+            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
+            $timeout(function () {
+                location.href = exportHref;
+            }, 100);
+        };
 
         var vm = this;
         $scope.vendorResponseVal =  function(para, ele, event){
