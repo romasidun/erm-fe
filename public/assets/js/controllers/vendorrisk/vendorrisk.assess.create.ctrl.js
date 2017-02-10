@@ -1,10 +1,18 @@
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope','$scope', '$state', 'VendorService'];
+    VendorAssessmentController.$inject = ['$rootScope','$scope', '$stateParams', '$state', 'VendorService', 'Utils'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $scope, $state, VendorService) {
+    function VendorAssessmentController($rootScope, $scope, $stateParams, $state, VendorService, Utils) {
         $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "Vendor Assessment";
+        VendorService.GetRimById($state.params.id).then(function(data){
+            data.approvedDate = new Date(data.approvedDate);
+            $scope.approvedDate = Utils.GetDPDate(data.approvedDate);
+            $scope.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
+            $scope.VM = data;
+            $rootScope.app.Mask = false;
+        });
+
+
         var vm = this;
         vm.saveVendorData = saveVendorData;
         vm.mainTitle = "Vendor Risk Assessment";

@@ -161,7 +161,6 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         resolve: loadSequence('OprAssessmentUpdateCtrl')
     })
 
-
     /*
      ---- VENDOR RISK Routes ----
     */
@@ -198,12 +197,12 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controllerAs: 'vrStinfoupdate',
         resolve: loadSequence('VendorStinfoUpdateCtrl')
     }).state('app.vendorrisk.assessment', {
-        url: '/assess.create',
+        url: '/assess.create/:id',
         templateUrl: 'assets/views/vendorrisk/vendorrisk.assess.create.html',
         title: 'Vendor Risk Assessment ',
         icon: 'ti-layout-media-left-alt',
         controller: 'VendorAssessmentCtrl',
-        controllerAs: 'vdorAssment',
+        controllerAs: 'vrStinfoCT',
         resolve: loadSequence('VendorAssessmentCtrl')
     }).state('app.vendorrisk.scorecard', {
         url: '/scorecard',

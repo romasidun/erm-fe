@@ -22,7 +22,6 @@
            $scope.approvedDate = Utils.GetDPDate(data.approvedDate);
            $scope.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
            $scope.VM = data;
-           console.log('datadatadatadatadatadatadatadata',data);
            $rootScope.app.Mask = false;
         });
 
@@ -34,6 +33,10 @@
                     $state.go('app.control.testplan.main');
                 }
             });
+        };
+
+        $scope.createAssessmentAction = function(){
+            $state.go('app.vendorrisk.assessment',{id: $state.params.id});
         };
 
         // VendorService.GerUserList().then(function(user){
@@ -69,7 +72,7 @@
         //     });
         // }
         //
-        // function getVendorType() {
+        // function getVendorT ype() {
         //     var vendortype = "";
         //     vm.vendortypelist = [];
         //     VendorService.GetRimById($stateParams.id).then(function(data){
