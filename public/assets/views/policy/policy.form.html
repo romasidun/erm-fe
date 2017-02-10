@@ -29,12 +29,11 @@
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group" ng-class="{'has-error': Form.Policy.assessmentType.$dirty && Form.Policy.assessmentType.$invalid }">
                                         <label> Assessment Type </label>
-                                        <select type="text" class="form-control" name="assessmentType" ng-model="VM.assessmentType[0]" ng-options="at as at.asTypeDesc for at in app.Lookup.AssessTypes" required>
+                                        <select type="text" class="form-control" name="assessmentType" ng-model="VM.assessmentType[0].asTypeCode" ng-options="at.asTypeCode as at.asTypeDesc for at in app.Lookup.AssessTypes" required>
                                             <option selected value>Select Assessment</option>
                                         </select>
                                     </div>
                                 </div>
-                                {{VM.assessmentType[0]}}
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group"  ng-class="{'has-error': Form.Policy.docName.$dirty && Form.Policy.docName.$invalid }">
                                         <label> Document Name </label>

@@ -13,7 +13,10 @@
             if($scope.Form.Policy.$pristine || $scope.Form.Policy.$invalid) return false;
 
             PolicyService.UpdatePolicy($stateParams.id, $scope.VM).then(function(res){
-                if(res.status === 200) $state.go('app.policy.main');
+                if(res.status === 200) {
+                    $state.go('app.policy.main');
+
+                }
             });
         };
 
@@ -30,6 +33,7 @@
 
         PolicyService.GetPolicy($stateParams.id).then(function(data){
             $scope.VM = data;
+            console.log($scope.VM.assessmentType);
             $rootScope.app.Mask = false;
         });
     }
