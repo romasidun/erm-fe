@@ -38,7 +38,18 @@
         $scope.submitAction = function () {
             if ($scope.Form.CtrlRepo.$invalid) return false;
             // $scope.VM.controldataFileModel = JSON.stringify($scope.VM.controldataFileModel);
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.controlEffectiveStartdate);
+            var d2 = moment($scope.VM.controlEffectiveEnddate);
+            $scope.VM.controlEffectiveStartdate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.controlEffectiveEnddate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.controlEffectiveStartdateStr = $scope.VM.controlEffectiveStartdate;
+            $scope.VM.controlEffectiveEnddateStr = $scope.VM.controlEffectiveEnddate;
+
             ControlService.AddRepo($scope.VM).then(function (res) {
+                console.log(res);
+                $state.go('app.control.repo.main');
                 if (res.status === 200) {
                     var fileModel = $scope.VM.filemodel;
                     ControlService.FileUpload(res.id, fileModel).then(function (res) {

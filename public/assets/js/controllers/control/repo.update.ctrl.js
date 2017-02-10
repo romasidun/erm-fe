@@ -9,15 +9,24 @@
 
         $scope.submitAction = function(){
             if($scope.Form.CtrlRepo.$invalid) return false;
-            console.log(1111);
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.controlEffectiveStartdate);
+            var d2 = moment($scope.VM.controlEffectiveEnddate);
+            $scope.VM.controlEffectiveStartdate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.controlEffectiveEnddate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.controlEffectiveStartdateStr = $scope.VM.controlEffectiveStartdate;
+            $scope.VM.controlEffectiveEnddateStr = $scope.VM.controlEffectiveEnddate;
+
             ControlService.UpdateRepo($stateParams.id, $scope.VM).then(function(res){
-                console.log(res);
+                $state.go('app.control.repo.main');
                 if(res.status===200){
                     var fileModel = $scope.VM.filemodel;
                     ControlService.FileUpload(res.id, fileModel).then(function (res) {
-                        console.log(res);
+                        console.log(123);
+                        // console.log(res);
                     }).finally(function () {
-                        $state.go('app.control.repo.main');
+                        console.log(456);
                     });
                 }
             });
@@ -35,14 +44,19 @@
         };
 
         ControlService.GetRepo($stateParams.id).then(function (data) {
-            $scope.controlEffectiveStartdate = Utils.GetDPDate(data.controlEffectiveStartdate);
-            $scope.controlEffectiveEnddate = Utils.GetDPDate(data.controlEffectiveEnddate);
-            data.controlEffectiveStartdate = new Date(data.controlEffectiveStartdate);
-            data.controlEffectiveEnddate =  new Date(data.controlEffectiveEnddate);
             $scope.VM = data;
+
+            var dtype = 'MM-DD-YYYY';
+            var d1 = moment($scope.VM.controlEffectiveStartdate);
+            var d2 = moment($scope.VM.controlEffectiveEnddate);
+            $scope.VM.controlEffectiveStartdate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.controlEffectiveEnddate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.controlEffectiveStartdateStr = $scope.VM.controlEffectiveStartdate;
+            $scope.VM.controlEffectiveEnddateStr = $scope.VM.controlEffectiveEnddate;
 
             $rootScope.app.Mask = false;
         });
+
     }
 
 })();

@@ -48,6 +48,15 @@
         $scope.submitAction = function () {
             $rootScope.app.Mask = true;
             if ($scope.Form.TestPlan.$invalid) return false;
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.testDueDate);
+            var d2 = moment($scope.VM.nextDueDate);
+            $scope.VM.testDueDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.nextDueDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.testDueDateStr = $scope.VM.testDueDate;
+            $scope.VM.nextDueDateStr = $scope.VM.nextDueDate;
+
             ControlService.AddTestPlans($scope.VM).then(function (res) {
                 if (res.status === 200){
                     $rootScope.app.Mask = false;

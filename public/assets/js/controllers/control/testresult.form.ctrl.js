@@ -62,7 +62,15 @@
 
         $scope.submitAction = function() {
             if($scope.Form.TestResult.$invalid) return false;
-            //Form Post to go here.
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.testCompletedDate);
+            var d2 = moment($scope.VM.testDueDate);
+            $scope.VM.testCompletedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
+            $scope.VM.testDueDateStr = $scope.VM.testDueDate;
+
             ControlService.AddTestResults($scope.VM).then(function (res) {
                 console.log(res);
                 if(res.status===200) $state.go('app.control.testresult.main');

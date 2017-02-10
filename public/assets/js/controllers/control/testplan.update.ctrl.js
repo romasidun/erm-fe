@@ -32,6 +32,15 @@
         $scope.submitAction = function() {
             $rootScope.app.Mask = true;
             if($scope.Form.TestPlan.$invalid) return false;
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.testDueDate);
+            var d2 = moment($scope.VM.nextDueDate);
+            $scope.VM.testDueDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.nextDueDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.testDueDateStr = $scope.VM.testDueDate;
+            $scope.VM.nextDueDateStr = $scope.VM.nextDueDate;
+
             ControlService.UpdateTestPlans($stateParams.id, $scope.VM).then(function (res) {
                 if(res.status===200) {
                     $rootScope.app.Mask = false;
@@ -122,6 +131,15 @@
 
         ControlService.GetTestPlan($stateParams.id).then(function(data){
             $scope.VM = data;
+
+            var dtype = 'MM-DD-YYYY';
+            var d1 = moment($scope.VM.testDueDate);
+            var d2 = moment($scope.VM.nextDueDate);
+            $scope.VM.testDueDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.nextDueDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.testDueDateStr = $scope.VM.testDueDate;
+            $scope.VM.nextDueDateStr = $scope.VM.nextDueDate;
+
             $rootScope.app.Mask = false;
         });
     }

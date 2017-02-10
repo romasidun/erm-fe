@@ -44,6 +44,15 @@
 
         ControlService.GetTestResult($stateParams.id).then(function(data){
             $scope.VM = data;
+
+            var dtype = 'MM-DD-YYYY';
+            var d1 = moment($scope.VM.testCompletedDate);
+            var d2 = moment($scope.VM.testDueDate);
+            $scope.VM.testCompletedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.testCompleteStr = $scope.VM.testCompletedDate;
+            $scope.VM.testDtStr = $scope.VM.testDueDate;
+
             $rootScope.app.Mask = false;
         });
     }
