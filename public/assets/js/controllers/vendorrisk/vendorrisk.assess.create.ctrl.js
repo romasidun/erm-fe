@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope','$scope', '$stateParams', '$state', 'VendorService', 'Utils'];
+    VendorAssessmentController.$inject = ['$rootScope','$scope', '$state', 'VendorService', 'Utils'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $scope, $stateParams, $state, VendorService, Utils) {
+    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils) {
         $scope.mainTitle = $state.current.title;
         VendorService.GetRimById($state.params.id).then(function(data){
             data.approvedDate = new Date(data.approvedDate);
@@ -16,15 +16,13 @@
                     return a.vendorName == $scope.VM.vendorName;
                 });
 
-                console.log('datadatadatadata',selectedVendor[0].vendorName);
+                $scope.vendor = selectedVendor[0];
+                console.log($scope.vendor);
             });
         });
 
         var vm = this;
-        vm.saveVendorData = saveVendorData;
-        vm.mainTitle = "Vendor Risk Assessment";
-        vm.vendorResponseVal = vendorResponseVal;
-        function vendorResponseVal(para, ele, event){
+        $scope.vendorResponseVal =  function(para, ele, event){
             if($(event.target).prop('checked') == true){
                 $(event.target).prop('checked', true);
                 $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
@@ -45,7 +43,7 @@
             });
         }
 
-        function saveVendorData() {
+        $scope.saveVendorData = function() {
             var date = new Date();
             var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
             var current_user = $('.dropdown.current-user .username').text();

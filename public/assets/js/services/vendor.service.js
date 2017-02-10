@@ -15,6 +15,10 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Post('vendorassessmentlist', data);
     };
 
+    this.PostVendorData = function(data){
+        return APIHandler.Post('vendorriskassessment', data);
+    }
+
     this.GetRimStatus = function(){
         return APIHandler.Get('vendorassessmentlist/status');
     };
@@ -25,10 +29,6 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
 
     this.DeleteRim = function(id){
         return APIHandler.Delete('vendorassessmentlist/'+id);
-    };
-
-    this.GetRimEpriod = function(){
-        return APIHandler.Get('vendorassessmentlist/epriod');
     };
 
     this.GetRimVendor = function(){

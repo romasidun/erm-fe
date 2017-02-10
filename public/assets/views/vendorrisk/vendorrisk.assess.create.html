@@ -13,43 +13,40 @@
     <div class="vendor_assessment_data note-editor heading_title_panel">
         <div>
             <h4>
-                Vendor: <i>{{VM.vendorName}}</i>
+                Vendor: <i>{{vendor.vendorName}}</i>
+            </h4>
+        </div>
+        <div>
+            <h4 class="inline-block margin-left-20">
+                Primary Contact: <i>{{vendor.primaryContact}}</i>
             </h4>
         </div>
         <div>
             <h4 class="inline-block">
-                Address: <i>{{vrStinfoCT.Vendor_data_selected.address}}</i>
+                Assessment Date: <i>{{VM.assessmentDate}}</i>
             </h4>
             <h4 class="inline-block margin-left-20">
-                Primary Contact: <i>{{vrStinfoCT.Vendor_data_selected.primaryContact}}</i>
+                Assessment By: <i>{{VM.assessmentBy}}</i>
             </h4>
         </div>
         <div>
             <h4 class="inline-block">
-                Assessment Date: <i>{{vrStinfoCT.AssessmentData_by_vendorName.assessmentDate}}</i>
+                Doc Title: <i>{{VM.title}}</i>
             </h4>
             <h4 class="inline-block margin-left-20">
-                Assessment By: <i>{{vrStinfoCT.AssessmentData_by_vendorName.assessmentBy}}</i>
-            </h4>
-        </div>
-        <div>
-            <h4 class="inline-block">
-                Doc Title: <i>{{vrStinfoCT.Vendor_data_title}}</i>
-            </h4>
-            <h4 class="inline-block margin-left-20">
-                Doc Type: <i>{{vrStinfoCT.AssessmentData_by_vendorName.docType}}</i>
+                Doc Type: <i>{{VM.docType}}</i>
             </h4>
         </div>
 
         <div>
             <h4 class="inline-block margin-left-20">
-                Risk Score: <i>{{vrStinfoCT.AssessmentData_by_vendorName.riskScore}}</i>
+                Risk Score: <i>{{VM.riskScore}}</i>
             </h4>
         </div>
 
         <div class="action_buttons">
             <div class="save_button">
-                <a class="btn btn-success center-block text-bold" ng-click="vrStinfoCT.saveVendorData()"><i class="fa fa-save"></i> Save</a>
+                <a class="btn btn-success center-block text-bold" ng-click="saveVendorData()"><i class="fa fa-save"></i> Save</a>
             </div>
             <div class="back_button">
                 <a class="btn btn-primary center-block text-bold" ui-sref="app.vendorrisk.stinfo.main"><i class="fa fa-backward"></i> Back</a>
@@ -74,10 +71,10 @@
                  <td>{{vendorrisk.category}}</td>
 		 <td>{{vendorrisk.name}}</td>
                 <td class="res">
-                    <input type="checkbox" ng-click="vrStinfoCT.vendorResponseVal('Y',this,$event)" class="Vendorresponse" name="Y" ng-model="vrStinfoCT.vendorrisk[$index].responseY">
+                    <input type="checkbox" ng-click="vendorResponseVal('Y',this,$event)" class="Vendorresponse" name="Y" ng-model="vrStinfoCT.vendorrisk[$index].responseY">
                 </td>
                 <td class="res">
-                    <input type="checkbox" ng-click="vrStinfoCT.vendorResponseVal('N',this,$event)"  name="N" ng-model="vrStinfoCT.vendorrisk[$index].responseN">
+                    <input type="checkbox" ng-click="vendorResponseVal('N',this,$event)"  name="N" ng-model="vrStinfoCT.vendorrisk[$index].responseN">
                 </td>
                 <td style="">
                     <input type="number" min="0" ng-model="vrStinfoCT.vendorrisk[$index].findings">
