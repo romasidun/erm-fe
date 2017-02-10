@@ -34,6 +34,11 @@
 
         $scope.submitAction = function() {
             if($scope.Form.SoxPra.$invalid) return false;
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.due_date);
+            $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
+
             ComplianceService.UpdateSOXPRAAssessment($stateParams.id, $scope.VM).then(function (res) {
                 if(res.status===200) {
                     var fileModel = $scope.VM.filemodel;
