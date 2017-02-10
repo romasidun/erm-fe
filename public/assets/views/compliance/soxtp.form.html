@@ -43,7 +43,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Department </label>
-                                    <select type="text" ng-model="VM.department" class="form-control"
+                                    <select type="text" ng-model="VM.business" class="form-control"
                                             ng-options="d.deptId as d.deptName for d in app.Lookup.Departments">
                                         <option selected value>Select Department</option>
                                     </select>
@@ -61,7 +61,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Status</label>
-                                    <select type="text" name="status" ng-model="VM.status" class="form-control"
+                                    <select type="text" name="status" ng-model="VM.approval" class="form-control"
                                             ng-options="st.key as st.val for st in app.Lookup.LIST004">
                                         <option selected value>Select Status</option>
                                     </select>

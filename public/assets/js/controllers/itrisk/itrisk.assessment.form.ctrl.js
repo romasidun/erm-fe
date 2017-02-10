@@ -35,6 +35,11 @@
         $scope.submitAction = function(){
             if($scope.Form.ITRAM.$invalid) return false;
 
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.dueDtStr);
+            $scope.VM.dueDtStr = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.due_date = $scope.VM.dueDtStr;
+
             ITRiskService.AddRam($scope.VM).then(function(res){
                 if(res.status === 200) {
                     var fileModel = $scope.VM.filemodel;

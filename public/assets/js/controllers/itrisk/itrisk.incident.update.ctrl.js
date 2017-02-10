@@ -73,11 +73,15 @@
                 alert("Please select Risk Category.");
                 return false;
             }
-            console.log($scope.VM.auditFileModel);
+
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.identifiedDate);
+            var d2 = moment($scope.VM.remeDate);
+            $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
+
             ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
-                console.log(res);
                 if (res.status === 200) {
-                    console.log(34565);
                     var fileModel = $scope.VM.auditFileModel;
                     ITRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
                         console.log(res);
@@ -85,7 +89,6 @@
                         $state.go('app.itrisk.incident.main');
                     });
                 }
-                $state.go('app.itrisk.incident.main');
             });
         };
 

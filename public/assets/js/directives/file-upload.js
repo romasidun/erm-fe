@@ -87,6 +87,7 @@ app
                                 filePath: URL.createObjectURL(item),
                                 fileSize: item.size,
                                 fileType: item.type,
+                                id: 1,
                                 originalName: item.name
                             };
                             values.push(value);
