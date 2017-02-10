@@ -12,6 +12,15 @@
             $rootScope.app.Mask = false;
         });
 
+        VendorService.GetVendor().then(function(data){
+            var selected_vendorName = [];
+            var asdf = data.filter(function(a){
+                return a.vendorName == selected_vendorName;
+            });
+
+            console.log('datadatadatadata',asdf);
+        });
+
 
         var vm = this;
         vm.saveVendorData = saveVendorData;
