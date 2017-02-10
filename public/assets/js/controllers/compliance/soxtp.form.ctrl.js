@@ -45,7 +45,8 @@
 
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.due_date);
-            $scope.VM.dueDtStr = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.dueDtStr = $scope.VM.due_date;
 
             ComplianceService.PostSOXTPAssessment($scope.VM).then(function (res) {
                 if (res.status === 200) {

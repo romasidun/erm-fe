@@ -43,8 +43,13 @@
         };
 
         ComplianceService.GetSOXTPAssessment($stateParams.id).then(function(data){
-            data.due_date = moment(data.due_date).format('MM-DD-YYYY');
             $scope.VM = data;
+
+            var dtype = 'MM-DD-YYYY';
+            var d1 = moment($scope.VM.due_date);
+            $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.dueDtStr = $scope.VM.due_date;
+
             $scope.VM.controlDataModel = [];
             $rootScope.app.Mask = false;
         });
