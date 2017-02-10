@@ -27,7 +27,7 @@
                 $(event.target).prop('checked', true);
                 $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
             }
-        }
+        };
 
         function getAssessment() {
             var AssessmentData = VendorService.GetAssessmentData();
