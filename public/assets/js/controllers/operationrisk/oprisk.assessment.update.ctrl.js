@@ -16,10 +16,14 @@
         $scope.submitAction = function(){
             if($scope.Form.Rcsa.$invalid || $scope.Form.Rcsa.$pristine) return false;
 
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.dueDtStr);
+            $scope.VM.dueDtStr = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.due_date = $scope.VM.dueDtStr;
             OPRiskService.UpdateAssessment($stateParams.id, $scope.VM).then(function(res){
                 if(res.status === 200){
                     var fileModel = $scope.VM.filemodel;
-                    OPRiskService.FileUpload(res.id, fileModel).then(function (res) {
+                    OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
                         console.log(res);
                     }).finally(function () {
                         $state.go('app.oprisk.assessment.main');
