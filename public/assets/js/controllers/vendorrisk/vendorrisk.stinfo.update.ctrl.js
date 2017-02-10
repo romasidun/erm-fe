@@ -35,6 +35,22 @@
             });
         };
 
+        $scope.createAssessmentAction = function(){
+            $state.go('app.vendorrisk.assessment',{id: $state.params.id});
+        };
+
+        // VendorService.GerUserList().then(function(user){
+        //     $scope.userList = user;
+        // });
+
+        VendorService.GetRiskType().then(function(risktype){
+            $scope.riskTypeList = risktype;
+        });
+
+        VendorService.GetVendor().then(function(vendor){
+            $scope.vendor = vendor;
+        });
+
         // var vm = this;
         // vm.submitAction = submitAction;
         //
@@ -56,7 +72,7 @@
         //     });
         // }
         //
-        // function getVendorType() {
+        // function getVendorT ype() {
         //     var vendortype = "";
         //     vm.vendortypelist = [];
         //     VendorService.GetRimById($stateParams.id).then(function(data){

@@ -38,7 +38,7 @@
             // id: "",
             modifiedBy: "",
             modifiedOn: "",
-            overallRiskScore: "",
+            riskScore: "",
             period: "",
             priority: "",
             region: "",
@@ -67,7 +67,7 @@
             if ($scope.Form.VendorRisk.$pristine || $scope.Form.VendorRisk.$invalid) return false;
             VendorService.AddRim($scope.VM).then(function (res) {
                 if (res.status === 200) {
-                    // $state.go('app.vendorrisk.stinfo.main');
+                    $state.go('app.vendorrisk.stinfo.main');
                 }
             });
         };
