@@ -13,6 +13,9 @@
         ChartFactory.prototype.CreatePieChartTemplate = function(title, name, data, cols){
             if(cols && cols.length) Highcharts.getOptions().plotOptions.pie.colors = cols;
             return {
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     type: 'pie',
                     options3d: { enabled: true, alpha: 45, beta: 0 }
@@ -35,6 +38,9 @@
 
         ChartFactory.prototype.StatusChart = function(container){
             return new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 colors: ['#FFFF33', '#A0341F',  '#739113'],
                 chart: {
                     renderTo: container,
@@ -87,6 +93,9 @@
             //if(config.Colors) Highcharts.getOptions().plotOptions.bar.colors = config.Colors;
 
             return {
+                credits: {
+                    enabled: false
+                },
                 chart: { type: 'bar' },
                 title: { text: config.Text },
                 xAxis: {
@@ -108,6 +117,9 @@
         ChartFactory.prototype.SetupMultiColChart = function(el, opts){
 
             var chartObj = {
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     type: 'column'
                 },
@@ -141,6 +153,9 @@
         ChartFactory.prototype.SetupColChart = function(el, opts){
 
             var chartObj = {
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: el,
                     type: 'column',
@@ -164,6 +179,9 @@
         ChartFactory.prototype.SetupLabelChart = function(opts){
 
             var chartObj = {
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     type: 'column',
                 },
@@ -219,6 +237,9 @@
         ChartFactory.prototype.BuildHeatMap = function (el, opts) {
 
             var chartObj = {
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     type: 'heatmap',
                     marginTop: 40,
