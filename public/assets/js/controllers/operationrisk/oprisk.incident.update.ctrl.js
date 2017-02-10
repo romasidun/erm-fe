@@ -92,7 +92,9 @@
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);
             $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.identifiedDtStr = $scope.VM.identifiedDate;
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.remediationDtStr = $scope.VM.remeDate;
 
             OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function (res) {
                 if (res.status === 200)
@@ -102,10 +104,16 @@
 
         OPRiskService.GetRiskIncident($stateParams.id).then(function (data) {
             //console.log(data);
-            data.identifiedDate = moment(data.identifiedDate).format('MM-DD-YYYY');
-            data.remeDate = moment(data.remeDate).format('MM-DD-YYYY');
             $scope.VM = data;
-            console.log($scope.VM.auditFileModel);
+
+            var dtype = 'MM-DD-YYYY';
+            var d1 = moment($scope.VM.identifiedDate);
+            var d2 = moment($scope.VM.remeDate);
+            $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.identifiedDtStr = $scope.VM.identifiedDate;
+            $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.remediationDtStr = $scope.VM.remeDate;
+
             return OPRiskService.GetRiskCategories()
         }).then(function (data) {
             Object.keys(data.categories).forEach(function (c) {

@@ -17,9 +17,9 @@
             if($scope.Form.Rcsa.$invalid || $scope.Form.Rcsa.$pristine) return false;
 
             var dtype = 'YYYY-MM-DD';
-            var d1 = moment($scope.VM.dueDtStr);
-            $scope.VM.dueDtStr = (d1.isValid()) ? d1.format(dtype) : '';
-            $scope.VM.due_date = $scope.VM.dueDtStr;
+            var d1 = moment($scope.VM.due_date);
+            $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.dueDtStr = $scope.VM.due_date;
             OPRiskService.UpdateAssessment($stateParams.id, $scope.VM).then(function(res){
                 if(res.status === 200){
                     var fileModel = $scope.VM.filemodel;
@@ -57,6 +57,12 @@
 
         OPRiskService.GetAssessment($stateParams.id).then(function (data) {
             $scope.VM = data;
+
+            var dtype = 'MM-DD-YYYY';
+            var d1 = moment($scope.VM.due_date);
+            $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.dueDtStr = $scope.VM.due_date;
+            
             $rootScope.app.Mask = false;
         });
 

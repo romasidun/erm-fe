@@ -168,7 +168,9 @@
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);
             $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.identifiedDtStr = $scope.VM.identifiedDate;
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.remediationDtStr = $scope.VM.remeDate;
 
             OPRiskService.PostRisk($scope.VM).then(function (res) {
                 if (res.status === 200){
