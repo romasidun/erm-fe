@@ -10,17 +10,15 @@
             $scope.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
             $scope.VM = data;
             $rootScope.app.Mask = false;
-        });
 
-        VendorService.GetVendor().then(function(data){
-            var selected_vendorName = [];
-            var asdf = data.filter(function(a){
-                return a.vendorName == selected_vendorName;
+            VendorService.GetVendor().then(function(data){
+                var selectedVendor = data.filter(function(a){
+                    return a.vendorName == $scope.VM.vendorName;
+                });
+
+                console.log('datadatadatadata',selectedVendor[0].vendorName);
             });
-
-            console.log('datadatadatadata',asdf);
         });
-
 
         var vm = this;
         vm.saveVendorData = saveVendorData;
