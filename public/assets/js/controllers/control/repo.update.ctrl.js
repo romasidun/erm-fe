@@ -9,8 +9,17 @@
 
         $scope.submitAction = function(){
             if($scope.Form.CtrlRepo.$invalid) return false;
+            console.log(1111);
             ControlService.UpdateRepo($stateParams.id, $scope.VM).then(function(res){
-                if(res.status===200) $state.go('app.control.repo.main');
+                console.log(res);
+                if(res.status===200){
+                    var fileModel = $scope.VM.filemodel;
+                    ControlService.FileUpload(res.id, fileModel).then(function (res) {
+                        console.log(res);
+                    }).finally(function () {
+                        $state.go('app.control.repo.main');
+                    });
+                }
             });
         };
 
