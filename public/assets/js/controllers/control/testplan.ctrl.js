@@ -48,8 +48,7 @@
 
         function loadTestPlans() {
             ControlService.GetTestPlans($scope.PerPage, $scope.CurrPage).then(function (data) {
-                console.log(11111);
-                console.log(data);
+
                 for(var i in data){
                     var tp = data[i];
                     if(tp.department == null) continue;
