@@ -83,31 +83,35 @@
                     <div class="row">
                         <table class="table table-striped table-responsive col-xs-12">
                             <thead>
-                            <tr class="sortable-headers">
-                                <th><input type="checkbox"></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='assessName' }" ng-click="sortMe('assessName')"><i class="fa {{resSort('assessName')}}"></i> Name</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='region' }" ng-click="sortMe('region')"><i class="fa {{resSort('region')}}"></i> Region</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='business' }" ng-click="sortMe('business')"><i class="fa {{resSort('business')}}"></i> Business</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='period' }" ng-click="sortMe('period')"><i class="fa {{resSort('period')}}"></i> Period</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='frequency' }" ng-click="sortMe('frequency')"><i class="fa {{resSort('frequency')}}"></i> Frequency</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='approval' }" ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i> Approval State</a></th>
-                                <th>Action</th>
-                            </tr>
+                                <tr class="sortable-headers">
+                                    <th><input type="checkbox"></th>
+                                    <th><a ng-click="sortMe('name')"><i class="fa {{resSort('name')}}"></i> Name</a></th>
+                                    <th><a ng-click="sortMe('region')"><i class="fa {{resSort('region')}}"></i> Region</a></th>
+                                    <th><a ng-click="sortMe('business')"><i class="fa {{resSort('business')}}"></i> Business</a></th>
+                                    <th><a ng-click="sortMe('department')"><i class="fa {{resSort('department')}}"></i> Department</a></th>
+                                    <th><a ng-click="sortMe('occurDate')"><i class="fa {{resSort('occurDate')}}"></i> Occur Date</a></th>
+                                    <th><a ng-click="sortMe('responsible')"><i class="fa {{resSort('responsible')}}"></i> Responsible</a></th>
+                                    <th><a ng-click="sortMe('priority')"><i class="fa {{resSort('priority')}}"></i> Priority</a></th>
+                                    <th><a ng-click="sortMe('status')"><i class="fa {{resSort('status')}}"></i> Status</a></th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="r in Incidents | orderBy: CurrCol:IsAsc | filter: CurrFilt">
-                                <th><input type="checkbox"></th>
-                                <td>{{r.assessName}}</td>
-                                <td>{{r.region}}</td>
-                                <td>{{r.business}}</td>
-                                <td>{{r.period}}</td>
-                                <td>{{r.frequency}}</td>
-                                <td>{{r.approval}}</td>
-                                <td>
-                                    <a ui-sref="app.itrisk.assessment.update({ id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
-                                    <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
-                                </td>
-                            </tr>
+                                <tr ng-repeat="r in Incidents | orderBy: CurrCol:IsAsc | filter: CurrFilt">
+                                    <td class="expand">X</td>
+                                    <td>{{r.name}}</td>
+                                    <td>{{r.region}}</td>
+                                    <td>{{r.business}}</td>
+                                    <td>{{r.department}}</td>
+                                    <td>{{r.occurDate}}</td>
+                                    <td>{{r.responsible}}</td>
+                                    <td>{{r.priority}}</td>
+                                    <td>{{r.status}}</td>
+                                    <td>
+                                        <a ui-sref="app.itrisk.assessment.update({ id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                                        <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

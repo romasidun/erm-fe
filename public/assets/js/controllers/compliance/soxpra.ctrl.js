@@ -15,8 +15,6 @@
         $scope.PerPage = 10;
 
         $scope.sortMe = function (col) {
-
-
             if ($scope.CurrCol === col)
                 $scope.IsAsc = !$scope.IsAsc;
             else

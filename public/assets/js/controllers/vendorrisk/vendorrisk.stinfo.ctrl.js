@@ -149,37 +149,37 @@
             });
         }
 
-        $scope.downloadExcel = function(){
-            var head_row = $('table.VendorTable thead tr');
-            var body_row = $('table.VendorTable tbody tr');
-            var head_row_col = head_row.children('th');
-            var tableHtml = '<table>';
-            tableHtml += '<tr>';
-            head_row_col.slice(1, head_row_col.length-1).each(function (i) {
-                tableHtml += '<td>' + $(this).children('a').text() + '</td>';
-            });
-            tableHtml += '</tr>';
-
-            body_row.each(function (i) {
-                tableHtml += '<tr>';
-                var tdObj = $(this).closest('tr').find('td');
-                tdObj.each(function (i) {
-
-                    if(i == 0 || i == tdObj.length){
-                        return;
-                    }
-                    tableHtml += '<td>' + $(this).html() + '</td>';
-                });
-                tableHtml += '</tr>';
-            });
-            tableHtml += '</table>';
-            console.log('tableHtmltableHtmltableHtml',tableHtml);
-            // return;
-            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
-            $timeout(function () {
-                location.href = exportHref;
-            }, 100);
-        };
+        // $scope.downloadExcel = function(){
+        //     var head_row = $('table.VendorTable thead tr');
+        //     var body_row = $('table.VendorTable tbody tr');
+        //     var head_row_col = head_row.children('th');
+        //     var tableHtml = '<table>';
+        //     tableHtml += '<tr>';
+        //     head_row_col.slice(1, head_row_col.length-1).each(function (i) {
+        //         tableHtml += '<td>' + $(this).children('a').text() + '</td>';
+        //     });
+        //     tableHtml += '</tr>';
+        //
+        //     body_row.each(function (i) {
+        //         tableHtml += '<tr>';
+        //         var tdObj = $(this).closest('tr').find('td');
+        //         tdObj.each(function (i) {
+        //
+        //             if(i == 0 || i == tdObj.length){
+        //                 return;
+        //             }
+        //             tableHtml += '<td>' + $(this).html() + '</td>';
+        //         });
+        //         tableHtml += '</tr>';
+        //     });
+        //     tableHtml += '</table>';
+        //     console.log('tableHtmltableHtmltableHtml',tableHtml);
+        //     // return;
+        //     var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
+        //     $timeout(function () {
+        //         location.href = exportHref;
+        //     }, 100);
+        // };
 
         $scope.deleteAction = function (name) {
             var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
