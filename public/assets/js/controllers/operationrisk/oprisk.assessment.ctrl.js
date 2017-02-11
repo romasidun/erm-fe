@@ -102,65 +102,98 @@
         }
 
         function setupStatusChart(data) {
-
-            var serTypes = { approved: 'Approved', completed: 'Completed', in_progress: 'In Progress', ready_to_approve: 'Ready to Approve', submitted: 'Submitted', to_approve: 'To Approve' };
-            var cats = [], currCats = [];
-            var serList = [
-                { name: 'Approved', data: [] },
-                { name: 'Completed', data: [] },
-                { name: 'In Progress', data: [] },
-                { name: 'Ready to Approve', data: [] },
-                { name: 'Submitted', data: [] },
-                { name: 'To Approve', data: [] }
-            ];
-
-            Object.keys(serTypes).forEach(function(ck){
-                cats.push(ck);
+            console.log('datadatadatadata',data);
+            var opts = {
+                Title: "By Region",
+                YText: "Values",
+                Categories: [],
+                Series: [
+                    {name: "In Progress", data: [], color: '#1016c6'},
+                    {name: "Completed", data: [], color: '#00db72'},
+                    {name: "Submitted", data: [], color: '#d37619'},
+                    {name: "To Approve", data: [], color: '#d3000d'},
+                    {name: "Ready To Approve", data: [], color: '#d3a209'},
+                    {name: "Approved", data: [], color: '#c807d3'}
+                ]
+            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
+            Object.keys(data).forEach(function (k) {
+                if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
             });
-
-            cats.forEach(function(cat, i){
-                currCats = $filter('filter')(Object.keys(data), cat);
-                currCats.forEach(function(c){
-                    if(c.indexOf(' approved')>-1) {
-                        serList[0].data.push(data[c]);
-                    }
-                    if(c.indexOf(' completed')>-1) {
-                        serList[1].data.push(data[c]);
-                    }
-                    if(c.indexOf(' in_progress')>-1) {
-                        serList[2].data.push(data[c]);
-                    }
-                    if(c.indexOf(' ready_to_approve')>-1) {
-                        serList[3].data.push(data[c]);
-                    }
-                    if(c.indexOf(' submitted')>-1) {
-                        serList[4].data.push(data[c]);
-                    }
-                    if(c.indexOf(' to_approve')>-1) {
-                        serList[5].data.push(data[c]);
-                    }
+            opts.Categories.forEach(function (c) {
+                $filter('filter')(Object.keys(data), c).forEach(function (ck) {
+                    cats.forEach(function (ct, j) {
+                        console.log('ckckckckckckckckckckckckck',ck);
+                        console.log('ckckckckckckckckckckckckck',ct);
+                        console.log('ckckckckckckckckckckckckck',j);
+                        if (ck.indexOf(ct) > -1) {
+                            // alert();
+                            opts.Series[j].data.push(data[ck]);
+                        }
+                    });
                 });
             });
 
-            cats.forEach(function(c, i){ cats[i] = serTypes[c]; });
-            console.log(serList);
+            console.log('datadatadatadatadata',opts);
+            ChartFactory.SetupMultiColChart('regionChart', opts);
 
-            Highcharts.chart('regionstacked', {
-                chart: { type: 'bar' },
-                title: { text: 'By Region' },
-                xAxis: {
-                    categories: cats
-                },
-                yAxis: {
-                    min: 0,
-                    title: { text: 'By Re' }
-                },
-                legend: {  reversed: false },
-                plotOptions: {
-                    series: { stacking: 'normal' }
-                },
-                series: serList
-            });
+            console.log('$filter$filter$filter',$filter);
+            // var serList = [
+            //     { name: 'Approved', data: [] },
+            //     { name: 'Completed', data: [] },
+            //     { name: 'In Progress', data: [] },
+            //     { name: 'Ready to Approve', data: [] },
+            //     { name: 'Submitted', data: [] },
+            //     { name: 'To Approve', data: [] }
+            // ];
+            // var serTypes = { approved: 'Approved', completed: 'Completed', in_progress: 'In Progress', ready_to_approve: 'Ready to Approve', submitted: 'Submitted', to_approve: 'To Approve' };
+            // var cats = [], currCats = [];
+            //
+            // Object.keys(serTypes).forEach(function(ck){
+            //     cats.push(ck);
+            // });
+            //
+            // cats.forEach(function(cat, i){
+            //     currCats = $filter('filter')(Object.keys(data), cat);
+            //     currCats.forEach(function(c){
+            //         if(c.indexOf('approved')>-1) {
+            //             serList[0].data.push(data[c]);
+            //         }
+            //         if(c.indexOf('completed')>-1) {
+            //             serList[1].data.push(data[c]);
+            //         }
+            //         if(c.indexOf('in_progress')>-1) {
+            //             serList[2].data.push(data[c]);
+            //         }
+            //         if(c.indexOf('ready_to_approve')>-1) {
+            //             serList[3].data.push(data[c]);
+            //         }
+            //         if(c.indexOf('submitted')>-1) {
+            //             serList[4].data.push(data[c]);
+            //         }
+            //         if(c.indexOf('to_approve')>-1) {
+            //             serList[5].data.push(data[c]);
+            //         }
+            //     });
+            // });
+            //
+            // cats.forEach(function(c, i){ cats[i] = serTypes[c]; });
+            //
+            // Highcharts.chart('regionstacked', {
+            //     chart: { type: 'bar' },
+            //     title: { text: 'By Region' },
+            //     xAxis: {
+            //         categories: cats
+            //     },
+            //     yAxis: {
+            //         min: 0,
+            //         title: { text: 'By Re' }
+            //     },
+            //     legend: {  reversed: false },
+            //     plotOptions: {
+            //         series: { stacking: 'normal' }
+            //     },
+            //     series: serList
+            // });
         }
 
         function setupPeriodChart(data){
@@ -192,7 +225,6 @@
                 if(opts.Categories.indexOf(month)===-1)
                     opts.Categories.push(month);
             });
-
             ChartFactory.SetupMultiColChart('periodChart', opts);
         }
 

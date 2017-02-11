@@ -29,8 +29,8 @@ function ($rootScope, $state, $stateParams) {
             logo: 'assets/img/logo.png',
         },
         IsAuthenticated: false,
-        APIPrefix: "http://54.173.94.137/api/2/",
-        // APIPrefix: "http://52.90.105.84/api/2/"
+        // APIPrefix: "http://54.173.94.137/api/2/",
+        APIPrefix: "http://52.90.105.84/api/2/",
         Debug: true,
         Mask: true,
         MaskLabel: null,
