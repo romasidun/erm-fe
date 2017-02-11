@@ -40,4 +40,20 @@ app.service('AuditService', function(APIHandler){
         return APIHandler.Put('auditactions/'+id, params);
     };
 
+    this.GetManageDept = function(){
+        return APIHandler.Get('auditmgmt/dept');
+    };
+
+    this.GetFindingOpen = function(){
+        return APIHandler.Get('auditfindings/openfindings');
+    };
+
+    this.GetManageStatus = function(){
+        return APIHandler.Get('auditmgmt/status');
+    }
+
+    this.GetManagePeriod = function() {
+        return APIHandler.Get('auditmgmt/period');
+    }
+
 });

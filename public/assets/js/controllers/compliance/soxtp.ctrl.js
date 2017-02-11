@@ -142,6 +142,7 @@
         }
 
         function setupPieChart(rcsa) {
+            console.log('rcasdfasdfasdf',rcsa);
             var dataList = [];
             rcsa.forEach(function (o) {
                 dataList.push([o.key, o.val]);

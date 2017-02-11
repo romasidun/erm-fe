@@ -1,11 +1,104 @@
 (function () {
-    AuditMainController.$inject = ['$scope', '$rootScope', '$state', '$filter', 'AuditService', 'ChartFactory', 'Utils'];
+    AuditMainController.$inject = ['$scope', '$rootScope', '$state', 'AuditService', 'ChartFactory', 'Utils'];
     app.controller('AuditMainCtrl', AuditMainController);
 
-    function AuditMainController($scope, $rootScope, $state, $filter, AuditService, ChartFactory, Utils) {
+    function AuditMainController($scope, $rootScope, $state, AuditService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "AUDIT MANAGEMENT";
         $rootScope.app.Mask = false;
+
+        AuditService.GetManageDept().then(function(data){
+            setupMGDeptChart(data);
+            return AuditService.GetFindingOpen();
+        })
+            .then(function (data) {
+                setupFDOpenChart(data);
+                return AuditService.GetManageStatus();
+            })
+            .then(function(data){
+                setupMGStatusChart(data);
+                return AuditService.GetManagePeriod();
+            })
+            .then(function(data){
+                setupMGPeriodChart(data);
+            })
+
+        function setupMGDeptChart(data){
+            var series = [];
+            Object.keys(data).forEach(function (k) {
+                series.push([k, data[k]]);
+            });
+            var chartObj = ChartFactory.CreatePieChartTemplate('Management Department', 'Audit Management Department', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
+            Highcharts.chart('audit_MGDeptChart', chartObj);
+        }
+
+        function setupFDOpenChart(data){
+            var month, opts = {
+                Title: "By FindingOpen",
+                YText: "Values",
+                Categories: [],
+                Series: [
+                    {name: "Draft", data: [], color: '#c62733'},
+                    {name: "Review", data: [], color: '#db981f'},
+                ]
+            };
+
+            Object.keys(data).forEach(function (k) {
+                if (k.indexOf('Draft') > -1) {
+                    month = Utils.camelizeString(k.split('High')[0]);
+                    opts.Series[0].data.push(data[k]);
+                }
+                if (k.indexOf('Review') > -1) {
+                    month = Utils.camelizeString(k.split('Med ')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if (opts.Categories.indexOf(month) === -1)
+                    opts.Categories.push(month);
+            });
+
+            ChartFactory.SetupMultiColChart('audit_FDOpenChart', opts);
+        }
+
+        function setupMGStatusChart(data) {
+            var series = [];
+            Object.keys(data).forEach(function (k) {
+                series.push([k, data[k]]);
+            });
+            var chartObj = ChartFactory.CreatePieChartTemplate('Management Status', 'Management Status', series, ['#EFF300', '#E172DF', '#8EB33E', '#9F6CE5', '#4093E2', '#B49400']);
+            Highcharts.chart('audit_MGStatus', chartObj);
+        }
+
+        function setupMGPeriodChart(data){
+            var month, opts = {
+                Title: "By FindingOpen",
+                YText: "Values",
+                Categories: [],
+                Series: [
+                    {name: "High", data: [], color: '#c62733'},
+                    {name: "Medium", data: [], color: '#db981f'},
+                    {name: "Low", data: [], color: '#db981f'}
+                ]
+            };
+
+            Object.keys(data).forEach(function (k) {
+                if (k.indexOf('High') > -1) {
+                    month = Utils.camelizeString(k.split('High')[0]);
+                    opts.Series[0].data.push(data[k]);
+                }
+                if (k.indexOf('Medium') > -1) {
+                    month = Utils.camelizeString(k.split('Med')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if (k.indexOf('Low') > -1) {
+                    month = Utils.camelizeString(k.split('Low')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if (opts.Categories.indexOf(month) === -1)
+                    opts.Categories.push(month);
+            });
+
+            ChartFactory.SetupMultiColChart('audit_MGPeriod', opts);
+        }
 
         // AuditService.Audit_statusChart().then(function (data) {
         //     setupPieChart(data);

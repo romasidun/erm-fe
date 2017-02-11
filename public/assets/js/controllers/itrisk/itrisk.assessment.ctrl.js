@@ -170,7 +170,7 @@
             Object.keys(data).forEach(function (k) {
                 series.push([k, data[k]]);
             });
-            var chartObj = ChartFactory.CreatePieChartTemplate('By Department', 'By Department', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
+            var chartObj = ChartFactory.CreatePieChartTemplate('By Department', 'Risk Type Severity', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
             Highcharts.chart('deptChart', chartObj);
         }
 
