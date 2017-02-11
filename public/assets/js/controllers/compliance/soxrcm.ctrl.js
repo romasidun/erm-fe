@@ -84,7 +84,11 @@
             setupStatusChart(data);
             return ComplianceService.GetSOXRCMDept();
         }).then(function (data) {
-            setupDeptChart(data);
+            var rcsaChrt = [];
+            Object.keys(data).forEach(function (k) {
+                rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
+            });
+            setupDeptChart(rcsaChrt);
         });
 
         $scope.$watch('PerPage', function (n, o) {
@@ -115,6 +119,7 @@
         }
 
         function setupPieChart(rcsa) {
+            console.log('rcsarcsarcsa',rcsa);
             var dataList = [];
             rcsa.forEach(function (o) {
                 dataList.push([o.key, o.val]);
@@ -228,48 +233,12 @@
         }
 
         function setupDeptChart(data) {
-
-            var cats = [], currCats = [];
-            var serList = [
-                {name: 'Low', data: []},
-                {name: 'Medium', data: []},
-                {name: 'High', data: []}
-            ];
-
-            Object.keys(data).forEach(function (ck) {
-                if (cats.indexOf(Utils.removeLastWord(ck)) === -1) cats.push(Utils.removeLastWord(ck));
+            var dataList = [];
+            data.forEach(function (o) {
+                dataList.push([o.key, o.val]);
             });
-            cats.forEach(function (cat, i) {
-                currCats = $filter('filter')(Object.keys(data), cat);
-                currCats.forEach(function (c) {
-                    if (c.indexOf('Low') > -1) {
-                        serList[0].data.push(data[c]);
-                    }
-                    if (c.indexOf('Med') > -1) {
-                        serList[1].data.push(data[c]);
-                    }
-                    if (c.indexOf('High') > -1) {
-                        serList[2].data.push(data[c]);
-                    }
-                });
-            });
-
-            Highcharts.chart('deptstacked', {
-                chart: {type: 'bar'},
-                title: {text: 'By Department'},
-                xAxis: {
-                    categories: cats
-                },
-                yAxis: {
-                    min: 0,
-                    title: {text: 'By Department'}
-                },
-                legend: {reversed: false},
-                plotOptions: {
-                    series: {stacking: 'normal'}
-                },
-                series: serList
-            });
+            var chartObj = ChartFactory.CreatePieChartTemplate('By Department', 'By Department', dataList, ['#D936ED', '#2B35DF', '#8EB42E', '#159008', '#B49400', '#9F6CE5']);
+            Highcharts.chart('deptstacked', chartObj);
         }
     }
 })();

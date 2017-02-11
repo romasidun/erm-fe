@@ -22,7 +22,7 @@
             setupSourceChart(per);
             return ControlService.GetRiskType();
         }).then(function (per) {
-            setupRisktypeChart1(per);
+            setupRisktypeChart(per);
             return ControlService.GetByTePeriod();
         }).then(function (per) {
             setupTePeriodChart(per);
@@ -58,7 +58,6 @@
             var chartObj = ChartFactory.CreatePieChartTemplate('Controls by Definition', 'Controls by Definition', dataList, ['#1372DF', '#E0ED00']);
             Highcharts.chart('definitionChart', chartObj);
         }
-
 
         function setupRisktypeChart(data) {
             var dataAry = data.bycateogry;
@@ -105,7 +104,7 @@
             });
             opts.Data = dataList;
             var chartObj = ChartFactory.SetupLabelChart(opts);
-            console.clear();
+            // console.clear();
             console.log(chartObj);
             Highcharts.chart('risktypeChart', chartObj);
         }
@@ -170,7 +169,7 @@
             });
             opts.Data = dataList;
             var chartObj = ChartFactory.SetupLabelChart(opts);
-            console.clear();
+            // console.clear();
             console.log(chartObj);
             Highcharts.chart('teRisktypeChart', chartObj);
         }

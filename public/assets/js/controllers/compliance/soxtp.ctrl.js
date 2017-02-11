@@ -222,6 +222,7 @@
         }
 
         function setupPeriodChart(data) {
+            console.log('setupPeriodChart',data);
             var month, opts = {
                 Title: "By Period",
                 YText: "Values",

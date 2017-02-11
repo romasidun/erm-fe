@@ -146,54 +146,32 @@
                     {name: "Ready To Approve", data: [], color: '#d3a209'},
                     {name: "Approved", data: [], color: '#c807d3'}
                 ]
-            }, cats = [' in_progress', ' completed', ' submitted', ' to_approve', ' ready_to_approve', ' approved'];
+            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
             Object.keys(data).forEach(function (k) {
                 if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
             });
             opts.Categories.forEach(function (c) {
-                $filter('filter')(Object.keys(data), c).forEach(function (ck) {
+                var filteredData = $filter('filter')(Object.keys(data), c);
+                filteredData.forEach(function (ck) {
                     cats.forEach(function (ct, j) {
-                        if (ck.indexOf(ct) > -1) opts.Series[j].data.push(data[ck]);
+                        if (ck.indexOf(ct) > -1) {
+                            opts.Series[j].data.push(data[ck]);
+                        }
                     });
                 });
             });
-            console.log(opts);
 
             ChartFactory.SetupMultiColChart('regionChart', opts);
         }
 
         function setupDeptChart(data) {
 
-            var dept, opts = {
-                Title: "By Department",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "High", data: [], color: '#c62733'},
-                    {name: "Medium", data: [], color: '#db981f'},
-                    {name: "Low", data: [], color: '#00d356'}
-                ]
-
-            };
-
+            var series = [];
             Object.keys(data).forEach(function (k) {
-                if (k.indexOf('High') > -1) {
-                    dept = k.split('High')[0];
-                    opts.Series[0].data.push(data[k]);
-                }
-                if (k.indexOf('Med') > -1) {
-                    dept = k.split('Med')[0];
-                    opts.Series[1].data.push(data[k]);
-                }
-                if (k.indexOf('Low') > -1) {
-                    dept = k.split('Low')[0];
-                    opts.Series[2].data.push(data[k]);
-                }
-                if (opts.Categories.indexOf(dept) === -1)
-                    opts.Categories.push(dept);
+                series.push([k, data[k]]);
             });
-
-            ChartFactory.SetupMultiColChart('deptChart', opts);
+            var chartObj = ChartFactory.CreatePieChartTemplate('By Department', 'By Department', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
+            Highcharts.chart('deptChart', chartObj);
         }
 
     }

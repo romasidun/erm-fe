@@ -51,6 +51,7 @@
         };
 
         OPRiskService.GetRSAStatus().then(function(data){
+            $rootScope.app.Mask = true;
             var rcsaChrt = [];
             Object.keys(data).forEach(function (k) {
                 rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
@@ -65,6 +66,7 @@
             return OPRiskService.GetRSADept();
         }).then(function(data){
             setupDeptChart(data);
+            $rootScope.app.Mask = false;
         });
 
         $scope.$watch('PerPage', function(n, o) {
@@ -90,7 +92,7 @@
         function loadAssessments() {
             OPRiskService.GetAssessments().then(function (data) {
                 $scope.Assess = data;
-                $rootScope.app.Mask = false;
+                // $rootScope.app.Mask = false;
             });
         }
 
@@ -102,7 +104,6 @@
         }
 
         function setupStatusChart(data) {
-            console.log('datadatadatadata',data);
             var opts = {
                 Title: "By Region",
                 YText: "Values",
@@ -120,80 +121,16 @@
                 if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
             });
             opts.Categories.forEach(function (c) {
-                $filter('filter')(Object.keys(data), c).forEach(function (ck) {
+                var filteredData = $filter('filter')(Object.keys(data), c);
+                filteredData.forEach(function (ck) {
                     cats.forEach(function (ct, j) {
-                        console.log('ckckckckckckckckckckckckck',ck);
-                        console.log('ckckckckckckckckckckckckck',ct);
-                        console.log('ckckckckckckckckckckckckck',j);
                         if (ck.indexOf(ct) > -1) {
-                            // alert();
                             opts.Series[j].data.push(data[ck]);
                         }
                     });
                 });
             });
-
-            console.log('datadatadatadatadata',opts);
-            ChartFactory.SetupMultiColChart('regionChart', opts);
-
-            console.log('$filter$filter$filter',$filter);
-            // var serList = [
-            //     { name: 'Approved', data: [] },
-            //     { name: 'Completed', data: [] },
-            //     { name: 'In Progress', data: [] },
-            //     { name: 'Ready to Approve', data: [] },
-            //     { name: 'Submitted', data: [] },
-            //     { name: 'To Approve', data: [] }
-            // ];
-            // var serTypes = { approved: 'Approved', completed: 'Completed', in_progress: 'In Progress', ready_to_approve: 'Ready to Approve', submitted: 'Submitted', to_approve: 'To Approve' };
-            // var cats = [], currCats = [];
-            //
-            // Object.keys(serTypes).forEach(function(ck){
-            //     cats.push(ck);
-            // });
-            //
-            // cats.forEach(function(cat, i){
-            //     currCats = $filter('filter')(Object.keys(data), cat);
-            //     currCats.forEach(function(c){
-            //         if(c.indexOf('approved')>-1) {
-            //             serList[0].data.push(data[c]);
-            //         }
-            //         if(c.indexOf('completed')>-1) {
-            //             serList[1].data.push(data[c]);
-            //         }
-            //         if(c.indexOf('in_progress')>-1) {
-            //             serList[2].data.push(data[c]);
-            //         }
-            //         if(c.indexOf('ready_to_approve')>-1) {
-            //             serList[3].data.push(data[c]);
-            //         }
-            //         if(c.indexOf('submitted')>-1) {
-            //             serList[4].data.push(data[c]);
-            //         }
-            //         if(c.indexOf('to_approve')>-1) {
-            //             serList[5].data.push(data[c]);
-            //         }
-            //     });
-            // });
-            //
-            // cats.forEach(function(c, i){ cats[i] = serTypes[c]; });
-            //
-            // Highcharts.chart('regionstacked', {
-            //     chart: { type: 'bar' },
-            //     title: { text: 'By Region' },
-            //     xAxis: {
-            //         categories: cats
-            //     },
-            //     yAxis: {
-            //         min: 0,
-            //         title: { text: 'By Re' }
-            //     },
-            //     legend: {  reversed: false },
-            //     plotOptions: {
-            //         series: { stacking: 'normal' }
-            //     },
-            //     series: serList
-            // });
+            ChartFactory.SetupMultiColChart('regionstacked', opts);
         }
 
         function setupPeriodChart(data){
@@ -210,6 +147,7 @@
 
             };
             Object.keys(data).forEach(function(k){
+                console.log('kkkkkkkkkkkkkkk',k);
                 if(k.indexOf('High')>-1) {
                     month = Utils.camelizeString(k.split('High')[0]);
                     opts.Series[0].data.push(data[k]);
@@ -229,48 +167,12 @@
         }
 
         function setupDeptChart(data) {
-
-            var cats = [], currCats = [];
-            var serList = [
-                { name: 'Low', data: [] },
-                { name: 'Medium', data: [] },
-                { name: 'High', data: [] }
-            ];
-
-            Object.keys(data).forEach(function(ck){
-                if(cats.indexOf(Utils.removeLastWord(ck))===-1) cats.push(Utils.removeLastWord(ck));
+            var series = [];
+            Object.keys(data).forEach(function (k) {
+                series.push([k, data[k]]);
             });
-            cats.forEach(function(cat, i){
-                currCats = $filter('filter')(Object.keys(data), cat);
-                currCats.forEach(function(c){
-                    if(c.indexOf('Low')>-1) {
-                        serList[0].data.push(data[c]);
-                    }
-                    if(c.indexOf('Med')>-1) {
-                        serList[1].data.push(data[c]);
-                    }
-                    if(c.indexOf('High')>-1) {
-                        serList[2].data.push(data[c]);
-                    }
-                });
-            });
-
-            Highcharts.chart('deptstacked', {
-                chart: { type: 'bar' },
-                title: { text: 'By Department' },
-                xAxis: {
-                    categories: cats
-                },
-                yAxis: {
-                    min: 0,
-                    title: { text: 'By Department' }
-                },
-                legend: {  reversed: false },
-                plotOptions: {
-                    series: { stacking: 'normal' }
-                },
-                series: serList
-            });
+            var chartObj = ChartFactory.CreatePieChartTemplate('Risk Type Severity', 'Risk Type Severity', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
+            Highcharts.chart('deptstacked', chartObj);
         }
     }
 })();
