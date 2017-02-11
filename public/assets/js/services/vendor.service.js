@@ -11,13 +11,17 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorassessmentlist/' + id);
     };
 
+    this.GetRimAM = function () {
+        return APIHandler.Get('vendorriskassessment');
+    };
+
     this.AddRim = function(data){
         return APIHandler.Post('vendorassessmentlist', data);
     };
 
     this.PostVendorData = function(data){
         return APIHandler.Post('vendorriskassessment', data);
-    }
+    };
 
     this.GetRimStatus = function(){
         return APIHandler.Get('vendorassessmentlist/status');

@@ -4,6 +4,7 @@
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
     function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils, ExcelFactory, $timeout) {
         $scope.mainTitle = $state.current.title;
+
         VendorService.GetRimById($state.params.id).then(function(data){
             data.approvedDate = new Date(data.approvedDate);
             $scope.approvedDate = Utils.GetDPDate(data.approvedDate);
@@ -17,7 +18,6 @@
                 });
 
                 $scope.vendor = selectedVendor[0];
-                console.log($scope.vendor);
             });
         });
 
@@ -27,7 +27,7 @@
             var head_row_col = head_row.children('th');
             var tableHtml = '<table>';
             tableHtml += '<tr>';
-            head_row_col.each(function (i) {
+            head_row_col.slice(0, head_row_col.length-4).each(function (i) {
                 tableHtml += '<td>' + $(this).text() + '</td>';
             });
             tableHtml += '</tr>';
@@ -35,7 +35,10 @@
             body_row.each(function (i) {
                 tableHtml += '<tr>';
                 var tdObj = $(this).closest('tr').find('td');
-                tdObj.each(function (i) {
+                tdObj.each(function (j) {
+                    if(j > tdObj.length-2){
+                        return;
+                    }
                     tableHtml += '<td>' + $(this).text() + '</td>';
                 });
                 tableHtml += '</tr>';
@@ -47,27 +50,31 @@
             }, 100);
         };
 
-        var vm = this;
-        $scope.vendorResponseVal =  function(para, ele, event){
-            if($(event.target).prop('checked') == true){
-                $(event.target).prop('checked', true);
-                $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
-            }
-        };
+        VendorService.GetRimAM().then(function(data){
+            console.log('dataasdfasdfasdf',data);
+        });
 
-        function getAssessment() {
-            var AssessmentData = VendorService.GetAssessmentData();
-            console.log('AssessmentData',AssessmentData);
-            vm.Vendor_data_selected = angular.fromJson(AssessmentData.Vendor_data_selected);
-            vm.Vendor_data_title = AssessmentData.Enter_title;
-            vm.AssessmentData_by_vendorName = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
-            vm.amdata_by_filter = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
-            vm.vendorrisk = [];
-            VendorService.GetVendorAssessment(AssessmentData.RiskAssessmentType_selected.riskType).then(function (response) {
-                vm.vendorrisk = angular.fromJson(response);
-                $rootScope.app.Mask = false;
-            });
-        }
+        // var vm = this;
+        // $scope.vendorResponseVal =  function(para, ele, event){
+        //     if($(event.target).prop('checked') == true){
+        //         $(event.target).prop('checked', true);
+        //         $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
+        //     }
+        // };
+
+        // function getAssessment() {
+        //     var AssessmentData = VendorService.GetAssessmentData();
+        //     console.log('AssessmentData',AssessmentData);
+        //     vm.Vendor_data_selected = angular.fromJson(AssessmentData.Vendor_data_selected);
+        //     vm.Vendor_data_title = AssessmentData.Enter_title;
+        //     vm.AssessmentData_by_vendorName = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
+        //     vm.amdata_by_filter = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
+        //     vm.vendorrisk = [];
+        //     VendorService.GetVendorAssessment(AssessmentData.RiskAssessmentType_selected.riskType).then(function (response) {
+        //         vm.vendorrisk = angular.fromJson(response);
+        //         $rootScope.app.Mask = false;
+        //     });
+        // }
 
         $scope.saveVendorData = function() {
             var date = new Date();
@@ -126,12 +133,6 @@
                 })
             }
         }
-
-        function initFunc() {
-            getAssessment();
-        }
-
-        initFunc();
     }
 
 })();
