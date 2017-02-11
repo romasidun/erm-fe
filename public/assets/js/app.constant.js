@@ -45,6 +45,7 @@ app.constant('JS_REQUIRES', {
         'OprIncidentCtrl':       'assets/js/controllers/operationrisk/oprisk.incident.ctrl.js',
         'OprIncidentFormCtrl':   'assets/js/controllers/operationrisk/oprisk.incident.form.ctrl.js',
         'OprIncidentUpdateCtrl': 'assets/js/controllers/operationrisk/oprisk.incident.update.ctrl.js',
+        'OprActionFormCtrl': 'assets/js/controllers/operationrisk/oprisk.action.form.ctrl.js',
         'OprAssessmentCtrl':     'assets/js/controllers/operationrisk/oprisk.assessment.ctrl.js',
         'OprAssessmentFormCtrl': 'assets/js/controllers/operationrisk/oprisk.assessment.form.ctrl.js',
         'OprAssessmentUpdateCtrl': 'assets/js/controllers/operationrisk/oprisk.assessment.update.ctrl.js',

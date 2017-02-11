@@ -48,11 +48,15 @@
 
         function loadTestPlans() {
             ControlService.GetTestPlans($scope.PerPage, $scope.CurrPage).then(function (data) {
-                data.forEach(function (tp) {
-                    if(tp.department.length > 0){
-                        tp.deptName = tp.department[0].deptName;
-                    }
-                });
+                console.log(11111);
+                console.log(data);
+                for(var i in data){
+                    var tp = data[i];
+                    if(tp.department == null) continue;
+                    if(tp.department.length < 1) continue;
+
+                    tp.deptName = tp.department[0].deptName;
+                }
                 $scope.TestPlans = data;
                 $rootScope.app.Mask = false;
             });
@@ -64,7 +68,6 @@
                 this.checked = chk;
             });
         }
-
 
     }
 })();

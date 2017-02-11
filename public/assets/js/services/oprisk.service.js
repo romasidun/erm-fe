@@ -33,6 +33,27 @@ app.service('OPRiskService', function($rootScope, APIHandler, Utils){
       return APIHandler.Put('oprisk/ori/'+ id, params);
     };
 
+    this.PostAction = function(params){
+        return APIHandler.Post('oprisk/ori/actions', params);
+    };
+
+    this.PutAction = function(id, params){
+        return APIHandler.Put('oprisk/ori/actions/' + id, params);
+    };
+
+    this.GetOneAction = function(id){
+        return APIHandler.Get('oprisk/ori/actions/' + id);
+    };
+
+    this.DeleteAction = function(id){
+        return APIHandler.Delete('oprisk/ori/actions/' + id);
+    };
+
+    this.GetActionsByRiskId = function(id){
+        return APIHandler.Get('oprisk/ori/actionsbyriskid/' + id);
+    };
+
+
     this.GetAssessments = function(){
         return APIHandler.Get('rcsa');
     };

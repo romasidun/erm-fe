@@ -80,6 +80,15 @@
             $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
 
+            var selectedCategories = $filter('filter')($scope.RiskCategories.List,{Selected : true});
+
+            var categoriesStr = '';
+            angular.forEach(selectedCategories, function(item, key) {
+                categoriesStr += ',' + item.Key;
+            });
+            categoriesStr = categoriesStr.substr(1);
+            $scope.VM.riskCategory = categoriesStr;
+
             ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
                 if (res.status === 200) {
                     var fileModel = $scope.VM.auditFileModel;
@@ -115,8 +124,10 @@
             $scope.VM = data;
             return ITRiskService.GetRimRiskCategory()
         }).then(function(data){
-            Object.keys(data.categories).forEach(function(c){
-               $scope.RiskCategories.List.push({  Key: c, Label: data.categories[c], Selected: false });
+            var categories = $scope.VM.riskCategory.split(',');
+            Object.keys(data.categories).forEach(function (c) {
+                var sel = (categories.indexOf(c) < 0) ? false: true;
+                $scope.RiskCategories.List.push({Key: c, Label: data.categories[c], Selected: sel});
             });
             $rootScope.app.Mask = false;
         });

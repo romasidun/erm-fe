@@ -134,6 +134,13 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         icon: 'ti-layout-media-left-alt',
         controller: 'OprIncidentUpdateCtrl',
         resolve: loadSequence('OprIncidentUpdateCtrl')
+    }).state('app.oprisk.incident.addaction', {
+        url: '/addaction:pid',
+        templateUrl: "assets/views/operationrisk/oprisk.action.form.html",
+        title: 'Add Action',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'OprActionFormCtrl',
+        resolve: loadSequence('OprActionFormCtrl')
     }).state('app.oprisk.assessment', {
         url: '/assessment',
         template: '<div ui-view class="fade-in-up"></div>',
@@ -160,6 +167,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'OprAssessmentUpdateCtrl',
         resolve: loadSequence('OprAssessmentUpdateCtrl')
     })
+
 
     /*
      ---- VENDOR RISK Routes ----

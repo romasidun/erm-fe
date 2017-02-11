@@ -2,14 +2,15 @@
 
     "use strict";
 
-    OprIncFormController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'OPRiskService', 'Utils'];
+    OprIncFormController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$filter', 'OPRiskService', 'Utils'];
     app.controller('OprIncidentUpdateCtrl', OprIncFormController);
 
 
-    function OprIncFormController($scope, $rootScope, $state, $stateParams, OPRiskService, Utils) {
+    function OprIncFormController($scope, $rootScope, $state, $stateParams, $filter, OPRiskService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Update operational risk incident";
+        $scope.isAction = true;
 
         $scope.Form = {};
         $scope.RiskCategories = {List: [], SelCount: 0};
@@ -82,6 +83,15 @@
                 alert("Please select Risk Category.");
                 return false;
             }
+            //console.log($scope.RiskCategories);
+            var selectedCategories = $filter('filter')($scope.RiskCategories.List,{Selected : true});
+
+            var categoriesStr = '';
+            angular.forEach(selectedCategories, function(item, key) {
+                categoriesStr += ',' + item.Key;
+            });
+            categoriesStr = categoriesStr.substr(1);
+            $scope.VM.riskCategory = categoriesStr;
 
             var fileModel = $scope.VM.auditFileModel;
             OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
@@ -116,10 +126,19 @@
 
             return OPRiskService.GetRiskCategories()
         }).then(function (data) {
+            var categories = $scope.VM.riskCategory.split(',');
+            $scope.RiskCategories.SelCount = categories.length;
             Object.keys(data.categories).forEach(function (c) {
-                $scope.RiskCategories.List.push({Key: c, Label: data.categories[c], Selected: false});
+                var sel = (categories.indexOf(c) < 0) ? false: true;
+                $scope.RiskCategories.List.push({Key: c, Label: data.categories[c], Selected: sel});
             });
             $rootScope.app.Mask = false;
         });
+
+
+        $scope.addAction = function () {
+            $state.go('app.oprisk.incident.addaction', {pid: $stateParams.id});
+        };
+
     }
 })();

@@ -10,6 +10,7 @@
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Add new operational risk incident";
+        $scope.isAction = false;
 
         $scope.Form = {};
         $scope.RiskCategories = {List: [], SelCount: 0};
@@ -203,6 +204,5 @@
                 });
                 $rootScope.app.Mask = false;
             });
-
     }
 })();
