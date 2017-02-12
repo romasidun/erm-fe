@@ -24,8 +24,10 @@
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group" ng-class="{ 'has-error' : Form.VendorRisk.approvalStatus.$invalid && (!Form.VendorRisk.approvalStatus.$pristine || Form.VendorRisk.approvalStatus.$touched || Form.VendorRisk.approvalStatus.$submitted) }">
-                                    <label> Approval Status </label>
-                                    <input type="text"  name="approvalStatus"  ng-model="VM.approvalStatus" placeholder="ApprovalStatus" class="form-control" required>
+                                    <label> Risk Status </label>
+                                    <select name="approvalStatus" ng-model="VM.approvalStatus" ng-options="u.name as u.name for u in app.Lookup.Users" class="form-control" required>
+                                        <option value=""> Risk Status</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">

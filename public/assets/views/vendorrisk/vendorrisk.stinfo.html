@@ -10,7 +10,7 @@
 <!-- End: Page Header -->
 
 <div class="container-fluid container-fullw bg-white">
-    <div class="row">
+    <div class="row chart_panels">
         <div class="col-xs-12 col-md-6 col-lg-4">
             <div class="panel panel-white">
                 <div class="panel-body no-padding">
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div>
         <div class="col-xs-12 col-md-6 col-lg-4">
             <div class="panel panel-white">
                 <div class="panel-body no-padding">
@@ -56,7 +56,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row data_tables">
         <div class="col-md-12">
             <div class="panel panel-white no-radius">
                 <div class="panel-heading">
@@ -83,7 +84,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <table class="vendorRiskTable table table-striped table-responsive col-xs-12">
+                        <table class="table table-striped table-responsive col-xs-12">
                             <thead>
                                 <tr class="sortable-headers">
                                     <th><input type="checkbox"></th>
@@ -91,10 +92,6 @@
                                            ng-click="sortMe('title')"><i class="fa {{resSort('title')}}"></i>Title</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='period' }" ng-click="sortMe('period')"><i
                                             class="fa {{resSort('period')}}"></i>Period</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='approval' }"
-                                           ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i>Approver</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='approvdate' }"
-                                           ng-click="sortMe('approvdate')"><i class="fa {{resSort('approvdate')}}"></i>Approved Date</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='approvalStatus' }"
                                            ng-click="sortMe('approvalStatus')"><i class="fa {{resSort('approvalStatus')}}"></i>Approval Status</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='vendorRiskType' }"
@@ -105,8 +102,6 @@
                                            ng-click="sortMe('vendorName')"><i class="fa {{resSort('vendorName')}}"></i>Vendor Name</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='assessdate' }"
                                            ng-click="sortMe('assessdate')"><i class="fa {{resSort('assessdate')}}"></i>Assessments date</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='assessmentBy' }"
-                                           ng-click="sortMe('assessmentBy')"><i class="fa {{resSort('assessmentBy')}}"></i>Assessment By</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='vendorContact' }"
                                            ng-click="sortMe('vendorContact')"><i class="fa {{resSort('vendorContact')}}"></i>Vendor Contact</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='emailOrLink' }"
@@ -121,14 +116,11 @@
                                     <td><input type="checkbox"></td>
                                     <td>{{name.title}}</td>
                                     <td>{{name.period}}</td>
-                                    <td>{{name.approver}}</td>
-                                    <td>{{name.approvdate | date}}</td>
                                     <td>{{name.approvalStatus}}</td>
                                     <td>{{name.vendorRiskType}}</td>
                                     <td>{{name.docType}}</td>
                                     <td>{{name.vendorName}}</td>
                                     <td>{{name.assessdate | date}}</td>
-                                    <td>{{name.assessmentBy}}</td>
                                     <td>{{name.vendorContact}}</td>
                                     <td>{{name.emailOrLink}}</td>
                                     <td>{{name.riskScore}}</td>
