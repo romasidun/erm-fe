@@ -66,58 +66,44 @@
             var date = new Date();
             var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
             var current_user = $('.dropdown.current-user .username').text();
-            var vendor_docType = vm.amdata_by_filter.docType;
-            var vendor_riskScore = vm.amdata_by_filter.riskScore;
-            var vendor_riskType = vm.amdata_by_filter.vendorRiskType;
-            var vendor_contact = vm.amdata_by_filter.vendorContact;
-            var vendor_id = vm.amdata_by_filter.id;
-            var vendor_name = vm.amdata_by_filter.vendorName;
-            for(var i in vm.vendorrisk){
+            for(var i in $scope.vrStinfoCT){
                 var vendor_response = "NA";
-                if(vm.vendorrisk[i].responseN == false && vm.vendorrisk[i].responseY == false){
+                if($scope.vrStinfoCT[i].responseN == false && $scope.vrStinfoCT[i].responseY == false){
                     vendor_response = "NA";
                 }
-                if(vm.vendorrisk[i].responseN == true){
-                    vm.vendorrisk[i].responseY = false;
+                if($scope.vrStinfoCT[i].responseN == true){
+                    $scope.vrStinfoCT[i].responseY = false;
                     vendor_response = "N";
                 }
-                if(vm.vendorrisk[i].responseY == true){
-                    vm.vendorrisk[i].responseN = false;
+                if($scope.vrStinfoCT[i].responseY == true){
+                    $scope.vrStinfoCT[i].responseN = false;
                     vendor_response = "Y";
                 }
-                var vendor_comment = angular.isDefined(vm.vendorrisk[i].comments) ? vm.vendorrisk[i].comments : "";
-                var vendor_Findings = angular.isDefined(vm.vendorrisk[i].findings) ? vm.vendorrisk[i].findings : 0;
-                var vendor_Category = angular.isDefined(vm.vendorrisk[i].category) ? vm.vendorrisk[i].category : "";
-
-                $rootScope.app.Mask = false;
+                var vendor_comment = angular.isDefined($scope.vrStinfoCT[i].comments) ? $scope.vrStinfoCT[i].comments : "";
+                var vendor_Findings = angular.isDefined($scope.vrStinfoCT[i].findings) ? $scope.vrStinfoCT[i].findings : 0;
+                var vendor_Category = angular.isDefined($scope.vrStinfoCT[i].category) ? $scope.vrStinfoCT[i].category : "";
                 var post_data = {
-                    "approvedDate": current_date,
-                    "approver": current_user,
-                    "comments": vendor_comment,
-                    "control_Category": vendor_Category,
-                    "docType": vendor_docType,
-                    "findings": vendor_Findings,
-                    "response": vendor_response,
-                    "riskScore": vendor_riskScore,
-                    "riskTypes": vendor_riskType,
-                    "vendorContact": vendor_contact,
-                    "vendorId": vendor_id,
-                    "vendorName": vendor_name
+                    comments: vendor_comment + "",
+                    control_Category: vendor_Category + "",
+                    docType: $scope.VM.docType + "",
+                    finding: 0,
+                    response: vendor_response + "",
+                    riskScore: $scope.VM.riskScore * 1,
+                    riskType: $scope.VM.vendorRiskType + "",
+                    vendor: {
+                        id: $scope.vendor.id + "",
+                        primaryContact: $scope.vendor.primaryContact + "",
+                        vendorName: $scope.vendor.vendorName + ""
+                    }
                 };
-                    // title
-                    // Period
-                    // Approval Status
-                    // Approved Ddate
-                    // Version
-                    // Assessments date
-                    // Assessment By
-                    // Email/Link
-                    // Aggregated Risk Score
-                    // Overall Risk Score
+
                 VendorService.PostVendorData(post_data).then(function () {
                     $rootScope.app.Mask = false;
                 })
             }
+
+
+
         }
     }
 

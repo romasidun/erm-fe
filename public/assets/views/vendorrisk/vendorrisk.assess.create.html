@@ -74,16 +74,16 @@
                  <td>{{vendorrisk.category}}</td>
 		        <td>{{vendorrisk.name}}</td>
                 <td class="res">
-                    <input type="checkbox" ng-click="vendorResponseVal('Y',this,$event)" class="Vendorresponse" name="Y" ng-model="vrStinfoCT.vendorrisk[$index].responseY">
+                    <input type="checkbox" ng-click="vendorResponseVal('Y',this,$event)" class="Vendorresponse" name="Y" ng-model="vrStinfoCT[$index].responseY">
                 </td>
                 <td class="res">
-                    <input type="checkbox" ng-click="vendorResponseVal('N',this,$event)"  name="N" ng-model="vrStinfoCT.vendorrisk[$index].responseN">
+                    <input type="checkbox" ng-click="vendorResponseVal('N',this,$event)"  name="N" ng-model="vrStinfoCT[$index].responseN">
                 </td>
                 <td style="">
-                    <input type="number" min="0" ng-model="vrStinfoCT.vendorrisk[$index].findings">
+                    <input type="number" min="0" ng-model="vrStinfoCT[$index].findings">
                 </td>
                 <td>
-                    <textarea ng-model="vrStinfoCT.vendorrisk[$index].comments"></textarea>
+                    <textarea ng-model="vrStinfoCT[$index].comments"></textarea>
                 </td>
             </tr>
         </tbody>
