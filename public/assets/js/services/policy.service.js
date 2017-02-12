@@ -28,4 +28,29 @@ app.service('PolicyService', function(APIHandler){
         return APIHandler.Get('assessmenttypes');
     };
 
+    this.FileUpload = function (idd, fileModel) {
+        if(fileModel.length < 1){
+            return APIHandler.NullPromise();
+        }
+        var formdata = new FormData();
+        for (var i in fileModel) {
+            formdata.append("uploadFile", fileModel[i]._file);
+        }
+        var url = 'policies/' + idd + '/multiUpload';
+        return APIHandler.UploadFile(url, formdata);
+    };
+
+    this.multiFileUpload = function (params) {
+        var fileModel = params.fileModel;
+        if(fileModel.length < 1){
+            return APIHandler.NullPromise();
+        }
+        var formdata = new FormData();
+        formdata.append("policies", angular.toJson(params));
+        for (var i in fileModel) {
+            formdata.append("uploadFile", fileModel[i]._file);
+        }
+        var url = 'policies/multiUpload';
+        return APIHandler.UploadFileAndData(url, formdata, params);
+    };
 });

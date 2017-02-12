@@ -131,6 +131,30 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
         return deferred.promise;
     };
 
+    APIHandler.prototype.UploadFileAndData = function (url, formdata, senddata) {
+        url = baseUrl + url;
+        if (isDebug) console.info("UPLOAD: " + url);
+        if (isDebug) console.info("with body: ", formdata);
+
+        var deferred = $q.defer();
+
+        $http.post(url, formdata, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        })
+            .then(function (res) {
+                if (isDebug) console.log(res);
+                deferred.resolve(res);
+            }, function (err) {
+                if (isDebug) console.error(err);
+                deferred.reject(err);
+            });
+        return deferred.promise;
+    };
+
     APIHandler.prototype.NullPromise = function () {
         var deferred = $q.defer();
         deferred.reject({status: null});
