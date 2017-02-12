@@ -95,7 +95,6 @@
             return ComplianceService.GetSOXPRADept();
         }).then(function (data) {
             ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
-
             loadAssessments();
         });
 
@@ -124,14 +123,14 @@
             });
         }
 
-        function setupPieChart(rcsa) {
-            var dataList = [];
-            rcsa.forEach(function (o) {
-                dataList.push([o.key, o.val]);
-            });
-            var chartObj = ChartFactory.CreatePieChartTemplate('RCSA by status', 'RCSA by status', dataList, ['#D936ED', '#2B35DF', '#8EB42E', '#159008', '#B49400', '#9F6CE5']);
-            Highcharts.chart('rcsaStatus', chartObj);
-        }
+        // function setupPieChart(rcsa) {
+        //     var dataList = [];
+        //     rcsa.forEach(function (o) {
+        //         dataList.push([o.key, o.val]);
+        //     });
+        //     var chartObj = ChartFactory.CreatePieChartTemplate('RCSA by status', 'RCSA by status', dataList, ['#D936ED', '#2B35DF', '#8EB42E', '#159008', '#B49400', '#9F6CE5']);
+        //     Highcharts.chart('rcsaStatus', chartObj);
+        // }
 
         function setupStatusChart(data) {
             var opts = {

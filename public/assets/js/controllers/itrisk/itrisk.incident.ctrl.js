@@ -38,20 +38,22 @@
 
         ITRiskService.GetRimStatus()
             .then(function (data) {
-                var ristInc = [];
-                Object.keys(data).forEach(function (k) {
-                    ristInc.push({key: Utils.camelizeString(k), val: data[k]});
-                });
-                setupPieChart(ristInc);
+                // var ristInc = [];
+                // Object.keys(data).forEach(function (k) {
+                //     ristInc.push({key: Utils.camelizeString(k), val: data[k]});
+                // });
+                // setupPieChart(ristInc);
+                ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'statusChart');
                 return ITRiskService.GetRimPeriod()
             })
             .then(function (data) {
-                setupPeriodChart(data)
+                ChartFactory.CreateMultiColChart('By Period', data, 'periodChart');
+                // setupPeriodChart(data)
                 return ITRiskService.GetRimRiskCategory()
             })
             .then(function (data) {
-                setupStackedChart(data);
-
+                ChartFactory.CreateStackedChart($filter, data, 'catChart');
+                // setupStackedChart(data);
                 loadRim()
             });
 
