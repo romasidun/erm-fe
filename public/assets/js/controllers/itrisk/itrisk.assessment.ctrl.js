@@ -35,10 +35,12 @@
         });
 
         ITRiskService.GetRamStatus().then(function (data) {
-            setupPieChart(data);
+            ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'statusChart');
+            // setupPieChart(data);
             return ITRiskService.GetRamPeriod();
         }).then(function (data) {
-            setupPeriodChart(data);
+            ChartFactory.CreateMultiColChart('By Period', data, periodChart);
+            // setupPeriodChart(data);
             return ITRiskService.GetRamRegion();
         }).then(function (data) {
             setupRegionChart(data);
@@ -47,7 +49,6 @@
             setupDeptChart(data);
             loadRam();
         });
-
 
         $scope.downloadTemp = function () {
             var dlTmpModal = $uibModal.open({

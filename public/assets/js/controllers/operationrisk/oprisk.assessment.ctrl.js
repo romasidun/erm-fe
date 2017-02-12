@@ -56,16 +56,18 @@
         };
 
         OPRiskService.GetRSAStatus().then(function(data){
-            ChartFactory.CreatePieChart('RCSA by status', 'RCSA by status', data, 'rcsaStatus');
+            ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'rcsaStatus');
             return OPRiskService.GetRSAPeriod();
         }).then(function(data){
-            setupPeriodChart(data);
+            ChartFactory.CreateMultiColChart('By Period', data, 'periodChart')
+            // setupPeriodChart(data);
             return OPRiskService.GetRSARegion();
         }).then(function(data){
             setupStatusChart(data);
             return OPRiskService.GetRSADept();
         }).then(function(data){
-            setupDeptChart(data);
+            ChartFactory.CreateLabelChart('Risk Type Severity', '', '', '', 'severity', data, 'deptstacked');
+            // setupDeptChart(data);
             $rootScope.app.Mask = false;
         });
 
@@ -129,45 +131,45 @@
             ChartFactory.SetupMultiColChart('regionstacked', opts);
         }
 
-        function setupPeriodChart(data){
-            var month, opts = {
-                Title: "By Period",
-                YText: "Values",
-                Categories : [],
-                Series: [
-                    { name: "High", data: [] },
-                    { name: "Medium", data: [] },
-                    { name: "Low", data: [] }
-                ],
-                Colors: ['#ffa500', '#a52a2a', '#ffff00']
+        // function setupPeriodChart(data){
+        //     var month, opts = {
+        //         Title: "",
+        //         YText: "Values",
+        //         Categories : [],
+        //         Series: [
+        //             { name: "High", data: [] },
+        //             { name: "Medium", data: [] },
+        //             { name: "Low", data: [] }
+        //         ],
+        //         Colors: ['#ffa500', '#a52a2a', '#ffff00']
+        //
+        //     };
+        //     Object.keys(data).forEach(function(k){
+        //         if(k.indexOf('High')>-1) {
+        //             month = Utils.camelizeString(k.split('High')[0]);
+        //             opts.Series[0].data.push(data[k]);
+        //         }
+        //         if(k.indexOf('Med')>-1) {
+        //             month = Utils.camelizeString(k.split('Med')[0]);
+        //             opts.Series[1].data.push(data[k]);
+        //         }
+        //         if(k.indexOf('Low')>-1) {
+        //             month = Utils.camelizeString(k.split('Low')[0]);
+        //             opts.Series[2].data.push(data[k]);
+        //         }
+        //         if(opts.Categories.indexOf(month)===-1)
+        //             opts.Categories.push(month);
+        //     });
+        //     ChartFactory.SetupMultiColChart('', opts);
+        // }
 
-            };
-            Object.keys(data).forEach(function(k){
-                if(k.indexOf('High')>-1) {
-                    month = Utils.camelizeString(k.split('High')[0]);
-                    opts.Series[0].data.push(data[k]);
-                }
-                if(k.indexOf('Med')>-1) {
-                    month = Utils.camelizeString(k.split('Med')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if(k.indexOf('Low')>-1) {
-                    month = Utils.camelizeString(k.split('Low')[0]);
-                    opts.Series[2].data.push(data[k]);
-                }
-                if(opts.Categories.indexOf(month)===-1)
-                    opts.Categories.push(month);
-            });
-            ChartFactory.SetupMultiColChart('periodChart', opts);
-        }
-
-        function setupDeptChart(data) {
-            var series = [];
-            Object.keys(data).forEach(function (k) {
-                series.push([k, data[k]]);
-            });
-            var chartObj = ChartFactory.CreatePieChartTemplate('Risk Type Severity', 'Risk Type Severity', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
-            Highcharts.chart('deptstacked', chartObj);
-        }
+        // function setupDeptChart(data) {
+        //     var series = [];
+        //     Object.keys(data).forEach(function (k) {
+        //         series.push([k, data[k]]);
+        //     });
+        //     var chartObj = ChartFactory.CreatePieChartTemplate(, series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
+        //     Highcharts.chart('', chartObj);
+        // }
     }
 })();
