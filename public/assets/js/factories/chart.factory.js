@@ -94,7 +94,7 @@
         ChartFactory.prototype.CreateLabelChart = function(title, subTitle, yTitle, tooltip, series, data, chartEle){
             var dataList = [];
             angular.forEach(data, function(value, key){
-                dataList.push([key, value]);
+                dataList.push([key, value*1]);
             });
 
             var chartObj = {
