@@ -141,7 +141,7 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
         $http.post(url, formdata, {
             withCredentials: true,
             headers: {
-                'Content-Type': undefined
+                'Content-Type': '*/*'
             },
             transformRequest: angular.identity
         })
