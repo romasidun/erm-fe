@@ -6,20 +6,32 @@
         $scope.mainTitle = $state.current.title;
 
         VendorService.GetRimById($state.params.id).then(function(data){
-            data.approvedDate = new Date(data.approvedDate);
-            $scope.approvedDate = Utils.GetDPDate(data.approvedDate);
-            $scope.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
+            $rootScope.app.Mask = true;
             $scope.VM = data;
-            $rootScope.app.Mask = false;
+            data.approvedDate = new Date(data.approvedDate);
+            $scope.VM.approvedDate = Utils.GetDPDate(data.approvedDate);
+            $scope.VM.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
+            VendorService.GetVendor()
+                .then(function(data){
+                    var selectedVendor = data.filter(function(a){
+                        return a.vendorName == $scope.VM.vendorName;
+                    });
 
-            VendorService.GetVendor().then(function(data){
-                var selectedVendor = data.filter(function(a){
-                    return a.vendorName == $scope.VM.vendorName;
-                });
-
-                $scope.vendor = selectedVendor[0];
-            });
+                    $scope.vendor = selectedVendor[0];
+                    return VendorService.GetVendorAssessment($scope.VM.vendorRiskType);
+                })
+                .then(function(data){
+                    $scope.vrStinfoCT = data;
+                    $rootScope.app.Mask = false;
+                })
         });
+
+        $scope.vendorResponseVal =  function(para, ele, event){
+            if($(event.target).prop('checked') == true){
+                $(event.target).prop('checked', true);
+                $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
+            }
+        };
 
         $scope.downloadExcel = function(){
             var head_row = $('table.VendorAssessment thead tr');
@@ -49,32 +61,6 @@
                 location.href = exportHref;
             }, 100);
         };
-
-        VendorService.GetRimAM().then(function(data){
-            console.log('dataasdfasdfasdf',data);
-        });
-
-        // var vm = this;
-        // $scope.vendorResponseVal =  function(para, ele, event){
-        //     if($(event.target).prop('checked') == true){
-        //         $(event.target).prop('checked', true);
-        //         $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
-        //     }
-        // };
-
-        // function getAssessment() {
-        //     var AssessmentData = VendorService.GetAssessmentData();
-        //     console.log('AssessmentData',AssessmentData);
-        //     vm.Vendor_data_selected = angular.fromJson(AssessmentData.Vendor_data_selected);
-        //     vm.Vendor_data_title = AssessmentData.Enter_title;
-        //     vm.AssessmentData_by_vendorName = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
-        //     vm.amdata_by_filter = angular.fromJson(AssessmentData.AssessmentData_by_vendorName);
-        //     vm.vendorrisk = [];
-        //     VendorService.GetVendorAssessment(AssessmentData.RiskAssessmentType_selected.riskType).then(function (response) {
-        //         vm.vendorrisk = angular.fromJson(response);
-        //         $rootScope.app.Mask = false;
-        //     });
-        // }
 
         $scope.saveVendorData = function() {
             var date = new Date();

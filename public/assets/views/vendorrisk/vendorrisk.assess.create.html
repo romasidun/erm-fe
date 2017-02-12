@@ -23,7 +23,7 @@
         </div>
         <div>
             <h4 class="inline-block">
-                Assessment Date: <i>{{VM.assessmentDate}}</i>
+                Assessment Date: <i>{{VM.assessmentsDate}}</i>
             </h4>
             <h4 class="inline-block margin-left-20">
                 Assessment By: <i>{{VM.assessmentBy}}</i>
@@ -70,7 +70,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="white_blue_header" ng-repeat="vendorrisk in vrStinfoCT.vendorrisk track by $index">
+            <tr class="white_blue_header" ng-repeat="vendorrisk in vrStinfoCT track by $index">
                  <td>{{vendorrisk.category}}</td>
 		        <td>{{vendorrisk.name}}</td>
                 <td class="res">
