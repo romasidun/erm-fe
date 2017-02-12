@@ -28,15 +28,17 @@
 
         VendorService.GetRimStatus()
             .then(function (data) {
-                var ristInc = [];
-                Object.keys(data).forEach(function (k) {
-                    ristInc.push({key: Utils.camelizeString(k), val: data[k]});
-                });
-                setupStatusChart(ristInc);
+                ChartFactory.CreatePieChart('VendorRisk by Status', 'VendorRisk by Status', dataList, 'statusChart');
+                // var ristInc = [];
+                // Object.keys(data).forEach(function (k) {
+                //     ristInc.push({key: Utils.camelizeString(k), val: data[k]});
+                // });
+                // setupStatusChart(ristInc);
                 return VendorService.GetRimPeriod();
             })
             .then(function (data) {
-                setupPeriodChart(data);
+                ChartFactory.CreateLabelChart('Vendor By Period','Period', '', '', '', data, 'periodChart')
+                // setupPeriodChart(data);
                 return VendorService.GetRimDocType();
             })
             .then(function (data){
@@ -59,47 +61,47 @@
                 });
             });
 
-        function setupStatusChart(data) {
-            var dataList = [];
-            data.forEach(function (o) {
-                dataList.push([o.key, o.val]);
-            });
-            console.log('dataListdataListdataList',dataList);
-            var chartObj = ChartFactory.CreatePieChartTemplate('VendorRisk by Status', 'VendorRisk by Status', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
-            Highcharts.chart('statusChart', chartObj);
-        }
+        // function setupStatusChart(data) {
+        //     var dataList = [];
+        //     data.forEach(function (o) {
+        //         dataList.push([o.key, o.val]);
+        //     });
+        //     console.log('dataListdataListdataList',dataList);
+        //     var chartObj = ChartFactory.CreatePieChartTemplate(, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
+        //     Highcharts.chart('statusChart', chartObj);
+        // }
 
-        function setupPeriodChart(data) {
-            var month, opts = {
-                Title: "Vendor By Period",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "Low", data: []},
-                    {name: "Medium", data: []},
-                    {name: "High", data: []}
-                ],
-                Colors: ['#DFC600', '#2E8AE5', '#ED0C00']
-            };
-            Object.keys(data).forEach(function (k) {
-                if (k.indexOf('Low') > -1) {
-                    month = Utils.camelizeString(k.split('Low')[0]);
-                    opts.Series[0].data.push(data[k]);
-                }
-                if (k.indexOf('Med') > -1) {
-                    month = Utils.camelizeString(k.split('Med')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if (k.indexOf('High') > -1) {
-                    month = Utils.camelizeString(k.split('High')[0]);
-                    opts.Series[2].data.push(data[k]);
-                }
-                if (opts.Categories.indexOf(month) === -1)
-                    opts.Categories.push(month);
-            });
-
-            ChartFactory.SetupMultiColChart('periodChart', opts);
-        }
+        // function setupPeriodChart(data) {
+        //     var month, opts = {
+        //         Title: "Vendor By Period",
+        //         YText: "Values",
+        //         Categories: [],
+        //         Series: [
+        //             {name: "Low", data: []},
+        //             {name: "Medium", data: []},
+        //             {name: "High", data: []}
+        //         ],
+        //         Colors: ['#DFC600', '#2E8AE5', '#ED0C00']
+        //     };
+        //     Object.keys(data).forEach(function (k) {
+        //         if (k.indexOf('Low') > -1) {
+        //             month = Utils.camelizeString(k.split('Low')[0]);
+        //             opts.Series[0].data.push(data[k]);
+        //         }
+        //         if (k.indexOf('Med') > -1) {
+        //             month = Utils.camelizeString(k.split('Med')[0]);
+        //             opts.Series[1].data.push(data[k]);
+        //         }
+        //         if (k.indexOf('High') > -1) {
+        //             month = Utils.camelizeString(k.split('High')[0]);
+        //             opts.Series[2].data.push(data[k]);
+        //         }
+        //         if (opts.Categories.indexOf(month) === -1)
+        //             opts.Categories.push(month);
+        //     });
+        //
+        //     ChartFactory.SetupMultiColChart('periodChart', opts);
+        // }
 
         function setupDocTypeChart(data){
             var dataList = [];
