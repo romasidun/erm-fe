@@ -1,57 +1,71 @@
 (function(){
     'use strict';
 
-    DashboardController.$inject = ['$scope','$rootScope','$state', 'orderByFilter', 'Utils', 'DashService' , 'calendarConfig', 'ChartFactory'];
+    DashboardController.$inject = ['$scope','$rootScope','$state', '$filter', 'DashService' , 'calendarConfig', 'ChartFactory'];
     app.controller('DashboardCtrl', DashboardController);
 
-    function DashboardController ($scope, $rootScope, $state, orderBy, Utils, DashboardService, calendarConfig, ChartFactory){
+    function DashboardController ($scope, $rootScope, $state, $filter, DashboardService, calendarConfig, ChartFactory){
         $scope.mainTitle = $state.current.title;
 
-        $scope.OpList = [10, 25, 50, 100];
-
-        $scope.TVM = {
+        $scope.OpList = [5, 10, 25, 50, 100];
+        $scope.Grid1 = {
             PerPage: 10,
             CurrPage: 1,
             Column: 'alertName',
-            IsAsc: false,
+            IsAsc: true,
             Filter: "",
             Total: 0,
+            Data: [],
             SortMe: function(col){
-                if($scope.TVM.Column === col)
-                    $scope.TVM.IsAsc = !$scope.TVM.IsAsc;
+                if($scope.Grid1.Column === col)
+                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
                 else
-                    $scope.TVM.Column = col;
+                    $scope.Grid1.Column = col;
             },
             GetIco: function(col){
-                if($scope.TVM.Column === col){
-                    return $scope.TVM.IsAsc? 'fa-sort-up' : 'fa-sort-down';
+                if($scope.Grid1.Column === col){
+                    return $scope.Grid1.IsAsc? 'fa-sort-up' : 'fa-sort-down';
                 } else {
                     return 'fa-unsorted';
                 }
             }
         };
+        $scope.$watch('Grid1.Filter', function(n, o){
+            $rootScope.app.Mask = true;
+            var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
+            $scope.Grid1.Total = searchedData.length;
+            $rootScope.app.Mask = false;
+        });
 
-        $scope.AVM = {
+        $scope.Grid2 = {
             PerPage: 10,
             CurrPage: 1,
             Column: 'activityType',
             IsAsc: true,
             Filter: "",
             Total: 0,
+            Data: [],
             SortMe: function(col){
-                if($scope.AVM.Column === col)
-                    $scope.AVM.IsAsc = !$scope.AVM.IsAsc;
+                if($scope.Grid2.Column === col)
+                    $scope.Grid2.IsAsc = !$scope.Grid2.IsAsc;
                 else
-                    $scope.AVM.Column = col;
+                    $scope.Grid2.Column = col;
             },
             GetIco: function(col){
-                if($scope.AVM.Column === col){
-                    return $scope.AVM.IsAsc? 'fa-sort-up' : 'fa-sort-down';
+                if($scope.Grid2.Column === col){
+                    return $scope.Grid2.IsAsc? 'fa-sort-up' : 'fa-sort-down';
                 } else {
                     return 'fa-unsorted';
                 }
             }
         };
+        $scope.$watch('Grid2.Filter', function(n, o){
+            $rootScope.app.Mask = true;
+            var searchedData = $filter('filter')($scope.Grid2.Data, $scope.Grid2.Filter);
+            $scope.Grid2.Total = searchedData.length;
+            $rootScope.app.Mask = false;
+        });
+
 
         $scope.setCAOpt = function(key){
             var dataList = [];
@@ -135,11 +149,18 @@
 
 
         DashboardService.GetDashboard().then(function(data){
-            $scope.Activities = data;
+            //$scope.Activities = data;
+
+            $scope.Grid2.Total = data.length;
+            $scope.Grid2.Data = data;
+
             setupCalendarEvents(data);
             return DashboardService.GetTasks();
         }).then(function(data){
-            setupPagination(data);
+
+            $scope.Grid1.Total = data.length;
+            $scope.Grid1.Data = data;
+
             $rootScope.app.Mask=false;
         });
 
@@ -169,25 +190,6 @@
         }, {
             name: "Something else here"
         }];
-
-
-        function setupPagination(data){
-            var pages = 0;
-            data = orderBy(data, 'action_to_take');
-            data = data.filter(function(a){ return a.workItemType !== 'Topic' });
-            $scope.TVM.Total = data.length;
-            $scope.Tasks = [[]];
-
-            data.forEach(function(t){
-                if($scope.Tasks[pages].length<$scope.TVM.PerPage)
-                    $scope.Tasks[pages].push(t);
-                else {
-                    pages++;
-                    $scope.Tasks[pages] = [];
-                }
-            });
-            console.log($scope.Tasks);
-        }
 
         //-------------- Calendar Functionality ----------------
         $scope.calendarView = 'month';

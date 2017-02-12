@@ -8,28 +8,35 @@
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
 
-        $scope.CurrCol = 'assessName';
-        $scope.IsAsc = true;
-
-        $scope.OpList = [10, 25, 50, 100];
-        $scope.PerPage = 10;
-
-        $scope.sortMe = function(col){
-
-
-            if($scope.CurrCol === col)
-                $scope.IsAsc = !$scope.IsAsc;
-            else
-                $scope.CurrCol = col;
-        };
-
-        $scope.resSort = function(col){
-            if($scope.CurrCol === col){
-                return $scope.IsAsc? 'fa-sort-up' : 'fa-sort-down';
-            } else {
-                return 'fa-unsorted';
+        $scope.OpList = [5, 10, 25, 50, 100];
+        $scope.Grid1 = {
+            PerPage: 10,
+            CurrPage: 1,
+            Column: 'assessName',
+            IsAsc: true,
+            Filter: "",
+            Total: 0,
+            Data: [],
+            SortMe: function(col){
+                if($scope.Grid1.Column === col)
+                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
+                else
+                    $scope.Grid1.Column = col;
+            },
+            GetIco: function(col){
+                if($scope.Grid1.Column === col){
+                    return $scope.Grid1.IsAsc? 'fa-sort-up' : 'fa-sort-down';
+                } else {
+                    return 'fa-unsorted';
+                }
             }
         };
+        $scope.$watch('Grid1.Filter', function(n, o){
+            $rootScope.app.Mask = true;
+            var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
+            $scope.Grid1.Total = searchedData.length;
+            $rootScope.app.Mask = false;
+        });
 
         $scope.downloadTemp = function(){
             var dlTmpModal = $uibModal.open({
@@ -66,11 +73,7 @@
             return OPRiskService.GetRSADept();
         }).then(function(data){
             setupDeptChart(data);
-            $rootScope.app.Mask = false;
-        });
 
-        $scope.$watch('PerPage', function(n, o) {
-            $rootScope.app.Mask = true;
             loadAssessments();
         });
 
@@ -91,8 +94,12 @@
 
         function loadAssessments() {
             OPRiskService.GetAssessments().then(function (data) {
-                $scope.Assess = data;
-                // $rootScope.app.Mask = false;
+                console.log(data);
+
+                $scope.Grid1.Total = data.length;
+                $scope.Grid1.Data = data;
+
+                $rootScope.app.Mask = false;
             });
         }
 
@@ -147,7 +154,6 @@
 
             };
             Object.keys(data).forEach(function(k){
-                console.log('kkkkkkkkkkkkkkk',k);
                 if(k.indexOf('High')>-1) {
                     month = Utils.camelizeString(k.split('High')[0]);
                     opts.Series[0].data.push(data[k]);

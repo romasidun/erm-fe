@@ -6,26 +6,35 @@
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
 
-        $scope.CurrCol = 'riskName';
-        $scope.IsAsc = true;
-
-        $scope.OpList = [10, 25, 50, 100];
-        $scope.PerPage = 10;
-
-        $scope.sortMe = function (col) {
-            if ($scope.CurrCol === col)
-                $scope.IsAsc = !$scope.IsAsc;
-            else
-                $scope.CurrCol = col;
-        };
-
-        $scope.resSort = function (col) {
-            if ($scope.CurrCol === col) {
-                return $scope.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
-            } else {
-                return 'fa-unsorted';
+        $scope.OpList = [5, 10, 25, 50, 100];
+        $scope.Grid1 = {
+            PerPage: 10,
+            CurrPage: 1,
+            Column: 'riskName',
+            IsAsc: true,
+            Filter: "",
+            Total: 0,
+            Data: [],
+            SortMe: function(col){
+                if($scope.Grid1.Column === col)
+                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
+                else
+                    $scope.Grid1.Column = col;
+            },
+            GetIco: function(col){
+                if($scope.Grid1.Column === col){
+                    return $scope.Grid1.IsAsc? 'fa-sort-up' : 'fa-sort-down';
+                } else {
+                    return 'fa-unsorted';
+                }
             }
         };
+        $scope.$watch('Grid1.Filter', function(n, o){
+            $rootScope.app.Mask = true;
+            var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
+            $scope.Grid1.Total = searchedData.length;
+            $rootScope.app.Mask = false;
+        });
 
         ITRiskService.GetRamStatus().then(function (data) {
             setupPieChart(data);
@@ -38,10 +47,7 @@
             return ITRiskService.GetRamDept();
         }).then(function (data) {
             setupDeptChart(data);
-            $scope.$watch('PerPage', function (n, o) {
-                $rootScope.app.Mask = true;
-                loadRam();
-            });
+            loadRam();
         });
 
 
@@ -84,7 +90,10 @@
                 data.forEach(function (r) {
                     r.IDate = Utils.createDate(r.modifiedOn);
                 });
-                $scope.Incidents = data;
+
+                $scope.Grid1.Total = data.length;
+                $scope.Grid1.Data = data;
+
                 $rootScope.app.Mask = false;
             });
         }

@@ -17,12 +17,12 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="form-group col-xs-4 col-sm-3 col-md-2">
-							<select id="perpage" ng-model="TVM.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+							<select id="perpage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
 						</div>
 						<div class="col-xs-4 col-sm-3 col-md-10">
 							<div class="form-group pull-right col-xs-12 col-sm-4">
 								<span class="input-icon">
-									<input type="text" ng-model="TVM.Filter" placeholder="search" class="form-control input-sm" />
+									<input type="text" ng-model="Grid1.Filter" placeholder="search" class="form-control input-sm" />
 									<i class="fa fa-search"></i>
 								</span>
 							</div>
@@ -33,14 +33,14 @@
 							<thead>
 							<tr class="sortable-headers">
 								<th></th>
-								<th><a ng-class="{'text-azure': TVM.Column==='alertName' }" ng-click="TVM.SortMe('alertName')"><i class="fa {{TVM.GetIco('alertName')}}"></i> Item</a></th>
-								<th><a ng-class="{'text-azure': TVM.Column==='alertDesc' }" ng-click="TVM.SortMe('alertDesc')"><i class="fa {{TVM.GetIco('alertDesc')}}"></i> Description</a></th>
-								<th><a ng-class="{'text-azure': TVM.Column==='alertDueDate' }" ng-click="TVM.SortMe('alertDueDate')"><i class="fa {{TVM.GetIco('alertDueDate')}}"></i> Due Date </a></th>
-								<th><a ng-class="{'text-azure': TVM.Column==='alertCreatedDate' }" ng-click="TVM.SortMe('alertCreatedDate')"><i class="fa {{TVM.GetIco('alertCreatedDate')}}"></i> Event Created </a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='alertName' }" ng-click="Grid1.SortMe('alertName')"><i class="fa {{Grid1.GetIco('alertName')}}"></i> Item</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='alertDesc' }" ng-click="Grid1.SortMe('alertDesc')"><i class="fa {{Grid1.GetIco('alertDesc')}}"></i> Description</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='alertDueDate' }" ng-click="Grid1.SortMe('alertDueDate')"><i class="fa {{Grid1.GetIco('alertDueDate')}}"></i> Due Date </a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='alertCreatedDate' }" ng-click="Grid1.SortMe('alertCreatedDate')"><i class="fa {{Grid1.GetIco('alertCreatedDate')}}"></i> Event Created </a></th>
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="t in Tasks[TVM.CurrPage-1] | orderBy: TVM.Column:TVM.IsAsc | filter: TVM.Filter">
+							<tr ng-repeat="t in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
 								<th>
 									<a ng-if="t.action_to_take=='form'" ui-sref="app.dashboard.action.update({id: t.actionId})" class="btn btn-xs btn-squared btn-azure"><i class="ti-bell"></i></a>
 									<a popup-show="actionPopover.html"
@@ -60,10 +60,10 @@
 					</div>
 					<div class="row margin-top-10">
 						<div class="col-xs-12 col-sm-5">
-							Showing {{1}} to {{Tasks.length}} of {{Tasks.length}} entries
+							Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
 						</div>
 						<div class="col-xs-12 col-sm-7 pagination-right">
-							<uib-pagination total-items="TVM.Total" ng-model="TVM.CurrPage" items-per-page="TVM.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
+							<uib-pagination total-items="Grid1.Total" ng-model="Grid1.CurrPage" items-per-page="Grid1.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
 						</div>
 					</div>
 				</div>
@@ -160,12 +160,12 @@
 			<div class="panel panel-white">
 				<div class="row padding-10">
 					<div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
-						<select ng-model="AVM.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+						<select ng-model="Grid2.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
 					</div>
 					<div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
 						<div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
 							<span class="input-icon">
-								<input type="text" ng-model="AVM.Filter" placeholder="search" class="form-control input-sm" />
+								<input type="text" ng-model="Grid2.Filter" placeholder="search" class="form-control input-sm" />
 								<i class="fa fa-search"></i>
 							</span>
 						</div>
@@ -176,18 +176,18 @@
 						<thead>
 						<tr class="sortable-headers">
 							<th><input type="checkbox"></th>
-							<th><a ng-class="{'text-azure': AVM.Column==='activityType' }" ng-click="AVM.SortMe('activityType')"><i class="fa {{AVM.GetIco('activityType')}}"></i> Activity Type</a></th>
-							<th><a ng-class="{'text-azure': AVM.Column==='activtiyTitle' }" ng-click="AVM.SortMe('activtiyTitle')"><i class="fa {{AVM.GetIco('activtiyTitle')}}"></i> Activity Title</a></th>
-							<th><a ng-class="{'text-azure': AVM.Column==='createdDate' }" ng-click="AVM.SortMe('createdDate')"><i class="fa {{AVM.GetIco('createdDate')}}"></i> Created Date</a></th>
-							<th><a ng-class="{'text-azure': AVM.Column==='person' }" ng-click="AVM.SortMe('person')"><i class="fa {{AVM.GetIco('person')}}"></i> Person</a></th>
-							<th><a ng-class="{'text-azure': AVM.Column==='dueDate' }" ng-click="AVM.SortMe('dueDate')"><i class="fa {{AVM.GetIco('dueDate')}}"></i> Due Date</a></th>
-							<th><a ng-class="{'text-azure': AVM.Column==='status' }" ng-click="AVM.SortMe('status')"><i class="fa {{AVM.GetIco('status')}}"></i> Status</a></th>
-							<th><a ng-class="{'text-azure': AVM.Column==='rag' }" ng-click="AVM.SortMe('rag')"><i class="fa {{AVM.GetIco('rag')}}"></i> RAG</a></th>
+							<th><a ng-class="{'text-azure': Grid2.Column==='activityType' }" ng-click="Grid2.SortMe('activityType')"><i class="fa {{Grid2.GetIco('activityType')}}"></i> Activity Type</a></th>
+							<th><a ng-class="{'text-azure': Grid2.Column==='activtiyTitle' }" ng-click="Grid2.SortMe('activtiyTitle')"><i class="fa {{Grid2.GetIco('activtiyTitle')}}"></i> Activity Title</a></th>
+							<th><a ng-class="{'text-azure': Grid2.Column==='createdDate' }" ng-click="Grid2.SortMe('createdDate')"><i class="fa {{Grid2.GetIco('createdDate')}}"></i> Created Date</a></th>
+							<th><a ng-class="{'text-azure': Grid2.Column==='person' }" ng-click="Grid2.SortMe('person')"><i class="fa {{Grid2.GetIco('person')}}"></i> Person</a></th>
+							<th><a ng-class="{'text-azure': Grid2.Column==='dueDate' }" ng-click="Grid2.SortMe('dueDate')"><i class="fa {{Grid2.GetIco('dueDate')}}"></i> Due Date</a></th>
+							<th><a ng-class="{'text-azure': Grid2.Column==='status' }" ng-click="Grid2.SortMe('status')"><i class="fa {{Grid2.GetIco('status')}}"></i> Status</a></th>
+							<th><a ng-class="{'text-azure': Grid2.Column==='rag' }" ng-click="Grid2.SortMe('rag')"><i class="fa {{Grid2.GetIco('rag')}}"></i> RAG</a></th>
 							<th>Action</th>
 						</tr>
 						</thead>
 						<tbody>
-						<tr ng-repeat="a in Activities | orderBy: AVM.Column:AVM.IsAsc | filter: AVM.Filter">
+						<tr ng-repeat="a in Grid2.Data | orderBy: Grid2.Column:Grid2.IsAsc | filter: Grid2.Filter |  limitTo : Grid2.PerPage : (Grid2.CurrPage -1) * Grid2.PerPage">
 							<th><input type="checkbox"></th>
 							<td>{{a.activityType}}</td>
 							<td>{{a.activtiyTitle}}</td>
@@ -204,12 +204,12 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="row padding-10">
-					<div class="col-xs-12 col-sm-4">
-						Showing {{1}} to {{7}} of {{7}} entries
+				<div class="row margin-top-10">
+					<div class="col-xs-12 col-sm-5">
+						Showing {{(Grid2.CurrPage -1) * Grid2.PerPage + 1}} to {{ ((Grid2.CurrPage * Grid2.PerPage) >  Grid2.Total) ?  Grid2.Total : (Grid2.CurrPage * Grid2.PerPage); }} of {{Grid2.Total}} entries
 					</div>
-					<div class="col-xs-12 col-sm-8 pagination-right">
-						<uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+					<div class="col-xs-12 col-sm-7 pagination-right">
+						<uib-pagination total-items="Grid2.Total" ng-model="Grid2.CurrPage" items-per-page="Grid2.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
 					</div>
 				</div>
 			</div>
