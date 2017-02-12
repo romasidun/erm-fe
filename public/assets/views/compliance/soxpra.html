@@ -57,12 +57,12 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
-							<select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+							<select id="perpage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
 						</div>
 						<div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
 							<div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
 								<span class="input-icon">
-									<input type="text" ng-model="CurrFilt" placeholder="search" class="form-control input-sm" />
+									<input type="text" ng-model="Grid1.Filter" placeholder="search" class="form-control input-sm" />
 									<i class="fa fa-search"></i>
 								</span>
 							</div>
@@ -73,17 +73,17 @@
 							<thead>
 							<tr class="sortable-headers">
 								<th><input type="checkbox"></th>
-								<th><a ng-class="{'text-azure': CurrCol==='assessName' }" ng-click="sortMe('assessName')"><i class="fa {{resSort('assessName')}}"></i> Name</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='region' }" ng-click="sortMe('region')"><i class="fa {{resSort('region')}}"></i> Region</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='business' }" ng-click="sortMe('business')"><i class="fa {{resSort('business')}}"></i> Business</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='period' }" ng-click="sortMe('period')"><i class="fa {{resSort('period')}}"></i> Period</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='frequency' }" ng-click="sortMe('frequency')"><i class="fa {{resSort('frequency')}}"></i> Frequency</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='approval' }" ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i> Approval State</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='assessName' }" ng-click="Grid1.SortMe('assessName')"><i class="fa {{Grid1.GetIco('assessName')}}"></i> Name</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='region' }" ng-click="Grid1.SortMe('region')"><i class="fa {{Grid1.GetIco('region')}}"></i> Region</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='business' }" ng-click="Grid1.SortMe('business')"><i class="fa {{Grid1.GetIco('business')}}"></i> Business</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='period' }" ng-click="Grid1.SortMe('period')"><i class="fa {{Grid1.GetIco('period')}}"></i> Period</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='frequency' }" ng-click="Grid1.SortMe('frequency')"><i class="fa {{Grid1.GetIco('frequency')}}"></i> Frequency</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='approval' }" ng-click="Grid1.SortMe('approval')"><i class="fa {{Grid1.GetIco('approval')}}"></i> Approval State</a></th>
 								<th>Action</th>
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="r in Assess | orderBy: CurrCol:IsAsc | filter: CurrFilt | filter: CurrFilt">
+							<tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
 								<th><input type="checkbox"></th>
 								<td>{{r.assessName}}</td>
 								<td>{{r.region}}</td>
@@ -101,10 +101,10 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
-							Showing {{1}} to {{6}} of {{6}} entries
+							Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
 						</div>
 						<div class="col-xs-12 col-sm-8 pagination-right">
-							<uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+							<uib-pagination total-items="Grid1.Total" ng-model="Grid1.CurrPage" items-per-page="Grid1.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
 						</div>
 					</div>
 				</div>

@@ -32,10 +32,8 @@
             }
         };
         $scope.$watch('Grid1.Filter', function(n, o){
-            $rootScope.app.Mask = true;
             var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
             $scope.Grid1.Total = searchedData.length;
-            $rootScope.app.Mask = false;
         });
 
         ITRiskService.GetRimStatus()

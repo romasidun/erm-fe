@@ -7,23 +7,24 @@
         $scope.mainDesc = "AUDIT MANAGEMENT";
         $rootScope.app.Mask = false;
 
-        AuditService.GetManageDept().then(function(data){
-            setupMGDeptChart(data);
-            return AuditService.GetFindingOpen();
-        })
+        AuditService.GetManageDept()
+            .then(function (data) {
+                setupMGDeptChart(data);
+                return AuditService.GetFindingOpen();
+            })
             .then(function (data) {
                 setupFDOpenChart(data);
                 return AuditService.GetManageStatus();
             })
-            .then(function(data){
+            .then(function (data) {
                 setupMGStatusChart(data);
                 return AuditService.GetManagePeriod();
             })
-            .then(function(data){
+            .then(function (data) {
                 setupMGPeriodChart(data);
             })
 
-        function setupMGDeptChart(data){
+        function setupMGDeptChart(data) {
             var series = [];
             Object.keys(data).forEach(function (k) {
                 series.push([k, data[k]]);
@@ -32,7 +33,7 @@
             Highcharts.chart('audit_MGDeptChart', chartObj);
         }
 
-        function setupFDOpenChart(data){
+        function setupFDOpenChart(data) {
             var month, opts = {
                 Title: "By FindingOpen",
                 YText: "Values",
@@ -68,7 +69,7 @@
             Highcharts.chart('audit_MGStatus', chartObj);
         }
 
-        function setupMGPeriodChart(data){
+        function setupMGPeriodChart(data) {
             var month, opts = {
                 Title: "By FindingOpen",
                 YText: "Values",

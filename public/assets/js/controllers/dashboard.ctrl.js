@@ -31,10 +31,8 @@
             }
         };
         $scope.$watch('Grid1.Filter', function(n, o){
-            $rootScope.app.Mask = true;
             var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
             $scope.Grid1.Total = searchedData.length;
-            $rootScope.app.Mask = false;
         });
 
         $scope.Grid2 = {
@@ -60,10 +58,8 @@
             }
         };
         $scope.$watch('Grid2.Filter', function(n, o){
-            $rootScope.app.Mask = true;
             var searchedData = $filter('filter')($scope.Grid2.Data, $scope.Grid2.Filter);
             $scope.Grid2.Total = searchedData.length;
-            $rootScope.app.Mask = false;
         });
 
 
