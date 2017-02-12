@@ -22,12 +22,12 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
-							<select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+							<select id="perpage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
 						</div>
 						<div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
 							<div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
 								<span class="input-icon">
-									<input type="text" ng-model="CurrFilt" placeholder="search" class="form-control input-sm" />
+									<input type="text" ng-model="Grid1.Filter" placeholder="search" class="form-control input-sm" />
 									<i class="fa fa-search"></i>
 								</span>
 							</div>
@@ -38,17 +38,17 @@
 							<thead>
 							<tr class="sortable-headers">
 								<th><input type="checkbox" ng-model="all_check" ng-click="selectAll()"></th>
-								<th><a ng-class="{'text-azure': CurrCol==='testResultName' }" ng-click="sortMe('testResultName')"><i class="fa {{resSort('testResultName')}}"></i> Test Result </a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='regionName' }" ng-click="sortMe('regionName')"><i class="fa {{resSort('regionName')}}"></i> Region </a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='deptName' }" ng-click="sortMe('deptName')"><i class="fa {{resSort('deptName')}}"></i> Departments </a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='testResults' }" ng-click="sortMe('testResults')"><i class="fa {{resSort('testResults')}}"></i> Test Results </a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='dueDate' }" ng-click="sortMe('dueDate')"><i class="fa {{resSort('dueDate')}}"></i> Test Due Date</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='riskCategory' }" ng-click="sortMe('riskCategory')"><i class="fa {{resSort('riskCategory')}}"></i> Test Completed Date </a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='testResultName' }" ng-click="Grid1.SortMe('testResultName')"><i class="fa {{Grid1.GetIco('testResultName')}}"></i> Test Result </a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='regionName' }" ng-click="Grid1.SortMe('regionName')"><i class="fa {{Grid1.GetIco('regionName')}}"></i> Region </a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='deptName' }" ng-click="Grid1.SortMe('deptName')"><i class="fa {{Grid1.GetIco('deptName')}}"></i> Departments </a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='testResults' }" ng-click="Grid1.SortMe('testResults')"><i class="fa {{Grid1.GetIco('testResults')}}"></i> Test Results </a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='dueDate' }" ng-click="Grid1.SortMe('dueDate')"><i class="fa {{Grid1.GetIco('dueDate')}}"></i> Test Due Date</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> Test Completed Date </a></th>
 								<th>Action</th>
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="tr in TestResults | orderBy: CurrCol:IsAsc | filter: CurrFilt"">
+							<tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
 								<th><input type="checkbox"></th>
 								<td>{{tr.testResultName}}</td>
 								<td>{{tr.regionName}}</td>
@@ -66,10 +66,10 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
-							Showing {{1}} to {{TestResults.length}} of {{TestResults.length}} entries
+							Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
 						</div>
 						<div class="col-xs-12 col-sm-8 pagination-right">
-							<uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+							<uib-pagination total-items="Grid1.Total" ng-model="Grid1.CurrPage" items-per-page="Grid1.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
 						</div>
 					</div>
 				</div>

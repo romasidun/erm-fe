@@ -92,7 +92,6 @@
 
         function loadAssessments() {
             OPRiskService.GetAssessments().then(function (data) {
-                console.log(data);
 
                 $scope.Grid1.Total = data.length;
                 $scope.Grid1.Data = data;

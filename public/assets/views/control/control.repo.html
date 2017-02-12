@@ -23,12 +23,12 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
-							<select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+							<select id="perpage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
 						</div>
 						<div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
 							<div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
 								<span class="input-icon">
-									<input type="text" ng-model="CurrFilt" placeholder="search" class="form-control input-sm" />
+									<input type="text" ng-model="Grid1.Filter" placeholder="search" class="form-control input-sm" />
 									<i class="fa fa-search"></i>
 								</span>
 							</div>
@@ -39,18 +39,18 @@
 							<thead>
 							<tr class="sortable-headers">
 								<th><input type="checkbox" ng-model="all_check" ng-click="selectAll()"></th>
-								<th><a ng-class="{'text-azure': CurrCol==='riskName' }" ng-click="sortMe('rcsa_name')"><i class="fa {{resSort('riskName')}}"></i> Control Source</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='IDate' }" ng-click="sortMe('IDate')"><i class="fa {{resSort('IDate')}}"></i> Control Category</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='riskSeverity' }" ng-click="sortMe('riskSeverity')"><i class="fa {{resSort('riskSeverity')}}"></i> Control Name</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='riskStatus' }" ng-click="sortMe('riskStatus')"><i class="fa {{resSort('riskStatus')}}"></i> Control Ref ID</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='riskCategory' }" ng-click="sortMe('riskCategory')"><i class="fa {{resSort('riskCategory')}}"></i> Control Owner</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='riskCategory' }" ng-click="sortMe('riskCategory')"><i class="fa {{resSort('riskCategory')}}"></i> Control Active</a></th>
-								<th><a ng-class="{'text-azure': CurrCol==='riskCategory' }" ng-click="sortMe('riskCategory')"><i class="fa {{resSort('riskCategory')}}"></i> Control Version</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='riskName' }" ng-click="Grid1.SortMe('rcsa_name')"><i class="fa {{Grid1.GetIco('riskName')}}"></i> Control Source</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='IDate' }" ng-click="Grid1.SortMe('IDate')"><i class="fa {{resSort('IDate')}}"></i> Control Category</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='riskSeverity' }" ng-click="Grid1.SortMe('riskSeverity')"><i class="fa {{Grid1.GetIco('riskSeverity')}}"></i> Control Name</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='riskStatus' }" ng-click="Grid1.SortMe('riskStatus')"><i class="fa {{Grid1.GetIco('riskStatus')}}"></i> Control Ref ID</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> Control Owner</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> Control Active</a></th>
+								<th><a ng-class="{'text-azure': Grid1.Column==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> Control Version</a></th>
 								<th>Action</th>
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="r in Repos | orderBy: CurrCol:IsAsc | filter: CurrFilt">
+							<tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
 								<th><input type="checkbox"></th>
 								<td>{{r.controlSource}}</td>
 								<td>{{r.controlCategory}}</td>
@@ -69,10 +69,10 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
-							Showing {{1}} to {{7}} of {{7}} entries
+							Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
 						</div>
 						<div class="col-xs-12 col-sm-8 pagination-right">
-							<uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+							<uib-pagination total-items="Grid1.Total" ng-model="Grid1.CurrPage" items-per-page="Grid1.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
 						</div>
 					</div>
 				</div>
