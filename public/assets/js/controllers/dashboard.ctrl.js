@@ -64,47 +64,39 @@
 
 
         $scope.setCAOpt = function(key){
-            var dataList = [];
-            angular.forEach($scope.ANchartData[key], function(value, key){
-                dataList.push([key, value]);
-            });
             $scope.selectedANKey = key;
-            controlanalyticsChart(dataList);
+            createCtrlANChart();
         };
-
-        DashboardService.GetctrlAntic().then(function(data){
-            $scope.ANchartData = data;
-            var dataList = [];
-            $scope.selectedANKey = Object.keys($scope.ANchartData)[0];
-            angular.forEach($scope.ANchartData[$scope.selectedANKey], function(value, key){
-                dataList.push([key, value]);
-            });
-            controlanalyticsChart(dataList);
-        });
 
         $scope.setOPOpt = function(key){
-            var dataList = [];
-            angular.forEach($scope.OPchartData[key], function(value, key){
-                dataList.push([key, value]);
-            });
             $scope.selectedOPKey = key;
-            openitemChart(dataList);
+            createCtrlOPchart();
         };
 
-        DashboardService.Openitem().then(function(data){
-            $scope.OPchartData = data;
-            var dataList = [];
-            $scope.selectedOPKey = Object.keys($scope.OPchartData)[0];
-            angular.forEach($scope.OPchartData[$scope.selectedOPKey], function(value, key){
-                dataList.push([key, value]);
+        DashboardService.GetctrlAntic().
+            then(function(data){
+                $scope.ANchartData = data;
+                $scope.selectedANKey = Object.keys($scope.ANchartData)[0];
+                createCtrlANChart();
+                return DashboardService.Openitem();
+            })
+            .then(function(data){
+                $scope.OPchartData = data;
+                $scope.selectedOPKey = Object.keys($scope.OPchartData)[0];
+                createCtrlOPchart();
             });
-            openitemChart(dataList);
-        });
 
-        function controlanalyticsChart(data){
-            var chartObj = ChartFactory.CreatePieChartTemplate('Control Analytics', 'Control Analytics', data, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
-            Highcharts.chart('ctrlAnticChart', chartObj);
+        function createCtrlANChart() {
+            ChartFactory.CreatePieChart('Control Analytics', 'Control Analytics', $scope.ANchartData[$scope.selectedANKey], 'ctrlAnticChart');
         }
+
+        function createCtrlOPchart(){
+            ChartFactory.CreateLabelChart('Open Itme', 'OpenItem', "", "", "", $scope.OPchartData[$scope.selectedOPKey], 'openitemChart');
+        }
+
+
+
+
 
         function openitemChart(data) {
             var opts = {
@@ -119,30 +111,6 @@
             var chartObj = ChartFactory.SetupLabelChart(opts);
             Highcharts.chart('openitemChart', chartObj);
         }
-
-        var chart1 = {};
-        chart1.type = "PieChart";
-        chart1.data = [
-            ['Component', 'cost'],
-            ['Completed', 1],
-            ['Approved', 4],
-            ['Submitted', 2],
-            ['In Progress', 1],
-            ['Ready To Approve', 1],
-            ['To Approve', 3]
-        ];
-        chart1.options = {
-            displayExactValues: true,
-            is3D: true
-        };
-
-        chart1.formatters = {
-            number : [{ columnNum: 1, pattern: "$ #,##0.00" }]
-        };
-
-        $scope.chart1 = chart1;
-
-
 
         DashboardService.GetDashboard().then(function(data){
             //$scope.Activities = data;

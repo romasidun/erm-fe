@@ -1,10 +1,10 @@
 (function(){
     "use strict";
 
-    OprAssessmentCtrl.$inject = ['$scope','$rootScope','$state', '$filter', '$uibModal', 'OPRiskService', 'ChartFactory', 'Utils'];
+    OprAssessmentCtrl.$inject = ['$scope','$rootScope','$state', '$filter', '$uibModal', 'OPRiskService', 'ChartFactory', 'Utils', 'APIHandler'];
     app.controller('OprAssessmentCtrl', OprAssessmentCtrl);
 
-    function OprAssessmentCtrl ($scope, $rootScope, $state, $filter, $uibModal, OPRiskService, ChartFactory, Utils){
+    function OprAssessmentCtrl ($scope, $rootScope, $state, $filter, $uibModal, OPRiskService, ChartFactory, Utils, APIHandler){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
 
@@ -56,23 +56,7 @@
         };
 
         OPRiskService.GetRSAStatus().then(function(data){
-            var pattern_data = {
-                "In Progress": null,
-                "Completed": null,
-                "Submitted": null,
-                "To Approve": null,
-                "Ready To Approve": null,
-                "Approved": null
-            };
-
-            for(var i in data){
-                pattern_data[i]=data[i];
-            }
-            var rcsaChrt = [];
-            Object.keys(pattern_data).forEach(function (k) {
-                rcsaChrt.push({key: Utils.camelizeString(k), val: pattern_data[k]});
-            });
-            setupPieChart(rcsaChrt);
+            ChartFactory.CreatePieChart('RCSA by status', 'RCSA by status', data, rcsaStatus);
             return OPRiskService.GetRSAPeriod();
         }).then(function(data){
             setupPeriodChart(data);
@@ -113,13 +97,6 @@
 
                 $rootScope.app.Mask = false;
             });
-        }
-
-        function setupPieChart(rcsa) {
-            var dataList = [];
-            rcsa.forEach(function(o){ dataList.push([o.key, o.val]); });
-            var chartObj = ChartFactory.CreatePieChartTemplate('RCSA by status', 'RCSA by status', dataList, ['#008000', '#ff0000', '#ffff00', '#ffc0cb', '#ffa500', '#0000ff']);
-            Highcharts.chart('rcsaStatus', chartObj);
         }
 
         function setupStatusChart(data) {

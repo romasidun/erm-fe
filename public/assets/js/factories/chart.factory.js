@@ -36,6 +36,123 @@
             };
         };
 
+        ChartFactory.prototype.CreatePieChart = function(title, name, data, chartEle){
+            var dataList = [],
+                rcsaChrt = [],
+                pattern_data = {
+                    "In Progress": null,
+                    "in_progress": null,
+                    "Completed": null,
+                    "completed": null,
+                    "Submitted": null,
+                    "submitted": null,
+                    "To Approve": null,
+                    "to_approve": null,
+                    "Ready To Approve": null,
+                    "ready_to_approve": null,
+                    "approve": null,
+                    "Approved": null
+                },
+                color = ['#008000', '#008000', '#ff0000', '#ff0000', '#ffff00', '#ffff00', '#ffc0cb', '#ffc0cb', '#ffa500', '#ffa500', '#0000ff', '#0000ff'];
+
+            for(var i in data){
+                pattern_data[i]=data[i];
+            }
+            console.log('datadatadata',pattern_data);
+            Object.keys(pattern_data).forEach(function (k) {
+                rcsaChrt.push({key: Utils.camelizeString(k), val: pattern_data[k]});
+            });
+            rcsaChrt.forEach(function(o){ dataList.push([o.key, o.val]); });
+
+            if(color && color.length) Highcharts.getOptions().plotOptions.pie.colors = color;
+            var chartObj =  {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'pie',
+                    options3d: { enabled: true, alpha: 45, beta: 0 }
+                },
+                title: { text: title },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{ type: 'pie', name: name, data: dataList }]
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
+
+        ChartFactory.prototype.CreateLabelChart = function(title, subTitle, yTitle, tooltip, series, data, chartEle){
+            var dataList = [];
+            angular.forEach(data, function(value, key){
+                dataList.push([key, value]);
+            });
+
+            var chartObj = {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title
+                },
+                subtitle: {
+                    text: subTitle
+                },
+                xAxis: {
+                    type: 'category',
+                    labels: {
+                        rotation: -45,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: yTitle
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: tooltip
+                },
+                series: [{
+                    name: 'Population',
+                    data: dataList,
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{point.y:.1f}', // one decimal
+                        y: 10, // 10 pixels down from the top
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }]
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
+
         ChartFactory.prototype.StatusChart = function(container){
             return new Highcharts.Chart({
                 credits: {
