@@ -56,17 +56,18 @@
         };
 
         OPRiskService.GetRSAStatus().then(function(data){
+            $rootScope.app.Mask = true;
             ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'rcsaStatus');
             return OPRiskService.GetRSAPeriod();
         }).then(function(data){
-            ChartFactory.CreateMultiColChart('By Period', data, 'periodChart')
+            ChartFactory.CreateMultiColChart('By Period', data, 'periodChart');
             // setupPeriodChart(data);
             return OPRiskService.GetRSARegion();
         }).then(function(data){
             setupStatusChart(data);
             return OPRiskService.GetRSADept();
         }).then(function(data){
-            ChartFactory.CreatePieChart('Risk Type Severity', '', '', '', 'severity', data, 'deptstacked');
+            ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptstacked');
             // setupDeptChart(data);
             $rootScope.app.Mask = false;
         });

@@ -46,7 +46,7 @@
             setupRegionChart(data);
             return ITRiskService.GetRamDept();
         }).then(function (data) {
-            ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptChart')
+            ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptChart');
             // setupDeptChart(data);
             loadRam();
         });
