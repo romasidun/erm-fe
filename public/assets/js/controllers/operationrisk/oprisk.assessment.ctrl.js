@@ -63,8 +63,6 @@
             // setupPeriodChart(data);
             return OPRiskService.GetRSARegion();
         }).then(function(data){
-            alert();
-            console.log(data);
             setupStatusChart(data);
             return OPRiskService.GetRSADept();
         }).then(function(data){

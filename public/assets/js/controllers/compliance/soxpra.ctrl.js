@@ -77,21 +77,24 @@
             });
         };
 
+
+
         ComplianceService.GetSOXPRAStatus().then(function (data) {
-            var rcsaChrt = [];
-            Object.keys(data).forEach(function (k) {
-                rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
-            });
-            setupPieChart(rcsaChrt);
+            ChartFactory.CreatePieChart('RCSA by status', 'RCSA by status', data, 'rcsaStatus');
+            // var rcsaChrt = [];
+            // Object.keys(data).forEach(function (k) {
+            //     rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
+            // });
+            // setupPieChart(rcsaChrt);
             return ComplianceService.GetSOXPRAPeriod();
         }).then(function (data) {
-            setupPeriodChart(data);
+            ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
             return ComplianceService.GetSOXPRARegion();
         }).then(function (data) {
             setupStatusChart(data);
             return ComplianceService.GetSOXPRADept();
         }).then(function (data) {
-            setupDeptChart(data);
+            ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
 
             loadAssessments();
         });
@@ -131,74 +134,100 @@
         }
 
         function setupStatusChart(data) {
-
-            var serTypes = {
-                approved: 'Approved',
-                completed: 'Completed',
-                in_progress: 'In Progress',
-                ready_to_approve: 'Ready to Approve',
-                submitted: 'Submitted',
-                to_approve: 'To Approve'
-            };
-            var cats = [], currCats = [];
-            var serList = [
-                {name: 'Approved', data: []},
-                {name: 'Completed', data: []},
-                {name: 'In Progress', data: []},
-                {name: 'Ready to Approve', data: []},
-                {name: 'Submitted', data: []},
-                {name: 'To Approve', data: []}
-            ];
-
-            Object.keys(serTypes).forEach(function (ck) {
-                cats.push(ck);
+            var opts = {
+                Title: "By Region",
+                YText: "Values",
+                Categories: [],
+                Series: [
+                    {name: "In Progress", data: [], color: '#008000'},
+                    {name: "Completed", data: [], color: '#ff0000'},
+                    {name: "Submitted", data: [], color: '#ffff00'},
+                    {name: "To Approve", data: [], color: '#ffc0cb'},
+                    {name: "Ready To Approve", data: [], color: '#ffa500'},
+                    {name: "Approved", data: [], color: '#0000ff'}
+                ]
+            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
+            Object.keys(data).forEach(function (k) {
+                if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
             });
-
-            cats.forEach(function (cat, i) {
-                currCats = $filter('filter')(Object.keys(data), cat);
-                currCats.forEach(function (c) {
-                    if (c.indexOf(' approved') > -1) {
-                        serList[0].data.push(data[c]);
-                    }
-                    if (c.indexOf(' completed') > -1) {
-                        serList[1].data.push(data[c]);
-                    }
-                    if (c.indexOf(' in_progress') > -1) {
-                        serList[2].data.push(data[c]);
-                    }
-                    if (c.indexOf(' ready_to_approve') > -1) {
-                        serList[3].data.push(data[c]);
-                    }
-                    if (c.indexOf(' submitted') > -1) {
-                        serList[4].data.push(data[c]);
-                    }
-                    if (c.indexOf(' to_approve') > -1) {
-                        serList[5].data.push(data[c]);
-                    }
+            opts.Categories.forEach(function (c) {
+                var filteredData = $filter('filter')(Object.keys(data), c);
+                filteredData.forEach(function (ck) {
+                    cats.forEach(function (ct, j) {
+                        if (ck.indexOf(ct) > -1) {
+                            opts.Series[j].data.push(data[ck]);
+                        }
+                    });
                 });
             });
-
-            cats.forEach(function (c, i) {
-                cats[i] = serTypes[c];
-            });
-            console.log(serList);
-
-            Highcharts.chart('regionstacked', {
-                chart: {type: 'bar'},
-                title: {text: 'By Region'},
-                xAxis: {
-                    categories: cats
-                },
-                yAxis: {
-                    min: 0,
-                    title: {text: 'By Re'}
-                },
-                legend: {reversed: false},
-                plotOptions: {
-                    series: {stacking: 'normal'}
-                },
-                series: serList
-            });
+            ChartFactory.SetupMultiColChart('regionstacked', opts);
+            // var serTypes = {
+            //     approved: 'Approved',
+            //     completed: 'Completed',
+            //     in_progress: 'In Progress',
+            //     ready_to_approve: 'Ready to Approve',
+            //     submitted: 'Submitted',
+            //     to_approve: 'To Approve'
+            // };
+            // var cats = [], currCats = [];
+            // var serList = [
+            //     {name: 'Approved', data: []},
+            //     {name: 'Completed', data: []},
+            //     {name: 'In Progress', data: []},
+            //     {name: 'Ready to Approve', data: []},
+            //     {name: 'Submitted', data: []},
+            //     {name: 'To Approve', data: []}
+            // ];
+            //
+            // Object.keys(serTypes).forEach(function (ck) {
+            //     cats.push(ck);
+            // });
+            //
+            // cats.forEach(function (cat, i) {
+            //     currCats = $filter('filter')(Object.keys(data), cat);
+            //     currCats.forEach(function (c) {
+            //         if (c.indexOf(' approved') > -1) {
+            //             serList[0].data.push(data[c]);
+            //         }
+            //         if (c.indexOf(' completed') > -1) {
+            //             serList[1].data.push(data[c]);
+            //         }
+            //         if (c.indexOf(' in_progress') > -1) {
+            //             serList[2].data.push(data[c]);
+            //         }
+            //         if (c.indexOf(' ready_to_approve') > -1) {
+            //             serList[3].data.push(data[c]);
+            //         }
+            //         if (c.indexOf(' submitted') > -1) {
+            //             serList[4].data.push(data[c]);
+            //         }
+            //         if (c.indexOf(' to_approve') > -1) {
+            //             serList[5].data.push(data[c]);
+            //         }
+            //     });
+            // });
+            //
+            // cats.forEach(function (c, i) {
+            //     cats[i] = serTypes[c];
+            // });
+            // console.log(serList);
+            //
+            // Highcharts.chart('regionstacked', {
+            //     chart: {type: 'bar'},
+            //     title: {text: 'By Region'},
+            //     xAxis: {
+            //         categories: cats
+            //     },
+            //     yAxis: {
+            //         min: 0,
+            //         title: {text: 'By Re'}
+            //     },
+            //     legend: {reversed: false},
+            //     plotOptions: {
+            //         series: {stacking: 'normal'}
+            //     },
+            //     series: serList
+            // });
         }
 
         function setupPeriodChart(data) {
