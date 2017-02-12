@@ -50,7 +50,11 @@ app.service('PolicyService', function(APIHandler){
         for (var i in fileModel) {
             formdata.append("uploadFile", fileModel[i]._file);
         }
+
         var url = 'policies/multiUpload';
+        console.log('url',url);
+        console.log('formdata',formdata);
+        console.log('params',params);
         return APIHandler.UploadFileAndData(url, formdata, params);
     };
 });
