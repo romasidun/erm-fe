@@ -148,12 +148,12 @@
                 YText: "Values",
                 Categories: [],
                 Series: [
-                    {name: "In Progress", data: [], color: '#1016c6'},
-                    {name: "Completed", data: [], color: '#00db72'},
-                    {name: "Submitted", data: [], color: '#d37619'},
-                    {name: "To Approve", data: [], color: '#d3000d'},
-                    {name: "Ready To Approve", data: [], color: '#d3a209'},
-                    {name: "Approved", data: [], color: '#c807d3'}
+                    {name: "In Progress", data: [], color: '#008000'},
+                    {name: "Completed", data: [], color: '#ff0000'},
+                    {name: "Submitted", data: [], color: '#ffff00'},
+                    {name: "To Approve", data: [], color: '#ffc0cb'},
+                    {name: "Ready To Approve", data: [], color: '#ffa500'},
+                    {name: "Approved", data: [], color: '#0000ff'}
                 ]
             }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
             Object.keys(data).forEach(function (k) {
