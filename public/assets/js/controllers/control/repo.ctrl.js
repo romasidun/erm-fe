@@ -1,11 +1,12 @@
 (function () {
-    RepoController.$inject = ['$scope', '$rootScope', '$state', 'ControlService', 'Utils', 'ExcelFactory', '$timeout'];
+    RepoController.$inject = ['$scope', '$rootScope', '$state', '$filter', 'ControlService', 'Utils', 'ExcelFactory', '$timeout'];
     app.controller('RepoCtrl', RepoController);
 
-    function RepoController($scope, $rootScope, $state, ControlService, Utils, ExcelFactory, $timeout) {
+    function RepoController($scope, $rootScope, $state, $filter, ControlService, Utils, ExcelFactory, $timeout) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Add Edit Search Delete & Download Controls";
 
+        $scope.OpList = [5, 10, 25, 50, 100];
         $scope.Grid1 = {
             PerPage: 10,
             CurrPage: 1,

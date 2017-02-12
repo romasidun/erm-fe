@@ -48,7 +48,7 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
+							<tr ng-repeat="tr in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
 								<th><input type="checkbox"></th>
 								<td>{{tr.testResultName}}</td>
 								<td>{{tr.regionName}}</td>
