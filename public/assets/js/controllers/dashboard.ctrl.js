@@ -73,8 +73,8 @@
             createCtrlOPchart();
         };
 
-        DashboardService.GetctrlAntic().
-            then(function(data){
+        DashboardService.GetctrlAntic()
+            .then(function(data){
                 $scope.ANchartData = data;
                 $scope.selectedANKey = Object.keys($scope.ANchartData)[0];
                 createCtrlANChart();
@@ -93,10 +93,6 @@
         function createCtrlOPchart(){
             ChartFactory.CreateLabelChart('Open Itme', 'OpenItem', "", "", "", $scope.OPchartData[$scope.selectedOPKey], 'openitemChart');
         }
-
-
-
-
 
         function openitemChart(data) {
             var opts = {
@@ -214,29 +210,29 @@
 
         };
         
-        function setopenitemChart() {
-            var opts = {
-                Title: "Open Item",
-                subTitle: "",
-                yTitle: "",
-                tooltip: "",
-                Categories : [],
-                Series: 'Openitem',
-                Data : [
-                    ['Jan', 4],
-                    ['Feb', 8],
-                    ['March', 2],
-                    ['April', 5],
-                    ['May', 2],
-                    ['June', 3],
-                    ['July', 5],
-                    ['August', 2],
-                    ['September', 1]
-                ]
-            };
-
-            var chartObj = ChartFactory.SetupLabelChart(opts);
-            Highcharts.chart('openitemChart', chartObj);
-        }
+        // function setopenitemChart() {
+        //     var opts = {
+        //         Title: "Open Item",
+        //         subTitle: "",
+        //         yTitle: "",
+        //         tooltip: "",
+        //         Categories : [],
+        //         Series: 'Openitem',
+        //         Data : [
+        //             ['Jan', 4],
+        //             ['Feb', 8],
+        //             ['March', 2],
+        //             ['April', 5],
+        //             ['May', 2],
+        //             ['June', 3],
+        //             ['July', 5],
+        //             ['August', 2],
+        //             ['September', 1]
+        //         ]
+        //     };
+        //
+        //     var chartObj = ChartFactory.SetupLabelChart(opts);
+        //     Highcharts.chart('openitemChart', chartObj);
+        // }
     }
 })();
