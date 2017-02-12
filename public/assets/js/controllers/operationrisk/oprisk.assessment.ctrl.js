@@ -56,7 +56,7 @@
         };
 
         OPRiskService.GetRSAStatus().then(function(data){
-            ChartFactory.CreatePieChart('RCSA by status', 'RCSA by status', data, rcsaStatus);
+            ChartFactory.CreatePieChart('RCSA by status', 'RCSA by status', data, 'rcsaStatus');
             return OPRiskService.GetRSAPeriod();
         }).then(function(data){
             setupPeriodChart(data);

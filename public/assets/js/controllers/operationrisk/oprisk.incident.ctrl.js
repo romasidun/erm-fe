@@ -50,20 +50,15 @@
         };
 
         OPRiskService.GetRiskStatus().then(function (data) {
-            $scope.ORI = [];
-            Object.keys(data).forEach(function (k) {
-                $scope.ORI.push({key: Utils.camelizeString(k), val: data[k]});
-            });
-            setupPieChart($scope.ORI);
+            ChartFactory.CreatePieChart('ORI by status', 'ORI by status', data, 'oriChart');
             return OPRiskService.GetRiskPeriod();
         }).then(function (data) {
-            setupPeriodChart(data);
+            ChartFactory.CreateMultiColChart("Status by Period",data,'periodChart');
             return OPRiskService.GetRiskCategories();
         }).then(function (data) {
-            setupStackedChart(data);
+            ChartFactory.CreateStackedChart($filter, data, 'oristacked');
             loadRisksList();
         });
-
 
         function loadRisksList(next) {
             OPRiskService.LoadOpRiskList().then(function(data) {
@@ -75,83 +70,6 @@
                 if(next) next();
                 $rootScope.app.Mask = false;
             });
-        }
-
-        function setupPieChart(ori) {
-            var dataList = [];
-            ori.forEach(function(o){ dataList.push([o.key, o.val]); });
-            var chartObj = ChartFactory.CreatePieChartTemplate('ORI by status', 'ORI by status', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#06540E']);
-            Highcharts.chart('oriChart', chartObj);
-        }
-
-        function setupPeriodChart(data){
-            var month, opts = {
-                Title: "Status by Period",
-                YText: "Values",
-                Categories : [],
-                Series: [
-                    { name: "High", data: [] },
-                    { name: "Medium", data: [] },
-                    { name: "Low", data: [] }
-                ],
-                Colors: ['#EC1400', '#BD830F', '#3975ED', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1']
-            };
-            Object.keys(data).forEach(function(k){
-                if(k.indexOf('High')>-1) {
-                    month = Utils.camelizeString(k.split('High')[0]);
-                    opts.Series[0].data.push(data[k]);
-                }
-                if(k.indexOf('Med')>-1) {
-                    month = Utils.camelizeString(k.split('Med')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if(k.indexOf('Low')>-1) {
-                    month = Utils.camelizeString(k.split('Low')[0]);
-                    opts.Series[2].data.push(data[k]);
-                }
-                if(opts.Categories.indexOf(month)===-1)
-                    opts.Categories.push(month);
-            });
-
-            console.log(opts);
-            ChartFactory.SetupMultiColChart('periodChart', opts);
-        }
-
-        function setupStackedChart(data) {
-
-            var cats = [], currCats = [];
-           var serList = [
-                   { name: 'High', data: [] },
-                   { name: 'Medium', data: [] },
-                   { name: 'Low', data: [] }
-                ];
-
-            Object.keys(data.categories).forEach(function(ck){ cats.push(data.categories[ck]); });
-
-            cats.forEach(function(cat, i){
-                currCats = $filter('filter')(Object.keys(data['risk category status']), cat);
-                currCats.forEach(function(c){
-                    if(c.indexOf('Low')>-1) {
-                        serList[2].data.push(data['risk category status'][c]);
-                    }
-                    if(c.indexOf('Med')>-1) {
-                        serList[1].data.push(data['risk category status'][c]);
-                    }
-                    if(c.indexOf('High')>-1) {
-                        serList[0].data.push(data['risk category status'][c]);
-                    }
-                });
-            });
-
-            var chartObj = ChartFactory.SetupStackedChart({
-                Text:"Status By Risk Category",
-                Title:"Status By Risk Category",
-                Series: serList,
-                Categories: cats,
-                Colors: ['#ED0C00', '#2E8AE5', '#DFC600']
-            });
-
-            Highcharts.chart('oristacked', chartObj);
         }
     }
 })();

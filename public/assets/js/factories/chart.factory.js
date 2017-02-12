@@ -153,6 +153,124 @@
             return Highcharts.chart(chartEle, chartObj);
         };
 
+        ChartFactory.prototype.CreateMultiColChart = function(title, data, chartEle){
+            var month, opts = {
+                Title: title,
+                YText: "Values",
+                Categories : [],
+                Series: [
+                    { name: "High", data: [] },
+                    { name: "Medium", data: [] },
+                    { name: "Low", data: [] }
+                ],
+                Colors: ['#ffa500', '#a52a2a', '#ffff00']
+            };
+            Object.keys(data).forEach(function(k){
+                if(k.indexOf('High')>-1) {
+                    month = Utils.camelizeString(k.split('High')[0]);
+                    opts.Series[0].data.push(data[k]);
+                }
+                if(k.indexOf('Med')>-1) {
+                    month = Utils.camelizeString(k.split('Med')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if(k.indexOf('Low')>-1) {
+                    month = Utils.camelizeString(k.split('Low')[0]);
+                    opts.Series[2].data.push(data[k]);
+                }
+                if(opts.Categories.indexOf(month)===-1)
+                    opts.Categories.push(month);
+            });
+
+            var chartObj = {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: opts.Title
+                },
+                subtitle: {
+                    text: 'Monthly'
+                },
+                xAxis: {  categories: opts.Categories },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: opts.YText
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: opts.Series,
+                colors: opts.Colors
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
+
+        ChartFactory.prototype.CreateStackedChart = function($filter, data, chartEle){
+            var cats = [], currCats = [];
+            var serList = [
+                { name: 'High', data: [] },
+                { name: 'Medium', data: [] },
+                { name: 'Low', data: [] }
+            ];
+            Object.keys(data.categories).forEach(function(ck){ cats.push(data.categories[ck]); });
+
+            cats.forEach(function(cat, i){
+                currCats = $filter('filter')(Object.keys(data['risk category status']), cat);
+                currCats.forEach(function(c){
+                    if(c.indexOf('Low')>-1) {
+                        serList[2].data.push(data['risk category status'][c]);
+                    }
+                    if(c.indexOf('Med')>-1) {
+                        serList[1].data.push(data['risk category status'][c]);
+                    }
+                    if(c.indexOf('High')>-1) {
+                        serList[0].data.push(data['risk category status'][c]);
+                    }
+                });
+            });
+
+            var config = {
+                Text:"Status By Risk Category",
+                Title:"Status By Risk Category",
+                Series: serList,
+                Categories: cats,
+                Colors: ['#ffa500', '#a52a2a', '#ffff00']
+            };
+
+            var configqwe = {
+                credits: {
+                    enabled: false
+                },
+                chart: { type: 'bar' },
+                title: { text: config.Text },
+                xAxis: {
+                    categories: config.Categories
+                },
+                yAxis: {
+                    min: 0,
+                    title: { text: config.Title }
+                },
+                legend: {  reversed: false },
+                plotOptions: {
+                    series: { stacking: 'normal' }
+                },
+                series: config.Series,
+                colors: config.Colors
+            };
+
+            return Highcharts.chart(chartEle, configqwe);
+        };
+
         ChartFactory.prototype.StatusChart = function(container){
             return new Highcharts.Chart({
                 credits: {
@@ -220,7 +338,7 @@
                 },
                 yAxis: {
                     min: 0,
-                        title: { text: config.Title }
+                    title: { text: config.Title }
                 },
                 legend: {  reversed: false },
                 plotOptions: {
