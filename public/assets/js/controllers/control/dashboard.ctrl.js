@@ -11,9 +11,9 @@
         $scope.OpList = [10, 25, 50, 100];
         $scope.PerPage = 10;
 
-
-        ControlService.GetByCategory().then(function (status) {
-            setupCategoryChart(status);
+        ControlService.GetByCategory().then(function (data) {
+            // console.log('datadatadatadatadatadatadatadatadata',data);
+            setupCategoryChart(data);
             return ControlService.GetByCtrlDefn();
         }).then(function (per) {
             setupDefinitionChart(per);
@@ -45,6 +45,7 @@
             Object.keys(dataAry).forEach(function (k) {
                 dataList.push([k, dataAry[k]]);
             });
+            console.log('dataListdataListdataList',dataList);
             var chartObj = ChartFactory.CreatePieChartTemplate('Controls by Category', 'Controls by Category', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#1CB400']);
             Highcharts.chart('categoryChart', chartObj);
         }

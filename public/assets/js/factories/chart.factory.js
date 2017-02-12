@@ -384,7 +384,6 @@
             Highcharts.chart(el, chartObj);
         };
 
-
         ChartFactory.prototype.SetupColChart = function(el, opts){
 
             var chartObj = {

@@ -63,10 +63,12 @@
             // setupPeriodChart(data);
             return OPRiskService.GetRSARegion();
         }).then(function(data){
+            alert();
+            console.log(data);
             setupStatusChart(data);
             return OPRiskService.GetRSADept();
         }).then(function(data){
-            ChartFactory.CreateLabelChart('Risk Type Severity', '', '', '', 'severity', data, 'deptstacked');
+            ChartFactory.CreatePieChart('Risk Type Severity', '', '', '', 'severity', data, 'deptstacked');
             // setupDeptChart(data);
             $rootScope.app.Mask = false;
         });
