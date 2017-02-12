@@ -33,10 +33,18 @@
             })
             .then(function (data) {
                 ChartFactory.CreateLabelChart('Vendor By Period','Period', '', '', '', data, 'periodChart')
+
                 return VendorService.GetRimDocType();
             })
             .then(function (data){
-                ChartFactory.CreateLabelChart('VendorRisk by DocType', 'VendorRisk by DocType', '', '', '',  data, 'docTypeChart');
+                // ChartFactory.CreateLabelChart('VendorRisk by DocType', 'VendorRisk by DocType', '', '', '',  data, 'docTypeChart');
+                var dataList = [];
+                Object.keys(data).forEach(function (k) {
+                    dataList.push([k, data[k]]);
+                });
+                console.log('dataListdataListdataList',dataList);
+                var chartObj = ChartFactory.CreatePieChartTemplate('Vendor By Period', 'VendorRisk by DocType', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#1CB400']);
+                Highcharts.chart('docTypeChart', chartObj);
                 return VendorService.GetRimVendor();
             })
             .then(function (data) {
@@ -44,7 +52,14 @@
                 return VendorService.GetRimRiskType();
             })
             .then(function (data){
-                ChartFactory.CreateLabelChart('VendorRisk by RiskType', 'VendorRisk by RiskType', '', '', '',  data, 'riskTypeChart');
+                // ChartFactory.CreateLabelChart('VendorRisk by RiskType', 'VendorRisk by RiskType', '', '', '',  data, 'riskTypeChart');
+                var dataList = [];
+                Object.keys(data).forEach(function (k) {
+                    dataList.push([k, data[k]]);
+                });
+                // console.log('dataListdataListdataList',dataList);
+                var chartObj = ChartFactory.CreatePieChartTemplate('Vendor By Period', 'VendorRisk by DocType', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#1CB400']);
+                Highcharts.chart('riskTypeChart', chartObj);
                 return VendorService.GetRimRiskScore();
             })
             .then(function(data){
