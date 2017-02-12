@@ -56,10 +56,21 @@
         };
 
         OPRiskService.GetRSAStatus().then(function(data){
-            $rootScope.app.Mask = true;
+            var pattern_data = {
+                "In Progress": null,
+                "Completed": null,
+                "Submitted": null,
+                "To Approve": null,
+                "Ready To Approve": null,
+                "Approved": null
+            };
+
+            for(var i in data){
+                pattern_data[i]=data[i];
+            }
             var rcsaChrt = [];
-            Object.keys(data).forEach(function (k) {
-                rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
+            Object.keys(pattern_data).forEach(function (k) {
+                rcsaChrt.push({key: Utils.camelizeString(k), val: pattern_data[k]});
             });
             setupPieChart(rcsaChrt);
             return OPRiskService.GetRSAPeriod();
@@ -71,7 +82,11 @@
             return OPRiskService.GetRSADept();
         }).then(function(data){
             setupDeptChart(data);
+            $rootScope.app.Mask = false;
+        });
 
+        $scope.$watch('PerPage', function(n, o) {
+            $rootScope.app.Mask = true;
             loadAssessments();
         });
 
@@ -103,7 +118,7 @@
         function setupPieChart(rcsa) {
             var dataList = [];
             rcsa.forEach(function(o){ dataList.push([o.key, o.val]); });
-            var chartObj = ChartFactory.CreatePieChartTemplate('RCSA by status', 'RCSA by status', dataList, ['#D936ED', '#2B35DF', '#8EB42E', '#159008', '#B49400', '#9F6CE5']);
+            var chartObj = ChartFactory.CreatePieChartTemplate('RCSA by status', 'RCSA by status', dataList, ['#008000', '#ff0000', '#ffff00', '#ffc0cb', '#ffa500', '#0000ff']);
             Highcharts.chart('rcsaStatus', chartObj);
         }
 
@@ -113,12 +128,12 @@
                 YText: "Values",
                 Categories: [],
                 Series: [
-                    {name: "In Progress", data: [], color: '#1016c6'},
-                    {name: "Completed", data: [], color: '#00db72'},
-                    {name: "Submitted", data: [], color: '#d37619'},
-                    {name: "To Approve", data: [], color: '#d3000d'},
-                    {name: "Ready To Approve", data: [], color: '#d3a209'},
-                    {name: "Approved", data: [], color: '#c807d3'}
+                    {name: "In Progress", data: [], color: '#008000'},
+                    {name: "Completed", data: [], color: '#ff0000'},
+                    {name: "Submitted", data: [], color: '#ffff00'},
+                    {name: "To Approve", data: [], color: '#ffc0cb'},
+                    {name: "Ready To Approve", data: [], color: '#ffa500'},
+                    {name: "Approved", data: [], color: '#0000ff'}
                 ]
             }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
             Object.keys(data).forEach(function (k) {
@@ -147,7 +162,7 @@
                     { name: "Medium", data: [] },
                     { name: "Low", data: [] }
                 ],
-                Colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1']
+                Colors: ['#ffa500', '#a52a2a', '#ffff00']
 
             };
             Object.keys(data).forEach(function(k){
