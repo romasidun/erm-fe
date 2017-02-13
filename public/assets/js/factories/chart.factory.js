@@ -270,6 +270,36 @@
             return Highcharts.chart(chartEle, configqwe);
         };
 
+        ChartFactory.prototype.CreateRegionChart = function (data){
+            var opts = {
+                Title: "By Region",
+                YText: "Values",
+                Categories: [],
+                Series: [
+                    {name: "In Progress", data: [], color: '#008000'},
+                    {name: "Completed", data: [], color: '#ff0000'},
+                    {name: "Submitted", data: [], color: '#ffff00'},
+                    {name: "To Approve", data: [], color: '#ffc0cb'},
+                    {name: "Ready To Approve", data: [], color: '#ffa500'},
+                    {name: "Approved", data: [], color: '#0000ff'}
+                ]
+            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
+            Object.keys(data).forEach(function (k) {
+                if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
+            });
+            opts.Categories.forEach(function (c) {
+                var filteredData = $filter('filter')(Object.keys(data), c);
+                filteredData.forEach(function (ck) {
+                    cats.forEach(function (ct, j) {
+                        if (ck.indexOf(ct) > -1) {
+                            opts.Series[j].data.push(data[ck]);
+                        }
+                    });
+                });
+            });
+            ChartFactory.SetupMultiColChart('regionstacked', opts);
+        };
+
         ChartFactory.prototype.StatusChart = function(container){
             return new Highcharts.Chart({
                 credits: {

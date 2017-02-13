@@ -65,7 +65,7 @@
             // setupPeriodChart(data);
             return OPRiskService.GetRSARegion();
         }).then(function(data){
-            setupStatusChart(data);
+            ChartFactory.CreateRegionChart(data);
             return OPRiskService.GetRSADept();
         }).then(function(data){
             //ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptstacked');

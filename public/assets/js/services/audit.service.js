@@ -50,7 +50,11 @@ app.service('AuditService', function(APIHandler){
 
     this.GetManageStatus = function(){
         return APIHandler.Get('auditmgmt/status');
-    }
+    };
+
+    this.GetManageRegion =  function() {
+        return APIHandler.Get('auditmgmt/region');
+    };
 
     this.GetManagePeriod = function() {
         return APIHandler.Get('auditmgmt/period');
