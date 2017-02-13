@@ -27,16 +27,16 @@
                 console.log(res);
             });
 
-            /*PolicyService.AddPolicy($scope.VM).then(function(res){
+            PolicyService.AddPolicy($scope.VM).then(function(res){
                 if(res.status === 200) {
                     var fileModel = $scope.VM.fileModel;
-                    PolicyService.FileUpload(res.id, fileModel).then(function (res) {
-                        console.log(res);
+                    PolicyService.multiFileUpload(fileModel).then(function (res) {
+                        console.log('res',res);
                     }).finally(function () {
                         $state.go('app.policy.main');
                     });
                 }
-            });*/
+            });
         };
 
         $scope.cancelAction = function(){
