@@ -50,10 +50,10 @@
                     "to_approve": null,
                     "Ready To Approve": null,
                     "ready_to_approve": null,
-                    "approve": null,
+                    "approved": null,
                     "Approved": null
                 },
-                color = ['#008000', '#ff0000', '#ffff00', '#ffc0cb', '#ffa500', '#0000ff'];
+                color = ['#D4AF37', '#D4AF37', '#ff0000', '#ff0000', '#FDF204', '#FDF204', '#32cd32', '#32cd32', '#7fffd4', '#7fffd4', '#0600C7', '#0600C7'];
 
             for(var i in data){
                 pattern_data[i]=data[i];
@@ -163,7 +163,7 @@
                     { name: "Medium", data: [] },
                     { name: "Low", data: [] }
                 ],
-                Colors: ['#ffa500', '#a52a2a', '#ffff00']
+                Colors: ['#ffa500', '#039220', '#33BBFF']
             };
             Object.keys(data).forEach(function(k){
                 if(k.indexOf('High')>-1) {
@@ -244,7 +244,7 @@
                 Title:"Status By Risk Category",
                 Series: serList,
                 Categories: cats,
-                Colors: ['#ffa500', '#a52a2a', '#ffff00']
+                Colors: ['#C70039', '#0000ff', '#FAFA10']
             };
 
             var configqwe = {
