@@ -1,7 +1,6 @@
 (function(){
     "use strict";
 
-
     app.factory('ChartFactory', function($rootScope, Utils){
 
         function ChartFactory(){ this.name = "Chart Factory" }
