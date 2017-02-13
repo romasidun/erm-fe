@@ -96,7 +96,8 @@
             //     rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
             // });
             // setupDeptChart(rcsaChrt);
-            ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
+            ChartFactory.CreatePieChart('By Department', 'RCSA by status', data, 'deptstacked');
+            // ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
             loadAssessments();
         });
 

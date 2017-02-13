@@ -118,7 +118,8 @@
             setupStatusChart(data);
             return ComplianceService.GetSOXTPDept();
         }).then(function (data) {
-            ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
+            // ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
+            ChartFactory.CreatePieChart('By Department', 'RCSA by status', data, 'deptstacked');
             // setupDeptChart(data);
             loadAssessments();
         });

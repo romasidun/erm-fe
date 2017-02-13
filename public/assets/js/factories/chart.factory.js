@@ -53,7 +53,7 @@
                     "approve": null,
                     "Approved": null
                 },
-                color = ['#008000', '#008000', '#ff0000', '#ff0000', '#ffff00', '#ffff00', '#ffc0cb', '#ffc0cb', '#ffa500', '#ffa500', '#0000ff', '#0000ff'];
+                color = ['#008000', '#ff0000', '#ffff00', '#ffc0cb', '#ffa500', '#0000ff'];
 
             for(var i in data){
                 pattern_data[i]=data[i];
