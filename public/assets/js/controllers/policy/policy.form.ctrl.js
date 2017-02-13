@@ -33,7 +33,7 @@
                     PolicyService.multiFileUpload(fileModel).then(function (res) {
                         console.log('res',res);
                     }).finally(function () {
-                        $state.go('app.policy.main');
+                        // $state.go('app.policy.main');
                     });
                 }
             });

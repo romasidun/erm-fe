@@ -9,7 +9,7 @@
 
         AuditService.GetManageDept()
             .then(function (data) {
-                setupMGDeptChart(data);
+                ChartFactory.CreatePieChart('Management Department', 'Audit Management Department', data, audit_MGDeptChart);
                 return AuditService.GetFindingOpen();
             })
             .then(function (data) {
@@ -23,15 +23,6 @@
             .then(function (data) {
                 setupMGPeriodChart(data);
             })
-
-        function setupMGDeptChart(data) {
-            var series = [];
-            Object.keys(data).forEach(function (k) {
-                series.push([k, data[k]]);
-            });
-            var chartObj = ChartFactory.CreatePieChartTemplate('Management Department', 'Audit Management Department', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
-            Highcharts.chart('audit_MGDeptChart', chartObj);
-        }
 
         function setupFDOpenChart(data) {
             var month, opts = {

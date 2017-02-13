@@ -45,16 +45,14 @@ app.service('PolicyService', function(APIHandler){
         if(fileModel.length < 1){
             return APIHandler.NullPromise();
         }
-        var formdata = new FormData();
-        formdata.append("policies", angular.toJson(params));
+        var formdatas = new FormData();
+        formdatas.append("policies", angular.toJson(params));
+
         for (var i in fileModel) {
-            formdata.append("uploadFile", fileModel[i]._file);
+            formdatas.append("uploadFile", fileModel[i]._file);
         }
 
         var url = 'policies/multiUpload';
-        console.log('url',url);
-        console.log('formdata',formdata);
-        console.log('params',params);
-        return APIHandler.UploadFileAndData(url, formdata, params);
+        return APIHandler.UploadFileAndData(url, formdatas, params);
     };
 });
