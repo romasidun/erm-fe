@@ -58,6 +58,10 @@ app.service('AuditService', function(APIHandler){
 
     this.GetManagePeriod = function() {
         return APIHandler.Get('auditmgmt/period');
+    };
+
+    this.GetActionStatus = function() {
+        return APIHandler.Get('auditactions/status');
     }
 
 });
