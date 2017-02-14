@@ -7,7 +7,29 @@
         $scope.mainDesc = "Control Test Result";
 
         $scope.Form = {};
-
+        $scope.VM = {
+            actualName: "",
+            approval: "",
+            asmntType: "ACM013",
+            asmntTypeName: "SOXPRA",
+            asmntType_name: "",
+            assessDesc: "",
+            // assessId: 0,
+            assessName: "",
+            business: "",
+            createdBy: "",
+            createdOn: "",
+            due_date: moment().format("MM-DD-YYYY"),
+            filemodel: [],
+            filename: "",
+            frequency: "",
+            modifiedBy: "",
+            modifiedOn: "",
+            period: "",
+            priority: "",
+            region: "",
+            resPerson: ""
+        };
         $scope.addControls = function(){
             var headers= ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
                 cols =["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
@@ -28,6 +50,8 @@
 
         $scope.submitAction = function() {
             if($scope.Form.TestResult.$invalid) return false;
+            // console.log('$scope.VM$scope.VM',$scope.VM);
+            // return;
             ControlService.UpdateTestResults($stateParams.id, $scope.VM).then(function (res) {
                 if(res.status===200) $state.go('app.control.testresult.main');
             });
