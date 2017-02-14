@@ -7,29 +7,7 @@
         $scope.mainDesc = "Control Test Result";
 
         $scope.Form = {};
-        $scope.VM = {
-            actualName: "",
-            approval: "",
-            asmntType: "ACM013",
-            asmntTypeName: "SOXPRA",
-            asmntType_name: "",
-            assessDesc: "",
-            // assessId: 0,
-            assessName: "",
-            business: "",
-            createdBy: "",
-            createdOn: "",
-            due_date: moment().format("MM-DD-YYYY"),
-            filemodel: [],
-            filename: "",
-            frequency: "",
-            modifiedBy: "",
-            modifiedOn: "",
-            period: "",
-            priority: "",
-            region: "",
-            resPerson: ""
-        };
+
         $scope.addControls = function(){
             var headers= ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
                 cols =["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
@@ -67,8 +45,8 @@
         };
 
         ControlService.GetTestResult($stateParams.id).then(function(data){
+            console.log('datadatadatadata',data);
             $scope.VM = data;
-
             var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.testCompletedDate);
             var d2 = moment($scope.VM.testDueDate);
@@ -76,6 +54,7 @@
             $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
             $scope.VM.testCompleteStr = $scope.VM.testCompletedDate;
             $scope.VM.testDtStr = $scope.VM.testDueDate;
+            // console.log('$scope.VM',$scope.VM);
 
             $rootScope.app.Mask = false;
         });
