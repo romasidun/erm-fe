@@ -10,6 +10,7 @@
 <!-- End: Page Header -->
 
 <div class="container-fluid container-fullw bg-white">
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-transparent">
@@ -31,7 +32,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Department </label>
-									<select name="department" ng-model="VM.department[0].deptName" class="form-control">
+									<select name="controlCategory" ng-model="VM.controlCategory" class="form-control">
 										<option value="">Select</option>
 										<option value="DEQ01">Equities</option>
 										<option value="DFX01">Fixed Income</option>
@@ -52,7 +53,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Region </label>
-									<select name="regionName" ng-model="VM.regionName" class="form-control">
+									<select name="controlCategory" ng-model="VM.controlCategory" class="form-control">
 										<option value="">Select</option>
 										<option value="Asia Pacific">Asia Pacific</option>
 										<option value="EMEA">EMEA</option>
@@ -85,7 +86,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Test Results </label>
-									<select name="testResults" ng-model="VM.testResults" class="form-control">
+									<select name="controlCategory" ng-model="VM.controlCategory" class="form-control">
 										<option value="">Select</option>
 										<option value="Controls failed" >Controls failed</option>
 										<option value="Controls partially failed" >Controls partially failed</option>
