@@ -38,22 +38,15 @@
 
         ITRiskService.GetRimStatus()
             .then(function (data) {
-                // var ristInc = [];
-                // Object.keys(data).forEach(function (k) {
-                //     ristInc.push({key: Utils.camelizeString(k), val: data[k]});
-                // });
-                // setupPieChart(ristInc);
                 ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'statusChart');
                 return ITRiskService.GetRimPeriod()
             })
             .then(function (data) {
                 ChartFactory.CreateMultiColChart('By Period', data, 'periodChart');
-                // setupPeriodChart(data)
                 return ITRiskService.GetRimRiskCategory()
             })
             .then(function (data) {
                 ChartFactory.CreateStackedChart($filter, data, 'catChart');
-                // setupStackedChart(data);
                 loadRim()
             });
 
@@ -85,84 +78,5 @@
             });
         }
 
-        function setupPieChart(data) {
-            var dataList = [];
-            data.forEach(function (o) {
-                dataList.push([o.key, o.val]);
-            });
-            var chartObj = ChartFactory.CreatePieChartTemplate('Incident by Status', 'Incident by Status', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
-            Highcharts.chart('statusChart', chartObj);
-        }
-
-        function setupPeriodChart(data) {
-            var month, opts = {
-                Title: "Status By Period",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "Low", data: []},
-                    {name: "Medium", data: []},
-                    {name: "High", data: []}
-                ],
-                Colors: ['#DFC600', '#2E8AE5', '#ED0C00']
-            };
-            Object.keys(data).forEach(function (k) {
-                if (k.indexOf('Low') > -1) {
-                    month = Utils.camelizeString(k.split('Low')[0]);
-                    opts.Series[0].data.push(data[k]);
-                }
-                if (k.indexOf('Med') > -1) {
-                    month = Utils.camelizeString(k.split('Med')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if (k.indexOf('High') > -1) {
-                    month = Utils.camelizeString(k.split('High')[0]);
-                    opts.Series[2].data.push(data[k]);
-                }
-                if (opts.Categories.indexOf(month) === -1)
-                    opts.Categories.push(month);
-            });
-
-            ChartFactory.SetupMultiColChart('periodChart', opts);
-        }
-
-        function setupStackedChart(data) {
-
-            var cats = [], currCats = [];
-            var serList = [
-                {name: 'High', data: []},
-                {name: 'Medium', data: []},
-                {name: 'Low', data: []}
-            ];
-
-            Object.keys(data.categories).forEach(function (ck) {
-                cats.push(data.categories[ck]);
-            });
-
-            cats.forEach(function (cat, i) {
-                currCats = $filter('filter')(Object.keys(data['risk category status']), cat);
-                currCats.forEach(function (c) {
-                    if (c.indexOf('High') > -1) {
-                        serList[0].data.push(data['risk category status'][c]);
-                    }
-                    if (c.indexOf('Med') > -1) {
-                        serList[1].data.push(data['risk category status'][c]);
-                    }
-                    if (c.indexOf('Low') > -1) {
-                        serList[2].data.push(data['risk category status'][c]);
-                    }
-                });
-            });
-
-            var chartObj = ChartFactory.SetupStackedChart({
-                Text: "Incident by Risk Category and Status",
-                Title: "Incident by Risk Category and Status",
-                Series: serList,
-                Categories: cats,
-                Colors: ['#ED0C00', '#2E8AE5', '#DFC600']
-            });
-
-            Highcharts.chart('catChart', chartObj);
-        }
     }
 })();

@@ -1,10 +1,10 @@
 (function(){
     "use strict";
 
-    OprAssessmentCtrl.$inject = ['$scope','$rootScope','$state', '$filter', '$uibModal', 'OPRiskService', 'ChartFactory', 'Utils', 'APIHandler'];
+    OprAssessmentCtrl.$inject = ['$scope','$rootScope','$state', '$filter', '$uibModal', 'OPRiskService', 'ChartFactory', 'Utils'];
     app.controller('OprAssessmentCtrl', OprAssessmentCtrl);
 
-    function OprAssessmentCtrl ($scope, $rootScope, $state, $filter, $uibModal, OPRiskService, ChartFactory, Utils, APIHandler){
+    function OprAssessmentCtrl ($scope, $rootScope, $state, $filter, $uibModal, OPRiskService, ChartFactory, Utils){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
 
@@ -65,12 +65,10 @@
             // setupPeriodChart(data);
             return OPRiskService.GetRSARegion();
         }).then(function(data){
-            setupStatusChart(data);
+            ChartFactory.SetupStackedChart(data, 'regionstacked', $filter);
             return OPRiskService.GetRSADept();
         }).then(function(data){
-            //ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptstacked');
             ChartFactory.CreatePieChart('By Department', 'Risk Type Severity', data, 'deptstacked');
-            // setupDeptChart(data);
             $rootScope.app.Mask = false;
         });
 
@@ -103,78 +101,5 @@
                 $rootScope.app.Mask = false;
             });
         }
-
-        function setupStatusChart(data) {
-            var opts = {
-                Title: "By Region",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "In Progress", data: [], color: '#008000'},
-                    {name: "Completed", data: [], color: '#ff0000'},
-                    {name: "Submitted", data: [], color: '#ffff00'},
-                    {name: "To Approve", data: [], color: '#ffc0cb'},
-                    {name: "Ready To Approve", data: [], color: '#ffa500'},
-                    {name: "Approved", data: [], color: '#0000ff'}
-                ]
-            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
-            Object.keys(data).forEach(function (k) {
-                if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
-            });
-            opts.Categories.forEach(function (c) {
-                var filteredData = $filter('filter')(Object.keys(data), c);
-                filteredData.forEach(function (ck) {
-                    cats.forEach(function (ct, j) {
-                        if (ck.indexOf(ct) > -1) {
-                            opts.Series[j].data.push(data[ck]);
-                        }
-                    });
-                });
-            });
-
-            console.log('optsoptsoptsoptsoptsoptsoptsoptsoptsoptsoptsoptsopts',opts);
-            ChartFactory.SetupMultiColChart('regionstacked', opts);
-        }
-
-        // function setupPeriodChart(data){
-        //     var month, opts = {
-        //         Title: "",
-        //         YText: "Values",
-        //         Categories : [],
-        //         Series: [
-        //             { name: "High", data: [] },
-        //             { name: "Medium", data: [] },
-        //             { name: "Low", data: [] }
-        //         ],
-        //         Colors: ['#ffa500', '#a52a2a', '#ffff00']
-        //
-        //     };
-        //     Object.keys(data).forEach(function(k){
-        //         if(k.indexOf('High')>-1) {
-        //             month = Utils.camelizeString(k.split('High')[0]);
-        //             opts.Series[0].data.push(data[k]);
-        //         }
-        //         if(k.indexOf('Med')>-1) {
-        //             month = Utils.camelizeString(k.split('Med')[0]);
-        //             opts.Series[1].data.push(data[k]);
-        //         }
-        //         if(k.indexOf('Low')>-1) {
-        //             month = Utils.camelizeString(k.split('Low')[0]);
-        //             opts.Series[2].data.push(data[k]);
-        //         }
-        //         if(opts.Categories.indexOf(month)===-1)
-        //             opts.Categories.push(month);
-        //     });
-        //     ChartFactory.SetupMultiColChart('', opts);
-        // }
-
-        // function setupDeptChart(data) {
-        //     var series = [];
-        //     Object.keys(data).forEach(function (k) {
-        //         series.push([k, data[k]]);
-        //     });
-        //     var chartObj = ChartFactory.CreatePieChartTemplate(, series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
-        //     Highcharts.chart('', chartObj);
-        // }
     }
 })();

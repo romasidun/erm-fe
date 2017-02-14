@@ -297,6 +297,7 @@
         };
 
         ChartFactory.prototype.CreateRegionChart = function (data, chartEle, $filter){
+
             var opts = {
                 Title: "By Region",
                 YText: "Values",
@@ -313,6 +314,7 @@
             Object.keys(data).forEach(function (k) {
                 if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
             });
+
             opts.Categories.forEach(function (c) {
                 var filteredData = $filter('filter')(Object.keys(data), c);
                 filteredData.forEach(function (ck) {
@@ -323,6 +325,7 @@
                     });
                 });
             });
+
 
             var chartObj = {
                 credits: {
@@ -353,7 +356,6 @@
                 series: opts.Series,
                 colors: opts.Colors
             };
-
             Highcharts.chart(chartEle, chartObj);
         };
 
@@ -412,7 +414,6 @@
         ChartFactory.prototype.SetupStackedChart = function(config){
 
             //if(config.Colors) Highcharts.getOptions().plotOptions.bar.colors = config.Colors;
-
             return {
                 credits: {
                     enabled: false
