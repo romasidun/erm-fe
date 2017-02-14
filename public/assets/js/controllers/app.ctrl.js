@@ -158,6 +158,20 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
         dlist.forEach(function (li) {
             $rootScope.app.Lookup[li.dylistTypecode].push({ key: li.dylistCode, val: li.dylistDesc });
         });
+
+        //added by Roma
+        $rootScope.app.Lookup.LIST001.forEach(function (item) {
+			if(item.val.indexOf('Asia') !== -1){
+                item.key = 'Asia';
+                item.val = 'Asia';
+			}
+            if(item.val.indexOf('EMEA') !== -1){
+                item.key = 'South America';
+                item.val = 'South America';
+            }
+        });
+        ///////////////////////
+
         return APIHandler.Get('depts');
 	}).then(function(depts){
 		$rootScope.app.Lookup.Departments = depts ;
