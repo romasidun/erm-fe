@@ -131,6 +131,8 @@
                     });
                 });
             });
+
+            console.log('optsoptsoptsoptsoptsoptsoptsoptsoptsoptsoptsoptsopts',opts);
             ChartFactory.SetupMultiColChart('regionstacked', opts);
         }
 

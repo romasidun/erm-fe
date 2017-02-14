@@ -84,7 +84,6 @@
             $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
-
             ControlService.AddTestResults($scope.VM).then(function (res) {
                 console.log(res);
                 if(res.status===200) $state.go('app.control.testresult.main');

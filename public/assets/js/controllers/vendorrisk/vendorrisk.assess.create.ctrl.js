@@ -86,7 +86,7 @@
                     comments: vendor_comment + "",
                     control_Category: vendor_Category + "",
                     docType: $scope.VM.docType + "",
-                    finding: 0,
+                    finding: vendor_Findings,
                     response: vendor_response + "",
                     riskScore: $scope.VM.riskScore * 1,
                     riskType: $scope.VM.vendorRiskType + "",

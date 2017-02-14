@@ -137,7 +137,6 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
         if (isDebug) console.info("with body: ", formdata);
 
         var deferred = $q.defer();
-
         $http.post(url, formdata, {
             withCredentials: true,
             headers: {

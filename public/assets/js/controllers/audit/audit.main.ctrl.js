@@ -1,11 +1,11 @@
 (function () {
-    AuditMainController.$inject = ['$scope', '$rootScope', '$state', 'AuditService', 'ChartFactory', 'Utils'];
+    AuditMainController.$inject = ['$scope', '$rootScope', '$state', 'AuditService', 'ChartFactory', 'Utils', '$filter'];
     app.controller('AuditMainCtrl', AuditMainController);
 
-    function AuditMainController($scope, $rootScope, $state, AuditService, ChartFactory, Utils) {
+    function AuditMainController($scope, $rootScope, $state, AuditService, ChartFactory, Utils, $filter) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "AUDIT MANAGEMENT";
-        $rootScope.app.Mask = false;
+
 
         AuditService.GetManageDept()
             .then(function (data) {
@@ -21,8 +21,52 @@
                 return AuditService.GetManagePeriod();
             })
             .then(function (data) {
-                setupMGPeriodChart(data);
+                ChartFactory.CreateMultiColChart('By FindingOpen', data, 'audit_MGPeriod');
+                // setupMGPeriodChart(data);
+                return AuditService.GetManageRegion();
             })
+            .then(function (data) {
+                ChartFactory.CreateRegionChart(data, 'openFinding_periodChart', $filter );
+                return AuditService.GetActionStatus();
+            })
+            .then(function (data){
+                $rootScope.app.Mask = false;
+                ChartFactory.CreatePieChart('By Status', 'action status', data, 'status_department');
+            });
+
+        function CreateRegionChart(data) {
+            console.log('datadata',data);
+            var opts = {
+                Title: "By Region",
+                YText: "Values",
+                Categories: [],
+                Series: [
+                    {name: "In Progress", data: [], color: '#008000'},
+                    {name: "Completed", data: [], color: '#ff0000'},
+                    {name: "Submitted", data: [], color: '#ffff00'},
+                    {name: "To Approve", data: [], color: '#ffc0cb'},
+                    {name: "Ready To Approve", data: [], color: '#ffa500'},
+                    {name: "Approved", data: [], color: '#0000ff'}
+                ]
+            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
+            Object.keys(data).forEach(function (k) {
+                if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
+            });
+            console.log('optsoptsopts',opts);
+            opts.Categories.forEach(function (c) {
+                var filteredData = $filter('filter')(Object.keys(data), c);
+                console.log('filteredDatafilteredDatafilteredData',filteredData);
+                filteredData.forEach(function (ck) {
+                    cats.forEach(function (ct, j) {
+                        if (ck.indexOf(ct) > -1) {
+                            opts.Series[j].data.push(data[ck]);
+                        }
+                    });
+                });
+            });
+            console.log('optsoptsopts',opts);
+            ChartFactory.SetupMultiColChart('openFinding_periodChart', opts);
+        }
 
         function setupMGDeptChart(data) {
             var series = [];
@@ -69,37 +113,37 @@
             Highcharts.chart('audit_MGStatus', chartObj);
         }
 
-        function setupMGPeriodChart(data) {
-            var month, opts = {
-                Title: "By FindingOpen",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "High", data: [], color: '#c62733'},
-                    {name: "Medium", data: [], color: '#db981f'},
-                    {name: "Low", data: [], color: '#db981f'}
-                ]
-            };
-
-            Object.keys(data).forEach(function (k) {
-                if (k.indexOf('High') > -1) {
-                    month = Utils.camelizeString(k.split('High')[0]);
-                    opts.Series[0].data.push(data[k]);
-                }
-                if (k.indexOf('Medium') > -1) {
-                    month = Utils.camelizeString(k.split('Med')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if (k.indexOf('Low') > -1) {
-                    month = Utils.camelizeString(k.split('Low')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if (opts.Categories.indexOf(month) === -1)
-                    opts.Categories.push(month);
-            });
-
-            ChartFactory.SetupMultiColChart('audit_MGPeriod', opts);
-        }
+        // function setupMGPeriodChart(data) {
+        //     var month, opts = {
+        //         Title: "By FindingOpen",
+        //         YText: "Values",
+        //         Categories: [],
+        //         Series: [
+        //             {name: "High", data: [], color: '#c62733'},
+        //             {name: "Medium", data: [], color: '#db981f'},
+        //             {name: "Low", data: [], color: '#db981f'}
+        //         ]
+        //     };
+        //
+        //     Object.keys(data).forEach(function (k) {
+        //         if (k.indexOf('High') > -1) {
+        //             month = Utils.camelizeString(k.split('High')[0]);
+        //             opts.Series[0].data.push(data[k]);
+        //         }
+        //         if (k.indexOf('Medium') > -1) {
+        //             month = Utils.camelizeString(k.split('Med')[0]);
+        //             opts.Series[1].data.push(data[k]);
+        //         }
+        //         if (k.indexOf('Low') > -1) {
+        //             month = Utils.camelizeString(k.split('Low')[0]);
+        //             opts.Series[1].data.push(data[k]);
+        //         }
+        //         if (opts.Categories.indexOf(month) === -1)
+        //             opts.Categories.push(month);
+        //     });
+        //
+        //     ChartFactory.SetupMultiColChart('audit_MGPeriod', opts);
+        // }
 
         // AuditService.Audit_statusChart().then(function (data) {
         //     setupPieChart(data);
