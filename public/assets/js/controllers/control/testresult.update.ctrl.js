@@ -28,8 +28,21 @@
 
         $scope.submitAction = function() {
             if($scope.Form.TestResult.$invalid) return false;
-            // console.log('$scope.VM$scope.VM',$scope.VM);
-            // return;
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.testCompletedDate);
+            var d2 = moment($scope.VM.testDueDate);
+            var d3 = moment($scope.VM.createdOnStr);
+            var d4 = moment($scope.VM.modifiedOnStr);
+            var d5 = moment($scope.VM.testDtStr);
+            var d6 = moment($scope.VM.testCompleteStr);
+            $scope.VM.testCompletedDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.createdOnStr = (d3.isValid()) ? d3.format(dtype) : '';
+            $scope.VM.modifiedOnStr = (d4.isValid()) ? d4.format(dtype) : '';
+            $scope.VM.testDtStr = (d5.isValid()) ? d5.format(dtype) : '';
+            $scope.VM.testCompleteStr = (d6.isValid()) ? d6.format(dtype) : '';
+            $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
+            $scope.VM.testDueDateStr = $scope.VM.testDueDate;
             ControlService.UpdateTestResults($stateParams.id, $scope.VM).then(function (res) {
                 if(res.status===200) $state.go('app.control.testresult.main');
             });
@@ -45,8 +58,8 @@
         };
 
         ControlService.GetTestResult($stateParams.id).then(function(data){
-            console.log('datadatadatadata',data);
             $scope.VM = data;
+            console.log('$scope.VM.testCompletedDate',$scope.VM);
             var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.testCompletedDate);
             var d2 = moment($scope.VM.testDueDate);
@@ -54,7 +67,6 @@
             $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
             $scope.VM.testCompleteStr = $scope.VM.testCompletedDate;
             $scope.VM.testDtStr = $scope.VM.testDueDate;
-            // console.log('$scope.VM',$scope.VM);
 
             $rootScope.app.Mask = false;
         });

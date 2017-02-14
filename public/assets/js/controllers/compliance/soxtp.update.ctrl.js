@@ -19,9 +19,7 @@
             var d1 = moment($scope.VM.due_date);
             $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.dueDtStr = $scope.VM.due_date;
-            alert()
-            console.log('$scope.VM',$scope.VM);
-            return;
+
             ComplianceService.UpdateSOXTPAssessment($stateParams.id, $scope.VM).then(function (res) {
                 if(res.status===200) {
                     var fileModel = $scope.VM.filemodel;
@@ -46,7 +44,6 @@
 
         ComplianceService.GetSOXTPAssessment($stateParams.id).then(function(data){
             $scope.VM = data;
-
             var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.due_date);
             $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
