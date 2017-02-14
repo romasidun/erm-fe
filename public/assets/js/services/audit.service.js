@@ -4,7 +4,7 @@
 
 app.service('AuditService', function(APIHandler){
 
-    this.GetAudits = function(page, size){
+    this.GetAudits = function(){
         return APIHandler.Get('auditmgmt');
     };
 
