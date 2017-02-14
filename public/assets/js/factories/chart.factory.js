@@ -81,9 +81,6 @@
             for(var i in data){
                 pattern_data[i]=data[i];
             }
-            alert();
-            console.log('pattern_datapattern_datapattern_data',data);
-            console.log('pattern_datapattern_datapattern_data',pattern_data);
             Object.keys(pattern_data).forEach(function (k) {
                 rcsaChrt.push({key: Utils.camelizeString(k), val: pattern_data[k]});
             });
