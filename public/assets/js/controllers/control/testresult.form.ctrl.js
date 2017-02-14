@@ -8,50 +8,36 @@
 
         $scope.Form = {};
         $scope.VM = {
-             controlDataModel: [],
-             controlMethod: "",
-             controlPriority: "",
-             controlStatus: "",
-             controlsTested: "",
-             createdBy: "",
-             createdOn: "",
-             department: [],
-             id: "",
-             modifiedBy: "",
-             modifiedOn: "",
-             regionName: "",
-             testCompletedDate: "",
-             testDueDate: "",
-             testFrequency: "",
-             testPlans: "",
-             testResultName: "",
-             testResults: "",
-             testresultFileModel: []
+            controlDataModel: [],
+            controlMethod: "",
+            controlPriority: "",
+            controlStatus: "",
+            controlsTested: "",
+            createdBy: "",
+            createdOn: "",
+            department: [{
+                area: "",
+                // deptId: "",
+                deptName: "",
+                id: ""
+            }],
+            // id: "",
+            modifiedBy: "",
+            modifiedOn: "",
+            regionName: "",
+            testCompletedDate: "",
+            testDueDate: "",
+            testFrequency: "",
+            testPlans: "",
+            testResultName: "",
+            testResults: "",
+            testresultFileModel: []
         };
 
-        $scope.addControls = function () {
-            var headers = ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
-                cols = ["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
 
-            $rootScope.app.Mask = true;
-            OPRiskService.GetControlData().then(function (data) {
-                data.forEach(function (c, i) {
-                    c.Selected = false;
-                    c.modifiedOn = Utils.createDate(c.modifiedOn);
-                });
-                var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
-                controlModal.result.then(function (list) {
-                    $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
-                });
-                $rootScope.app.Mask = false;
-            });
-        };
-
-        $scope.addtestResult = function(){
-
-            console.log("Getsss");
-            var headers= ["Test Plan", "Region", "Status", "Test Due Date", "Priority"],
-                cols =["testPlanName", "regionName", "controlStatus",, "testDueDate", "controlPriority"];
+        $scope.addTestPlan = function(){
+            var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
+                cols =["testPlanName", "regionName", "controlStatus", "fileName", "dueDate", "controlPriority"];
 
             $rootScope.app.Mask = true;
             ControlService.GetTestPlans(10, 1).then(function(data){
@@ -60,9 +46,7 @@
                     c.fileName = c.testplanFileModel.length? "See attached": "None";
                     c.dueDate = c.testDueDate? moment(Utils.createDate(c.testDueDate)).format('DD/MM/YYYY'):'None';
                 });
-                console.log(data);
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
-                console.log(controlModal);
                 controlModal.result.then(function(list){
                     $scope.VM.testresultFileModel = $scope.VM.testresultFileModel.concat(list);
                 });
@@ -84,9 +68,7 @@
             $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
-
             ControlService.AddTestResults($scope.VM).then(function (res) {
-                console.log(res);
                 if(res.status===200) $state.go('app.control.testresult.main');
             });
         };

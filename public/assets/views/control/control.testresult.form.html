@@ -10,7 +10,6 @@
 <!-- End: Page Header -->
 
 <div class="container-fluid container-fullw bg-white">
-
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-transparent">
@@ -32,44 +31,50 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Department </label>
-<<<<<<< HEAD
-									<select name="controlCategory" ng-model="VM.controlCategory" class="form-control">
+									<select name="department" ng-model="VM.department[0].deptName" class="form-control">
 										<option value="">Select</option>
-										<option value="DEQ01">Equities</option>
-										<option value="DFX01">Fixed Income</option>
-										<option value="DIB01">Investment Banking</option>
-										<option value="DAM01">Asset Management</option>
-										<option value="DIT01">IT</option>
-										<option value="DTX01">TAX</option>
-										<option value="DTS01">Treasury</option>
-										<option value="DCN01">Controllers</option>
-										<option value="DHR01">HR</option>
-										<option value="DLG01">Legal</option>
-										<option value="DOP01">Operations</option>
-										<option value="DRM01">Risk Management</option>
-										<option value="DCM01">Compliance</option>
-=======
-									<select name="controlCategory" ng-model="VM.department[0]" ng-options="d as d.deptName for d in app.Lookup.Departments" class="form-control">
-										<option value="">Select Department</option>
->>>>>>> 334e19b986194d0e815d657a448c63be9d3efed3
+										<option value="Equities">Equities</option>
+										<option value="Fixed Income">Fixed Income</option>
+										<option value="Investment Banking">Investment Banking</option>
+										<option value="Asset Management">Asset Management</option>
+										<option value="IT">IT</option>
+										<option value="TAX">TAX</option>
+										<option value="Treasury">Treasury</option>
+										<option value="Controllers">Controllers</option>
+										<option value="HR">HR</option>
+										<option value="Legal">Legal</option>
+										<option value="Operations">Operations</option>
+										<option value="Risk Management">Risk Management</option>
+										<option value="Compliance">Compliance</option>
 									</select>
+									<!--<select name="department" ng-model="VM.department[0].deptName" class="form-control">-->
+									<!--<option value="">Select</option>-->
+									<!--<option value="DEQ01">Equities</option>-->
+									<!--<option value="DFX01">Fixed Income</option>-->
+									<!--<option value="DIB01">Investment Banking</option>-->
+									<!--<option value="DAM01">Asset Management</option>-->
+									<!--<option value="DIT01">IT</option>-->
+									<!--<option value="DTX01">TAX</option>-->
+									<!--<option value="DTS01">Treasury</option>-->
+									<!--<option value="DCN01">Controllers</option>-->
+									<!--<option value="DHR01">HR</option>-->
+									<!--<option value="DLG01">Legal</option>-->
+									<!--<option value="DOP01">Operations</option>-->
+									<!--<option value="DRM01">Risk Management</option>-->
+									<!--<option value="DCM01">Compliance</option>-->
+									<!--</select>-->
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Region </label>
-<<<<<<< HEAD
-									<select name="controlCategory" ng-model="VM.controlCategory" class="form-control">
+									<select name="regionName" ng-model="VM.regionName" class="form-control">
 										<option value="">Select</option>
 										<option value="Asia Pacific">Asia Pacific</option>
 										<option value="EMEA">EMEA</option>
 										<option value="North America">North America</option>
 										<option value="Europe">Europe</option>
 										<option value="All">All</option>
-=======
-									<select name="regionName" ng-model="VM.regionName" ng-options="op.key as op.val for op in app.Lookup.LIST001" class="form-control">
-										<option value="">Select Region</option>
->>>>>>> 334e19b986194d0e815d657a448c63be9d3efed3
 									</select>
 								</div>
 							</div>
@@ -96,7 +101,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Test Results </label>
-									<select name="controlCategory" ng-model="VM.controlCategory" class="form-control">
+									<select name="testResults" ng-model="VM.testResults" class="form-control">
 										<option value="">Select</option>
 										<option value="Controls failed" >Controls failed</option>
 										<option value="Controls partially failed" >Controls partially failed</option>
