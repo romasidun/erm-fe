@@ -41,6 +41,7 @@ app.service('PolicyService', function(APIHandler){
     };
 
     this.multiFileUpload = function (params) {
+
         var fileModel = params.fileModel;
         if(fileModel.length < 1){
             return APIHandler.NullPromise();

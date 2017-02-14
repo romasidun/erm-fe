@@ -23,10 +23,6 @@
             $scope.IsSubmitted = true;
             if($scope.Form.Policy.$pristine || $scope.Form.Policy.$invalid) return false;
 
-            PolicyService.multiFileUpload($scope.VM).then(function (res) {
-                console.log(res);
-            });
-
             PolicyService.AddPolicy($scope.VM).then(function(res){
                 if(res.status === 200) {
                     var fileModel = $scope.VM.fileModel;
