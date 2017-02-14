@@ -11,8 +11,8 @@
         $scope.Grid1 = {
             PerPage: 10,
             CurrPage: 1,
-            Column: 'alertName',
-            IsAsc: true,
+            Column: 'workItemType',
+            IsAsc: false,
             Filter: "",
             Total: 0,
             Data: [],
