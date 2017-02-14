@@ -135,7 +135,7 @@
                 Series: series
             };
             config = ChartFactory.SetupStackedChart(config);
-            Highcharts.chart('regionstacked', config);
+            Highcharts.chart('regionChart', config);
         }
 
         $scope.$watch('Grid1.Data', function (n, o) {

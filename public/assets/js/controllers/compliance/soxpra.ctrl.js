@@ -89,9 +89,6 @@
             return ComplianceService.GetSOXPRAPeriod();
         }).then(function (data) {
             ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
-            return ComplianceService.GetSOXPRARegion();
-        }).then(function (data) {
-            setupStatusChart(data);
             return ComplianceService.GetSOXPRADept();
         }).then(function (data) {
             // ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
@@ -154,6 +151,52 @@
             });
             ChartFactory.SetupMultiColChart('regionstacked', opts);
         }
+
+        function drawRegionChart() {
+            if ($rootScope.app.Mask) return;
+            var categories = [];
+            $rootScope.app.Lookup.LIST001.forEach(function (item) {
+                categories.push(item.val);
+            });
+            var tempAry = new Array();
+            $scope.Grid1.Data.forEach(function (row) {
+                var approval = row.approval;
+                var region = row.region;
+                if (region.indexOf('Asia') !== -1)
+                    region = 'Asia';
+                if (region.indexOf('EMEA') !== -1)
+                    region = 'South America';
+
+                if (typeof(tempAry[approval]) == 'undefined') {
+                    var ary = Array.apply(null, Array(categories.length)).map(Number.prototype.valueOf, 0);
+                    tempAry[approval] = ary;
+                }
+
+                var ind = categories.indexOf(region);
+                if (ind < 0) return;
+                tempAry[approval][ind]++;
+            });
+
+            var series = [];
+            for (var k in tempAry) {
+                series.push({
+                    name: k,
+                    data: tempAry[k]
+                })
+            }
+            var config = {
+                Text: 'By Region',
+                Title: '',
+                Categories: categories,
+                Series: series
+            };
+            config = ChartFactory.SetupStackedChart(config);
+            Highcharts.chart('regionstacked', config);
+        }
+
+        $scope.$watch('Grid1.Data', function (n, o) {
+            drawRegionChart();
+        });
 
     }
 })();
