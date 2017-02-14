@@ -355,7 +355,7 @@
             };
             Highcharts.chart(chartEle, chartObj);
         };
-
+        
         ChartFactory.prototype.StatusChart = function(container){
             return new Highcharts.Chart({
                 credits: {
@@ -428,8 +428,7 @@
                 plotOptions: {
                     series: { stacking: 'normal' }
                 },
-                series: config.Series,
-                colors: config.Colors
+                series: config.Series
             };
         };
 

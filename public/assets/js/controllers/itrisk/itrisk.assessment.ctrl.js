@@ -41,9 +41,6 @@
         }).then(function (data) {
             ChartFactory.CreateMultiColChart('By Period', data, periodChart);
             // setupPeriodChart(data);
-            return ITRiskService.GetRamRegion();
-        }).then(function (data) {
-            setupRegionChart(data);
             return ITRiskService.GetRamDept();
         }).then(function (data) {
             //ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptChart');
@@ -99,90 +96,51 @@
             });
         }
 
-        function setupPieChart(data) {
-            var series = [];
-            Object.keys(data).forEach(function (k) {
-                series.push([k, data[k]]);
+        function drawRegionChart() {
+            if ($rootScope.app.Mask) return;
+            var categories = [];
+            $rootScope.app.Lookup.LIST001.forEach(function (item) {
+                categories.push(item.val);
             });
-            var chartObj = ChartFactory.CreatePieChartTemplate('Risk Type Severity', 'Risk Type Severity', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
-            Highcharts.chart('statusChart', chartObj);
-        }
+            var tempAry = new Array();
+            $scope.Grid1.Data.forEach(function (row) {
+                var approval = row.approval;
+                var region = row.region;
+                if (region.indexOf('Asia') !== -1)
+                    region = 'Asia';
+                if (region.indexOf('EMEA') !== -1)
+                    region = 'South America';
 
-        function setupPeriodChart(data) {
+                if (typeof(tempAry[approval]) == 'undefined') {
+                    var ary = Array.apply(null, Array(categories.length)).map(Number.prototype.valueOf, 0);
+                    tempAry[approval] = ary;
+                }
 
-            var month, opts = {
-                Title: "By Period",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "High", data: [], color: '#c62733'},
-                    {name: "Medium", data: [], color: '#db981f'},
-                    {name: "Low", data: [], color: '#00d356'}
-                ]
+                var ind = categories.indexOf(region);
+                if (ind < 0) return;
+                tempAry[approval][ind]++;
+            });
 
+            var series = [];
+            for (var k in tempAry) {
+                series.push({
+                    name: k,
+                    data: tempAry[k]
+                })
+            }
+            var config = {
+                Text: 'By Region',
+                Title: '',
+                Categories: categories,
+                Series: series
             };
-
-            Object.keys(data).forEach(function (k) {
-                if (k.indexOf('High') > -1) {
-                    month = Utils.camelizeString(k.split('High')[0]);
-                    opts.Series[0].data.push(data[k]);
-                }
-                if (k.indexOf('Med') > -1) {
-                    month = Utils.camelizeString(k.split('Med')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if (k.indexOf('Low') > -1) {
-                    month = Utils.camelizeString(k.split('Low')[0]);
-                    opts.Series[2].data.push(data[k]);
-                }
-                if (opts.Categories.indexOf(month) === -1)
-                    opts.Categories.push(month);
-            });
-
-            ChartFactory.SetupMultiColChart('periodChart', opts);
+            config = ChartFactory.SetupStackedChart(config);
+            Highcharts.chart('regionstacked', config);
         }
 
-        function setupRegionChart(data) {
-
-            var opts = {
-                Title: "By Region",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "In Progress", data: [], color: '#008000'},
-                    {name: "Completed", data: [], color: '#ff0000'},
-                    {name: "Submitted", data: [], color: '#ffff00'},
-                    {name: "To Approve", data: [], color: '#ffc0cb'},
-                    {name: "Ready To Approve", data: [], color: '#ffa500'},
-                    {name: "Approved", data: [], color: '#0000ff'}
-                ]
-            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
-            Object.keys(data).forEach(function (k) {
-                if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
-            });
-            opts.Categories.forEach(function (c) {
-                var filteredData = $filter('filter')(Object.keys(data), c);
-                filteredData.forEach(function (ck) {
-                    cats.forEach(function (ct, j) {
-                        if (ck.indexOf(ct) > -1) {
-                            opts.Series[j].data.push(data[ck]);
-                        }
-                    });
-                });
-            });
-
-            ChartFactory.SetupMultiColChart('regionChart', opts);
-        }
-
-        function setupDeptChart(data) {
-
-            var series = [];
-            Object.keys(data).forEach(function (k) {
-                series.push([k, data[k]]);
-            });
-            var chartObj = ChartFactory.CreatePieChartTemplate('By Department', 'Risk Type Severity', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
-            Highcharts.chart('deptChart', chartObj);
-        }
+        $scope.$watch('Grid1.Data', function (n, o) {
+            drawRegionChart();
+        });
 
     }
 })();
