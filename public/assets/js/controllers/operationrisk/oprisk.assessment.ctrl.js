@@ -63,6 +63,7 @@
                 return OPRiskService.GetRSAPeriod();
             })
             .then(function (data) {
+                console.log(data);
                 ChartFactory.CreateMultiColChart('By Period', data, 'periodChart');
                 return OPRiskService.GetRSADept();
             })

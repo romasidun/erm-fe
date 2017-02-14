@@ -355,58 +355,6 @@
             };
             Highcharts.chart(chartEle, chartObj);
         };
-        
-        ChartFactory.prototype.StatusChart = function(container){
-            return new Highcharts.Chart({
-                credits: {
-                    enabled: false
-                },
-                colors: ['#FFFF33', '#A0341F',  '#739113'],
-                chart: {
-                    renderTo: container,
-                    spacingBottom: 15,
-                    spacingTop: 10,
-                    spacingLeft: 10,
-                    spacingRight: 10,
-                    width: 280,
-                    height: 270
-                },
-                title: { text: '', x: 0 , style: { font: '20px TimesNewRoman', color : 'black' } },
-                subtitle: { x: 0 },
-                xAxis: { categories: jsondata[0] },
-                yAxis: {
-                    min:0,
-                    allowDecimals: false,
-                    title: {
-                        text: 'Count'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: ''
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
-                },
-                series: [{
-                    name: 'Low',
-                    data: jsondata[1]
-                }, {
-                    name: 'Medium',
-                    data: jsondata[2]
-                }, {
-                    name: 'High',
-                    data: jsondata[3]
-                }]
-            });
-        };
 
         ChartFactory.prototype.SetupStackedChart = function(config){
 
@@ -591,26 +539,65 @@
 
             Highcharts.chart(el, chartObj);
         };
+        ChartFactory.prototype.CreateLineChart = function(title, data, chartEle){
+            var month, opts = {
+                Title: title,
+                YText: "Values",
+                Categories : [],
+                Series: [
+                    { name: "High", data: [] },
+                    { name: "Medium", data: [] },
+                    { name: "Low", data: [] }
+                ],
+                Colors: ['#ffa500', '#039220', '#33BBFF']
+            };
+            Object.keys(data).forEach(function(k){
+                if(k.indexOf('High')>-1) {
+                    month = Utils.camelizeString(k.split('High')[0]);
+                    opts.Series[0].data.push(data[k]);
+                }
+                if(k.indexOf('Med')>-1) {
+                    month = Utils.camelizeString(k.split('Med')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if(k.indexOf('Low')>-1) {
+                    month = Utils.camelizeString(k.split('Low')[0]);
+                    opts.Series[2].data.push(data[k]);
+                }
+                if(opts.Categories.indexOf(month)===-1)
+                    opts.Categories.push(month);
+            });
+
+            var chartObj = {
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: opts.Title
+                },
+                subtitle: {
+                    text: 'Monthly'
+                },
+                xAxis: {  categories: opts.Categories },
+                yAxis: {
+                    title: {
+                        text: 'Temperature (°C)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                series: opts.Series,
+                colors: opts.Colors
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
 
         return new ChartFactory();
     });
 
 })();
 
-
-//Usage Examples
-
-// function setupSeverityChart(data){
-//     var opts = {
-//         Title:  'Risk Type Severity',
-//         Categories: [],
-//         Series: 'Severity Types',
-//         Data : []
-//     };
-//     Object.keys(data).forEach(function(k){
-//         opts.Categories.push(k);
-//         opts.Data.push(data[k]);
-//     });
-//
-//     ChartFactory.SetupColChart('severityChart', opts);
-// }
