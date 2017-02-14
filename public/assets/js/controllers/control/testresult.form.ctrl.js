@@ -15,12 +15,7 @@
              controlsTested: "",
              createdBy: "",
              createdOn: "",
-             department: [{
-                 area: "",
-                 deptId: "",
-                 deptName: "",
-                 id: ""
-            }],
+             department: [],
              id: "",
              modifiedBy: "",
              modifiedOn: "",
@@ -34,12 +29,29 @@
              testresultFileModel: []
         };
 
+        $scope.addControls = function () {
+            var headers = ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
+                cols = ["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
 
-        $scope.addTestPlan = function(){
+            $rootScope.app.Mask = true;
+            OPRiskService.GetControlData().then(function (data) {
+                data.forEach(function (c, i) {
+                    c.Selected = false;
+                    c.modifiedOn = Utils.createDate(c.modifiedOn);
+                });
+                var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
+                controlModal.result.then(function (list) {
+                    $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
+                });
+                $rootScope.app.Mask = false;
+            });
+        };
+
+        $scope.addtestResult = function(){
 
             console.log("Getsss");
-            var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
-                cols =["testPlanName", "regionName", "controlStatus", "fileName", "dueDate", "controlPriority"];
+            var headers= ["Test Plan", "Region", "Status", "Test Due Date", "Priority"],
+                cols =["testPlanName", "regionName", "controlStatus",, "testDueDate", "controlPriority"];
 
             $rootScope.app.Mask = true;
             ControlService.GetTestPlans(10, 1).then(function(data){
@@ -48,7 +60,9 @@
                     c.fileName = c.testplanFileModel.length? "See attached": "None";
                     c.dueDate = c.testDueDate? moment(Utils.createDate(c.testDueDate)).format('DD/MM/YYYY'):'None';
                 });
+                console.log(data);
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
+                console.log(controlModal);
                 controlModal.result.then(function(list){
                     $scope.VM.testresultFileModel = $scope.VM.testresultFileModel.concat(list);
                 });
