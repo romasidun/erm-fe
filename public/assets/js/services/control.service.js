@@ -59,6 +59,7 @@ app.service('ControlService', function ($rootScope, APIHandler, Utils) {
     };
 
     this.UpdateTestResults = function (id, params) {
+        console.log('paramsparams',params);
         return APIHandler.Put('crtls/testResults/' + id, params);
     };
 

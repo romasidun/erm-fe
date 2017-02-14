@@ -44,7 +44,6 @@
 
         ComplianceService.GetSOXTPAssessment($stateParams.id).then(function(data){
             $scope.VM = data;
-
             var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.due_date);
             $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';

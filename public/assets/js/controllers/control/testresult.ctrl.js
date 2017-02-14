@@ -53,11 +53,11 @@
                     tr.testCompletedDate = new Date(tr.testCompletedDate);
                     tr.deptName = tr.department[0].departmentName;
                 });
+                $rootScope.app.Mask = false;
 
                 $scope.Grid1.Total = data.length;
                 $scope.Grid1.Data = data;
 
-                $rootScope.app.Mask = false;
             });
         }
 
