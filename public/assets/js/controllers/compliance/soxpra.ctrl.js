@@ -80,7 +80,7 @@
 
 
         ComplianceService.GetSOXPRAStatus().then(function (data) {
-            ChartFactory.CreatePieChart('RCSA by status', 'RCSA by status', data, 'rcsaStatus');
+            ChartFactory.CreatePieChart('By status', 'By status', data, 'rcsaStatus');
             // var rcsaChrt = [];
             // Object.keys(data).forEach(function (k) {
             //     rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
@@ -92,7 +92,7 @@
             return ComplianceService.GetSOXPRADept();
         }).then(function (data) {
             // ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
-            ChartFactory.CreatePieChart('By Department', 'By status', data, 'deptstacked');
+            ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
             loadAssessments();
         });
 

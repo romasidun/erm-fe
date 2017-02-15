@@ -103,13 +103,13 @@
         };
 
         ComplianceService.GetSOXTPStatus().then(function (data) {
-            ChartFactory.CreatePieChart('RCSA by status', 'RCSA by status', data, 'rcsaStatus');
+            ChartFactory.CreatePieChart('By status', 'By status', data, 'rcsaStatus');
             return ComplianceService.GetSOXTPPeriod();
         }).then(function (data) {
             ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
             return ComplianceService.GetSOXTPDept();
         }).then(function (data) {
-            ChartFactory.CreatePieChart('By Department', 'RCSA by status', data, 'deptstacked');
+            ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
             loadAssessments();
         });
 
@@ -122,10 +122,6 @@
                     if (data.status === 200) loadAssessments();
                 });
             });
-        };
-
-        $scope.editAction = function (r) {
-
         };
 
         function loadAssessments() {
