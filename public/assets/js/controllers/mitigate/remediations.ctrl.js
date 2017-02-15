@@ -128,8 +128,6 @@
 
 
         function setupCatChart(data){
-            alert();
-            console.log('setupCatChart',data);
             var opts = {
                 Title: "Remediations By Category",
                 YText: "Values",
