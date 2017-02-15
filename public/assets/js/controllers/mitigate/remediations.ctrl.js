@@ -140,7 +140,6 @@
             };
 
             Object.keys(data.categories).forEach(function(k){ opts.Categories.push(data.categories[k])});
-            console.log(opts.Categories);
             opts.Categories.forEach(function(ck){
                 $filter('filter')(Object.keys(data['risk category status']), ck).forEach(function(s, i){
                     if(s.indexOf(' High')>-1) opts.Series[0].data.push(data['risk category status'][s]);
