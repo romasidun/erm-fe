@@ -41,8 +41,9 @@ app.service('PolicyService', function(APIHandler){
         return APIHandler.UploadFile(url, formdata);
     };
 
-    this.FileDownload = function(idd){
-        var url = 'policies/download/' + idd;
+    this.FileDownload = function(idd, path){
+        var url = 'policies/download/stream/' + idd ;
+        //var param = {fileId: idd, filePath: path};
         return APIHandler.Get(url);
     };
 });

@@ -99,7 +99,10 @@
                                     <input type="file" file-model="VM.filemodel" class="form-control" />
                                     <ul class="file-list-group col-xs-12">
                                         <li class="file-list-item" ng-repeat="file in VM.filemodel">
-                                            <a ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.fileName}}</a>
+                                            <a href="{{app.APIPrefix + 'policies/download/stream/'+file.id}}" download="{{file.fileName}}" ng-if="file.id!=1">
+                                                {{file.fileName}}
+                                            </a>
+                                            <span ng-if="file.id==1">{{file.fileName}}</span>
                                         </li>
                                     </ul>
                                 </div>

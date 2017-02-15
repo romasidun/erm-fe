@@ -20,21 +20,25 @@
             testPlanDesc: "",
             testPlanFile: "",
             testPlanName: "",
-            testPlanFileModel: []
+            filemodel: []
         };
 
-        $scope.addControls = function () {
-            var headers = ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
-                cols = ["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
+        $scope.addControls = function(){
+            $scope.VM = {
+                controlDataModel: []
+            };
+            var headers= ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
+                cols =["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
 
             $rootScope.app.Mask = true;
-            OPRiskService.GetControlData().then(function (data) {
-                data.forEach(function (c, i) {
+            OPRiskService.GetControlData().then(function(data){
+                data.forEach(function(c, i){
                     c.Selected = false;
                     c.modifiedOn = Utils.createDate(c.modifiedOn);
                 });
+                console.log('data',data);
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
-                controlModal.result.then(function (list) {
+                controlModal.result.then(function(list){
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
@@ -57,7 +61,7 @@
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
             $scope.VM.nextDueDateStr = $scope.VM.nextDueDate;
 
-            var fileModel = $scope.VM.testPlanFileModel;
+            var fileModel = $scope.VM.filemodel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;

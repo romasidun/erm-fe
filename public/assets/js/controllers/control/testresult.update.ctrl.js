@@ -44,7 +44,7 @@
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
 
-            var fileModel = $scope.VM.testresultFileModel;
+            var fileModel = $scope.VM.filemodel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;

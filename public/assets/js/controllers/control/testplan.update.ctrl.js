@@ -41,7 +41,7 @@
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
             $scope.VM.nextDueDateStr = $scope.VM.nextDueDate;
 
-            var fileModel = $scope.VM.testPlanFileModel;
+            var fileModel = $scope.VM.testplanFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;

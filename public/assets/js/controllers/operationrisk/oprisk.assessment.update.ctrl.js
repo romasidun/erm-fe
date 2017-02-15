@@ -73,6 +73,12 @@
             $rootScope.app.Mask = false;
         });
 
+        $scope.download = function(fileId, filePath){
+            var url = 'policies/download/stream/' + fileId ;
+            var baseUrl = $rootScope.app.APIPrefix;
+            url = baseUrl + url;
+            window.open(url, '_blank');
+        };
 
     }
 })();

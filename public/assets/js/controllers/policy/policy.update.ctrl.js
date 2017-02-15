@@ -30,20 +30,22 @@
                     });
                 }
             });
-/*
-            PolicyService.UpdatePolicy($stateParams.id, $scope.VM).then(function(res){
-                if(res.status === 200) {
-                    $state.go('app.policy.main');
-
-                }
-            });*/
         };
 
-        $scope.download = function(fileId){
-            PolicyService.FileDownload(fileId).then(function (res) {
-                console.log(res.File.path);
-                window.open(res.File.path, '_blank');
-            });
+        $scope.download = function(fileId, fileName){
+            /*var url = 'policies/download/stream/' + fileId ;
+            var baseUrl = $rootScope.app.APIPrefix;
+            url = baseUrl + url;
+            console.log(url);*/
+            //window.open(url, '_blank');
+            PolicyService.FileDownload(fileId, fileName).then(function (res) {
+                var url = URL.createObjectURL(new Blob([res]));
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.target = '_blank';
+                a.click();
+            })
         };
 
         $scope.cancelAction = function(){

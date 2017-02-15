@@ -31,7 +31,7 @@
             testPlans: "",
             testResultName: "",
             testResults: "",
-            testresultFileModel: []
+            filemodel: []
         };
 
 
@@ -43,12 +43,7 @@
             ControlService.GetTestPlans(10, 1).then(function(data){
                 data.forEach(function(c, i){
                     c.Selected = false;
-                    c.fileName = c.testplanFileModel.length? "See attached": "None";
                     c.dueDate = c.testDueDate? moment(Utils.createDate(c.testDueDate)).format('DD/MM/YYYY'):'None';
-                });
-                var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
-                controlModal.result.then(function(list){
-                    $scope.VM.testresultFileModel = $scope.VM.testresultFileModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
             });
@@ -69,7 +64,7 @@
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
 
-            var fileModel = $scope.VM.testresultFileModel;
+            var fileModel = $scope.VM.filemodel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;

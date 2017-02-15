@@ -53,9 +53,14 @@
                                         <label> Files </label>
                                         <input type="file" file-model="VM.fileModel" />
                                         <ul class="col-xs-12">
-                                            <li ng-repeat="file in VM.fileModel">
-                                                <a href="{{file.filePath}}" download="{{file.fileName}}">{{file.fileName}}</a>
+                                            <li ng-repeat="file in VM.fileModel" ng-click="download(file.id, file.fileName)">
+                                                    {{file.fileName}}
                                             </li>
+                                            <!--<li ng-repeat="file in VM.fileModel">
+                                                <a href = "{{app.APIPrefix + 'policies/download/stream/' + file.id}}" download="{{file.fileName}">
+                                                    {{file.fileName}}
+                                                </a>
+                                            </li>-->
                                         </ul>
                                     </div>
                                 </div>
