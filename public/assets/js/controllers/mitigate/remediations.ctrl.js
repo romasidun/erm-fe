@@ -30,8 +30,7 @@
         };
 
         MitigateService.GetStatus().then(function(data){
-            console.log('Remediations By Status', data);
-            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'severityChart');
+            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'statusChart');
             // setupStatusChart(status);
             return MitigateService.GetPeriod();
         }).then(function(data){
@@ -42,9 +41,28 @@
             setupCatChart(data);
             return MitigateService.GetSeverity();
         }).then(function(data){
-            console.log('GetSeverity',data);
-            // ChartFactory.CreateLabelChart('Risk Type Severity', 'Risk Type Severity', '', '', '', data, 'categoryChart');
-            setupSeverityChart(data);
+            var high = 0,
+                medium = 0,
+                low = 0,
+                riskCate = data['risk category status'];
+            angular.forEach(riskCate, function(val, key){
+                if(key.indexOf('High') >- 1) {
+                    high = high + val;
+                }
+                if(key.indexOf('Medium') > -1) {
+                    medium = medium + val;
+                }
+                if(key.indexOf('low') > -1) {
+                    low = low + val;
+                }
+            });
+            var datalist = {
+                High: high,
+                Medium: medium,
+                Low: low
+            };
+            ChartFactory.CreatePieChart('Remediations By Severity', 'Remediations By Severity', datalist, 'severityChart');
+            // setupSeverityChart(data);
             $scope.$watch('PerPage', function(n, o){
                 $rootScope.app.Mask = true;
                 loadRemediations();
@@ -109,7 +127,7 @@
                 });
             });
 
-                ChartFactory.SetupMultiColChart('statusChart', opts);
+                ChartFactory.SetupMultiColChart('categoryChart', opts);
         }
     }
 })();
