@@ -92,7 +92,7 @@
             return ComplianceService.GetSOXPRADept();
         }).then(function (data) {
             // ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
-            ChartFactory.CreatePieChart('By Department', 'RCSA by status', data, 'deptstacked');
+            ChartFactory.CreatePieChart('By Department', 'By status', data, 'deptstacked');
             loadAssessments();
         });
 

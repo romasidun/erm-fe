@@ -17,7 +17,7 @@
             controlDataModel: [],
             actualName: "",
             approval: "",
-            asmntType: "ACM012",
+            asmntType: "ACM011",
             asmntTypeName: "SOXTP",
             asmntType_name: "",
             assessDesc: "",

@@ -16,7 +16,7 @@
 
         $scope.sortMe = function(col){
             if($scope.CurrCol === col)
-                $scope.IsAsc = !$scope.IsAsc;
+                   $scope.IsAsc = !$scope.IsAsc;
             else
                 $scope.CurrCol = col;
         };
@@ -30,19 +30,19 @@
         };
 
         MitigateService.GetStatus().then(function(data){
-            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'severityChart');
-            // setupStatusChart(status);
+            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'statusChart');
             return MitigateService.GetPeriod();
         }).then(function(data){
             ChartFactory.CreateMultiColChart('By Period', data, 'periodChart');
-            // setupPeriodChart(per);
-            return MitigateService.GetRiskCategory();
-        }).then(function(data){
-            setupCatChart(data);
             return MitigateService.GetSeverity();
         }).then(function(data){
+            console.log('datadatadatadata',data);
+            return;
+            ChartFactory.CreatePieChart('Remediations By Severity', 'Remediations By Severity', data, 'severityChart');
+            return MitigateService.GetRiskCategory();
+        }).then(function(data){
             // ChartFactory.CreateLabelChart('Risk Type Severity', 'Risk Type Severity', '', '', '', data, 'categoryChart');
-            setupSeverityChart(data);
+            // setupSeverityChart(data);
             $scope.$watch('PerPage', function(n, o){
                 $rootScope.app.Mask = true;
                 loadRemediations();
@@ -84,48 +84,6 @@
 
             ChartFactory.SetupMultiColChart('categoryChart', opts);
         }
-
-        // function setupStatusChart(data) {
-        //     var dataList = [];
-        //     Object.keys(data).forEach(function(k){ dataList.push([k, data[k]]); });
-        //     var chartObj = ChartFactory.CreatePieChartTemplate('Remediations By Status', 'emediations By Status', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
-        //     Highcharts.chart('statusChart', chartObj);
-        // }
-
-        // function setupPeriodChart (data){
-        //
-        //     var month, opts = {
-        //         Title: "Remediations By Period",
-        //         YText: "Values",
-        //         Categories : [],
-        //         Series: [
-        //             { name: "High", data: [], color:'#c62733' },
-        //             { name: "Medium", data: [], color:'#db981f' },
-        //             { name: "Low", data: [], color:'#00d356' }
-        //         ]
-        //
-        //     };
-        //     Object.keys(data).forEach(function(k){
-        //         if(k.indexOf('High')>-1) {
-        //             month = Utils.camelizeString(k.split('High')[0]);
-        //             opts.Series[0].data.push(data[k]);
-        //         }
-        //         if(k.indexOf('Med')>-1) {
-        //             month = Utils.camelizeString(k.split('Med')[0]);
-        //             opts.Series[1].data.push(data[k]);
-        //         }
-        //         if(k.indexOf('Low')>-1) {
-        //             month = Utils.camelizeString(k.split('Low')[0]);
-        //             opts.Series[2].data.push(data[k]);
-        //         }
-        //         if(opts.Categories.indexOf(month)===-1)
-        //             opts.Categories.push(month);
-        //     });
-        //
-        //     ChartFactory.SetupMultiColChart('periodChart', opts);
-        // }
-
-
 
         function setupCatChart(data){
             var opts = {

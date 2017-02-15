@@ -55,7 +55,10 @@
                     "In Review": null,//8
                     "Accept": null,//9
                     "Complete Pending Review": null, //10
-                    "Complete": null //11
+                    "Complete": null, //11
+                    "Hight": null, //12
+                    "Medium": null, //13
+                    "Low": null //14
                 },
                 color = [
                     '#D4AF37',
@@ -75,7 +78,9 @@
                     '#faebd7', //9
                     '#ffeeaa', //10
                     '#808080', //11
-                    '#800080' //12
+                    '#800080', //12
+                    '#3ca7d3', //13
+                    '#d3820a' //14
                 ];
 
             for(var i in data){
