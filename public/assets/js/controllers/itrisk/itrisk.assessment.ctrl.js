@@ -4,7 +4,7 @@
 
     function ITRiskAssController($scope, $rootScope, $state, $uibModal, $filter, ITRiskService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
+        $scope.mainDesc = "";
 
         $scope.OpList = [5, 10, 25, 50, 100];
         $scope.Grid1 = {
