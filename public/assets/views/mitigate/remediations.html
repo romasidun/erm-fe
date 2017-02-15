@@ -86,7 +86,7 @@
                             <tbody>
                             <tr ng-repeat="r in Data | orderBy: CurrCol:IsAsc | filter: CurrFilt">
                                 <th><input type="checkbox"></th>
-                                <td>IT Risk</td>
+                                <td>{{r.RiskType}}</td>
                                 <td>{{r.RiskName}}</td>
                                 <td>{{r.RiskCategory}}</td>
                                 <td>{{r.RiskSeverity}}</td>

@@ -16,7 +16,7 @@
 
         $scope.sortMe = function(col){
             if($scope.CurrCol === col)
-                   $scope.IsAsc = !$scope.IsAsc;
+                $scope.IsAsc = !$scope.IsAsc;
             else
                 $scope.CurrCol = col;
         };
@@ -30,19 +30,21 @@
         };
 
         MitigateService.GetStatus().then(function(data){
-            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'statusChart');
+            console.log('Remediations By Status', data);
+            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'severityChart');
+            // setupStatusChart(status);
             return MitigateService.GetPeriod();
         }).then(function(data){
             ChartFactory.CreateMultiColChart('By Period', data, 'periodChart');
-            return MitigateService.GetSeverity();
-        }).then(function(data){
-            console.log('datadatadatadata',data);
-            return;
-            ChartFactory.CreatePieChart('Remediations By Severity', 'Remediations By Severity', data, 'severityChart');
+            // setupPeriodChart(per);
             return MitigateService.GetRiskCategory();
         }).then(function(data){
+            setupCatChart(data);
+            return MitigateService.GetSeverity();
+        }).then(function(data){
+            console.log('GetSeverity',data);
             // ChartFactory.CreateLabelChart('Risk Type Severity', 'Risk Type Severity', '', '', '', data, 'categoryChart');
-            // setupSeverityChart(data);
+            setupSeverityChart(data);
             $scope.$watch('PerPage', function(n, o){
                 $rootScope.app.Mask = true;
                 loadRemediations();
@@ -98,6 +100,7 @@
             };
 
             Object.keys(data.categories).forEach(function(k){ opts.Categories.push(data.categories[k])});
+            console.log(opts.Categories);
             opts.Categories.forEach(function(ck){
                 $filter('filter')(Object.keys(data['risk category status']), ck).forEach(function(s, i){
                     if(s.indexOf(' High')>-1) opts.Series[0].data.push(data['risk category status'][s]);
@@ -106,7 +109,7 @@
                 });
             });
 
-            ChartFactory.SetupMultiColChart('statusChart', opts);
+                ChartFactory.SetupMultiColChart('statusChart', opts);
         }
     }
 })();
