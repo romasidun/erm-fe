@@ -62,7 +62,7 @@
 
         function setupSeverityChart(data) {
             var opts = {
-                Title: "Remediations By Risk Types",
+                Title: "Remediations By Severity",
                 YText: "Values",
                 Categories : [],
                 Series: [
@@ -128,8 +128,10 @@
 
 
         function setupCatChart(data){
+            alert();
+            console.log('setupCatChart',data);
             var opts = {
-                Title: "Remediations By Risk Types",
+                Title: "Remediations By Category",
                 YText: "Values",
                 Categories : [],
                 Series: [

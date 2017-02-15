@@ -69,7 +69,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
-                            <select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+                            <select id="perpage" ng-model="VM.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
                         </div>
                         <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
                             <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
@@ -96,8 +96,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="r in VM | orderBy: CurrCol:IsAsc | filter: CurrFilt">
-                                    <td class="expand">X</td>
+                                <tr ng-repeat="r in VM.Data | orderBy: VM.Column:VM.IsAsc | filter: VM.Filter |  limitTo : VM.PerPage : (VM.CurrPage -1) * VM.PerPage">
+                                    <td class="expand" ng-click="TopicToggle($event.target, r.id)" >X</td>
                                     <td>{{r.auditName}}</td>
                                     <td>{{r.region}}</td>
                                     <td>{{r.department}}</td>

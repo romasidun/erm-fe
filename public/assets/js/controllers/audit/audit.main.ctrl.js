@@ -5,33 +5,38 @@
     function AuditMainController($scope, $rootScope, $state, AuditService, ChartFactory, Utils, $filter) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "AUDIT MANAGEMENT";
+        $scope.TopicToggleVal = false;
 
+        $scope.TopicToggle = function(item, topicId){
+            $scope.TopicToggleVal = $scope.TopicToggleVal ? false : true;
+            console.log('$scope.TopicToggleVal',$(item).parent('tr'));
+        };
         $scope.OpList = [5, 10, 25, 50, 100];
-        $scope.Grid1 = {
+        $scope.VM = {
             PerPage: 10,
             CurrPage: 1,
-            Column: 'auditName',
+            Column: 'riskName',
             IsAsc: true,
             Filter: "",
             Total: 0,
             Data: [],
             SortMe: function(col){
-                if($scope.Grid1.Column === col)
-                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
+                if($scope.VM.Column === col)
+                    $scope.VM.IsAsc = !$scope.VM.IsAsc;
                 else
-                    $scope.Grid1.Column = col;
+                    $scope.VM.Column = col;
             },
             GetIco: function(col){
-                if($scope.Grid1.Column === col){
-                    return $scope.Grid1.IsAsc? 'fa-sort-up' : 'fa-sort-down';
+                if($scope.VM.Column === col){
+                    return $scope.VM.IsAsc? 'fa-sort-up' : 'fa-sort-down';
                 } else {
                     return 'fa-unsorted';
                 }
             }
         };
-        $scope.$watch('Grid1.Filter', function(n, o){
-            var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
-            $scope.Grid1.Total = searchedData.length;
+        $scope.$watch('VM.Filter', function(n, o){
+            var searchedData = $filter('filter')($scope.VM.Data, $scope.VM.Filter);
+            $scope.VM.Total = searchedData.length;
         });
 
         AuditService.GetManageDept()
@@ -60,15 +65,13 @@
                 return AuditService.GetAudits();
             })
             .then(function (data){
-                $scope.TestResults = [];
-                data.forEach(function(tr){
-                    tr.dueDate = new Date(tr.dateOccurance);
+                data.forEach(function (r) {
+                    r.dueDate = new Date(r.dateOccurance);
                 });
-                $rootScope.app.Mask = false;
 
-                $scope.Grid1.Total = data.length;
-                $scope.Grid1.Data = data;
-                $scope.VM = data;
+                $scope.VM.Total = data.length;
+                $scope.VM.Data = data;
+                $rootScope.app.Mask = false;
             });
 
         function CreateRegionChart(data) {
