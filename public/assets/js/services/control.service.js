@@ -104,15 +104,20 @@ app.service('ControlService', function ($rootScope, APIHandler, Utils) {
     };
 
     this.FileUpload = function (idd, fileModel) {
-        if (fileModel.length < 1) {
+        if(fileModel.length < 1){
             return APIHandler.NullPromise();
         }
         var formdata = new FormData();
         for (var i in fileModel) {
-            formdata.append("uploadFile", fileModel[i]._file);
+            fileModel[i].id = idd + '_' + i;
+            formdata.append("file", fileModel[i]._file);
         }
-        var url = 'crtls/' + idd + '/multiUpload';
+        var url = 'crtls/' + idd + '/upload';
         return APIHandler.UploadFile(url, formdata);
     };
 
+    this.FileDownload = function(idd){
+        var url = 'crtls/download/' + idd;
+        return APIHandler.Get(url);
+    };
 });

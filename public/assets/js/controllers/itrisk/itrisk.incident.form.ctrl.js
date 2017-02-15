@@ -117,13 +117,20 @@
             $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
 
-            ITRiskService.AddRim($scope.VM).then(function (res) {
-                if (res.status === 200) {
-                    var fileModel = $scope.VM.auditFileModel;
-                    ITRiskService.FileUpload(res.id, fileModel).then(function (res) {
-                        console.log(res);
+            var fileModel = $scope.VM.auditFileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            ITRiskService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    ITRiskService.AddRim($scope.VM).then(function (res) {
+                        console.log('res',res);
                     }).finally(function () {
-                        $state.go('app.itrisk.incident.main');
+                        $state.go('app.itrisk.assessment.main');
                     });
                 }
             });

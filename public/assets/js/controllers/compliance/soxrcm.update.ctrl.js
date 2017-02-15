@@ -29,6 +29,24 @@
                     });
                 }
             });
+
+            var fileModel = $scope.VM.filemodel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            ComplianceService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    ComplianceService.UpdateSOXRCMAssessment($stateParams.id, $scope.VM).then(function (res) {
+                        console.log('res',res);
+                    }).finally(function () {
+                        $state.go('app.compliance.soxrcm.main');
+                    });
+                }
+            });
         };
 
         $scope.cancelAction = function () {

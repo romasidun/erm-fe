@@ -23,13 +23,20 @@
             $scope.IsSubmitted = true;
             if($scope.Form.Policy.$pristine || $scope.Form.Policy.$invalid) return false;
 
-            PolicyService.AddPolicy($scope.VM).then(function(res){
+            var fileModel = $scope.VM.fileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            PolicyService.FileUpload(idd, fileModel).then(function(res){
                 if(res.status === 200) {
-                    var fileModel = $scope.VM.fileModel;
-                    PolicyService.multiFileUpload(fileModel).then(function (res) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    PolicyService.AddPolicy($scope.VM).then(function (res) {
                         console.log('res',res);
                     }).finally(function () {
-                        // $state.go('app.policy.main');
+                        $state.go('app.policy.main');
                     });
                 }
             });

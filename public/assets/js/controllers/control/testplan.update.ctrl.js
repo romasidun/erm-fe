@@ -41,10 +41,21 @@
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
             $scope.VM.nextDueDateStr = $scope.VM.nextDueDate;
 
-            ControlService.UpdateTestPlans($stateParams.id, $scope.VM).then(function (res) {
-                if(res.status===200) {
-                    $rootScope.app.Mask = false;
-                    $state.go('app.control.testplan.main');
+            var fileModel = $scope.VM.testPlanFileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            ControlService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    ControlService.UpdateTestPlans($stateParams.id, $scope.VM).then(function (res) {
+                        console.log('res',res);
+                    }).finally(function () {
+                        $state.go('app.control.testplan.main');
+                    });
                 }
             });
         };

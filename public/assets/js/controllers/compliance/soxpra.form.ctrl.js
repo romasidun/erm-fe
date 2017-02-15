@@ -47,11 +47,18 @@
             $scope.VM.due_date = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.dueDtStr = $scope.VM.due_date;
 
-            ComplianceService.PostSOXPRAAssessment($scope.VM).then(function (res) {
-                if (res.status === 200) {
-                    var fileModel = $scope.VM.filemodel;
-                    ComplianceService.FileUpload(res.id, fileModel).then(function (res) {
-                        console.log(res);
+            var fileModel = $scope.VM.filemodel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            ComplianceService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    ComplianceService.PostSOXPRAAssessment($scope.VM).then(function (res) {
+                        console.log('res',res);
                     }).finally(function () {
                         $state.go('app.compliance.soxpra.main');
                     });

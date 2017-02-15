@@ -193,10 +193,16 @@ app.service('ComplianceService', function (APIHandler) {
         }
         var formdata = new FormData();
         for (var i in fileModel) {
-            formdata.append("uploadFile", fileModel[i]._file);
+            fileModel[i].id = idd + '_' + i;
+            formdata.append("file", fileModel[i]._file);
         }
-        var url = 'compliance/' + idd + '/multiUpload';
+        var url = 'compliance/' + idd + '/upload';
         return APIHandler.UploadFile(url, formdata);
+    };
+
+    this.FileDownload = function(idd){
+        var url = 'compliance/download/' + idd;
+        return APIHandler.Get(url);
     };
 });
 

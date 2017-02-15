@@ -47,13 +47,18 @@
             $scope.VM.controlEffectiveStartdateStr = $scope.VM.controlEffectiveStartdate;
             $scope.VM.controlEffectiveEnddateStr = $scope.VM.controlEffectiveEnddate;
 
-            ControlService.AddRepo($scope.VM).then(function (res) {
-                console.log(res);
-                $state.go('app.control.repo.main');
-                if (res.status === 200) {
-                    var fileModel = $scope.VM.filemodel;
-                    ControlService.FileUpload(res.id, fileModel).then(function (res) {
-                        console.log(res);
+            var fileModel = $scope.VM.filemodel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            ControlService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    ControlService.AddRepo($scope.VM).then(function (res) {
+                        console.log('res',res);
                     }).finally(function () {
                         $state.go('app.control.repo.main');
                     });

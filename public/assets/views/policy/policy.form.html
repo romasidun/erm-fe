@@ -53,7 +53,9 @@
                                         <label> Files </label>
                                         <input type="file" file-model="VM.fileModel" multiple />
                                         <ul class="col-xs-12">
-                                            <li ng-repeat="file in VM.fileModel">{{file.name}}</li>
+                                            <li ng-repeat="file in VM.fileModel">
+                                                <a href="{{file.filePath}}" download="{{file.fileName}}">{{file.fileName}}</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

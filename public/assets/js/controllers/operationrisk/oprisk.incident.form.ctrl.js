@@ -173,11 +173,18 @@
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
             $scope.VM.remediationDtStr = $scope.VM.remeDate;
 
-            OPRiskService.PostRisk($scope.VM).then(function (res) {
-                if (res.status === 200){
-                    var fileModel = $scope.VM.auditFileModel;
-                    OPRiskService.FileUpload(res.id, fileModel).then(function (res) {
-                        console.log(res);
+            var fileModel = $scope.VM.auditFileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            OPRiskService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    OPRiskService.PostRisk($scope.VM).then(function (res) {
+                        console.log('res',res);
                     }).finally(function () {
                         $state.go('app.oprisk.incident.main');
                     });

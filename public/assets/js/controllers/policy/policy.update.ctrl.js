@@ -12,8 +12,23 @@
             $scope.IsSubmitted = true;
             if($scope.Form.Policy.$pristine || $scope.Form.Policy.$invalid) return false;
 
-            PolicyService.multiFileUpload($scope.VM).then(function (res) {
-                console.log(res);
+            var fileModel = $scope.VM.fileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            console.log(idd);
+            $scope.VM.key = idd;
+            PolicyService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    PolicyService.UpdatePolicy($stateParams.id, $scope.VM).then(function (res) {
+                        console.log('res',res);
+                    }).finally(function () {
+                        $state.go('app.policy.main');
+                    });
+                }
             });
 /*
             PolicyService.UpdatePolicy($stateParams.id, $scope.VM).then(function(res){
@@ -22,6 +37,13 @@
 
                 }
             });*/
+        };
+
+        $scope.download = function(fileId){
+            PolicyService.FileDownload(fileId).then(function (res) {
+                console.log(res.File.path);
+                window.open(res.File.path, '_blank');
+            });
         };
 
         $scope.cancelAction = function(){

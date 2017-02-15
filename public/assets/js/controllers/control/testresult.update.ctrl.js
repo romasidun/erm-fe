@@ -43,8 +43,23 @@
             $scope.VM.testCompleteStr = (d6.isValid()) ? d6.format(dtype) : '';
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
-            ControlService.UpdateTestResults($stateParams.id, $scope.VM).then(function (res) {
-                if(res.status===200) $state.go('app.control.testresult.main');
+
+            var fileModel = $scope.VM.testresultFileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            ControlService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    ControlService.UpdateTestResults($stateParams.id, $scope.VM).then(function (res) {
+                        console.log('res',res);
+                    }).finally(function () {
+                        $state.go('app.control.testresult.main');
+                    });
+                }
             });
         };
 

@@ -90,10 +90,16 @@
             }
             var formdata = new FormData();
             for (var i in fileModel) {
-                formdata.append("uploadFile", fileModel[i]._file);
+                fileModel[i].id = idd + '_' + i;
+                formdata.append("file", fileModel[i]._file);
             }
-            var url = 'itrisk/' + idd + '/multiUpload';
+            var url = 'itrisk/' + idd + '/upload';
             return APIHandler.UploadFile(url, formdata);
+        };
+
+        this.FileDownload = function(idd){
+            var url = 'itrisk/download/' + idd;
+            return APIHandler.Get(url);
         };
     });
 })();

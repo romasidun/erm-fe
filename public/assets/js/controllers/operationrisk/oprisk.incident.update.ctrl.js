@@ -93,11 +93,6 @@
             categoriesStr = categoriesStr.substr(1);
             $scope.VM.riskCategory = categoriesStr;
 
-            var fileModel = $scope.VM.auditFileModel;
-            OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
-                console.log(res);
-            });
-
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);
@@ -106,9 +101,22 @@
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
             $scope.VM.remediationDtStr = $scope.VM.remeDate;
 
-            OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function (res) {
-                if (res.status === 200)
-                    $state.go('app.oprisk.incident.main');
+            var fileModel = $scope.VM.auditFileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            OPRiskService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function (res) {
+                        console.log('res',res);
+                    }).finally(function () {
+                        $state.go('app.oprisk.incident.main');
+                    });
+                }
             });
         };
 

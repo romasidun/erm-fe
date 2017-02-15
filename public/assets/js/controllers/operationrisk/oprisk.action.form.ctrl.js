@@ -57,9 +57,23 @@
             $scope.VM.dueDate = (d1.isValid()) ? d1.format(dtype) : '';
             // $scope.VM.dueDateStr = $scope.VM.identifiedDate;
 
-            OPRiskService.PostAction($scope.VM).then(function (res) {
-                if (res.status === 200)
-                    $window.history.back();
+            var fileModel = $scope.VM.actionfileModel;
+            var d = new Date();
+            var idd = 'Pol' + d.getTime();
+            $scope.VM.key = idd;
+            OPRiskService.FileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                    OPRiskService.PostAction($scope.VM).then(function (res) {
+                        if (res.status === 200)
+                            $window.history.back();
+                    }).finally(function () {
+                        $window.history.back();
+                    });
+                }
             });
         };
 

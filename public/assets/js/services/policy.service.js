@@ -13,7 +13,7 @@ app.service('PolicyService', function(APIHandler){
     };
 
     this.AddPolicy = function(params){
-        return APIHandler.Post('policies', params);
+        return APIHandler.Post('policies/', params);
     };
 
     this.DeletePolicy = function(id){
@@ -34,26 +34,15 @@ app.service('PolicyService', function(APIHandler){
         }
         var formdata = new FormData();
         for (var i in fileModel) {
-            formdata.append("uploadFile", fileModel[i]._file);
+            fileModel[i].id = idd + '_' + i;
+            formdata.append("file", fileModel[i]._file);
         }
-        var url = 'policies/' + idd + '/multiUpload';
+        var url = 'policies/' + idd + '/upload';
         return APIHandler.UploadFile(url, formdata);
     };
 
-    this.multiFileUpload = function (params) {
-
-        var fileModel = params.fileModel;
-        if(fileModel.length < 1){
-            return APIHandler.NullPromise();
-        }
-        var formdatas = new FormData();
-        formdatas.append("policies", angular.toJson(params));
-
-        for (var i in fileModel) {
-            formdatas.append("uploadFile", fileModel[i]._file);
-        }
-
-        var url = 'policies/multiUpload';
-        return APIHandler.UploadFileAndData(url, formdatas, params);
+    this.FileDownload = function(idd){
+        var url = 'policies/download/' + idd;
+        return APIHandler.Get(url);
     };
 });
