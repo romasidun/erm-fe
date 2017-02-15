@@ -91,12 +91,12 @@
 				</thead>
 				<tbody>
 				<tr ng-repeat="t in Templates">
-					<td>{{t.assessmentType.asTypeDesc}}</td>
+					<td>{{t.assessmentType[0].asTypeDesc}}</td>
 					<td>{{t.templateName}}</td>
 					<td>{{t.fileName}}</td>
-					<td><a href="{{t.mfilename}}" target="_blank"><i class="fa fa-download"></i></a></td>
+					<td><a href="/policies/download/stream/{{t.id}}" target="_blank"><i class="fa fa-download"></i></a></td>
 				</tr>
-				<tr ng-if="!VM.Templates || !VM.Templates.legnth">
+				<tr ng-if="Templates < 1">
 					<td colspan="3" class="text-info">
 						<i class="fa fa-info-circle"></i> No templates to show
 					</td>

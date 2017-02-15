@@ -91,7 +91,7 @@
         }
 
         function createCtrlOPchart(){
-            ChartFactory.CreateLabelChart('Open Itme', 'OpenItem', "", "", "", $scope.OPchartData[$scope.selectedOPKey], 'openitemChart');
+            ChartFactory.CreateLabelChart('Open Item', 'OpenItem', "", "", "", $scope.OPchartData[$scope.selectedOPKey], 'openitemChart');
         }
 
         function openitemChart(data) {

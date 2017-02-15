@@ -42,7 +42,6 @@
     app.controller('TmpDlCtrl', function($scope, $rootScope, $uibModalInstance, items){
         $rootScope.app.CurrentModal = $uibModalInstance;
         $scope.vm = items;
-
         if(items.TempLoader){
             items.TempLoader.then(function(tmps){
                 $scope.Templates = tmps;
