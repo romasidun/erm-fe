@@ -30,7 +30,7 @@
         };
 
         MitigateService.GetStatus().then(function(data){
-            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'severityChart');
+            ChartFactory.CreatePieChart('Remediations By Status', 'emediations By Status', data, 'statusChart');
             // setupStatusChart(status);
             return MitigateService.GetPeriod();
         }).then(function(data){
@@ -41,8 +41,28 @@
             setupCatChart(data);
             return MitigateService.GetSeverity();
         }).then(function(data){
-            // ChartFactory.CreateLabelChart('Risk Type Severity', 'Risk Type Severity', '', '', '', data, 'categoryChart');
-            setupSeverityChart(data);
+            var high = 0,
+                medium = 0,
+                low = 0,
+                riskCate = data['risk category status'];
+            angular.forEach(riskCate, function(val, key){
+                if(key.indexOf('High') >- 1) {
+                    high = high + val;
+                }
+                if(key.indexOf('Medium') > -1) {
+                    medium = medium + val;
+                }
+                if(key.indexOf('low') > -1) {
+                    low = low + val;
+                }
+            });
+            var datalist = {
+                High: high,
+                Medium: medium,
+                Low: low
+            };
+            ChartFactory.CreatePieChart('Remediations By Severity', 'Remediations By Severity', datalist, 'severityChart');
+            // setupSeverityChart(data);
             $scope.$watch('PerPage', function(n, o){
                 $rootScope.app.Mask = true;
                 loadRemediations();
@@ -85,51 +105,7 @@
             ChartFactory.SetupMultiColChart('categoryChart', opts);
         }
 
-        // function setupStatusChart(data) {
-        //     var dataList = [];
-        //     Object.keys(data).forEach(function(k){ dataList.push([k, data[k]]); });
-        //     var chartObj = ChartFactory.CreatePieChartTemplate('Remediations By Status', 'emediations By Status', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#00E219', '#1CB400', '#8A8A8A']);
-        //     Highcharts.chart('statusChart', chartObj);
-        // }
-
-        // function setupPeriodChart (data){
-        //
-        //     var month, opts = {
-        //         Title: "Remediations By Period",
-        //         YText: "Values",
-        //         Categories : [],
-        //         Series: [
-        //             { name: "High", data: [], color:'#c62733' },
-        //             { name: "Medium", data: [], color:'#db981f' },
-        //             { name: "Low", data: [], color:'#00d356' }
-        //         ]
-        //
-        //     };
-        //     Object.keys(data).forEach(function(k){
-        //         if(k.indexOf('High')>-1) {
-        //             month = Utils.camelizeString(k.split('High')[0]);
-        //             opts.Series[0].data.push(data[k]);
-        //         }
-        //         if(k.indexOf('Med')>-1) {
-        //             month = Utils.camelizeString(k.split('Med')[0]);
-        //             opts.Series[1].data.push(data[k]);
-        //         }
-        //         if(k.indexOf('Low')>-1) {
-        //             month = Utils.camelizeString(k.split('Low')[0]);
-        //             opts.Series[2].data.push(data[k]);
-        //         }
-        //         if(opts.Categories.indexOf(month)===-1)
-        //             opts.Categories.push(month);
-        //     });
-        //
-        //     ChartFactory.SetupMultiColChart('periodChart', opts);
-        // }
-
-
-
         function setupCatChart(data){
-            alert();
-            console.log('setupCatChart',data);
             var opts = {
                 Title: "Remediations By Category",
                 YText: "Values",
@@ -151,7 +127,7 @@
                 });
             });
 
-            ChartFactory.SetupMultiColChart('statusChart', opts);
+                ChartFactory.SetupMultiColChart('categoryChart', opts);
         }
     }
 })();

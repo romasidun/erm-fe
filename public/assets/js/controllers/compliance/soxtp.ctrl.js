@@ -124,10 +124,6 @@
             });
         };
 
-        $scope.editAction = function (r) {
-
-        };
-
         function loadAssessments() {
             ComplianceService.GetSOXTPAssessments().then(function (data) {
 

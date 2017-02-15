@@ -49,7 +49,9 @@
                     }
                 }
             });
-
+            // // console.log('dlTmpModal',TempLoader);
+            // return;
+            //
             dlTmpModal.result.then(function (updEquip) {
                 console.log("Done");
             });

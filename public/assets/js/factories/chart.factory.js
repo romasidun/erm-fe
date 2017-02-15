@@ -2,10 +2,8 @@
     "use strict";
 
     app.factory('ChartFactory', function($rootScope, Utils){
-
         function ChartFactory(){ this.name = "Chart Factory" }
         ChartFactory.prototype.constructor = ChartFactory;
-
         /*
          *  High Chart related functions
          */
@@ -36,6 +34,7 @@
         };
 
         ChartFactory.prototype.CreatePieChart = function(title, name, data, chartEle){
+            // return;
             var dataList = [],
                 rcsaChrt = [],
                 pattern_data = {
@@ -55,7 +54,10 @@
                     "In Review": null,//8
                     "Accept": null,//9
                     "Complete Pending Review": null, //10
-                    "Complete": null //11
+                    "Complete": null, //11
+                    "High": null, //12
+                    "Medium": null, //13
+                    "Low": null //14
                 },
                 color = [
                     '#D4AF37',
@@ -75,12 +77,15 @@
                     '#faebd7', //9
                     '#ffeeaa', //10
                     '#808080', //11
-                    '#800080' //12
+                    '#ffa500', //12
+                    '#039220', //13
+                    '#33bbff' //14
                 ];
 
             for(var i in data){
                 pattern_data[i]=data[i];
             }
+            // console.log('datadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadata',pattern_data);
             Object.keys(pattern_data).forEach(function (k) {
                 rcsaChrt.push({key: Utils.camelizeString(k), val: pattern_data[k]});
             });
