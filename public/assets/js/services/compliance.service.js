@@ -111,7 +111,7 @@ app.service('ComplianceService', function (APIHandler) {
     };
 
     this.GetSOXTPStatus = function () {
-        return APIHandler.Get('compliance/soxrcm/status');
+        return APIHandler.Get('/compliance/soxtp/status');
     };
 
     this.DownloadExcel = function (params) {
