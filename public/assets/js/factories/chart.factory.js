@@ -267,8 +267,8 @@
             });
 
             var config = {
-                Text:"Status By Risk Category",
-                Title:"Status By Risk Category",
+                Text:"By Risk Category",
+                Title:"By Risk Category",
                 Series: serList,
                 Categories: cats,
                 Colors: ['#C70039', '#0000ff', '#FAFA10']

@@ -50,10 +50,10 @@
         };
 
         OPRiskService.GetRiskStatus().then(function (data) {
-            ChartFactory.CreatePieChart('ORI by status', 'ORI by status', data, 'oriChart');
+            ChartFactory.CreatePieChart('By Status', 'By Status', data, 'oriChart');
             return OPRiskService.GetRiskPeriod();
         }).then(function (data) {
-            ChartFactory.CreateMultiColChart("Status by Period",data,'periodChart');
+            ChartFactory.CreateMultiColChart("By Period",data,'periodChart');
             return OPRiskService.GetRiskCategories();
         }).then(function (data) {
             ChartFactory.CreateStackedChart($filter, data, 'oristacked');

@@ -84,10 +84,10 @@
                 return false;
             }
             //console.log($scope.RiskCategories);
-            var selectedCategories = $filter('filter')($scope.RiskCategories.List,{Selected : true});
+            var selectedCategories = $filter('filter')($scope.RiskCategories.List, {Selected: true});
 
             var categoriesStr = '';
-            angular.forEach(selectedCategories, function(item, key) {
+            angular.forEach(selectedCategories, function (item, key) {
                 categoriesStr += ',' + item.Key;
             });
             categoriesStr = categoriesStr.substr(1);
@@ -105,19 +105,22 @@
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
-            OPRiskService.FileUpload(idd, fileModel).then(function(res){
-                if(res.status === 200) {
-                    for (var i in fileModel) {
-                        fileModel[i].id = res.data.fileId;
-                        fileModel[i].filePath = res.data.path;
+            OPRiskService.FileUpload(idd, fileModel)
+                .then(function (res) {
+                    if (res.status === 200) {
+                        for (var i in fileModel) {
+                            fileModel[i].id = res.data.fileId;
+                            fileModel[i].filePath = res.data.path;
+                        }
                     }
+                })
+                .finally(function () {
                     OPRiskService.UpdateIncident($stateParams.id, $scope.VM).then(function (res) {
-                        console.log('res',res);
+                        console.log('res', res);
                     }).finally(function () {
                         $state.go('app.oprisk.incident.main');
                     });
-                }
-            });
+                });
         };
 
         OPRiskService.GetRiskIncident($stateParams.id).then(function (data) {
@@ -137,7 +140,7 @@
             var categories = $scope.VM.riskCategory.split(',');
             $scope.RiskCategories.SelCount = categories.length;
             Object.keys(data.categories).forEach(function (c) {
-                var sel = (categories.indexOf(c) < 0) ? false: true;
+                var sel = (categories.indexOf(c) < 0) ? false : true;
                 $scope.RiskCategories.List.push({Key: c, Label: data.categories[c], Selected: sel});
             });
             $rootScope.app.Mask = false;

@@ -177,19 +177,22 @@
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
-            OPRiskService.FileUpload(idd, fileModel).then(function(res){
-                if(res.status === 200) {
-                    for (var i in fileModel) {
-                        fileModel[i].id = res.data.fileId;
-                        fileModel[i].filePath = res.data.path;
+            OPRiskService.FileUpload(idd, fileModel)
+                .then(function (res) {
+                    if (res.status === 200) {
+                        for (var i in fileModel) {
+                            fileModel[i].id = res.data.fileId;
+                            fileModel[i].filePath = res.data.path;
+                        }
                     }
+                })
+                .finally(function () {
                     OPRiskService.PostRisk($scope.VM).then(function (res) {
-                        console.log('res',res);
+                        console.log('res', res);
                     }).finally(function () {
                         $state.go('app.oprisk.incident.main');
                     });
-                }
-            });
+                });
         };
 
         $scope.cancelAction = function () {
