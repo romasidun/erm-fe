@@ -104,11 +104,14 @@ app.service('ControlService', function ($rootScope, APIHandler, Utils) {
     };
 
     this.FileUpload = function (idd, fileModel) {
-        if(fileModel.length < 1){
+        if(fileModel == null || fileModel.length < 1){
             return APIHandler.NullPromise();
         }
         var formdata = new FormData();
         for (var i in fileModel) {
+            if(fileModel[i].id != 'newfile'){
+                return APIHandler.NullPromise();
+            }
             fileModel[i].id = idd + '_' + i;
             formdata.append("file", fileModel[i]._file);
         }

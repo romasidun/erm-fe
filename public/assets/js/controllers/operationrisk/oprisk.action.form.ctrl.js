@@ -48,9 +48,9 @@
             if ($scope.Form.OpAction.$invalid || $scope.Form.OpAction.pristine) return false;
 
             /*var fileModel = $scope.VM.actionfileModel;
-            OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
-                console.log(res);
-            });*/
+             OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
+             console.log(res);
+             });*/
 
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.dueDate);
@@ -61,26 +61,29 @@
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
-            OPRiskService.FileUpload(idd, fileModel).then(function(res){
-                if(res.status === 200) {
-                    for (var i in fileModel) {
-                        fileModel[i].id = res.data.fileId;
-                        fileModel[i].filePath = res.data.path;
+            OPRiskService.FileUpload(idd, fileModel)
+                .then(function (res) {
+                    if (res.status === 200) {
+                        for (var i in fileModel) {
+                            fileModel[i].id = res.data.fileId;
+                            fileModel[i].filePath = res.data.path;
+                        }
                     }
+                })
+                .finally(function () {
                     OPRiskService.PostAction($scope.VM).then(function (res) {
                         if (res.status === 200)
                             $window.history.back();
                     }).finally(function () {
                         $window.history.back();
                     });
-                }
-            });
+                });
         };
 
-        $scope.cancelAction = function(){
-            if($scope.Form.OpAction.$dirty){
+        $scope.cancelAction = function () {
+            if ($scope.Form.OpAction.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){
+                confirm.result.then(function () {
                     $window.history.back();
                 });
                 return false;

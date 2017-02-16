@@ -18,7 +18,7 @@
             $scope.VM.controlEffectiveStartdateStr = $scope.VM.controlEffectiveStartdate;
             $scope.VM.controlEffectiveEnddateStr = $scope.VM.controlEffectiveEnddate;
 
-            var fileModel = $scope.VM.filemodel;
+            var fileModel = $scope.VM.controldataFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
@@ -28,12 +28,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ControlService.UpdateRepo($stateParams.id, $scope.VM).then(function(res){
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.control.repo.main');
-                    });
                 }
+            }).finally(function () {
+                ControlService.UpdateRepo($stateParams.id, $scope.VM).then(function(res){
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.control.repo.main');
+                });
             });
         };
 
@@ -61,7 +62,6 @@
 
             $rootScope.app.Mask = false;
         });
-
     }
 
 })();

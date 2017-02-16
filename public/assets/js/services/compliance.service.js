@@ -193,6 +193,9 @@ app.service('ComplianceService', function (APIHandler) {
         }
         var formdata = new FormData();
         for (var i in fileModel) {
+            if(fileModel[i].id != 'newfile'){
+                return APIHandler.NullPromise();
+            }
             fileModel[i].id = idd + '_' + i;
             formdata.append("file", fileModel[i]._file);
         }
