@@ -116,14 +116,14 @@ app.service('ComplianceService', function (APIHandler) {
 
     this.DownloadExcel = function (params) {
         return APIHandler.Excel('/createExcel', params);
-    }
+    };
     this.ExcelDownload = function (params) {
         return APIHandler.Excel('/xlsx', params);
-    }
+    };
 
     this.DTExcelDownload = function (param) {
         return APIHandler.Excel('control_xlsx', param);
-    }
+    };
 
     this.GetSOXPRAAssessments = function () {
         return APIHandler.Get('compliance/soxpra');
