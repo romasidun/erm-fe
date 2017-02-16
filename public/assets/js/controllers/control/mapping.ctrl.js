@@ -8,5 +8,8 @@
 
         $rootScope.app.Mask = false;
         function loadMapping() {}
+        $('.control-mappping-table td')
+            .css({borderColor: '#000000'})
+            .addClass('text-center');
     }
 })();
