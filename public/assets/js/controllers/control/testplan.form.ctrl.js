@@ -71,12 +71,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ControlService.AddTestPlans($scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.control.testplan.main');
-                    });
                 }
+            }).finally(function () {
+                ControlService.AddTestPlans($scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.control.testplan.main');
+                });
             });
         };
 

@@ -99,12 +99,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.itrisk.assessment.main');
-                    });
                 }
+            }).finally(function () {
+                ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.itrisk.assessment.main');
+                });
             });
         };
 

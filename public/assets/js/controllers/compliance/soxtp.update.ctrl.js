@@ -30,12 +30,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ComplianceService.UpdateSOXTPAssessment($stateParams.id, $scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.compliance.soxtp.main');
-                    });
                 }
+            }).finally(function () {
+                ComplianceService.UpdateSOXTPAssessment($stateParams.id, $scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.compliance.soxtp.main');
+                });
             });
         };
 

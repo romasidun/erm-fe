@@ -23,12 +23,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    PolicyService.UpdatePolicy($stateParams.id, $scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.policy.main');
-                    });
                 }
+            }).finally(function () {
+                PolicyService.UpdatePolicy($stateParams.id, $scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.policy.main');
+                });
             });
         };
 

@@ -57,12 +57,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ComplianceService.PostSOXPRAAssessment($scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.compliance.soxpra.main');
-                    });
                 }
+            }).finally(function () {
+                ComplianceService.PostSOXPRAAssessment($scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.compliance.soxpra.main');
+                });
             });
         };
         

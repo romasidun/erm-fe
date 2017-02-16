@@ -58,12 +58,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ComplianceService.PostSOXRCMAssessment($scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.compliance.soxrcm.main');
-                    });
                 }
+            }).finally(function () {
+                ComplianceService.PostSOXRCMAssessment($scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.compliance.soxrcm.main');
+                });
             });
         };
 

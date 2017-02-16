@@ -57,12 +57,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ControlService.AddRepo($scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.control.repo.main');
-                    });
                 }
+            }).finally(function () {
+                ControlService.AddRepo($scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.control.repo.main');
+                });
             });
         };
 

@@ -50,12 +50,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ComplianceService.UpdateSOXPRAAssessment($stateParams.id, $scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.compliance.soxpra.main');
-                    });
                 }
+            }).finally(function () {
+                ComplianceService.UpdateSOXPRAAssessment($stateParams.id, $scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.compliance.soxpra.main');
+                });
             });
         };
 

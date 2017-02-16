@@ -54,12 +54,13 @@
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
-                    ControlService.UpdateTestResults($stateParams.id, $scope.VM).then(function (res) {
-                        console.log('res',res);
-                    }).finally(function () {
-                        $state.go('app.control.testresult.main');
-                    });
                 }
+            }).finally(function () {
+                ControlService.UpdateTestResults($stateParams.id, $scope.VM).then(function (res) {
+                    console.log('res',res);
+                }).finally(function () {
+                    $state.go('app.control.testresult.main');
+                });
             });
         };
 
