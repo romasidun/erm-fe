@@ -95,7 +95,7 @@
 					<td>{{t.templateName}}</td>
 					<td>{{t.fileName}}</td>
 					<!--<td><a href="/policies/download/stream/{{t.id}}" target="_blank"><i class="fa fa-download"></i></a></td>-->
-					<td><a href = "{{app.APIPrefix + '/itrisk/download/' + t.id}}" download="{{t.fileName}">
+					<td><a href = "{{app.APIPrefix + '/' + urlPreFix + '/download/stream/' + t.id}}" download="{{t.fileName}">
 						{{t.fileName}}
 					</a></td>
 				</tr>

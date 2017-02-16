@@ -56,7 +56,8 @@
                 resolve: {
                     items: function () {
                         return {
-                            TempLoader: ITRiskService.GetTemplate()
+                            TempLoader: ITRiskService.GetTemplate(),
+                            prefix: 'itrisk'
                         };
                     }
                 }

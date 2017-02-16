@@ -44,7 +44,8 @@
                 resolve: {
                     items: function () {
                         return {
-                            TempLoader: OPRiskService.GetRSATemplates()
+                            TempLoader: OPRiskService.GetRSATemplates(),
+                            prefix: 'oprisk'
                         };
                     }
                 }

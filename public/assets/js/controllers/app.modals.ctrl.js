@@ -39,17 +39,18 @@
      Template Download Modal Controller
      ----------------------------------
      */
+
     app.controller('TmpDlCtrl', function($scope, $rootScope, $uibModalInstance, items){
         $rootScope.app.CurrentModal = $uibModalInstance;
         $scope.vm = items;
         if(items.TempLoader){
             items.TempLoader.then(function(tmps){
                 if(tmps.id !== null){
+                    $scope.urlPreFix = items.prefix;
                     $scope.Templates = tmps;
                 }
             });
         }
-
 
         $scope.ok = function () {
             $uibModalInstance.close();
