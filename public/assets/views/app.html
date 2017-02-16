@@ -94,9 +94,12 @@
 					<td>{{t.assessmentType[0].asTypeDesc}}</td>
 					<td>{{t.templateName}}</td>
 					<td>{{t.fileName}}</td>
-					<td><a href="/policies/download/stream/{{t.id}}" target="_blank"><i class="fa fa-download"></i></a></td>
+					<!--<td><a href="/policies/download/stream/{{t.id}}" target="_blank"><i class="fa fa-download"></i></a></td>-->
+					<td><a href = "{{app.APIPrefix + '/itrisk/download/' + t.id}}" download="{{t.fileName}">
+						{{t.fileName}}
+					</a></td>
 				</tr>
-				<tr ng-if="Templates < 1">
+				<tr ng-if="Templates < 1 || !Templates">
 					<td colspan="3" class="text-info">
 						<i class="fa fa-info-circle"></i> No templates to show
 					</td>

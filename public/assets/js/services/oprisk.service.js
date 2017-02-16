@@ -98,6 +98,7 @@ app.service('OPRiskService', function($rootScope, APIHandler, Utils){
         return APIHandler.Get('crtldata');
     };
 
+
     this.GetPolicyDocs = function(size, page){
         return APIHandler.Get('policies?pagesize=' + size + '&page=' + page);
     };

@@ -16,6 +16,10 @@
             return APIHandler.Get('itrisk/itrim/' + id);
         };
 
+        this.GetTemplate = function(){
+            return APIHandler.Get('/rcsa/template');
+        };
+
         this.AddRim = function(params){
             return APIHandler.Post('itrisk/itrim', params);
         };

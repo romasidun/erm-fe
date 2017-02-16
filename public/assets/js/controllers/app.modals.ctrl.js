@@ -44,9 +44,12 @@
         $scope.vm = items;
         if(items.TempLoader){
             items.TempLoader.then(function(tmps){
-                $scope.Templates = tmps;
+                if(tmps.id !== null){
+                    $scope.Templates = tmps;
+                }
             });
         }
+
 
         $scope.ok = function () {
             $uibModalInstance.close();

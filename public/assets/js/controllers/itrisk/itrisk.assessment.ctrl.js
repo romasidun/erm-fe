@@ -5,7 +5,6 @@
     function ITRiskAssController($scope, $rootScope, $state, $uibModal, $filter, ITRiskService, ChartFactory, Utils) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "";
-
         $scope.OpList = [5, 10, 25, 50, 100];
         $scope.Grid1 = {
             PerPage: 10,
@@ -57,12 +56,14 @@
                 resolve: {
                     items: function () {
                         return {
-                            Templates: []
+                            TempLoader: ITRiskService.GetTemplate()
                         };
                     }
                 }
             });
-
+            // // console.log('dlTmpModal',TempLoader);
+            // return;
+            //
             dlTmpModal.result.then(function (updEquip) {
                 console.log("Done");
             });
