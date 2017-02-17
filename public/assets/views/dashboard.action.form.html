@@ -90,11 +90,11 @@
 							<div class="col-xs-12">
 								<div class="form-group">
 									<label class="col-sm-3 col-md-4"> Status </label>
-									<div class="col-sm-9 col-md-8">
-										<select name="controlCategory" ng-model="Action.deptId" ng-options="dep.deptId as dep.deptName for dep in app.Lookup.Departments " class="form-control">
-											<option value="">Select Department</option>
-										</select>
-									</div>
+									<div class="col-xs-12 col-md-6">
+                              	                                        <select type="text" name="actionStatus" ng-model="VM.actionStatus" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
+                                        				<option selected value>Select Status</option>
+                                   					</select>
+                            					    </div>
 								</div>
 							</div>
 						</div>
