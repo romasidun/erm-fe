@@ -649,7 +649,24 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
 	}).state('login.lockscreen', {
 	    url: '/lock',
 	    templateUrl: "assets/views/login_lock_screen.html"
-	});
+	})
+
+    /* Vendor Link Routes */
+    .state('vendor', {
+        url: '/vendor',
+        template: '<div ui-view class="fade-in-right-big smooth"></div>',
+        abstract: true
+    }).state('vendor.signin', {
+        url: '',
+        templateUrl: "assets/views/vendor/login.html",
+        controller: 'VendorLoginCtrl',
+        resolve: loadSequence('VendorLoginCtrl')
+    }).state('vendor.assessment', {
+        url: '',
+        templateUrl: "assets/views/vendor/assessment.html",
+        controller: 'VendorAssessCtrl',
+        resolve: loadSequence('VendorAssessCtrl')
+    });
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
     function loadSequence() {

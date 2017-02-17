@@ -1,0 +1,91 @@
+<!-- Page Header -->
+<section id="page-title" class="vendor_create_title padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle text-center font-sans-serif" >{{mainTitle}}</h1>
+            <!--<span class="mainDescription">{{mainDesc}} </span>-->
+        </div>
+    </div>
+</section>
+<!-- End: Page Header -->
+
+<section class="vendor_create_body">
+    <div class="vendor_assessment_data note-editor heading_title_panel">
+        <div>
+            <h4>
+                Vendor: <i>{{vendor.vendorName}}</i>
+            </h4>
+        </div>
+        <div>
+            <h4 class="inline-block margin-left-20">
+                Primary Contact: <i>{{vendor.primaryContact}}</i>
+            </h4>
+        </div>
+        <div>
+            <h4 class="inline-block">
+                Assessment Date: <i>{{VM.assessmentsDate}}</i>
+            </h4>
+            <h4 class="inline-block margin-left-20">
+                Assessment By: <i>{{VM.assessmentBy}}</i>
+            </h4>
+        </div>
+        <div>
+            <h4 class="inline-block">
+                Doc Title: <i>{{VM.title}}</i>
+            </h4>
+            <h4 class="inline-block margin-left-20">
+                Doc Type: <i>{{VM.docType}}</i>
+            </h4>
+        </div>
+
+        <div>
+            <h4 class="inline-block margin-left-20">
+                Risk Score: <i>{{VM.riskScore}}</i>
+            </h4>
+        </div>
+
+        <div class="action_buttons">
+            <div class="save_button">
+                <a class="btn btn-success center-block text-bold" ng-click="saveVendorData()"><i class="fa fa-save"></i> Save</a>
+            </div>
+            <div class="back_button">
+                <a class="btn btn-primary center-block text-bold" ui-sref="app.vendorrisk.stinfo.main"><i class="fa fa-backward"></i> Back</a>
+            </div>
+            <div class="back_button">
+                <a class="btn btn-info center-block text-bold" ng-click="downloadExcel()"><i class="fa fa-download"></i> Download Excel</a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <table class="VendorAssessment table table-hover table-bordered">
+        <thead>
+            <tr class="blue_header">
+                <th>Vendor Risk Category</th>
+                <th>Vendor Risk Assessment</th>
+                <th>Yes</th>
+                <th>No</th>
+                <th>Findings</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="white_blue_header" ng-repeat="vendorrisk in vrStinfoCT track by $index">
+                 <td>{{vendorrisk.category}}</td>
+		        <td>{{vendorrisk.name}}</td>
+                <td class="res">
+                    <input type="checkbox" ng-click="vendorResponseVal('Y',this,$event)" class="Vendorresponse" name="Y" ng-model="vrStinfoCT[$index].responseY">
+                </td>
+                <td class="res">
+                    <input type="checkbox" ng-click="vendorResponseVal('N',this,$event)"  name="N" ng-model="vrStinfoCT[$index].responseN">
+                </td>
+                <td style="">
+                    <input type="number" min="0" ng-model="vrStinfoCT[$index].findings">
+                </td>
+                <td>
+                    <textarea ng-model="vrStinfoCT[$index].comments"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

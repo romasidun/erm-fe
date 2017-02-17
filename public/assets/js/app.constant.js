@@ -109,6 +109,10 @@ app.constant('JS_REQUIRES', {
         'PenetrationCtrl':      'assets/js/controllers/measure/penetration.ctrl.js',
         'VulnerabilityCtrl':    'assets/js/controllers/measure/vulnerability.ctrl.js',
 
+        //Vendor Link Pages Controller
+        'VendorLoginCtrl': 'assets/js/controllers/vendor/signin.ctrl.js',
+        'VendorAssessCtrl': 'assets/js/controllers/vendor/assessment.ctrl.js',
+
         //*** Filters
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
     },
