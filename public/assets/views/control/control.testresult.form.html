@@ -95,12 +95,12 @@
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
-									<label> Associate Test Plan <a ng-click="addtestResult()" class="btn btn-link"><i class="fa fa-search"></i></a>  </label>
+									<label> Associate Test Plan <a ng-click="addTestPlan()" class="btn btn-link"><i class="fa fa-search"></i></a>  </label>
 									<div class="col-xs-12">
 										<ul class="multi-select-list-group col-xs-12 padding-left-0">
 											<li class="list-item-container row" ng-repeat="con in VM.controlDataModel">
 												<div class="list-item col-xs-12 padding-left-0">
-													<span class="col-sm-4"> {{con.controlName}} </span>
+													<span class="col-sm-4"> {{con.testPlanName}} </span>
 													<span class="col-sm-6"> {{con.dueDate | date}} </span>
 													<span class="col-sm-2">
 														<a class="text-right delete" ng-click="removeItem('controlDataModel', $index)"> remove </a>

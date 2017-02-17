@@ -35,7 +35,23 @@
         };
 
 
+        // $scope.addTestPlan1 = function(){
+        //     var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
+        //         cols =["testPlanName", "regionName", "controlStatus", "fileName", "dueDate", "controlPriority"];
+        //
+        //     $rootScope.app.Mask = true;
+        //     ControlService.GetTestPlans(10, 1).then(function(data){
+        //         data.forEach(function(c, i){
+        //             c.Selected = false;
+        //             c.dueDate = c.testDueDate? moment(Utils.createDate(c.testDueDate)).format('DD/MM/YYYY'):'None';
+        //         });
+        //         $rootScope.app.Mask = false;
+        //     });
+        // };
         $scope.addTestPlan = function(){
+            $scope.VM = {
+                controlDataModel: []
+            };
             var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
                 cols =["testPlanName", "regionName", "controlStatus", "fileName", "dueDate", "controlPriority"];
 
@@ -44,6 +60,11 @@
                 data.forEach(function(c, i){
                     c.Selected = false;
                     c.dueDate = c.testDueDate? moment(Utils.createDate(c.testDueDate)).format('DD/MM/YYYY'):'None';
+                });
+                console.log('data',data);
+                var controlModal = Utils.CreateSelectListView("Select Test Plans", data, headers, cols);
+                controlModal.result.then(function(list){
+                    $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
             });

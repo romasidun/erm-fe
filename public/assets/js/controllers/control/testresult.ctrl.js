@@ -33,6 +33,12 @@
             var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
             $scope.Grid1.Total = searchedData.length;
         });
+        /*$scope.$watch('Grid1.PerPage', function(n, o){
+            loadTestResults();
+        });
+        $scope.$watch('Grid1.CurrPage', function(n, o){
+            loadTestResults();
+        });*/
 
         $scope.delete = function(r){
             var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
@@ -46,18 +52,18 @@
 
         loadTestResults();
         function loadTestResults() {
-            ControlService.GetTestResults($scope.PerPage, $scope.CurrPage || 1).then(function (data) {
+            ControlService.GetTestResults($scope.Grid1.PerPage, $scope.Grid1.CurrPage || 1).then(function (data) {
                 $scope.TestResults = [];
                 data.forEach(function(tr){
                     tr.dueDate = new Date(tr.testDueDate);
                     tr.testCompletedDate = new Date(tr.testCompletedDate);
-                    tr.deptName = tr.department[0].departmentName;
+                    if(tr.department != null)
+                        tr.deptName = tr.department[0].deptName || '' ;
                 });
                 $rootScope.app.Mask = false;
 
                 $scope.Grid1.Total = data.length;
                 $scope.Grid1.Data = data;
-
             });
         }
 
