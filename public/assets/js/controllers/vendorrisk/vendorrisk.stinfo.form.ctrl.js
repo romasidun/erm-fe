@@ -84,6 +84,16 @@
             $scope.vendor = vendor;
         });
 
+        VendorService.GetRim().then(function (data) {
+            data.forEach(function (r) {
+                r.assessdate = Utils.createDate(r.due_date);
+                r.approvdate = Utils.createDate(r.approvedDate);
+            });
+
+            $scope.vendorAMdata = data;
+            $rootScope.app.Mask = false;
+        });
+
     }
 
 })();
