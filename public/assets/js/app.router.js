@@ -662,7 +662,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'VendorLoginCtrl',
         resolve: loadSequence('VendorLoginCtrl')
     }).state('vendor.assessment', {
-        url: '',
+        url: '/:id',
         templateUrl: "assets/views/vendor/assessment.html",
         title: 'Vendor Risk Assessment',
         icon: 'ti-layout-media-left-alt',
