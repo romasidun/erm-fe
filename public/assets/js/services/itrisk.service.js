@@ -17,7 +17,7 @@
         };
 
         this.GetTemplate = function(){
-            return APIHandler.Get('/rcsa/template');
+            return APIHandler.Get('/itram/templates');
         };
 
         this.AddRim = function(params){

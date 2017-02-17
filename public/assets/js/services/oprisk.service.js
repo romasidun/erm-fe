@@ -79,7 +79,7 @@ app.service('OPRiskService', function($rootScope, APIHandler, Utils){
     };
 
     this.GetRSATemplates = function(){
-        return APIHandler.Get('itrim/templates');
+        return APIHandler.Get('rsca/templates');
     };
 
     this.GetRSAPeriod = function(){
