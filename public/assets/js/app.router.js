@@ -664,6 +664,8 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     }).state('vendor.assessment', {
         url: '',
         templateUrl: "assets/views/vendor/assessment.html",
+        title: 'Vendor Risk Assessment',
+        icon: 'ti-layout-media-left-alt',
         controller: 'VendorAssessCtrl',
         resolve: loadSequence('VendorAssessCtrl')
     });
