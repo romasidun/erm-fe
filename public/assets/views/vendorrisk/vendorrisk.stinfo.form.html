@@ -102,31 +102,6 @@
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group"
-                                     ng-class="{ 'has-error' : Form.VendorRisk.vendorName.$invalid && (!Form.VendorRisk.vendorName.$pristine || Form.VendorRisk.vendorName.$touched || Form.VendorRisk.vendorName.$submitted) }">
-                                    <label> Vendor Name </label>
-                                    <select name="vendorName"
-                                            class="vendorName font-sans-serif form-control white_background_style"
-                                            ng-model="VM.vendorName"
-                                            ng-options="item.vendorName as item.vendorName for item in vendor" required>
-                                        <option value> Select VendorName</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group"
-                                     ng-class="{ 'has-error' : Form.VendorRisk.primaryContact.$invalid && (!Form.VendorRisk.primaryContact.$pristine || Form.VendorRisk.primaryContact.$touched || Form.VendorRisk.primaryContact.$submitted) }">
-                                    <label> VendorContact </label>
-                                    <select name="vendorContact"
-                                            class="vendorContact font-sans-serif form-control white_background_style"
-                                            ng-model="VM.primaryContact"
-                                            ng-options="item.primaryContact as item.primaryContact for item in vendor"
-                                            class="form-control" required>
-                                        <option value=""> Select VendorContact</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.riskType.$invalid && (!Form.VendorRisk.vendorRiskType.$pristine || Form.VendorRisk.vendorRiskType.$touched || Form.VendorRisk.vendorRiskType.$submitted) }">
                                     <label> VendorRisk Type </label>
                                     <select name="vendorRiskType"

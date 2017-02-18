@@ -100,7 +100,6 @@
         };
         VendorService.GetVendor().then(function (vendor) {
             $scope.Grid1.Data = vendor;
-            $scope.vendor = vendor;
         });
 
         $scope.sendMail = function () {
