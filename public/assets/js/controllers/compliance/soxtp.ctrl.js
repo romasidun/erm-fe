@@ -178,5 +178,115 @@
         $scope.$watch('Grid1.Data', function (n, o) {
             drawRegionChart();
         });
+
+        $scope.downloadTestPlan = function () {
+            var data = {};
+            data.sheetName = "Test Plan";
+            data.body = [];
+
+            var head_txt = ['Test Number', 'Control Desc', 'Dept', 'Resign', 'Test Status', 'Test Method', 'Current Due Date', 'Next Due Date', 'File Upload', 'TestPlan File Name', 'Control Ref#', 'Control Activity Detailed Description', 'Test Procedures', 'Testing Size', 'Effective Test Date', 'Test Completed to date', 'Exception(s) Description', 'Type of Test', 'Action', 'Resolution Name', 'Description', 'Responsible Person', 'Due Date', 'Status', 'File Upload'];
+            for (var i = 0; i < head_txt.length; i++) {
+                data.body.push({
+                    col: (+i + 1),
+                    row: 5,
+                    text: head_txt[i],
+                    font: {name: 'Calibri', sz: '11', family: '3', scheme: '-'},
+                    fill: {type: 'solid', fgColor: 'FFFF00'},
+                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                    wrap: 'true'
+                });
+            }
+
+            data.body.push({
+                col: 8, row: 6, text: '* INCOME TAX EXPENSE/BENEFIT: is determined in accordance with tax law, and recorded against the applicable component of net income, or equity.',
+                merge: {to: {col: 8, row: 6}, from: {col: 14, row: 8}},
+                valign: 'center',
+                font: {name: 'Calibri', sz: '10', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin'},
+                wrap : 'true'
+            });
+
+            data.body.push({
+                col: 16, row: 6, text: 'Key Control',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 16, row: 7, text: 'Standard Controls',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 16, row: 8, text: 'Total Controls',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 5, text: 'Count',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                fill: {type: 'solid', fgColor: 'BFBFBF'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 5, text: 'Testing Hours',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                fill: {type: 'solid', fgColor: 'BFBFBF'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 6, text: '5',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 6, text: '15',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 7, text: '0',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 7, text: '0',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+            data.body.push({
+                col: 17, row: 8, text: '5',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+            data.body.push({
+                col: 18, row: 8, text: '15',
+                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+            });
+
+
+            data.cols = 35;
+            data.rows = 15;
+
+            var wval = [14, 21, 15, 24, 25, 26, 17, 14, 11, 19, 16, 14, 14, 16, 20, 15, 13, 12, 30, 30, 16, 24, 25, 16, 23, 12, 14, 24, 19, 23];
+            data.widths = [];
+            for(var i=0;i<wval.length;i++){
+                data.widths.push({col: +i+2, width: wval[i]});
+            }
+
+            data.heights = [];
+            data.heights.push({row: 5, height: 25});
+            data.heights.push({row: 11, height: 45});
+
+            ComplianceService.DownloadExcel(data).then(function (response) {
+                location.assign('/downloadExcel/' + response.data);
+            }).catch(function (error) {
+                alert('error!');
+            });
+        };
     }
 })();
