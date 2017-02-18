@@ -184,7 +184,7 @@
                                     <tbody>
 
                                     <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc">
-                                        <th><input type="checkbox"></th>
+                                        <th><input type="checkbox" ng-click="r.checked=!r.checked"></th>
                                         <td>{{r.vendorName}}</td>
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>

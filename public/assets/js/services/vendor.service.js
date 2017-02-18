@@ -70,6 +70,9 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     this.GetRiskType = function () {
         return APIHandler.Get('vendorriskassessmenttype');
     };
+    this.SendMail = function (params) {
+        return APIHandler.Post('vendorriskassessment/sendEmail', params);
+    };
 
     this.SetAssessmentData = function(set_data) {
         $localStorage.Vendor_data_selected = set_data.Vendor_data_selected;
