@@ -80,19 +80,55 @@
             $scope.riskTypeList = risktype;
         });
 
-        VendorService.GetVendor().then(function(vendor){
+        $scope.Grid1 = {
+            Column: 'vendorName',
+            IsAsc: true,
+            Data: [],
+            SortMe: function (col) {
+                if ($scope.Grid1.Column === col)
+                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
+                else
+                    $scope.Grid1.Column = col;
+            },
+            GetIco: function (col) {
+                if ($scope.Grid1.Column === col) {
+                    return $scope.Grid1.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+                } else {
+                    return 'fa-unsorted';
+                }
+            }
+        };
+        VendorService.GetVendor().then(function (vendor) {
+            $scope.Grid1.Data = vendor;
             $scope.vendor = vendor;
         });
 
-        VendorService.GetRim().then(function (data) {
-            data.forEach(function (r) {
-                r.assessdate = Utils.createDate(r.due_date);
-                r.approvdate = Utils.createDate(r.approvedDate);
-            });
+        $scope.sendMail = function () {
+            var checkedRow = $filter('filter')($scope.Grid1.Data, {checked: true});
+            if(checkedRow < 1) {
+                alert("Please select at least one vendor contact!");
+                return;
+            }
+            angular.forEach(checkedRow, function (value, key) {
+                var to = value.email;
+                if(to == '' || to == null) return;
+                var message = 'Dear Ms Lalitha, '+
+                    'You are receiving this email, because you are the vendor contact for Oracle in our system. '+
+                    'Please enter the responses Y or N for the questions and enter if you have any findings or comments'+
+                    'https://cwt.aasricontrols.com/#!/vendorrisk/assess.create/589e5cd51e2417e3e4415b11'+
+                    'Regards' +
+                    'CWT_testuser';
+                var params = {
+                    from: 'cwt_testuser@aasricontrols.com',
+                    message: message,
+                    subject: 'Please fill out the assessment',
+                    to: to
+                };
+                VendorService.SendMail(params).then(function (res) {
 
-            $scope.vendorAMdata = data;
-            $rootScope.app.Mask = false;
-        });
+                });
+            });
+        }
 
     }
 

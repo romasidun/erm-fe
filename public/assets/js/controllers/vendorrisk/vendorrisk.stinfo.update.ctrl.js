@@ -67,7 +67,10 @@
 
         $scope.sendMail = function () {
             var checkedRow = $filter('filter')($scope.Grid1.Data, {checked: true});
-            if(checkedRow < 1) return;
+            if(checkedRow < 1) {
+                alert("Please select at least one vendor contact!");
+                return;
+            }
             angular.forEach(checkedRow, function (value, key) {
                 var to = value.email;
                 if(to == '' || to == null) return;
