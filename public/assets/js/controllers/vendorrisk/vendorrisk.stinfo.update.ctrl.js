@@ -73,12 +73,14 @@
             angular.forEach(checkedRow, function (value, key) {
                 var to = value.email;
                 if(to == '' || to == null) return;
-                var message = 'Dear Ms Lalitha, '+
-                    'You are receiving this email, because you are the vendor contact for Oracle in our system. '+
-                    'Please enter the responses Y or N for the questions and enter if you have any findings or comments'+
-                    'https://cwt.aasricontrols.com/#!/vendorrisk/assess.create/589e5cd51e2417e3e4415b11'+
-                    'Regards' +
-                    'CWT_testuser';
+                var message = '<p>Dear Ms. Lalitha,</p>' +
+                    '<p style=\"text-indent: 40px\">' +
+                    'You are receiving this email, because you are the vendor contact for Oracle in our system. ' +
+                    'Please enter the responses Y or N for the questions and enter if you have any findings or comments: ' +
+                    '<a href=\"https://cwt.aasricontrols.com/#!/vendorrisk/assess.create/589e5cd51e2417e3e4415b11\">Link to Assessment</a>' +
+                    '</p>' +
+                    '<p>Regards,</p>' +
+                    '<p>CWT_testuser</p>';
                 var params = {
                     from: 'cwt_testuser@aasricontrols.com',
                     message: message,
