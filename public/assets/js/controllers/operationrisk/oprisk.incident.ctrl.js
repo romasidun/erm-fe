@@ -57,19 +57,14 @@
             return OPRiskService.GetRiskCategories();
         }).then(function (data) {
             ChartFactory.CreateStackedChart($filter, data, 'oristacked');
-            loadRisksList();
+            return OPRiskService.LoadOpRiskList();
+        }).then(function(data){
+            data.forEach(function(r){ r.IDate = Utils.createDate(r.identifiedDate); });
+
+            $scope.Grid1.Total = data.length;
+            $scope.Grid1.Data = data;
+            console.log('$scope.Grid1.Data',$scope.Grid1.Data);
+            $rootScope.app.Mask = false;
         });
-
-        function loadRisksList(next) {
-            OPRiskService.LoadOpRiskList().then(function(data) {
-                data.forEach(function(r){ r.IDate = Utils.createDate(r.identifiedDate); });
-
-                $scope.Grid1.Total = data.length;
-                $scope.Grid1.Data = data;
-
-                if(next) next();
-                $rootScope.app.Mask = false;
-            });
-        }
     }
 })();
