@@ -75,7 +75,7 @@
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.approvedDate.$invalid && (!Form.VendorRisk.approvedDate.$pristine || Form.VendorRisk.approvedDate.$touched || Form.VendorRisk.approvedDate.$submitted) }">
                                     <label> Approved Date </label>
-                                    <datepicker date-format="yyyy-MM-dd" date-set="{{approvedDate}}">
+                                    <datepicker date-format="MM-dd-yyyy" date-set="{{approvedDate}}">
                                         <input type="text" name="approvedDate" ng-model="VM.approvedDate"
                                                placeholder="Approved Date" class="form-control" required>
                                     </datepicker>
@@ -85,7 +85,7 @@
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.assessmentsDate.$invalid && (!Form.VendorRisk.assessmentsDate.$pristine || Form.VendorRisk.assessmentsDate.$touched || Form.VendorRisk.assessmentsDate.$submitted) }">
                                     <label> Assessment Date </label>
-                                    <datepicker date-format="yyyy-MM-dd" date-set="{{assessmentsDate}}">
+                                    <datepicker date-format="MM-dd-yyyy" date-set="{{assessmentsDate}}">
                                         <input type="text" name="assessmentsDate" ng-model="VM.assessmentsDate"
                                                placeholder="Assessment Date" class="form-control" required>
                                     </datepicker>

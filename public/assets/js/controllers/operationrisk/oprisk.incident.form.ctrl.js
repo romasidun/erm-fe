@@ -185,6 +185,8 @@
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
+
+            console.log('$scope.VM$scope.VM',$scope.VM);
             OPRiskService.FileUpload(idd, fileModel)
                 .then(function (res) {
                     if (res.status === 200) {

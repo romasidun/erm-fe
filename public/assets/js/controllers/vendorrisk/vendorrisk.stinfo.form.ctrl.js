@@ -64,6 +64,14 @@
         };
 
         $scope.submitAction = function () {
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.assessmentsDate);
+            var d2 = moment($scope.VM.approvedDate);
+            $scope.VM.assessmentsDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.identifiedDtStr = $scope.VM.assessmentsDate;
+            $scope.VM.approvedDate = (d2.isValid()) ? d2.format(dtype) : '';
+            $scope.VM.remediationDtStr = $scope.VM.approvedDate;
+
             if ($scope.Form.VendorRisk.$pristine || $scope.Form.VendorRisk.$invalid) return false;
             VendorService.AddRim($scope.VM).then(function (res) {
                 if (res.status === 200) {

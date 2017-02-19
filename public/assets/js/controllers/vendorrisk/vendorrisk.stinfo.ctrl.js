@@ -28,7 +28,7 @@
 
         VendorService.GetRimStatus()
             .then(function (data) {
-                console.log('datadatadata',data);
+
                 ChartFactory.CreatePieChart('VendorRisk by Status', 'VendorRisk by Status', data, 'statusChart');
                 return VendorService.GetRimPeriod();
             })
@@ -78,7 +78,6 @@
                 });
 
                 $scope.vendorAMdata = data;
-                console.log('$scope.vendorAMdata$scope.vendorAMdata',$scope.vendorAMdata);
                 $rootScope.app.Mask = false;
             });
         }
