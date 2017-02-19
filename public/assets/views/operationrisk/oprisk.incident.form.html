@@ -189,13 +189,17 @@
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
                                         <label> Remediation Owner </label>
-                                        <input type="text" name="remeOwner" ng-model="VM.remeOwner"  placeholder="Remediation Owner" class="form-control">
+                                        <select name="remeOwner" ng-model="VM.remeOwner"
+                                                ng-options="u.name as u.name for u in app.Lookup.Users" class="form-control">
+                                            <option value="">Select Remediation Owner</option>
+                                        </select>
+                                        <!--<input type="text" name="remeOwner" ng-model="VM.remeOwner"  placeholder="Remediation Owner" class="form-control">-->
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
                                         <label> Remediation Date </label>
-                                        <datepicker date-format="MM-dd-yyyy">
+                                        <datepicker date-format="yyyy-MM-dd">
                                             <input type="text" name="remeDate" ng-model="VM.remeDate" placeholder="Remediation Date" class="form-control">
                                         </datepicker>
                                     </div>
