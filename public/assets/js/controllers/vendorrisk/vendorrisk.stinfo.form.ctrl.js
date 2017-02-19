@@ -38,7 +38,7 @@
             // id: "",
             modifiedBy: "",
             modifiedOn: "",
-            riskScore: "",
+            riskScore: null,
             period: "",
             priority: "",
             region: "",

@@ -117,12 +117,12 @@
                 }
             });
 
-            var dtype = 'YYYY-MM-DD';
+            var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);
             $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
-
+            console.log('$scope.VM$scope.VM',$scope.VM);
             var fileModel = $scope.VM.auditFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
