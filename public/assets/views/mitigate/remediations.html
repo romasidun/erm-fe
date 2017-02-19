@@ -77,7 +77,6 @@
                                 <th><a ng-class="{'text-azure': CurrCol==='riskSeverity' }" ng-click="sortMe('riskSeverity')"><i class="fa {{resSort('riskSeverity')}}"></i> Identified Date </a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='riskStatus' }" ng-click="sortMe('riskStatus')"><i class="fa {{resSort('riskStatus')}}"></i> Risk Status</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='remediationDate' }" ng-click="sortMe('remediationDate')"><i class="fa {{resSort('remediationDate')}}"></i> Rem. Date </a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='remediationDate' }" ng-click="sortMe('remediationDate')"><i class="fa {{resSort('remediationDate')}}"></i> Rem. Desc </a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='riskStatus' }" ng-click="sortMe('riskStatus')"><i class="fa {{resSort('riskStatus')}}"></i> Rem. Status</a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='riskStatus' }" ng-click="sortMe('riskStatus')"><i class="fa {{resSort('riskStatus')}}"></i> Rem. Plan </a></th>
                                 <th><a ng-class="{'text-azure': CurrCol==='riskStatus' }" ng-click="sortMe('riskStatus')"><i class="fa {{resSort('riskStatus')}}"></i> Rem. Owner</a></th>
@@ -93,7 +92,6 @@
                                 <td>{{r.identifiedDate | date}}</td>
                                 <td>{{r.RiskStatus}}</td>
                                 <td>{{r.remediationDate | date}}</td>
-                                <td>{{r.RiskDesc}}</td>
                                 <td>{{r.RemStatus || 'None'}}</td>
                                 <td>{{r.RemPlan || 'None'}}</td>
                                 <td>{{r.RemOwner || 'None'}}</td>
