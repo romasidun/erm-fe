@@ -41,6 +41,7 @@
 									<div class="form-group" ng-class="{ 'has-error' : Form.ITRisk.riskSeverity.$invalid && (!Form.ITRisk.riskSeverity.$pristine || Form.ITRisk.riskSeverity.$touched || Form.ITRisk.riskSeverity.$submitted) }">
 										<label> Severity </label>
 										<select type="text" name="riskSeverity" ng-model="VM.riskSeverity"  class="form-control" required>
+											<option value="">Severity</option>
 											<option value="Low">Low</option>
 											<option value="Medium">Medium</option>
 											<option value="High">High</option>

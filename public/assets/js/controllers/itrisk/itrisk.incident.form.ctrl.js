@@ -111,6 +111,12 @@
                 return false;
             }
 
+            angular.forEach($scope.RiskCategories.List, function(val, key){
+                if(val.Selected == true){
+                    $scope.VM.riskCategory = $scope.VM.riskCategory + val.Label + ",";
+                }
+            });
+
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);
@@ -132,7 +138,7 @@
                 ITRiskService.AddRim($scope.VM).then(function (res) {
                     console.log('res',res);
                 }).finally(function () {
-                    $state.go('app.itrisk.assessment.main');
+                    $state.go('app.itrisk.incident.main');
                 });
             });
         };
