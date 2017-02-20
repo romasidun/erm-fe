@@ -73,7 +73,7 @@
         function loadRim() {
             VendorService.GetRim().then(function (data) {
                 data.forEach(function (r) {
-                    r.assessdate = Utils.createDate(r.due_date);
+                    r.assessdate = Utils.createDate(r.assessmentsDate);
                     r.approvdate = Utils.createDate(r.approvedDate);
                 });
 

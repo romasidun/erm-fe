@@ -68,14 +68,15 @@
             var d1 = moment($scope.VM.assessmentsDate);
             var d2 = moment($scope.VM.approvedDate);
             $scope.VM.assessmentsDate = (d1.isValid()) ? d1.format(dtype) : '';
-            $scope.VM.identifiedDtStr = $scope.VM.assessmentsDate;
+            // $scope.VM.assessmentsDate = $scope.VM.assessmentsDate;
             $scope.VM.approvedDate = (d2.isValid()) ? d2.format(dtype) : '';
-            $scope.VM.remediationDtStr = $scope.VM.approvedDate;
+            // $scope.VM.approvedDate = $scope.VM.approvedDate;
+            console.log('$scope.VM$scope.VM',$scope.VM);
 
             if ($scope.Form.VendorRisk.$pristine || $scope.Form.VendorRisk.$invalid) return false;
             VendorService.AddRim($scope.VM).then(function (res) {
                 if (res.status === 200) {
-                    $state.go('app.vendorrisk.stinfo.main');
+                    // $state.go('app.vendorrisk.stinfo.main');
                 }
             });
         };
