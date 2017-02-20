@@ -58,11 +58,24 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.VendorRisk.vendorContact.$invalid && (!Form.VendorRisk.vendorContact.$pristine || Form.VendorRisk.vendorContact.$touched || Form.VendorRisk.vendorContact.$submitted) }">
+                                    <label> Vendor Contact </label>
+                                    <select name="vendorContact" ng-model="VM.vendorContact"
+                                            ng-options="a.email as a.email for a in Grid1.Data" class="form-control"
+                                            required>
+                                        <option value=""> Vendor Contact</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.approvedDate.$invalid && (!Form.VendorRisk.approvedDate.$pristine || Form.VendorRisk.approvedDate.$touched || Form.VendorRisk.approvedDate.$submitted) }">
                                     <label> Approved Date </label>
-                                    <datepicker date-format="yyyy-MM-dd" date-set="{{approvedDate}}">
+                                    <datepicker date-format="MM-dd-yyyy" date-set="{{approvedDate}}">
                                         <input type="text" name="approvedDate" ng-model="VM.approvedDate"
                                                placeholder="Approved Date" class="form-control" required>
                                     </datepicker>
@@ -72,23 +85,18 @@
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.assessmentsDate.$invalid && (!Form.VendorRisk.assessmentsDate.$pristine || Form.VendorRisk.assessmentsDate.$touched || Form.VendorRisk.assessmentsDate.$submitted) }">
                                     <label> Assessment Date </label>
-                                    <datepicker date-format="yyyy-MM-dd" date-set="{{assessmentsDate}}">
+                                    <datepicker date-format="MM-dd-yyyy" date-set="{{assessmentsDate}}">
                                         <input type="text" name="assessmentsDate" ng-model="VM.assessmentsDate"
                                                placeholder="Assessment Date" class="form-control" required>
                                     </datepicker>
                                 </div>
                             </div>
-                            <!--<div class="col-xs-12 col-md-6">-->
-                            <!--<div class="form-group" ng-class="{ 'has-error' : Form.VendorRisk.aggregatedRiskScore.$invalid && (!Form.VendorRisk.aggregatedRiskScore.$pristine || Form.VendorRisk.aggregatedRiskScore.$touched || Form.VendorRisk.aggregatedRiskScore.$submitted) }">-->
-                            <!--<label> Aggregated Risk Score </label>-->
-                            <!--<input type="text"  name="aggregatedRiskScore" ng-model="VM.aggregatedRiskScore"  placeholder="AggregatedRiskScore" class="form-control" required>-->
-                            <!--</div>-->
-                            <!--</div>-->
+
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.riskScore.$invalid && (!Form.VendorRisk.riskScore.$pristine || Form.VendorRisk.riskScore.$touched || Form.VendorRisk.riskScore.$submitted) }">
                                     <label> Overwall Risk Score </label>
-                                    <input type="text" name="riskScore" ng-model="VM.riskScore"
+                                    <input type="number" name="riskScore" ng-model="VM.riskScore"
                                            placeholder="Overwall Risk Score " class="form-control" required>
                                 </div>
                             </div>
@@ -96,8 +104,15 @@
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.emailOrLink.$invalid && (!Form.VendorRisk.emailOrLink.$pristine || Form.VendorRisk.emailOrLink.$touched || Form.VendorRisk.emailOrLink.$submitted) }">
                                     <label> Email/Link </label>
-                                    <input type="text" name="emailOrLink" ng-model="VM.emailOrLink"
-                                           placeholder="EmailOrLink" class="form-control" required>
+                                    <select name="emailOrLink"
+                                            class="emailOrLink js-example-basic-single font-sans-serif form-control white_background_style"
+                                            ng-model="VM.emailOrLink" required>
+                                        <option value="">Select Email Or Link</option>
+                                        <option value="Email">Email</option>
+                                        <option value="Link">Link</option>
+                                    </select>
+                                    <!--<input type="text" name="emailOrLink" ng-model="VM.emailOrLink"-->
+                                           <!--placeholder="EmailOrLink" class="form-control" required>-->
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">

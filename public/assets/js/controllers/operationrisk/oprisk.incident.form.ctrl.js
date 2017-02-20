@@ -158,12 +158,20 @@
         };
 
         $scope.submitAction = function () {
+            $scope.VM.riskCategory = "";
+
             if ($scope.Form.OpIncident.$invalid || $scope.Form.OpIncident.pristine) return false;
             /*console.log(moment($scope.VM.identifiedDate).format('MM-DD-YYYY'));*/
             if ($scope.RiskCategories.SelCount < 1) {
                 alert("Please select Risk Category.");
                 return false;
             }
+
+            angular.forEach($scope.RiskCategories.List, function(val, key){
+                if(val.Selected == true){
+                    $scope.VM.riskCategory = $scope.VM.riskCategory + val.Label + ",";
+                }
+            });
 
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.identifiedDate);
@@ -177,6 +185,8 @@
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
+
+            console.log('$scope.VM$scope.VM',$scope.VM);
             OPRiskService.FileUpload(idd, fileModel)
                 .then(function (res) {
                     if (res.status === 200) {

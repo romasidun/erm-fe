@@ -28,6 +28,7 @@
 
         VendorService.GetRimStatus()
             .then(function (data) {
+
                 ChartFactory.CreatePieChart('VendorRisk by Status', 'VendorRisk by Status', data, 'statusChart');
                 return VendorService.GetRimPeriod();
             })
@@ -65,7 +66,6 @@
             .then(function(data){
                 ChartFactory.CreateLabelChart('VendorRisk by RiskScore', 'VendorRisk by RiskScore', '', '', '',  data, 'riskScoreChart');
                 $scope.$watch('PerPage', function (n, o) {
-                    $rootScope.app.Mask = false;
                     loadRim();
                 });
             });

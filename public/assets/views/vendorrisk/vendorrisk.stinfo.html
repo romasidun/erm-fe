@@ -92,8 +92,8 @@
                                            ng-click="sortMe('title')"><i class="fa {{resSort('title')}}"></i>Title</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='period' }" ng-click="sortMe('period')"><i
                                             class="fa {{resSort('period')}}"></i>Period</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='approvalStatus' }"
-                                               ng-click="sortMe('approvalStatus')"><i class="fa {{resSort('approvalStatus')}}"></i>Approval Status</a></th>
+                                    <th><a ng-class="{'text-azure': CurrCol==='approval' }"
+                                               ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i>Approval Status</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='vendorRiskType' }"
                                            ng-click="sortMe('vendorRiskType')"><i class="fa {{resSort('vendorRiskType')}}"></i>Vendor Risk Type</a></th>
                                     <th><a ng-class="{'text-azure': CurrCol==='docType' }"
@@ -116,7 +116,7 @@
                                     <td><input type="checkbox"></td>
                                     <td>{{name.title}}</td>
                                     <td>{{name.period}}</td>
-                                    <td>{{name.approvalStatus}}</td>
+                                    <td>{{name.approval}}</td>
                                     <td>{{name.vendorRiskType}}</td>
                                     <td>{{name.docType}}</td>
                                     <td>{{name.vendorName}}</td>
