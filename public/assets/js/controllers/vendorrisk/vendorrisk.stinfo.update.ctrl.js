@@ -68,18 +68,12 @@
             $scope.Grid1.Data = vendor;
         });
 
-        $scope.sendMail = function () {
-            var checkedRow = $filter('filter')($scope.Grid1.Data, {checked: true});
-            if(checkedRow < 1) {
-                alert("Please select at least one vendor contact!");
-                return;
-            }
-            angular.forEach(checkedRow, function (value, key) {
-                var to = value.email;
+        $scope.sendMailOne = function (vendor) {
+                var to = vendor.email;
                 if(to == '' || to == null) return;
-                var message = '<p>Dear Ms. Lalitha,</p><br/>' +
+                var message = '<p>Dear Ms. '+vendor.primaryContact+',</p><br/>' +
                     '<p style=\"text-indent: 40px\">' +
-                    'You are receiving this email, because you are the vendor contact for Oracle in our system. <br/>' +
+                    'You are receiving this email, because you are the vendor contact for '+vendor.vendorName+' in our system. <br/>' +
                     'Please enter the responses Y or N for the questions and enter if you have any findings or comments: <br/><br/>' +
                     '<a href=\"https://cwt.aasricontrols.com/#!/vendorrisk/assess.create/589e5cd51e2417e3e4415b11\">Link to Assessment</a><br/><br/>' +
                     '</p>' +
@@ -94,8 +88,10 @@
                 VendorService.SendMail(params).then(function (res) {
 
                 });
-            });
-        }
+        };
+        $scope.viewAssessment = function(){
+
+        };
     }
 
 })();

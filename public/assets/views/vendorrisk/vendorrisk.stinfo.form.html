@@ -169,6 +169,7 @@
                                         <th><a ng-class="{'text-azure': Grid1.Column==='address' }"
                                                ng-click="Grid1.SortMe('address')"><i
                                                 class="fa {{ Grid1.GetIco('address')}}"></i> Address</a></th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -179,6 +180,10 @@
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>
                                         <td>{{r.address}}</td>
+                                        <td>
+                                            <a class="btn btn-xs btn-info" ng-click="sendMailOne(r)"><i class="ti-email"></i></a>
+                                            <a class="btn btn-xs btn-orange" ng-click="viewAssessment()"><i class="ti-receipt"></i></a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -186,10 +191,10 @@
                         </div>
                         <hr class="hrule4"/>
                         <div class="col-xs-12 text-right">
-                            <a class="btn btn-squared btn-dark-blue" ng-click="sendMail()"><i class="fa fa-envelope"></i> Send Mail</a>
+                            <!--<a class="btn btn-squared btn-dark-blue" ng-click="sendMail()"><i class="fa fa-envelope"></i> Send Mail</a>
                             <a class="btn btn-squared btn-dark-blue" ng-click="createAssessmentAction()"
                                ng-show="showExcelButton" type="button"><i class="fa fa-newspaper-o"></i> Create
-                                Assessment </a>
+                                Assessment </a>-->
                             <!--<button class="btn btn-squared btn-dark-blue" ng-show="showExcelButton" ng-disabled="Form.VendorRisk.$invalid" type="button"><i class="fa fa-download"></i> Download Excel </button>-->
                             <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i> Save
                             </button>
