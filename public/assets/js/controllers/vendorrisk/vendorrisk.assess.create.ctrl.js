@@ -101,9 +101,15 @@
                     $rootScope.app.Mask = false;
                 })
             }
+        }
 
-
-
+        $scope.goBack = function () {
+            console.log($state.params.page);
+            if($state.params.page == 'update'){
+                $state.go('app.vendorrisk.stinfo.update', {id: $state.params.id});
+            } else {
+                $state.go('app.vendorrisk.stinfo.form');
+            }
         }
     }
 
