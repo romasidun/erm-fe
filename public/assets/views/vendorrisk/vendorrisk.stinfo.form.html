@@ -169,6 +169,12 @@
                                         <th><a ng-class="{'text-azure': Grid1.Column==='address' }"
                                                ng-click="Grid1.SortMe('address')"><i
                                                 class="fa {{ Grid1.GetIco('address')}}"></i> Address</a></th>
+                                        <th><a ng-class="{'text-azure': Grid1.Column==='assessmentId' }"
+                                               ng-click="Grid1.SortMe('assessmentId')"><i
+                                                class="fa {{ Grid1.GetIco('assessmentId')}}"></i> assessmentId</a></th>
+                                        <th><a ng-class="{'text-azure': Grid1.Column==='status' }"
+                                               ng-click="Grid1.SortMe('status')"><i
+                                                class="fa {{ Grid1.GetIco('status')}}"></i> status</a></th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -180,6 +186,8 @@
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>
                                         <td>{{r.address}}</td>
+                                        <td>{{r.assessmentId}}</td>
+                                        <td>{{r.status}}</td>
                                         <td>
                                             <a class="btn btn-xs btn-info" ng-click="sendMailOne(r)"><i class="ti-email"></i></a>
                                             <a class="btn btn-xs btn-orange" ng-click="viewAssessment()"><i class="ti-receipt"></i></a>
