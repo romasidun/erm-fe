@@ -78,12 +78,11 @@
             }
             //console.log($scope.RiskCategories);
             var selectedCategories = $filter('filter')($scope.RiskCategories.List, {Selected: true});
-
             var categoriesStr = '';
-            angular.forEach(selectedCategories, function (item, key) {
-                categoriesStr += ',' + item.Key;
-            });
-            categoriesStr = categoriesStr.substr(1);
+            for(var i in selectedCategories){
+                categoriesStr = categoriesStr + selectedCategories[i].Label + ",";
+            }
+            categoriesStr = categoriesStr.substr(0, categoriesStr.length -1);
             $scope.VM.riskCategory = categoriesStr;
 
             var dtype = 'YYYY-MM-DD';
@@ -131,13 +130,16 @@
             return OPRiskService.GetRiskCategories()
         }).then(function (data) {
             var categories = $scope.VM.riskCategory.split(',');
-            console.log('categories',categories);
             $scope.RiskCategories.SelCount = categories.length;
-            Object.keys(data.categories).forEach(function (c) {
-                var sel = (categories.indexOf(c) < 0) ? false : true;
-                $scope.RiskCategories.List.push({Key: c, Label: data.categories[c], Selected: sel});
+            angular.forEach(data.categories, function(val, key){
+                var sel = false;
+                for(var i in categories){
+                    if(categories[i] == val){
+                        sel = true;
+                    }
+                }
+                $scope.RiskCategories.List.push({Key: key, Label: data.categories[key], Selected: sel});
             });
-            // $scope.RiskCategories.SelCount = 0;
             $rootScope.app.Mask = false;
         });
 
