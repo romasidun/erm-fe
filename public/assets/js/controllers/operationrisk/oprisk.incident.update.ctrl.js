@@ -7,26 +7,26 @@
 
 
     function OprIncFormController($scope, $rootScope, $state, $stateParams, $filter, OPRiskService, Utils) {
+        $scope.mainTitle = $state.current.title;
+        $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
 
-        $scope.mainTitle = $state.current.title || 'loading';
-        $scope.mainDesc = "Update operational risk incident";
-        $scope.isAction = true;
+        $scope.RiskCategories = { List: [], SelCount: 0 };
+        $scope.Lookups = {};
 
-        $scope.Form = {};
-        $scope.RiskCategories = {List: [], SelCount: 0};
-
-        $scope.dpOptions = {
-            format: 'MM-DD-YYYY',
-            autoclose: true
-        };
-
-        $scope.setOpt = function (op) {
+        $scope.setOpt = function(op){
             op.Selected = !op.Selected;
-            if (op.Selected) {
+            if(op.Selected){
                 $scope.RiskCategories.SelCount++;
             } else {
                 $scope.RiskCategories.SelCount--;
             }
+        };
+
+        $scope.setAll = function(val) {
+            $scope.RiskCategories.List.forEach(function(op){
+                op.Selected = val;
+            });
+            $scope.RiskCategories.SelCount = val? $scope.RiskCategories.List.length : 0;
         };
 
         $scope.addControls = function () {
@@ -64,13 +64,6 @@
                 });
                 $rootScope.app.Mask = false;
             });
-        };
-
-        $scope.setAll = function (val) {
-            $scope.RiskCategories.List.forEach(function (op) {
-                op.Selected = val;
-            });
-            $scope.RiskCategories.SelCount = val ? $scope.RiskCategories.List.length : 0;
         };
 
         $scope.removeItem = function (type, idx) {
@@ -138,11 +131,13 @@
             return OPRiskService.GetRiskCategories()
         }).then(function (data) {
             var categories = $scope.VM.riskCategory.split(',');
+            console.log('categories',categories);
             $scope.RiskCategories.SelCount = categories.length;
             Object.keys(data.categories).forEach(function (c) {
                 var sel = (categories.indexOf(c) < 0) ? false : true;
                 $scope.RiskCategories.List.push({Key: c, Label: data.categories[c], Selected: sel});
             });
+            // $scope.RiskCategories.SelCount = 0;
             $rootScope.app.Mask = false;
         });
 
