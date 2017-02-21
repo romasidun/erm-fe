@@ -117,6 +117,8 @@
                 }
             });
 
+            $scope.VM.riskCategory = $scope.VM.riskCategory.substr(0, $scope.VM.riskCategory.length-1);
+
             var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);

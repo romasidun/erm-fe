@@ -1,8 +1,8 @@
 (function(){
-    ITRiskIncFormController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'ITRiskService', 'OPRiskService', 'Utils'];
+    ITRiskIncFormController.$inject = ['$filter', '$scope','$rootScope','$state', '$stateParams', 'ITRiskService', 'OPRiskService', 'Utils'];
     app.controller('ITRiskIncUpdateCtrl', ITRiskIncFormController);
 
-    function ITRiskIncFormController ($scope, $rootScope, $state, $stateParams, ITRiskService, OPRiskService, Utils){
+    function ITRiskIncFormController ($filter, $scope, $rootScope, $state, $stateParams, ITRiskService, OPRiskService, Utils){
        $scope.mainTitle = $state.current.title;
        $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
 
@@ -74,19 +74,20 @@
                 return false;
             }
 
+
+
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);
             $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
 
-            var selectedCategories = $filter('filter')($scope.RiskCategories.List,{Selected : true});
-
+            var selectedCategories = $filter('filter')($scope.RiskCategories.List, {Selected: true});
             var categoriesStr = '';
-            angular.forEach(selectedCategories, function(item, key) {
-                categoriesStr += ',' + item.Key;
-            });
-            categoriesStr = categoriesStr.substr(1);
+            for(var i in selectedCategories){
+                categoriesStr = categoriesStr + selectedCategories[i].Label + ",";
+            }
+            categoriesStr = categoriesStr.substr(0, categoriesStr.length -1);
             $scope.VM.riskCategory = categoriesStr;
 
             var fileModel = $scope.VM.auditFileModel;
@@ -104,7 +105,7 @@
                 ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
                     console.log('res',res);
                 }).finally(function () {
-                    $state.go('app.itrisk.assessment.main');
+                    $state.go('app.itrisk.incident.main');
                 });
             });
         };
@@ -133,9 +134,15 @@
             return ITRiskService.GetRimRiskCategory()
         }).then(function(data){
             var categories = $scope.VM.riskCategory.split(',');
-            Object.keys(data.categories).forEach(function (c) {
-                var sel = (categories.indexOf(c) < 0) ? false: true;
-                $scope.RiskCategories.List.push({Key: c, Label: data.categories[c], Selected: sel});
+            $scope.RiskCategories.SelCount = categories.length;
+            angular.forEach(data.categories, function(val, key){
+                var sel = false;
+                for(var i in categories){
+                    if(categories[i] == val){
+                        sel = true;
+                    }
+                }
+                $scope.RiskCategories.List.push({Key: key, Label: data.categories[key], Selected: sel});
             });
             $rootScope.app.Mask = false;
         });
