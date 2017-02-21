@@ -11479,3 +11479,62 @@ section.vendor_create_body table th,section.vendor_create_body table td{
 .vendorRiskTable tr td.action_tools{
   min-width: 52px;
 }
+
+.btn-maroon,
+.btn-maroon:focus {
+  background-color: #981b48 !important;
+  border-color: #981b48;
+  color: #fff
+}
+
+.btn-maroon:hover {
+  color: #fff
+}
+
+.btn-maroon.dropdown-toggle {
+  border-left-color: #b55274 !important
+}
+
+.btn-maroon.active {
+  background-color: #7c1138 !important;
+  border-color: #9f3156
+}
+
+.btn-maroon.shiny {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNhODI4NTYiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzg2MTIzYyIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+  background-image: -webkit-linear-gradient(linear, left top, left bottom, from(#a82856), to(#86123c));
+  background-image: -moz-linear-gradient(linear, left top, left bottom, from(#a82856), to(#86123c));
+  background-image: -o-linear-gradient(linear, left top, left bottom, from(#a82856), to(#86123c));
+  background-image: linear-gradient(linear, left to bottom, left bottom, from(#a82856), to(#86123c))
+}
+
+.btn-maroon:hover,
+.open .btn-maroon.dropdown-toggle {
+  background-color: #a82856 !important;
+  border-color: #a82856;
+  color: #fff
+}
+
+.btn-maroon.disabled,
+.btn-maroon[disabled],
+fieldset[disabled] .btn-maroon,
+.btn-maroon.disabled:hover,
+.btn-maroon[disabled]:hover,
+fieldset[disabled] .btn-maroon:hover,
+.btn-maroon.disabled:focus,
+.btn-maroon[disabled]:focus,
+fieldset[disabled] .btn-maroon:focus,
+.btn-maroon.disabled:active,
+.btn-maroon[disabled]:active,
+fieldset[disabled] .btn-maroon:active,
+.btn-maroon.disabled.active,
+.btn-maroon[disabled].active,
+fieldset[disabled] .btn-maroon.active {
+  background-color: #981b48 !important;
+  border-color: #981b48;
+  zoom: 1;
+  filter: alpha(opacity=50);
+  -webkit-opacity: .5;
+  -moz-opacity: .5;
+  opacity: .5
+}

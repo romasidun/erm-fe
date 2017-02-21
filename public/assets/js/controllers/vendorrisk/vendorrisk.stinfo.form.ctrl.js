@@ -1,12 +1,12 @@
 (function () {
     'use strict';
-    VendorriskStinfoFormController.$inject = ['$scope','$rootScope', '$state', 'VendorService','Utils'];
+    VendorriskStinfoFormController.$inject = ['$scope','$rootScope', '$state', 'VendorService','Utils', '$filter'];
     app.controller('VendorriskStinfoFormCtrl', VendorriskStinfoFormController);
-    function VendorriskStinfoFormController($scope, $rootScope, $state, VendorService, Utils) {
+    function VendorriskStinfoFormController($scope, $rootScope, $state, VendorService, Utils, $filter) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Manage VendorRisk Form";
-        $rootScope.app.Mask = false;
-        $scope.showExcelButton = false;
+        $rootScope.app.Mask = true;
+        $scope.currPage = 'insert';
 
         $scope.VM = {
             actualName: "",
@@ -20,14 +20,17 @@
             asmntTypeName: "",
             asmntType_name: "",
             assessDesc: "",
-            // assessId: 0,
+            assessId: "",
             assessName: "",
             assessmentBy: "",
             assessmentDtStr: "",
+            assessmentIds: [],
+            assessmentStatus: "None",
             assessmentsDate: "",
             business: "",
             createdBy: "",
             createdOn: "",
+            createdOnStr: "",
             docType: "",
             dueDtStr: "",
             due_date: "",
@@ -35,59 +38,23 @@
             filemodel: [],
             filename: "",
             frequency: "",
-            // id: "",
             modifiedBy: "",
             modifiedOn: "",
-            riskScore: null,
+            modifiedOnStr: "",
+            overallRiskScore: "",
             period: "",
             priority: "",
             region: "",
             resPerson: "",
-            status: {},
+            riskScore: 0,
+            status: null,
             title: "",
             vendorContact: "",
             vendorName: "",
             vendorRiskType: "",
+            vendors: [],
             version: ""
         };
-
-
-        $scope.cancelAction = function(){
-            if($scope.Form.VendorRisk.$dirty){
-                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){
-                    $state.go('app.vendorrisk.stinfo.main');
-                });
-                return false;
-            }
-            $state.go('app.vendorrisk.stinfo.main');
-        };
-
-        $scope.submitAction = function () {
-            var dtype = 'YYYY-MM-DD';
-            var d1 = moment($scope.VM.assessmentsDate);
-            var d2 = moment($scope.VM.approvedDate);
-            $scope.VM.assessmentsDate = (d1.isValid()) ? d1.format(dtype) : '';
-            // $scope.VM.assessmentsDate = $scope.VM.assessmentsDate;
-            $scope.VM.approvedDate = (d2.isValid()) ? d2.format(dtype) : '';
-            // $scope.VM.approvedDate = $scope.VM.approvedDate;
-            console.log('$scope.VM$scope.VM',$scope.VM);
-
-            if ($scope.Form.VendorRisk.$pristine || $scope.Form.VendorRisk.$invalid) return false;
-            VendorService.AddRim($scope.VM).then(function (res) {
-                if (res.status === 200) {
-                    $state.go('app.vendorrisk.stinfo.main');
-                }
-            });
-        };
-
-        VendorService.GerUserList().then(function(user){
-            $scope.userList = user;
-        });
-
-        VendorService.GetRiskType().then(function(risktype){
-            $scope.riskTypeList = risktype;
-        });
 
         $scope.Grid1 = {
             Column: 'vendorName',
@@ -107,37 +74,62 @@
                 }
             }
         };
-        VendorService.GetVendor().then(function (vendor) {
-            $scope.Grid1.Data = vendor;
-        });
 
-        $scope.sendMail = function () {
-            var checkedRow = $filter('filter')($scope.Grid1.Data, {checked: true});
-            if(checkedRow < 1) {
-                alert("Please select at least one vendor contact!");
-                return;
+        /*var vendor = {
+            address: "",
+            assessmentIds: [],
+            email: "",
+            id: "",
+            primaryContact: "",
+            statusMsg: "",
+            vendorId: "",
+            vendorName: "",
+            vendorStatus: ""
+        }*/
+
+        $scope.submitAction = function () {
+            var dtype = 'YYYY-MM-DD';
+            var d1 = moment($scope.VM.assessmentsDate);
+            var d2 = moment($scope.VM.approvedDate);
+            $scope.VM.assessmentsDate = (d1.isValid()) ? d1.format(dtype) : '';
+            $scope.VM.approvedDate = (d2.isValid()) ? d2.format(dtype) : '';
+
+            var selectedVendors = $filter('filter')($scope.Grid1.Data, {checked : true});
+            if(selectedVendors.length < 1 || selectedVendors == null){
+                alert("Please select at least one vendor");
+                return false;
             }
-            angular.forEach(checkedRow, function (value, key) {
-                var to = value.email;
-                if(to == '' || to == null) return;
-                var message = 'Dear Ms Lalitha, '+
-                    'You are receiving this email, because you are the vendor contact for Oracle in our system. '+
-                    'Please enter the responses Y or N for the questions and enter if you have any findings or comments'+
-                    'https://cwt.aasricontrols.com/#!/vendorrisk/assess.create/589e5cd51e2417e3e4415b11'+
-                    'Regards' +
-                    'CWT_testuser';
-                var params = {
-                    from: 'cwt_testuser@aasricontrols.com',
-                    message: message,
-                    subject: 'Please fill out the assessment',
-                    to: to
-                };
-                VendorService.SendMail(params).then(function (res) {
+            if ($scope.Form.VendorRisk.$pristine || $scope.Form.VendorRisk.$invalid) return false;
 
-                });
+            $scope.VM.vendors = selectedVendors;
+            VendorService.AddRim($scope.VM).then(function (res) {
+                if (res.status === 200) {
+                    $state.go('app.vendorrisk.stinfo.main');
+                }
             });
-        }
+        };
 
+        $scope.cancelAction = function(){
+            if($scope.Form.VendorRisk.$dirty){
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                confirm.result.then(function(){
+                    $state.go('app.vendorrisk.stinfo.main');
+                });
+                return false;
+            }
+            $state.go('app.vendorrisk.stinfo.main');
+        };
+
+        VendorService.GerUserList().then(function(user){
+            $scope.userList = user;
+            return VendorService.GetRiskType();
+        }).then(function(risktype){
+            $scope.riskTypeList = risktype;
+            return VendorService.GetVendor();
+        }).then(function (vendor) {
+            $scope.Grid1.Data = vendor;
+            $rootScope.app.Mask = false;
+        });
     }
 
 })();

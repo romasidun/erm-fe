@@ -1,30 +1,38 @@
 (function () {
     'use strict';
-    VendorriskStinfoController.$inject = ['$scope','$rootScope', '$state', 'ExcelFactory', 'VendorService', '$timeout', 'Utils', 'ChartFactory'];
+    VendorriskStinfoController.$inject = ['$scope','$rootScope', '$state', 'ExcelFactory', 'VendorService', '$timeout', 'Utils', 'ChartFactory', '$filter'];
     app.controller('VendorriskStinfoCtrl', VendorriskStinfoController);
-    function VendorriskStinfoController($scope,$rootScope, $state, ExcelFactory, VendorService, $timeout, Utils, ChartFactory) {
+    function VendorriskStinfoController($scope,$rootScope, $state, ExcelFactory, VendorService, $timeout, Utils, ChartFactory, $filter) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = 'Risk Assessment';
 
-        // start sort
-        $scope.OpList = [10, 25, 50, 100];
-        $scope.PerPage = 10;
-
-        $scope.sortMe = function (col) {
-            if ($scope.CurrCol === col)
-                $scope.IsAsc = !$scope.IsAsc;
-            else
-                $scope.CurrCol = col;
-        };
-
-        $scope.resSort = function (col) {
-            if ($scope.CurrCol === col) {
-                return $scope.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
-            } else {
-                return 'fa-unsorted';
+        $scope.OpList = [5, 10, 25, 50, 100];
+        $scope.Grid1 = {
+            PerPage: 10,
+            CurrPage: 1,
+            Column: 'title',
+            IsAsc: true,
+            Filter: "",
+            Total: 0,
+            Data: [],
+            SortMe: function (col) {
+                if ($scope.Grid1.Column === col)
+                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
+                else
+                    $scope.Grid1.Column = col;
+            },
+            GetIco: function (col) {
+                if ($scope.Grid1.Column === col) {
+                    return $scope.Grid1.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+                } else {
+                    return 'fa-unsorted';
+                }
             }
         };
-        // end sort
+        $scope.$watch('Grid1.Filter', function (n, o) {
+            var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
+            $scope.Grid1.Total = searchedData.length;
+        });
 
         VendorService.GetRimStatus()
             .then(function (data) {
@@ -62,18 +70,20 @@
             .then(function(data){
                 ChartFactory.CreateLabelChart('VendorRisk by RiskScore', 'VendorRisk by RiskScore', '', '', '',  data, 'riskScoreChart');
                 $scope.$watch('PerPage', function (n, o) {
-                    loadRim();
+                    loadData();
                 });
             });
 
-        function loadRim() {
+        function loadData() {
             VendorService.GetRim().then(function (data) {
                 data.forEach(function (r) {
                     r.assessdate = Utils.createDate(r.assessmentsDate);
                     r.approvdate = Utils.createDate(r.approvedDate);
                 });
 
-                $scope.vendorAMdata = data;
+                $scope.Grid1.Total = data.length;
+                $scope.Grid1.Data = data;
+
                 $rootScope.app.Mask = false;
             });
         }

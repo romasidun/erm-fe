@@ -1,6 +1,6 @@
 var app = angular.module('aasriApp', ['app.patch']);
-app.run(['$rootScope', '$state', '$stateParams',
-function ($rootScope, $state, $stateParams) {
+app.run(['$rootScope', '$state', '$stateParams', '$location',
+function ($rootScope, $state, $stateParams, $location) {
 
     FastClick.attach(document.body);
 
@@ -29,8 +29,8 @@ function ($rootScope, $state, $stateParams) {
             logo: 'assets/img/logo.png',
         },
         IsAuthenticated: false,
-        APIPrefix: "http://54.173.94.137/api/2/",
-        // APIPrefix: "http://52.90.105.84/api/2/",
+        // APIPrefix: "http://54.173.94.137/api/2/",
+        APIPrefix: "http://52.90.105.84/api/2/",
         // APIPrefix: "http://192.168.5.101:8080/api/2/",
         Debug: true,
         Mask: true,

@@ -70,14 +70,12 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
-                            <select id="perpage" ng-model="PerPage" ng-options="op as op for op in OpList"
-                                    class="form-control input-sm"> </select>
+                            <select id="perpage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
                         </div>
                         <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
                             <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
 								<span class="input-icon">
-									<input type="text" ng-model="CurrFilt" placeholder="search"
-                                           class="form-control input-sm"/>
+									<input type="text" ng-model="Grid1.Filter" placeholder="search" class="form-control input-sm" />
 									<i class="fa fa-search"></i>
 								</span>
                             </div>
@@ -88,57 +86,62 @@
                             <thead>
                                 <tr class="sortable-headers">
                                     <th><input type="checkbox"></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='title' }"
-                                           ng-click="sortMe('title')"><i class="fa {{resSort('title')}}"></i>Title</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='period' }" ng-click="sortMe('period')"><i
-                                            class="fa {{resSort('period')}}"></i>Period</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='approval' }"
-                                               ng-click="sortMe('approval')"><i class="fa {{resSort('approval')}}"></i>Approval Status</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='vendorRiskType' }"
-                                           ng-click="sortMe('vendorRiskType')"><i class="fa {{resSort('vendorRiskType')}}"></i>Vendor Risk Type</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='docType' }"
-                                           ng-click="sortMe('docType')"><i class="fa {{resSort('docType')}}"></i>Doc type</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='vendorName' }"
-                                           ng-click="sortMe('vendorName')"><i class="fa {{resSort('vendorName')}}"></i>Vendor Name</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='assessdate' }"
-                                           ng-click="sortMe('assessdate')"><i class="fa {{resSort('assessdate')}}"></i>Assessments date</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='vendorContact' }"
-                                           ng-click="sortMe('vendorContact')"><i class="fa {{resSort('vendorContact')}}"></i>Vendor Contact</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='emailOrLink' }"
-                                           ng-click="sortMe('emailOrLink')"><i class="fa {{resSort('emailOrLink')}}"></i>Email/Link</a></th>
-                                    <th><a ng-class="{'text-azure': CurrCol==='riskScore' }"
-                                           ng-click="sortMe('riskScore')"><i class="fa {{resSort('riskScore')}}"></i>Risk Score</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='id' }"
+                                           ng-click="Grid1.SortMe('id')"><i class="fa {{Grid1.GetIco('id')}}"></i>Id</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='title' }"
+                                           ng-click="Grid1.SortMe('title')"><i class="fa {{Grid1.GetIco('title')}}"></i>Title</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='period' }" ng-click="Grid1.SortMe('period')"><i
+                                            class="fa {{Grid1.GetIco('period')}}"></i>Period</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='approval' }"
+                                               ng-click="Grid1.SortMe('approval')"><i class="fa {{Grid1.GetIco('approval')}}"></i>Approval Status</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='vendorRiskType' }"
+                                           ng-click="Grid1.SortMe('vendorRiskType')"><i class="fa {{Grid1.GetIco('vendorRiskType')}}"></i>Vendor Risk Type</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='docType' }"
+                                           ng-click="Grid1.SortMe('docType')"><i class="fa {{Grid1.GetIco('docType')}}"></i>Doc type</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='vendorName' }"
+                                           ng-click="Grid1.SortMe('vendorName')"><i class="fa {{Grid1.GetIco('vendorName')}}"></i>Vendor Name</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='assessdate' }"
+                                           ng-click="Grid1.SortMe('assessdate')"><i class="fa {{Grid1.GetIco('assessdate')}}"></i>Assessments date</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='vendorContact' }"
+                                           ng-click="Grid1.SortMe('vendorContact')"><i class="fa {{Grid1.GetIco('vendorContact')}}"></i>Vendor Contact</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='emailOrLink' }"
+                                           ng-click="Grid1.SortMe('emailOrLink')"><i class="fa {{Grid1.GetIco('emailOrLink')}}"></i>Email/Link</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='riskScore' }"
+                                           ng-click="Grid1.SortMe('riskScore')"><i class="fa {{Grid1.GetIco('riskScore')}}"></i>Risk Score</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='assessmentStatus' }"
+                                           ng-click="Grid1.SortMe('assessmentStatus')"><i class="fa {{Grid1.GetIco('assessmentStatus')}}"></i>Status</a></th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="name in vendorAMdata | orderBy: CurrCol:IsAsc | filter: CurrFilt">
+                                <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
                                     <td><input type="checkbox"></td>
-                                    <td>{{name.title}}</td>
-                                    <td>{{name.period}}</td>
-                                    <td>{{name.approval}}</td>
-                                    <td>{{name.vendorRiskType}}</td>
-                                    <td>{{name.docType}}</td>
-                                    <td>{{name.vendorName}}</td>
-                                    <td>{{name.assessdate | date}}</td>
-                                    <td>{{name.vendorContact}}</td>
-                                    <td>{{name.emailOrLink}}</td>
-                                    <td>{{name.riskScore}}</td>
+                                    <td>{{r.id}}</td>
+                                    <td>{{r.title}}</td>
+                                    <td>{{r.period}}</td>
+                                    <td>{{r.approval}}</td>
+                                    <td>{{r.vendorRiskType}}</td>
+                                    <td>{{r.docType}}</td>
+                                    <td>{{r.vendorName}}</td>
+                                    <td>{{r.assessdate | date}}</td>
+                                    <td>{{r.vendorContact}}</td>
+                                    <td>{{r.emailOrLink}}</td>
+                                    <td>{{r.riskScore}}</td>
+                                    <td>{{r.assessmentStatus}}</td>
                                     <td class="action_tools">
-                                        <a ui-sref="app.vendorrisk.stinfo.update({ id: name.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
-                                        <a ng-click="deleteAction(name)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                        <a ui-sref="app.vendorrisk.stinfo.update({ id: r.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                                        <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-4">
-                            Showing {{1}} to {{vendorAMdata.length}} of {{vendorAMdata.length}} entries
+                        <div class="col-xs-12 col-sm-5">
+                            Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
                         </div>
-                        <div class="col-xs-12 col-sm-8 pagination-right">
-                            <uib-pagination total-items="totalItems" ng-model="currentPage"
-                                            items-per-page="itemsPerPage"></uib-pagination>
+                        <div class="col-xs-12 col-sm-7 pagination-right">
+                            <uib-pagination total-items="Grid1.Total" ng-model="Grid1.CurrPage" items-per-page="Grid1.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
                         </div>
                     </div>
                 </div>

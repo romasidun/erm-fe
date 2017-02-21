@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular-toast": "^1.0.4",
     "angularjs-datepicker": "^2.1.12",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",

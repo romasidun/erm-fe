@@ -88,7 +88,8 @@
                                      ng-class="{ 'has-error' : Form.VendorRisk.vendorName.$invalid && (!Form.VendorRisk.vendorName.$pristine || Form.VendorRisk.vendorName.$touched || Form.VendorRisk.vendorName.$submitted) }">
                                     <label> Vendor Name </label>
                                     <select name="vendorName" ng-model="VM.vendorName"
-                                            ng-options="a.vendorName as a.vendorName for a in Grid1.Data" class="form-control"
+                                            ng-options="a.vendorName as a.vendorName for a in Grid1.Data"
+                                            class="form-control"
                                             required>
                                         <option value=""> Vendor Name</option>
                                     </select>
@@ -186,20 +187,21 @@
                                                 class="fa {{Grid1.GetIco('vendorName')}}"></i> Vendor Name</a></th>
                                         <th><a ng-class="{'text-azure': Grid1.Column==='primaryContact' }"
                                                ng-click="Grid1.SortMe('primaryContact')"><i
-                                                class="fa {{Grid1.GetIco('primaryContact')}}"></i> Primary Contact</a></th>
+                                                class="fa {{Grid1.GetIco('primaryContact')}}"></i> Primary Contact</a>
+                                        </th>
                                         <th><a ng-class="{'text-azure': Grid1.Column==='email' }"
                                                ng-click="Grid1.SortMe('email')"><i
                                                 class="fa {{Grid1.GetIco('email')}}"></i> Email</a></th>
                                         <th><a ng-class="{'text-azure': Grid1.Column==='address' }"
                                                ng-click="Grid1.SortMe('address')"><i
                                                 class="fa {{ Grid1.GetIco('address')}}"></i> Address</a></th>
-                                        <th><a ng-class="{'text-azure': Grid1.Column==='assessmentId' }"
+                                        <th ng-if="currPage=='update'"><a ng-class="{'text-azure': Grid1.Column==='assessmentId' }"
                                                ng-click="Grid1.SortMe('assessmentId')"><i
                                                 class="fa {{ Grid1.GetIco('assessmentId')}}"></i> assessmentId</a></th>
-                                        <th><a ng-class="{'text-azure': Grid1.Column==='status' }"
+                                        <th ng-if="currPage=='update'"><a ng-class="{'text-azure': Grid1.Column==='status' }"
                                                ng-click="Grid1.SortMe('status')"><i
                                                 class="fa {{ Grid1.GetIco('status')}}"></i> status</a></th>
-                                        <th>Action</th>
+                                        <th ng-if="currPage=='update'">Action</th>
 
                                     </tr>
                                     </thead>
@@ -211,11 +213,15 @@
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>
                                         <td>{{r.address}}</td>
-                                        <td>{{r.assessmentId}}</td>
-                                        <td>{{r.status}}</td>
-                                        <td>
-                                            <a class="btn btn-xs btn-info" ng-click="sendMailOne(r)"><i class="ti-email"></i></a>
-                                            <a class="btn btn-xs btn-orange" ng-click="viewAssessment()"><i class="ti-receipt"></i></a>
+                                        <td ng-if="currPage=='update'">{{r.assessmentId}}</td>
+                                        <td ng-if="currPage=='update'">{{r.status}}</td>
+                                        <td ng-if="currPage=='update'">
+                                            <a ng-click="sendMailOne(r)" title="Send Mail"
+                                               class="btn btn-xs btn-squared btn-dark-blue"><i class="ti-email"></i></a>
+                                            <a ng-click="viewAssessment()" title="View Assessment"
+                                               class="btn btn-xs btn-squared btn-maroon"><i class="ti-receipt"></i></a>
+                                            <a ng-click="viewAssessment()" title="Calculation"
+                                               class="btn btn-xs btn-squared btn-primary"><i class="ti-receipt"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -224,15 +230,14 @@
                         </div>
                         <hr class="hrule4"/>
                         <div class="col-xs-12 text-right">
-                            <a class="btn btn-squared btn-dark-blue" ng-click="sendMail()"><i class="fa fa-envelope"></i> Send Mail</a>
-                            <a class="btn btn-squared btn-dark-blue" ng-click="createAssessmentAction()"
-                               ng-show="showExcelButton" type="button"><i class="fa fa-newspaper-o"></i> Create
-                                Assessment </a>
-                            <!--<button class="btn btn-squared btn-dark-blue" ng-show="showExcelButton" ng-disabled="Form.VendorRisk.$invalid" type="button"><i class="fa fa-download"></i> Download Excel </button>-->
-                            <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i> Save
-                            </button>
-                            <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()" type="button"><i
-                                    class="fa fa-times"></i> Cancel
+                            <a class="btn btn-squared btn-dark-blue" ng-click="sendMail()" ng-if="currPage=='update'">
+                                <i class="fa fa-envelope"></i> Send Mail</a>
+                            <a class="btn btn-squared btn-dark-blue" ng-click="createAssessmentAction()" ng-if="currPage=='update'">
+                                <i class="fa fa-newspaper-o"></i> Create Assessment
+                            </a>
+                            <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i> Save</button>
+                            <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()" type="button">
+                                <i class="fa fa-times"></i> Cancel
                             </button>
                         </div>
                     </form>
