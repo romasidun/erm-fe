@@ -172,6 +172,7 @@
                     $scope.VM.riskCategory = $scope.VM.riskCategory + val.Label + ",";
                 }
             });
+            $scope.VM.riskCategory = $scope.VM.riskCategory.substr(0, $scope.VM.riskCategory.length-1);
 
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.identifiedDate);
