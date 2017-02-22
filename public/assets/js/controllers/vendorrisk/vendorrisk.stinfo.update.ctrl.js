@@ -79,7 +79,7 @@
         $scope.createAssessment = function(vendor){
             $state.go('app.vendorrisk.assessment',{id: $state.params.id, vendorId: vendor.id});
         };
-        $scope.viewAssessment = function(){
+        $scope.viewAssessment = function(vendor){
             var baseUrl = $location.$$absUrl.substr(0, $location.$$absUrl.length - $location.$$url.length);
             window.open(baseUrl + '/vr/' + $state.params.id + '/' + vendor.id, "_blank");
         };
