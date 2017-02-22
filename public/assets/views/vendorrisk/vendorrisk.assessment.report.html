@@ -1,0 +1,43 @@
+<section>
+    <h1 class="text-center margin-top-20">Vendor Risk Assessment</h1>
+    <hr class="border-dark"/>
+</section>
+<section>
+    <div class="text-right padding-right-30">
+        <button class="btn btn-squared btn-dark-blue">
+            <i class="fa fa-save"></i> Submit
+        </button>
+    </div>
+    <table class="table table-striped table-responsive col-xs-12">
+        <thead>
+        <tr class="sortable-headers">
+            <th class="text-center"><a ng-class="{'text-azure': Grid1.Column==='riskCategory' }"
+                   ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i>Vendor Risk Category</a></th>
+            <th class="text-center"><a ng-class="{'text-azure': Grid1.Column==='riskAssessment' }"
+                   ng-click="Grid1.SortMe('riskAssessment')"><i class="fa {{Grid1.GetIco('riskAssessment')}}"></i>Vendor Risk Assessment</a></th>
+            <th>Yes</th>
+            <th>No</th>
+            <th>Findings</th>
+            <th>Comments</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage  track by $index">
+            <td>{{r.category}}</td>
+            <td class="text-left">{{r.name}}</td>
+            <td>
+                <input type="radio" name="ra_{{$index}}">
+            </td>
+            <td class="text-center">
+                <input type="radio" name="ra_{{$index}}">
+            </td>
+            <td>
+                <input type="number" min="0" style="width: 40px;">
+            </td>
+            <td>
+                <textarea></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>

@@ -76,6 +76,7 @@ app.constant('JS_REQUIRES', {
         'VendorriskStinfoCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.ctrl.js',
         'VendorriskStinfoFormCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.form.ctrl.js',
         'VendorAssessmentCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.assess.create.ctrl.js',
+        'VendorAssessmentReportCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.assessment.report.ctrl.js',
         'VendorStinfoUpdateCtrl': 'assets/js/controllers/vendorrisk/vendorrisk.stinfo.update.ctrl.js',
         'VendScoreCardCtrl':     'assets/js/controllers/vendorrisk/vendorrisk.scorecard.ctrl.js',
 

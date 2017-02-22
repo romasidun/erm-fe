@@ -73,31 +73,6 @@
 
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group"
-                                     ng-class="{ 'has-error' : Form.VendorRisk.vendorContact.$invalid && (!Form.VendorRisk.vendorContact.$pristine || Form.VendorRisk.vendorContact.$touched || Form.VendorRisk.vendorContact.$submitted) }">
-                                    <label> Vendor Contact </label>
-                                    <select name="vendorContact" ng-model="VM.vendorContact"
-                                            ng-options="a.email as a.email for a in Grid1.Data" class="form-control"
-                                            required>
-                                        <option value=""> Vendor Contact</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group"
-                                     ng-class="{ 'has-error' : Form.VendorRisk.vendorName.$invalid && (!Form.VendorRisk.vendorName.$pristine || Form.VendorRisk.vendorName.$touched || Form.VendorRisk.vendorName.$submitted) }">
-                                    <label> Vendor Name </label>
-                                    <select name="vendorName" ng-model="VM.vendorName"
-                                            ng-options="a.vendorName as a.vendorName for a in Grid1.Data"
-                                            class="form-control"
-                                            required>
-                                        <option value=""> Vendor Name</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.approvedDate.$invalid && (!Form.VendorRisk.approvedDate.$pristine || Form.VendorRisk.approvedDate.$touched || Form.VendorRisk.approvedDate.$submitted) }">
                                     <label> Approved Date </label>
                                     <datepicker date-format="MM-dd-yyyy" date-set="{{approvedDate}}">
@@ -120,24 +95,9 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.riskScore.$invalid && (!Form.VendorRisk.riskScore.$pristine || Form.VendorRisk.riskScore.$touched || Form.VendorRisk.riskScore.$submitted) }">
-                                    <label> Overwall Risk Score </label>
+                                    <label> Overall Risk Score </label>
                                     <input type="number" name="riskScore" min="0" ng-model="VM.riskScore"
-                                           placeholder="Overwall Risk Score " class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group"
-                                     ng-class="{ 'has-error' : Form.VendorRisk.emailOrLink.$invalid && (!Form.VendorRisk.emailOrLink.$pristine || Form.VendorRisk.emailOrLink.$touched || Form.VendorRisk.emailOrLink.$submitted) }">
-                                    <label> Email/Link </label>
-                                    <select name="emailOrLink"
-                                            class="emailOrLink js-example-basic-single font-sans-serif form-control white_background_style"
-                                            ng-model="VM.emailOrLink" required>
-                                        <option value="">Select Email Or Link</option>
-                                        <option value="Email">Email</option>
-                                        <option value="Link">Link</option>
-                                    </select>
-                                    <!--<input type="text" name="emailOrLink" ng-model="VM.emailOrLink"-->
-                                    <!--placeholder="EmailOrLink" class="form-control" required>-->
+                                           placeholder="Overall Risk Score " class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
@@ -218,10 +178,10 @@
                                         <td ng-if="currPage=='update'">
                                             <a ng-click="sendMailOne(r)" title="Send Mail"
                                                class="btn btn-xs btn-squared btn-dark-blue"><i class="ti-email"></i></a>
-                                            <a ng-click="viewAssessment()" title="View Assessment"
+                                            <a ng-click="viewAssessment(r)" title="View Assessment"
                                                class="btn btn-xs btn-squared btn-maroon"><i class="ti-receipt"></i></a>
-                                            <a ng-click="viewAssessment()" title="Calculation"
-                                               class="btn btn-xs btn-squared btn-primary"><i class="ti-receipt"></i></a>
+                                            <a ng-click="calcAssessment()" title="Calculation"
+                                               class="btn btn-xs btn-squared btn-primary"><i class="ti-notepad"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>

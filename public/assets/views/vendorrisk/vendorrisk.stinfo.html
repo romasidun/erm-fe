@@ -97,13 +97,8 @@
                                     <th><a ng-class="{'text-azure': Grid1.Column==='vendorRiskType' }"
                                            ng-click="Grid1.SortMe('vendorRiskType')"><i class="fa {{Grid1.GetIco('vendorRiskType')}}"></i>Vendor Risk Type</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='docType' }"
-                                           ng-click="Grid1.SortMe('docType')"><i class="fa {{Grid1.GetIco('docType')}}"></i>Doc type</a></th>
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='vendorName' }"
-                                           ng-click="Grid1.SortMe('vendorName')"><i class="fa {{Grid1.GetIco('vendorName')}}"></i>Vendor Name</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='assessdate' }"
                                            ng-click="Grid1.SortMe('assessdate')"><i class="fa {{Grid1.GetIco('assessdate')}}"></i>Assessments date</a></th>
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='vendorContact' }"
-                                           ng-click="Grid1.SortMe('vendorContact')"><i class="fa {{Grid1.GetIco('vendorContact')}}"></i>Vendor Contact</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='emailOrLink' }"
                                            ng-click="Grid1.SortMe('emailOrLink')"><i class="fa {{Grid1.GetIco('emailOrLink')}}"></i>Email/Link</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='riskScore' }"
@@ -121,10 +116,7 @@
                                     <td>{{r.period}}</td>
                                     <td>{{r.approval}}</td>
                                     <td>{{r.vendorRiskType}}</td>
-                                    <td>{{r.docType}}</td>
-                                    <td>{{r.vendorName}}</td>
                                     <td>{{r.assessdate | date}}</td>
-                                    <td>{{r.vendorContact}}</td>
                                     <td>{{r.emailOrLink}}</td>
                                     <td>{{r.riskScore}}</td>
                                     <td>{{r.assessmentStatus}}</td>

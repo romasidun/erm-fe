@@ -205,7 +205,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controllerAs: 'vrStinfoupdate',
         resolve: loadSequence('VendorStinfoUpdateCtrl')
     }).state('app.vendorrisk.assessment', {
-        url: '/assess.create/:id/:page',
+        url: '/assess.create/:id',
         templateUrl: 'assets/views/vendorrisk/vendorrisk.assess.create.html',
         title: 'Vendor Risk Assessment ',
         icon: 'ti-layout-media-left-alt',
@@ -652,22 +652,15 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
 	})
 
     /* Vendor Link Routes */
-    .state('vendor', {
-        url: '/vendor',
+    .state('vr', {
+        url: '/vr',
         template: '<div ui-view class="fade-in-right-big smooth"></div>',
         abstract: true
-    }).state('vendor.signin', {
-        url: '',
-        templateUrl: "assets/views/vendor/login.html",
-        controller: 'VendorLoginCtrl',
-        resolve: loadSequence('VendorLoginCtrl')
-    }).state('vendor.assessment', {
-        url: '/:id',
-        templateUrl: "assets/views/vendor/assessment.html",
-        title: 'Vendor Risk Assessment',
-        icon: 'ti-layout-media-left-alt',
-        controller: 'VendorAssessCtrl',
-        resolve: loadSequence('VendorAssessCtrl')
+    }).state('vr.assessreport', {
+        url: '/:assessmentId/:vendorId',
+        templateUrl: 'assets/views/vendorrisk/vendorrisk.assessment.report.html',
+        controller: 'VendorAssessmentReportCtrl',
+        resolve: loadSequence('VendorAssessmentReportCtrl')
     });
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
