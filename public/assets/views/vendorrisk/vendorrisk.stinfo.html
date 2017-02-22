@@ -92,19 +92,22 @@
                                            ng-click="Grid1.SortMe('title')"><i class="fa {{Grid1.GetIco('title')}}"></i>Title</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='period' }" ng-click="Grid1.SortMe('period')"><i
                                             class="fa {{Grid1.GetIco('period')}}"></i>Period</a></th>
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='approval' }"
-                                               ng-click="Grid1.SortMe('approval')"><i class="fa {{Grid1.GetIco('approval')}}"></i>Approval Status</a></th>
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='vendorRiskType' }"
-                                           ng-click="Grid1.SortMe('vendorRiskType')"><i class="fa {{Grid1.GetIco('vendorRiskType')}}"></i>Vendor Risk Type</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='approver' }"
+                                               ng-click="Grid1.SortMe('approver')"><i class="fa {{Grid1.GetIco('approver')}}"></i>Approver</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='assessmentsDate' }"
+                                           ng-click="Grid1.SortMe('assessmentsDate')"><i class="fa {{Grid1.GetIco('assessmentsDate')}}"></i>AssessmentDate</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='approvedDate' }"
+                                           ng-click="Grid1.SortMe('approvedDate')"><i class="fa {{Grid1.GetIco('approvedDate')}}"></i>Approved Date</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='docType' }"
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='assessdate' }"
-                                           ng-click="Grid1.SortMe('assessdate')"><i class="fa {{Grid1.GetIco('assessdate')}}"></i>Assessments date</a></th>
+                                           ng-click="Grid1.SortMe('docType')"><i class="fa {{Grid1.GetIco('docType')}}"></i>DocType</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='vendorRiskType' }"
+                                           ng-click="Grid1.SortMe('vendorRiskType')"><i class="fa {{Grid1.GetIco('vendorRiskType')}}"></i>RiskType</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='emailOrLink' }"
-                                           ng-click="Grid1.SortMe('emailOrLink')"><i class="fa {{Grid1.GetIco('emailOrLink')}}"></i>Email/Link</a></th>
+                                           ng-click="Grid1.SortMe('emailOrLink')"><i class="fa {{Grid1.GetIco('emailOrLink')}}"></i>Email</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='riskScore' }"
                                            ng-click="Grid1.SortMe('riskScore')"><i class="fa {{Grid1.GetIco('riskScore')}}"></i>Risk Score</a></th>
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='assessmentStatus' }"
-                                           ng-click="Grid1.SortMe('assessmentStatus')"><i class="fa {{Grid1.GetIco('assessmentStatus')}}"></i>Status</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.Column==='status' }"
+                                           ng-click="Grid1.SortMe('status')"><i class="fa {{Grid1.GetIco('status')}}"></i>Status</a></th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -114,12 +117,14 @@
                                     <td>{{r.id}}</td>
                                     <td>{{r.title}}</td>
                                     <td>{{r.period}}</td>
-                                    <td>{{r.approval}}</td>
+                                    <td>{{r.approver}}</td>
+                                    <td>{{r.assessmentsDate | date}}</td>
+                                    <td>{{r.approvedDate | date}}</td>
+                                    <td>{{r.docType}}</td>
                                     <td>{{r.vendorRiskType}}</td>
-                                    <td>{{r.assessdate | date}}</td>
                                     <td>{{r.emailOrLink}}</td>
                                     <td>{{r.riskScore}}</td>
-                                    <td>{{r.assessmentStatus}}</td>
+                                    <td>{{r.status.status}}</td>
                                     <td class="action_tools">
                                         <a ui-sref="app.vendorrisk.stinfo.update({ id: r.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
                                         <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>

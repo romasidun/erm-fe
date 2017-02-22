@@ -62,6 +62,9 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     this.GetVendor = function () {
         return APIHandler.Get('vendor');
     };
+    this.GetVendorById = function (id) {
+        return APIHandler.Get('vendor/' + id);
+    };
 
     this.GerUserList = function () {
         return APIHandler.Get('users');

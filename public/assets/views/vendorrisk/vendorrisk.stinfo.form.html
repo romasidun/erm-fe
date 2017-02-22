@@ -141,7 +141,9 @@
                                 <table class="table table-striped table-responsive col-xs-12">
                                     <thead>
                                     <tr class="sortable-headers">
-                                        <th><input type="checkbox"></th>
+                                        <!--<th><input type="checkbox"></th>-->
+                                        <th>ID</th>
+                                        <th>Title</th>
                                         <th><a ng-class="{'text-azure': Grid1.Column==='vendorName' }"
                                                ng-click="Grid1.SortMe('vendorName')"><i
                                                 class="fa {{Grid1.GetIco('vendorName')}}"></i> Vendor Name</a></th>
@@ -155,12 +157,8 @@
                                         <th><a ng-class="{'text-azure': Grid1.Column==='address' }"
                                                ng-click="Grid1.SortMe('address')"><i
                                                 class="fa {{ Grid1.GetIco('address')}}"></i> Address</a></th>
-                                        <th ng-if="currPage=='update'"><a ng-class="{'text-azure': Grid1.Column==='assessmentId' }"
-                                               ng-click="Grid1.SortMe('assessmentId')"><i
-                                                class="fa {{ Grid1.GetIco('assessmentId')}}"></i> assessmentId</a></th>
-                                        <th ng-if="currPage=='update'"><a ng-class="{'text-azure': Grid1.Column==='status' }"
-                                               ng-click="Grid1.SortMe('status')"><i
-                                                class="fa {{ Grid1.GetIco('status')}}"></i> status</a></th>
+                                        <th>Status Msg</th>
+                                        <th>AssessmentId</th>
                                         <th ng-if="currPage=='update'">Action</th>
 
                                     </tr>
@@ -168,19 +166,21 @@
                                     <tbody>
 
                                     <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc">
-                                        <th><input type="checkbox" ng-click="r.checked=!r.checked"></th>
+                                        <!--<th><input type="checkbox" ng-click="r.checked=!r.checked"></th>-->
+                                        <td>{{VM.id}}</td>
+                                        <td>{{VM.title}}</td>
                                         <td>{{r.vendorName}}</td>
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>
                                         <td>{{r.address}}</td>
-                                        <td ng-if="currPage=='update'">{{r.assessmentId}}</td>
-                                        <td ng-if="currPage=='update'">{{r.status}}</td>
+                                        <td></td>
+                                        <td></td>
                                         <td ng-if="currPage=='update'">
                                             <a ng-click="sendMailOne(r)" title="Send Mail"
                                                class="btn btn-xs btn-squared btn-dark-blue"><i class="ti-email"></i></a>
-                                            <a ng-click="viewAssessment(r)" title="View Assessment"
+                                            <a ng-click="createAssessment(r)" title="Create Assessment"
                                                class="btn btn-xs btn-squared btn-maroon"><i class="ti-receipt"></i></a>
-                                            <a ng-click="calcAssessment()" title="Calculation"
+                                            <a ng-click="viewAssessment(r)" title="View Assessment"
                                                class="btn btn-xs btn-squared btn-primary"><i class="ti-notepad"></i></a>
                                         </td>
                                     </tr>
@@ -190,11 +190,11 @@
                         </div>
                         <hr class="hrule4"/>
                         <div class="col-xs-12 text-right">
-                            <a class="btn btn-squared btn-dark-blue" ng-click="sendMail()" ng-if="currPage=='update'">
+                            <!--<a class="btn btn-squared btn-dark-blue" ng-click="sendMail()" ng-if="currPage=='update'">
                                 <i class="fa fa-envelope"></i> Send Mail</a>
                             <a class="btn btn-squared btn-dark-blue" ng-click="createAssessmentAction()" ng-if="currPage=='update'">
                                 <i class="fa fa-newspaper-o"></i> Create Assessment
-                            </a>
+                            </a>-->
                             <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i> Save</button>
                             <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()" type="button">
                                 <i class="fa fa-times"></i> Cancel
