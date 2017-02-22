@@ -18,6 +18,9 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     this.AddRim = function(data){
         return APIHandler.Post('vendorassessmentlist', data);
     };
+    this.PutAseessmentList = function(id, data){
+        return APIHandler.Put('vendorassessmentlist/'+id, data);
+    };
 
     this.PostVendorData = function(data){
         return APIHandler.Post('vendorriskcollectiondata', data);
@@ -76,6 +79,10 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     this.SendMail = function (params) {
         return APIHandler.Post('vendorriskassessment/sendEmail', params);
     };
+
+    this.isAssessmentComplete = function (asId, vrName) {
+        return APIHandler.Get('vendorriskcollectiondata/isAssessmentComplete/'+vrName+'/'+asId);
+    }
 
     this.SetAssessmentData = function(set_data) {
         $localStorage.Vendor_data_selected = set_data.Vendor_data_selected;

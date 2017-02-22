@@ -173,7 +173,7 @@
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>
                                         <td>{{r.address}}</td>
-                                        <td></td>
+                                        <td>{{$scope.VM.assessmentStatus}}</td>
                                         <td></td>
                                         <td ng-if="currPage=='update'">
                                             <a ng-click="sendMailOne(r)" title="Send Mail"

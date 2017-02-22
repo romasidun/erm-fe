@@ -74,6 +74,13 @@
             };
             VendorService.SendMail(params).then(function (res) {
                 alert("The Email was sent correctly");
+
+                var params = {
+                    assessmentStatus: "Email sent successfully"
+                }
+                return VendorService.PutAseessmentList($state.params.id, params);
+            }).then(function (re) {
+
             });
         };
         $scope.createAssessment = function(vendor){
@@ -90,6 +97,31 @@
             return VendorService.GetVendor();
         }).then(function (vendor) {
             $scope.Grid1.Data = vendor;
+            angular.forEach($scope.Grid1.Data, function (obj, ind) {
+                VendorService.isAssessmentComplete($state.params.id, obj.vendorName).then(function (res) {
+                    if(!res){
+                        $scope.VM.assessmentStatus = "Waiting for Response";
+                        var params = {
+                            assessmentStatus: "Waiting for Response"
+                        }
+                        VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
+                            $rootScope.app.Mask = false;
+                        }).catch(function () {
+                            
+                        });
+                    } else {
+                        $scope.VM.assessmentStatus = "Assessment Completed";
+                        var params = {
+                            assessmentStatus: "Assessment Completed"
+                        }
+                        VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
+                            $rootScope.app.Mask = false;
+                        }).catch(function () {
+                            
+                        });
+                    }
+                })
+            });
             return VendorService.GetRimById($state.params.id);
         }).then(function (data) {
             data.approvedDate = new Date(data.approvedDate);
@@ -98,8 +130,6 @@
             $scope.VM = data;
             $rootScope.app.Mask = false;
         });
-
-
     }
 
 })();
