@@ -93,9 +93,9 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         }
     };
 
-
-
-
+    this.DownloadExcel = function (params) {
+        return APIHandler.Excel('/createExcel', params);
+    };
 }]);
 
 /**
