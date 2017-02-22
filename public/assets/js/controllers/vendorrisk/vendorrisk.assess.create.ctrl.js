@@ -1,54 +1,109 @@
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope','$scope', '$state', 'VendorService', 'Utils', 'ExcelFactory', '$timeout', '$filter'];
+    VendorAssessmentController.$inject = ['$rootScope', '$scope', '$state', 'VendorService', 'Utils', 'ExcelFactory', '$timeout'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils, ExcelFactory, $timeout, $filter) {
+    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils, ExcelFactory, $timeout) {
         $scope.mainTitle = $state.current.title;
-        var asId = $state.params.id;
-        var vrId = $state.params.vendorId;
-        $rootScope.app.Mask = true;
+        var asId = $state.params.asId;
+        var vrId = $state.params.vrId;
 
-        $scope.Grid1 = {
-            PerPage: 10,
-            CurrPage: 1,
-            Column: 'title',
-            IsAsc: true,
-            Filter: "",
-            Total: 0,
-            Data: [],
-            SortMe: function (col) {
-                if ($scope.Grid1.Column === col)
-                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
-                else
-                    $scope.Grid1.Column = col;
-            },
-            GetIco: function (col) {
-                if ($scope.Grid1.Column === col) {
-                    return $scope.Grid1.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
-                } else {
-                    return 'fa-unsorted';
-                }
+        VendorService.GetRimById(asId).then(function (data) {
+            $rootScope.app.Mask = true;
+            $scope.VM = data;
+            data.approvedDate = new Date(data.approvedDate);
+            $scope.VM.approvedDate = Utils.GetDPDate(data.approvedDate);
+            $scope.VM.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
+
+            return VendorService.GetVendorById(vrId);
+
+        }).then(function (data) {
+            $scope.vendor = data;
+            return VendorService.GetVendorAssessment($scope.VM.vendorRiskType);
+        }).then(function (data) {
+            $scope.vrStinfoCT = data;
+            $rootScope.app.Mask = false;
+        });
+
+        $scope.vendorResponseVal = function (para, ele, event) {
+            if ($(event.target).prop('checked') == true) {
+                $(event.target).prop('checked', true);
+                $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
             }
         };
 
-        $scope.goBack = function () {
-            $state.go('app.vendorrisk.stinfo.update',{id: asId});
+        $scope.downloadExcel = function () {
+            var head_row = $('table.VendorAssessment thead tr');
+            var body_row = $('table.VendorAssessment tbody tr');
+            var head_row_col = head_row.children('th');
+            var tableHtml = '<table>';
+            tableHtml += '<tr>';
+            head_row_col.slice(0, head_row_col.length - 4).each(function (i) {
+                tableHtml += '<td>' + $(this).text() + '</td>';
+            });
+            tableHtml += '</tr>';
+
+            body_row.each(function (i) {
+                tableHtml += '<tr>';
+                var tdObj = $(this).closest('tr').find('td');
+                tdObj.each(function (j) {
+                    if (j > tdObj.length - 2) {
+                        return;
+                    }
+                    tableHtml += '<td>' + $(this).text() + '</td>';
+                });
+                tableHtml += '</tr>';
+            });
+            tableHtml += '</table>';
+            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
+            $timeout(function () {
+                location.href = exportHref;
+            }, 100);
         };
 
-        $scope.Vendor = {};
-        var d = new Date();
-        $scope.assessmentId = d.getTime();
-        VendorService.GetRimById(asId).then(function(data){
-            $scope.VM = data;
-            return VendorService.GetVendorById(vrId);
-        }).then(function (data) {
-            $scope.Vendor = data;
-            return VendorService.GetVendorAssessment($scope.VM.vendorRiskType);
-        }).then(function (data) {
-            $scope.Grid1.Data = data;
-            console.log(data);
-            $rootScope.app.Mask = false;
-        });
+        $scope.saveVendorData = function () {
+            var date = new Date();
+            var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+            var current_user = $('.dropdown.current-user .username').text();
+            for (var i in $scope.vrStinfoCT) {
+                var vendor_response = "NA";
+                if ($scope.vrStinfoCT[i].responseN == false && $scope.vrStinfoCT[i].responseY == false) {
+                    vendor_response = "NA";
+                }
+                if ($scope.vrStinfoCT[i].responseN == true) {
+                    $scope.vrStinfoCT[i].responseY = false;
+                    vendor_response = "N";
+                }
+                if ($scope.vrStinfoCT[i].responseY == true) {
+                    $scope.vrStinfoCT[i].responseN = false;
+                    vendor_response = "Y";
+                }
+                var vendor_comment = angular.isDefined($scope.vrStinfoCT[i].comments) ? $scope.vrStinfoCT[i].comments : "";
+                var vendor_Findings = angular.isDefined($scope.vrStinfoCT[i].findings) ? $scope.vrStinfoCT[i].findings : 0;
+                var vendor_Category = angular.isDefined($scope.vrStinfoCT[i].category) ? $scope.vrStinfoCT[i].category : "";
+                var post_data = {
+                    comments: vendor_comment + "",
+                    control_Category: vendor_Category + "",
+                    docType: $scope.VM.docType + "",
+                    finding: vendor_Findings,
+                    response: vendor_response + "",
+                    riskScore: $scope.VM.riskScore * 1,
+                    riskType: $scope.VM.vendorRiskType + "",
+                    vendor: {
+                        id: $scope.vendor.id + "",
+                        primaryContact: $scope.vendor.primaryContact + "",
+                        vendorName: $scope.vendor.vendorName + ""
+                    }
+                };
+
+                VendorService.PostVendorData(post_data).then(function () {
+                    $rootScope.app.Mask = false;
+                })
+            }
+        }
+
+        $scope.goBack = function () {
+            $state.go('app.vendorrisk.stinfo.update', {id: asId});
+        }
     }
 
 })();
