@@ -141,7 +141,7 @@
                                 <table class="table table-striped table-responsive col-xs-12">
                                     <thead>
                                     <tr class="sortable-headers">
-                                        <!--<th><input type="checkbox"></th>-->
+                                        <th><input type="checkbox"></th>
                                         <th>ID</th>
                                         <th>Title</th>
                                         <th><a ng-class="{'text-azure': Grid1.Column==='vendorName' }"
@@ -166,7 +166,7 @@
                                     <tbody>
 
                                     <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc">
-                                        <!--<th><input type="checkbox" ng-click="r.checked=!r.checked"></th>-->
+                                        <th><input type="checkbox" ng-click="r.checked=!r.checked"></th>
                                         <td>{{VM.id}}</td>
                                         <td>{{VM.title}}</td>
                                         <td>{{r.vendorName}}</td>
