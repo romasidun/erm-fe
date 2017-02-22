@@ -61,26 +61,52 @@
         };
 
         $scope.saveVendorData = function () {
-            var date = new Date();
+/*            var date = new Date();
             var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-            var current_user = $('.dropdown.current-user .username').text();
-            for (var i in $scope.vrStinfoCT) {
+            var current_user = $('.dropdown.current-user .username').text();*/
+            angular.forEach($scope.vrStinfoCT, function (obj, ind) {
+                var asData = $scope.VM;
                 var vendor_response = "NA";
-                if ($scope.vrStinfoCT[i].responseN == false && $scope.vrStinfoCT[i].responseY == false) {
+                if (obj.responseN == false && obj.responseY == false) {
                     vendor_response = "NA";
                 }
-                if ($scope.vrStinfoCT[i].responseN == true) {
-                    $scope.vrStinfoCT[i].responseY = false;
+                if (obj.responseN == true) {
+                    obj.responseY = false;
                     vendor_response = "N";
                 }
-                if ($scope.vrStinfoCT[i].responseY == true) {
-                    $scope.vrStinfoCT[i].responseN = false;
+                if (obj.responseY == true) {
+                    obj.responseN = false;
                     vendor_response = "Y";
                 }
-                var vendor_comment = angular.isDefined($scope.vrStinfoCT[i].comments) ? $scope.vrStinfoCT[i].comments : "";
-                var vendor_Findings = angular.isDefined($scope.vrStinfoCT[i].findings) ? $scope.vrStinfoCT[i].findings : 0;
-                var vendor_Category = angular.isDefined($scope.vrStinfoCT[i].category) ? $scope.vrStinfoCT[i].category : "";
-                var post_data = {
+                var vendor_comment = angular.isDefined(obj.comments) ? obj.comments : "";
+                var vendor_Findings = angular.isDefined(obj.findings) ? obj.findings : 0;
+                var vendor_Category = angular.isDefined(obj.category) ? obj.category : "";
+                var sendData = {
+                    assessmentDate: asData.assessmentDate,
+                    assessmentDtStr: asData.assessmentDtStr,
+                    assessmentId: asId,
+                    comments: vendor_comment,
+                    control_Ref_ID: '',
+                    control_Category: vendor_Category,
+                    control_Name: asData.actualName,
+                    control_Source: asData.vendorRiskType,
+                    docType: asData.docType,
+                    finding: vendor_Findings,
+                    response: vendor_response,
+                    riskScore: asData.riskScore,
+                    riskType: asData.vendorRiskType,
+                    riskWeight: 0,
+                    status: asData.status,
+                    title: asData.title,
+                    vendor: $scope.vendor
+                };
+                VendorService.PostVendorData(sendData).then(function () {
+                    $rootScope.app.Mask = false;
+                })
+            });
+
+            /*for (var i in $scope.vrStinfoCT) {
+                /!*var post_data = {
                     comments: vendor_comment + "",
                     control_Category: vendor_Category + "",
                     docType: $scope.VM.docType + "",
@@ -93,12 +119,8 @@
                         primaryContact: $scope.vendor.primaryContact + "",
                         vendorName: $scope.vendor.vendorName + ""
                     }
-                };
-
-                VendorService.PostVendorData(post_data).then(function () {
-                    $rootScope.app.Mask = false;
-                })
-            }
+                };*!/
+            }*/
         }
 
         $scope.goBack = function () {
