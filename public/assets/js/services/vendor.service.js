@@ -20,7 +20,7 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     };
 
     this.PostVendorData = function(data){
-        return APIHandler.Post('vendorriskassessment', data);
+        return APIHandler.Post('vendorriskcollectiondata', data);
     };
 
     this.GetRimStatus = function(){
