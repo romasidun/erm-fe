@@ -68,7 +68,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <table class="Audit_Main_Table table table-striped table-bordered table-hover nested_table">
+                        <table class="Audit_Main_Table table table-striped table-bordered table-hover nested_table" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th  valign="middle"  align="left"><input type="checkbox"></th>
@@ -83,35 +83,6 @@
                                 </tr>
                             </thead>
                             <tbody></tbody>
-                            <!--<thead>-->
-                                <!--<tr class="sortable-headers">-->
-                                    <!--<th><input type="checkbox"></th>-->
-                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='auditName' }" ng-click="VM.SortMe('auditName')"><i class="fa {{VM.GetIco('auditName')}}"></i> Audit Name</a></th>-->
-                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='region' }" ng-click="VM.SortMe('region')"><i class="fa {{VM.GetIco('region')}}"></i> Region</a></th>-->
-                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='department' }" ng-click="VM.SortMe('department')"><i class="fa {{VM.GetIco('department')}}"></i> Department</a></th>-->
-                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='dateOccurance' }" ng-click="VM.SortMe('dateOccurance')"><i class="fa {{VM.GetIco('dateOccurance')}}"></i> Occur Date</a></th>-->
-                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='resUserName' }" ng-click="VM.SortMe('resUserName')"><i class="fa {{VM.GetIco('resUserName')}}"></i> Responsible</a></th>-->
-                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='priority' }" ng-click="VM.SortMe('priority')"><i class="fa {{VM.GetIco('priority')}}"></i> Priority</a></th>-->
-                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='auditStatus' }" ng-click="VM.SortMe('auditStatus')"><i class="fa {{VM.GetIco('auditStatus')}}"></i> Status</a></th>-->
-                                    <!--<th>Action</th>-->
-                                <!--</tr>-->
-                            <!--</thead>-->
-                            <!--<tbody>-->
-                                <!--<tr ng-repeat="r in VM.Data | orderBy: VM.Column:VM.IsAsc | filter: VM.Filter |  limitTo : VM.PerPage : (VM.CurrPage -1) * VM.PerPage">-->
-                                    <!--<td class="expand" ng-click="TopicToggle($event.target, r.id)" >X</td>-->
-                                    <!--<td>{{r.auditName}}</td>-->
-                                    <!--<td>{{r.region}}</td>-->
-                                    <!--<td>{{r.department}}</td>-->
-                                    <!--<td>{{r.dateOccurance | date}}</td>-->
-                                    <!--<td>{{r.resUserName}}</td>-->
-                                    <!--<td>{{r.priority}}</td>-->
-                                    <!--<td>{{r.auditStatus}}</td>-->
-                                    <!--<td>-->
-                                        <!--<a ui-sref="app.itrisk.assessment.update({ id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>-->
-                                        <!--<a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                            <!--</tbody>-->
                         </table>
                     </div>
                 </div>

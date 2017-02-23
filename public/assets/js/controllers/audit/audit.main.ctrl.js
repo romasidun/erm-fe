@@ -23,7 +23,6 @@
             });
         });
 
-
         $('table.Audit_Main_Table tbody').on('click', 'td.details-control', function () {
             var tr = $(this).closest('tr');
             var row = $scope.table.row( tr );
@@ -76,11 +75,14 @@
                 AuditService.GetAudits()
                     .then(function (datas){
                         $scope.ObjectData = datas;
+                        var dtype = 'MM-DD-YYYY';
                         $scope.ObjectData.forEach(function (r) {
-                            r.dueDate = new Date(r.dateOccurance);
-                        });
-                        Object.keys($scope.ObjectData).forEach(function(k){
-                            $scope.ObjectData[k].action = '<div class="table_actions" id=' + $scope.ObjectData[k].id + ' ><a class="btn editButton btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a><a class="btn btn-xs btn-squared btn-red deleteButton"><i class="ti-trash"></i></a></div>';
+                            r.action = '<div class="table_actions" id=' + r.id + ' ><a class="btn editButton btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a><a class="btn btn-xs btn-squared btn-red deleteButton"><i class="ti-trash"></i></a></div>';
+                            var d1 = moment(r.dateOccurance);
+                            r.dateOccurance = (d1.isValid()) ? d1.format(dtype) : '';
+                            r.dateOccurance = Utils.createDate(r.dateOccurance) + "";
+                            var split = r.dateOccurance.split(' ');
+                            r.dateOccurance = split[1] + " " + split[2] + " " + split[3];
                         });
 
                         $scope.table = $('.Audit_Main_Table').DataTable( {
@@ -103,21 +105,20 @@
                             ],
                             "aaSorting" : []
                         } );
-
                         $rootScope.app.Mask = false;
                     });
             };
 
         function TopicTable ( d ) {
             // `d` is the original data object for the row
-            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="table-striped table-bordered table-hover nested_table">'+
+            return '<table style="width: 100%;" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="table-striped table-bordered table-hover nested_table">' +
                         '<thead>' +
-                            '<tr>'+
-                                '<td> Topic Names </td>'+
-                                '<td> Occur Date </td>'+
-                                '<td> Responsilbe </td>'+
+                            '<tr>' +
+                                '<td> Topic Names </td>' +
+                                '<td> Occur Date </td>' +
+                                '<td> Responsilbe </td>' +
                                 '<td> Status </td>'+
-                            '</tr>'+
+                            '</tr>' +
                         '</thead>' +
                         '<tbody>' +
                         '</tbody>' +
