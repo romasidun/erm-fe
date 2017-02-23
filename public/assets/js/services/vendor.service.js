@@ -82,6 +82,10 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
 
     this.isAssessmentComplete = function (asId, vrName) {
         return APIHandler.Get('vendorriskcollectiondata/isAssessmentComplete/'+vrName+'/'+asId);
+    };
+
+    this.calcMetrics = function (asId, vrName) {
+        return APIHandler.Get('vendorriskcollectiondata/computeRiskDataMetrics/'+vrName+'/'+asId);
     }
 
     this.SetAssessmentData = function(set_data) {

@@ -58,7 +58,7 @@
             var to = vendor.email;
 
             if(to == '' || to == null) return;
-            var message = '<p>Dear Ms. '+vendor.primaryContact+',</p><br/>' +
+            var message = '<p>Dear '+vendor.primaryContact+',</p><br/>' +
                 '<p style=\"text-indent: 40px\">' +
                 'You are receiving this email, because you are the vendor contact for ' + vendor.vendorName + ' in our system. <br/>' +
                 'Please enter the responses Y or N for the questions and enter if you have any findings or comments: <br/><br/>' +
@@ -91,6 +91,9 @@
             /*var baseUrl = $location.$$absUrl.substr(0, $location.$$absUrl.length - $location.$$url.length);
             window.open(baseUrl + '/vr/' + $state.params.id + '/' + vendor.id, "_blank");*/
         };
+        $scope.calcAssessment = function(vendor){
+            calcMetrics(vendor);
+        };
 
         VendorService.GetRiskType().then(function (risktype) {
             $scope.riskTypeList = risktype;
@@ -98,29 +101,7 @@
         }).then(function (vendor) {
             $scope.Grid1.Data = vendor;
             angular.forEach($scope.Grid1.Data, function (obj, ind) {
-                VendorService.isAssessmentComplete($state.params.id, obj.vendorName).then(function (res) {
-                    if(!res){
-                        $scope.VM.assessmentStatus = "Waiting for Response";
-                        var params = {
-                            assessmentStatus: "Waiting for Response"
-                        }
-                        VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
-                            $rootScope.app.Mask = false;
-                        }).catch(function () {
-                            
-                        });
-                    } else {
-                        $scope.VM.assessmentStatus = "Assessment Completed";
-                        var params = {
-                            assessmentStatus: "Assessment Completed"
-                        }
-                        VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
-                            $rootScope.app.Mask = false;
-                        }).catch(function () {
-                            
-                        });
-                    }
-                })
+                setStatus(obj);
             });
             return VendorService.GetRimById($state.params.id);
         }).then(function (data) {
@@ -130,6 +111,38 @@
             $scope.VM = data;
             $rootScope.app.Mask = false;
         });
+
+        function setStatus(obj){
+            VendorService.isAssessmentComplete($state.params.id, obj.vendorName).then(function (res) {
+                if(!res){
+                    $scope.VM.assessmentStatus = "Waiting for Response";
+                    var params = {
+                        assessmentStatus: "Waiting for Response"
+                    }
+                    VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
+                        $rootScope.app.Mask = false;
+                    }).catch(function () {
+
+                    });
+                } else {
+                    $scope.VM.assessmentStatus = "Assessment Completed";
+                    var params = {
+                        assessmentStatus: "Assessment Completed"
+                    }
+                    VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
+                        $rootScope.app.Mask = false;
+                    }).catch(function () {
+
+                    });
+                }
+            });
+        }
+
+        function calcMetrics(obj){
+            VendorService.calcMetrics($state.params.id, obj.vendorName).then(function (res) {
+
+            });
+        }
     }
 
 })();

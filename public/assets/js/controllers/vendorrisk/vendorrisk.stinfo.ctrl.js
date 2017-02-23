@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    VendorriskStinfoController.$inject = ['$scope','$rootScope', '$state', 'ExcelFactory', 'VendorService', '$timeout', 'Utils', 'ChartFactory', '$filter'];
+    VendorriskStinfoController.$inject = ['$scope', '$rootScope', '$state', 'ExcelFactory', 'VendorService', '$timeout', 'Utils', 'ChartFactory', '$filter'];
     app.controller('VendorriskStinfoCtrl', VendorriskStinfoController);
-    function VendorriskStinfoController($scope,$rootScope, $state, ExcelFactory, VendorService, $timeout, Utils, ChartFactory, $filter) {
+    function VendorriskStinfoController($scope, $rootScope, $state, ExcelFactory, VendorService, $timeout, Utils, ChartFactory, $filter) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = 'Risk Assessment';
 
@@ -40,10 +40,10 @@
                 return VendorService.GetRimPeriod();
             })
             .then(function (data) {
-                ChartFactory.CreateLabelChart('Vendor By Period','Vendor By Period', '', '', '', data, 'periodChart')
+                ChartFactory.CreateLabelChart('Vendor By Period', 'Vendor By Period', '', '', '', data, 'periodChart')
                 return VendorService.GetRimDocType();
             })
-            .then(function (data){
+            .then(function (data) {
                 var dataList = [];
                 Object.keys(data).forEach(function (k) {
                     dataList.push([k, data[k]]);
@@ -53,10 +53,10 @@
                 return VendorService.GetRimVendor();
             })
             .then(function (data) {
-                ChartFactory.CreateLabelChart('VendorRisk by VendorName', 'VendorRisk by VendorName', '', '', '',  data, 'vendorChart');
+                ChartFactory.CreateLabelChart('VendorRisk by VendorName', 'VendorRisk by VendorName', '', '', '', data, 'vendorChart');
                 return VendorService.GetRimRiskType();
             })
-            .then(function (data){
+            .then(function (data) {
                 // ChartFactory.CreateLabelChart('VendorRisk by RiskType', 'VendorRisk by RiskType', '', '', '',  data, 'riskTypeChart');
                 var dataList = [];
                 Object.keys(data).forEach(function (k) {
@@ -67,8 +67,8 @@
                 Highcharts.chart('riskTypeChart', chartObj);
                 return VendorService.GetRimRiskScore();
             })
-            .then(function(data){
-                ChartFactory.CreateLabelChart('VendorRisk by RiskScore', 'VendorRisk by RiskScore', '', '', '',  data, 'riskScoreChart');
+            .then(function (data) {
+                ChartFactory.CreateLabelChart('VendorRisk by RiskScore', 'VendorRisk by RiskScore', '', '', '', data, 'riskScoreChart');
                 $scope.$watch('PerPage', function (n, o) {
                     loadData();
                 });
