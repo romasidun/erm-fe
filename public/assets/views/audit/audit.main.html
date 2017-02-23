@@ -68,58 +68,51 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
-                            <select id="perpage" ng-model="VM.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
-                        </div>
-                        <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
-                            <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
-								<span class="input-icon">
-									<input type="text" ng-model="CurrFilt" placeholder="search" class="form-control input-sm" />
-									<i class="fa fa-search"></i>
-								</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <table class="Audit_Main_Table table dataTable table-striped table-responsive col-xs-12">
+                        <table class="Audit_Main_Table table table-striped table-bordered table-hover nested_table">
                             <thead>
-                                <tr class="sortable-headers">
-                                    <th><input type="checkbox"></th>
-                                    <th><a ng-class="{'text-azure': VM.CurrCol==='auditName' }" ng-click="VM.SortMe('auditName')"><i class="fa {{VM.GetIco('auditName')}}"></i> Audit Name</a></th>
-                                    <th><a ng-class="{'text-azure': VM.CurrCol==='region' }" ng-click="VM.SortMe('region')"><i class="fa {{VM.GetIco('region')}}"></i> Region</a></th>
-                                    <th><a ng-class="{'text-azure': VM.CurrCol==='department' }" ng-click="VM.SortMe('department')"><i class="fa {{VM.GetIco('department')}}"></i> Department</a></th>
-                                    <th><a ng-class="{'text-azure': VM.CurrCol==='dateOccurance' }" ng-click="VM.SortMe('dateOccurance')"><i class="fa {{VM.GetIco('dateOccurance')}}"></i> Occur Date</a></th>
-                                    <th><a ng-class="{'text-azure': VM.CurrCol==='resUserName' }" ng-click="VM.SortMe('resUserName')"><i class="fa {{VM.GetIco('resUserName')}}"></i> Responsible</a></th>
-                                    <th><a ng-class="{'text-azure': VM.CurrCol==='priority' }" ng-click="VM.SortMe('priority')"><i class="fa {{VM.GetIco('priority')}}"></i> Priority</a></th>
-                                    <th><a ng-class="{'text-azure': VM.CurrCol==='auditStatus' }" ng-click="VM.SortMe('auditStatus')"><i class="fa {{VM.GetIco('auditStatus')}}"></i> Status</a></th>
-                                    <th>Action</th>
+                                <tr>
+                                    <th  valign="middle"  align="left"><input type="checkbox"></th>
+                                    <th  valign="middle" align="left">Name</th>
+                                    <th  valign="middle" align="left">Region </th>
+                                    <th  valign="middle" align="left">Department</th>
+                                    <th valign="middle" align="left">Occur Date</th>
+                                    <th  valign="middle" align="left">Responsible</th>
+                                    <th  valign="middle" align="left">Priority </th>
+                                    <th  valign="middle" align="left">Status </th>
+                                    <th  valign="middle" align="left">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr ng-repeat="r in VM.Data | orderBy: VM.Column:VM.IsAsc | filter: VM.Filter |  limitTo : VM.PerPage : (VM.CurrPage -1) * VM.PerPage">
-                                    <td class="expand" ng-click="TopicToggle($event.target, r.id)" >X</td>
-                                    <td>{{r.auditName}}</td>
-                                    <td>{{r.region}}</td>
-                                    <td>{{r.department}}</td>
-                                    <td>{{r.dateOccurance | date}}</td>
-                                    <td>{{r.resUserName}}</td>
-                                    <td>{{r.priority}}</td>
-                                    <td>{{r.auditStatus}}</td>
-                                    <td>
-                                        <a ui-sref="app.itrisk.assessment.update({ id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
-                                        <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody></tbody>
+                            <!--<thead>-->
+                                <!--<tr class="sortable-headers">-->
+                                    <!--<th><input type="checkbox"></th>-->
+                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='auditName' }" ng-click="VM.SortMe('auditName')"><i class="fa {{VM.GetIco('auditName')}}"></i> Audit Name</a></th>-->
+                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='region' }" ng-click="VM.SortMe('region')"><i class="fa {{VM.GetIco('region')}}"></i> Region</a></th>-->
+                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='department' }" ng-click="VM.SortMe('department')"><i class="fa {{VM.GetIco('department')}}"></i> Department</a></th>-->
+                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='dateOccurance' }" ng-click="VM.SortMe('dateOccurance')"><i class="fa {{VM.GetIco('dateOccurance')}}"></i> Occur Date</a></th>-->
+                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='resUserName' }" ng-click="VM.SortMe('resUserName')"><i class="fa {{VM.GetIco('resUserName')}}"></i> Responsible</a></th>-->
+                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='priority' }" ng-click="VM.SortMe('priority')"><i class="fa {{VM.GetIco('priority')}}"></i> Priority</a></th>-->
+                                    <!--<th><a ng-class="{'text-azure': VM.CurrCol==='auditStatus' }" ng-click="VM.SortMe('auditStatus')"><i class="fa {{VM.GetIco('auditStatus')}}"></i> Status</a></th>-->
+                                    <!--<th>Action</th>-->
+                                <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                                <!--<tr ng-repeat="r in VM.Data | orderBy: VM.Column:VM.IsAsc | filter: VM.Filter |  limitTo : VM.PerPage : (VM.CurrPage -1) * VM.PerPage">-->
+                                    <!--<td class="expand" ng-click="TopicToggle($event.target, r.id)" >X</td>-->
+                                    <!--<td>{{r.auditName}}</td>-->
+                                    <!--<td>{{r.region}}</td>-->
+                                    <!--<td>{{r.department}}</td>-->
+                                    <!--<td>{{r.dateOccurance | date}}</td>-->
+                                    <!--<td>{{r.resUserName}}</td>-->
+                                    <!--<td>{{r.priority}}</td>-->
+                                    <!--<td>{{r.auditStatus}}</td>-->
+                                    <!--<td>-->
+                                        <!--<a ui-sref="app.itrisk.assessment.update({ id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>-->
+                                        <!--<a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</tbody>-->
                         </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4">
-                            Showing {{(VM.CurrPage -1) * VM.PerPage + 1}} to {{ ((VM.CurrPage * VM.PerPage) >  VM.Total) ?  VM.Total : (VM.CurrPage * VM.PerPage); }} of {{VM.Total}} entries
-                        </div>
-                        <div class="col-xs-12 col-sm-8 pagination-right">
-                            <uib-pagination total-items="VM.Total" ng-model="VM.CurrPage" items-per-page="VM.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
-                        </div>
                     </div>
                 </div>
             </div>

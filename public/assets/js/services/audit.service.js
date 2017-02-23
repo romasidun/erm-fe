@@ -8,12 +8,12 @@ app.service('AuditService', function(APIHandler){
         return APIHandler.Get('auditmgmt');
     };
 
+    this.DeleteAudit = function (id) {
+        return APIHandler.Delete('auditmgmt/' + id);
+    }
+
     this.GetAudit = function(id){
         return APIHandler.Get('audits/'+id);
-    };
-
-    this.GetTopics = function(size, page){
-        return APIHandler.Get('audittopic?size='+size+'&page='+page);
     };
 
     this.GetTopic = function(id){

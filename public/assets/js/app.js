@@ -26,7 +26,7 @@ function ($rootScope, $state, $stateParams, $location) {
             isSidebarClosed: false,
             isFooterFixed: false,
             theme: 'theme-1',
-            logo: 'assets/img/logo.png',
+            logo: 'assets/img/logo.png'
         },
         IsAuthenticated: false,
         // APIPrefix: "http://54.173.94.137/api/2/",
