@@ -894,3 +894,8 @@ canvas[tc-chartjs-line], canvas[tc-chartjs-bar], canvas[tc-chartjs-radar] {
 .sp-replacer .sp-dd {
   display: none;
 }
+
+a.paginate_button.current{
+  background: #4b6776 !important;
+  color: white !important;
+}

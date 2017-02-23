@@ -11538,3 +11538,9 @@ fieldset[disabled] .btn-maroon.active {
   -moz-opacity: .5;
   opacity: .5
 }
+
+
+a.paginate_button.current{
+  background: #4b6776 !important;
+  color: white !important;
+}
