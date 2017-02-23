@@ -660,7 +660,30 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         templateUrl: 'assets/views/vendorrisk/vendorrisk.assessment.report.html',
         controller: 'VendorAssessmentReportCtrl',
         resolve: loadSequence('VendorAssessmentReportCtrl')
+    })
+    /* Admin page url */
+
+    /* Template Management */
+    .state('app.admin', {
+        url: '',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    })
+    .state('app.admin.tmpUplds',{
+        url: '/tmpUplds',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.admin.tmpUplds.main', {
+        url: '',
+        templateUrl: 'assets/views/admin/TemplateMmt/templateMgmt.main.html',
+        title: 'Template Management',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'tmpUpldsCtrl',
+        resolve: loadSequence('tmpUpldsCtrl')
     });
+
+    /* Template Management */
+
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
     function loadSequence() {

@@ -115,7 +115,11 @@ app.constant('JS_REQUIRES', {
         'VendorAssessCtrl': 'assets/js/controllers/vendor/assessment.ctrl.js',
 
         //*** Filters
-        'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js'
+        'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js',
+
+        //****// Admin start
+        // Template Management Controller
+        'tmpUpldsCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.main.ctrl.js'
     },
 
     /*
