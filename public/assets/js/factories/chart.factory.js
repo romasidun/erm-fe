@@ -7,6 +7,120 @@
         /*
          *  High Chart related functions
          */
+        ChartFactory.prototype.CreateDepartMentChart = function(title, name, data, chartEle){
+            var dataList = [],
+                rcsaChrt = [],
+                pattern_data = {
+                    "Asset Management": null, //1
+                    "Equities": null, //2
+                    "IT": null,//3
+                    "Investment Banking": null,//4
+                    "Operations": null, //5
+                    "TAX": null//6
+                },
+                color = [
+                    '#D4AF37', //1
+                    '#ff0000', //2
+                    '#FDF204', //3
+                    '#32cd32', //4
+                    '#7fffd4', //5
+                    '#523357' //6
+                ];
+
+            for(var i in data){
+                pattern_data[i]=data[i];
+            }
+            // console.log('datadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadata',pattern_data);
+            Object.keys(pattern_data).forEach(function (k) {
+                rcsaChrt.push({key: Utils.camelizeString(k), val: pattern_data[k]});
+            });
+            rcsaChrt.forEach(function(o){ dataList.push([o.key, o.val]); });
+
+            if(color && color.length) Highcharts.getOptions().plotOptions.pie.colors = color;
+            var chartObj =  {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'pie',
+                    options3d: { enabled: true, alpha: 45, beta: 0 }
+                },
+                title: { text: title },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{ type: 'pie', name: name, data: dataList }]
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
+
+        ChartFactory.prototype.CreateFindingChart = function(title, data, chartEle){
+            var month, opts = {
+                Title: title,
+                YText: "Values",
+                Categories : [],
+                Series: [
+                    { name: "Draft", data: [] },
+                    { name: "Review", data: [] }
+                ],
+                Colors: ['#ffa500', '#039220']
+            };
+
+            Object.keys(data).forEach(function (k) {
+                if (k.indexOf('Draft') > -1) {
+                    month = Utils.camelizeString(k.split('High')[0]);
+                    opts.Series[0].data.push(data[k]);
+                }
+                if (k.indexOf('Review') > -1) {
+                    month = Utils.camelizeString(k.split('Med ')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if (opts.Categories.indexOf(month) === -1)
+                    opts.Categories.push(month);
+            });
+
+            var chartObj = {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: opts.Title
+                },
+                subtitle: {
+                    text: 'Monthly'
+                },
+                xAxis: {  categories: opts.Categories },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: opts.YText
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: opts.Series,
+                colors: opts.Colors
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
+
         ChartFactory.prototype.CreatePieChartTemplate = function(title, name, data, cols){
             if(cols && cols.length) Highcharts.getOptions().plotOptions.pie.colors = cols;
             return {
@@ -34,6 +148,91 @@
         };
 
         ChartFactory.prototype.CreatePieChart = function(title, name, data, chartEle){
+            // return;
+            var dataList = [],
+                rcsaChrt = [],
+                pattern_data = {
+                    "In Progress": null,
+                    "in_progress": null,//1
+                    "Completed": null,
+                    "completed": null,//2
+                    "Submitted": null,
+                    "submitted": null,//3
+                    "To Approve": null,
+                    "to_approve": null,//4
+                    "Ready To Approve": null,
+                    "ready_to_approve": null,//5
+                    "approved": null,
+                    "Approved": null,//6
+                    "Draft": null,//7
+                    "In Review": null,//8
+                    "Accept": null,//9
+                    "Complete Pending Review": null, //10
+                    "Complete": null, //11
+                    "High": null, //12
+                    "Medium": null, //13
+                    "Low": null //14
+                },
+                color = [
+                    '#D4AF37',
+                    '#D4AF37', //1
+                    '#ff0000',
+                    '#ff0000', //2
+                    '#FDF204',
+                    '#FDF204', //3
+                    '#32cd32',
+                    '#32cd32', //4
+                    '#7fffd4',
+                    '#7fffd4', //5
+                    '#0600C7',
+                    '#523357', //6
+                    '#22a3e1', //7
+                    '#aaa0C7', //8
+                    '#faebd7', //9
+                    '#ffeeaa', //10
+                    '#808080', //11
+                    '#ffa500', //12
+                    '#039220', //13
+                    '#33bbff' //14
+                ];
+
+            for(var i in data){
+                pattern_data[i]=data[i];
+            }
+            // console.log('datadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadatadata',pattern_data);
+            Object.keys(pattern_data).forEach(function (k) {
+                rcsaChrt.push({key: Utils.camelizeString(k), val: pattern_data[k]});
+            });
+            rcsaChrt.forEach(function(o){ dataList.push([o.key, o.val]); });
+
+            if(color && color.length) Highcharts.getOptions().plotOptions.pie.colors = color;
+            var chartObj =  {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'pie',
+                    options3d: { enabled: true, alpha: 45, beta: 0 }
+                },
+                title: { text: title },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{ type: 'pie', name: name, data: dataList }]
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
+
+        ChartFactory.prototype.CreateStatusChart = function(title, name, data, chartEle){
             // return;
             var dataList = [],
                 rcsaChrt = [],
@@ -181,6 +380,68 @@
         };
 
         ChartFactory.prototype.CreateMultiColChart = function(title, data, chartEle){
+            var month, opts = {
+                Title: title,
+                YText: "Values",
+                Categories : [],
+                Series: [
+                    { name: "High", data: [] },
+                    { name: "Medium", data: [] },
+                    { name: "Low", data: [] }
+                ],
+                Colors: ['#ffa500', '#039220', '#33BBFF']
+            };
+            Object.keys(data).forEach(function(k){
+                if(k.indexOf('High')>-1) {
+                    month = Utils.camelizeString(k.split('High')[0]);
+                    opts.Series[0].data.push(data[k]);
+                }
+                if(k.indexOf('Med')>-1) {
+                    month = Utils.camelizeString(k.split('Med')[0]);
+                    opts.Series[1].data.push(data[k]);
+                }
+                if(k.indexOf('Low')>-1) {
+                    month = Utils.camelizeString(k.split('Low')[0]);
+                    opts.Series[2].data.push(data[k]);
+                }
+                if(opts.Categories.indexOf(month)===-1)
+                    opts.Categories.push(month);
+            });
+
+            var chartObj = {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: opts.Title
+                },
+                subtitle: {
+                    text: 'Monthly'
+                },
+                xAxis: {  categories: opts.Categories },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: opts.YText
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: opts.Series,
+                colors: opts.Colors
+            };
+
+            return Highcharts.chart(chartEle, chartObj);
+        };
+
+        ChartFactory.prototype.CreatePeriodChart = function(title, data, chartEle){
             var month, opts = {
                 Title: title,
                 YText: "Values",
@@ -544,6 +805,7 @@
 
             Highcharts.chart(el, chartObj);
         };
+
         ChartFactory.prototype.CreateLineChart = function(title, data, chartEle){
             var month, opts = {
                 Title: title,

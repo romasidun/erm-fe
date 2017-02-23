@@ -3,57 +3,60 @@
     app.controller('AuditMainCtrl', AuditMainController);
 
     function AuditMainController($scope, $rootScope, $state, AuditService, ChartFactory, Utils, $filter) {
+        // $('.Audit_Main_Table').DataTable();
+
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "AUDIT MANAGEMENT";
-        $scope.TopicToggleVal = false;
+        // $scope.TopicToggleVal = false;
 
-        $scope.TopicToggle = function(item, topicId){
-            $scope.TopicToggleVal = $scope.TopicToggleVal ? false : true;
-            console.log('$scope.TopicToggleVal',$(item).parent('tr'));
-        };
-        $scope.OpList = [5, 10, 25, 50, 100];
-        $scope.VM = {
-            PerPage: 10,
-            CurrPage: 1,
-            Column: 'riskName',
-            IsAsc: true,
-            Filter: "",
-            Total: 0,
-            Data: [],
-            SortMe: function(col){
-                if($scope.VM.Column === col)
-                    $scope.VM.IsAsc = !$scope.VM.IsAsc;
-                else
-                    $scope.VM.Column = col;
-            },
-            GetIco: function(col){
-                if($scope.VM.Column === col){
-                    return $scope.VM.IsAsc? 'fa-sort-up' : 'fa-sort-down';
-                } else {
-                    return 'fa-unsorted';
-                }
-            }
-        };
-        $scope.$watch('VM.Filter', function(n, o){
-            var searchedData = $filter('filter')($scope.VM.Data, $scope.VM.Filter);
-            $scope.VM.Total = searchedData.length;
-        });
+        // $scope.TopicToggle = function(item, topicId){
+        //     $scope.TopicToggleVal = $scope.TopicToggleVal ? false : true;
+        //     console.log('$scope.TopicToggleVal',$(item).parent('tr'));
+        // };
+
+        // $scope.OpList = [5, 10, 25, 50, 100];
+        // $scope.VM = {
+        //     PerPage: 10,
+        //     CurrPage: 1,
+        //     Column: 'riskName',
+        //     IsAsc: true,
+        //     Filter: "",
+        //     Total: 0,
+        //     Data: [],
+        //     SortMe: function(col){
+        //         if($scope.VM.Column === col)
+        //             $scope.VM.IsAsc = !$scope.VM.IsAsc;
+        //         else
+        //             $scope.VM.Column = col;
+        //     },
+        //     GetIco: function(col){
+        //         if($scope.VM.Column === col){
+        //             return $scope.VM.IsAsc? 'fa-sort-up' : 'fa-sort-down';
+        //         } else {
+        //             return 'fa-unsorted';
+        //         }
+        //     }
+        // };
+        // $scope.$watch('VM.Filter', function(n, o){
+        //     var searchedData = $filter('filter')($scope.VM.Data, $scope.VM.Filter);
+        //     $scope.VM.Total = searchedData.length;
+        // });
 
         AuditService.GetManageDept()
             .then(function (data) {
-                setupMGDeptChart(data);
+                ChartFactory.CreateDepartMentChart('Management Department', 'Audit Management Department', data, 'audit_MGDeptChart');
                 return AuditService.GetFindingOpen();
             })
             .then(function (data) {
-                setupFDOpenChart(data);
+                ChartFactory.CreateFindingChart('By FindingOpen', data, audit_FDOpenChart);
                 return AuditService.GetManageStatus();
             })
             .then(function (data) {
-                setupMGStatusChart(data);
+                ChartFactory.CreateStatusChart('Management Status', 'Management Status', data, 'audit_MGStatus');
                 return AuditService.GetManagePeriod();
             })
             .then(function (data) {
-                ChartFactory.CreateMultiColChart('By FindingOpen', data, 'audit_MGPeriod');
+                ChartFactory.CreatePeriodChart('By FindingOpen', data, 'audit_MGPeriod');
                 return AuditService.GetManageRegion();
             })
             .then(function (data) {
@@ -61,98 +64,21 @@
                 return AuditService.GetActionStatus();
             })
             .then(function (data){
-                ChartFactory.CreatePieChart('By Status', 'action status', data, 'status_department');
-                return AuditService.GetAudits();
-            })
-            .then(function (data){
-                data.forEach(function (r) {
-                    r.dueDate = new Date(r.dateOccurance);
-                });
-
-                $scope.VM.Total = data.length;
-                $scope.VM.Data = data;
-                $rootScope.app.Mask = false;
+                ChartFactory.CreateStatusChart('By Status', 'action status', data, 'status_department');
+                loadData();
             });
 
-        function CreateRegionChart(data) {
-            console.log('datadata',data);
-            var opts = {
-                Title: "By Region",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "In Progress", data: [], color: '#008000'},
-                    {name: "Completed", data: [], color: '#ff0000'},
-                    {name: "Submitted", data: [], color: '#ffff00'},
-                    {name: "To Approve", data: [], color: '#ffc0cb'},
-                    {name: "Ready To Approve", data: [], color: '#ffa500'},
-                    {name: "Approved", data: [], color: '#0000ff'}
-                ]
-            }, cats = ['In Progress', 'Completed', 'Submitted', 'To Approve', 'Ready To Approve', 'Approved'];
-            Object.keys(data).forEach(function (k) {
-                if (opts.Categories.indexOf(Utils.removeLastWord(k)) === -1) opts.Categories.push(Utils.removeLastWord(k));
-            });
-            console.log('optsoptsopts',opts);
-            opts.Categories.forEach(function (c) {
-                var filteredData = $filter('filter')(Object.keys(data), c);
-                console.log('filteredDatafilteredDatafilteredData',filteredData);
-                filteredData.forEach(function (ck) {
-                    cats.forEach(function (ct, j) {
-                        if (ck.indexOf(ct) > -1) {
-                            opts.Series[j].data.push(data[ck]);
-                        }
+            var loadData = function(){
+                AuditService.GetAudits()
+                    .then(function (data){
+                        data.forEach(function (r) {
+                            r.dueDate = new Date(r.dateOccurance);
+                        });
+                        console.log('datadatadatadatadata',data);
+                        // $scope.VM.Total = data.length;
+                        $rootScope.app.Mask = false;
+                        $scope.VM.Data = data;
                     });
-                });
-            });
-            console.log('optsoptsopts',opts);
-            ChartFactory.SetupMultiColChart('openFinding_periodChart', opts);
-        }
-
-        function setupMGDeptChart(data) {
-            var series = [];
-            Object.keys(data).forEach(function (k) {
-                series.push([k, data[k]]);
-            });
-            var chartObj = ChartFactory.CreatePieChartTemplate('Management Department', 'Audit Management Department', series, ['#EDA300', '#1372DF', '#8EB42E', '#9F6CE5', '#4093E2', '#B49400']);
-            Highcharts.chart('audit_MGDeptChart', chartObj);
-        }
-
-        function setupFDOpenChart(data) {
-            var month, opts = {
-                Title: "By FindingOpen",
-                YText: "Values",
-                Categories: [],
-                Series: [
-                    {name: "Draft", data: [], color: '#c62733'},
-                    {name: "Review", data: [], color: '#db981f'},
-                ]
             };
-
-            Object.keys(data).forEach(function (k) {
-                if (k.indexOf('Draft') > -1) {
-                    month = Utils.camelizeString(k.split('High')[0]);
-                    opts.Series[0].data.push(data[k]);
-                }
-                if (k.indexOf('Review') > -1) {
-                    month = Utils.camelizeString(k.split('Med ')[0]);
-                    opts.Series[1].data.push(data[k]);
-                }
-                if (opts.Categories.indexOf(month) === -1)
-                    opts.Categories.push(month);
-            });
-
-            ChartFactory.SetupMultiColChart('audit_FDOpenChart', opts);
-        }
-
-        function setupMGStatusChart(data) {
-            var series = [];
-            Object.keys(data).forEach(function (k) {
-                series.push([k, data[k]]);
-            });
-            var chartObj = ChartFactory.CreatePieChartTemplate('Management Status', 'Management Status', series, ['#EFF300', '#E172DF', '#8EB33E', '#9F6CE5', '#4093E2', '#B49400']);
-            Highcharts.chart('audit_MGStatus', chartObj);
-        }
-
-
     }
 })();
