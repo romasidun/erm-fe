@@ -77,10 +77,10 @@
 
                 var params = {
                     assessmentStatus: "Email sent successfully"
-                }
+                };
                 return VendorService.PutAseessmentList($state.params.id, params);
             }).then(function (re) {
-
+                $scope.VM.assessmentStatus = "Email sent successfully";
             });
         };
         $scope.createAssessment = function(vendor){
@@ -118,9 +118,10 @@
                     $scope.VM.assessmentStatus = "Waiting for Response";
                     var params = {
                         assessmentStatus: "Waiting for Response"
-                    }
+                    };
                     VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
                         $rootScope.app.Mask = false;
+                        $scope.VM.assessmentStatus = "Waiting for Response";
                     }).catch(function () {
 
                     });
@@ -128,9 +129,10 @@
                     $scope.VM.assessmentStatus = "Assessment Completed";
                     var params = {
                         assessmentStatus: "Assessment Completed"
-                    }
+                    };
                     VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
                         $rootScope.app.Mask = false;
+                        $scope.VM.assessmentStatus = "Assessment Completed";
                     }).catch(function () {
 
                     });

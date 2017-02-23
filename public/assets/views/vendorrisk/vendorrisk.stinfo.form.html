@@ -167,14 +167,14 @@
 
                                     <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc">
                                         <th><input type="checkbox" ng-click="r.checked=!r.checked"></th>
-                                        <td>{{VM.id}}</td>
+                                        <td>{{r.id}}</td>
                                         <td>{{VM.title}}</td>
                                         <td>{{r.vendorName}}</td>
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>
                                         <td>{{r.address}}</td>
-                                        <td>{{$scope.VM.assessmentStatus}}</td>
-                                        <td></td>
+                                        <td>{{VM.assessmentStatus}}</td>
+                                        <td>{{VM.id}}</td>
                                         <td ng-if="currPage=='update'">
                                             <a ng-click="sendMailOne(r)" title="Send Mail"
                                                class="btn btn-xs btn-squared btn-dark-blue"><i class="ti-email"></i></a>
