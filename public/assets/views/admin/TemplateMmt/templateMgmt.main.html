@@ -11,36 +11,12 @@
 
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
-        <div class="col-xs-12 col-md-6 col-lg-4">
-            <div class="panel panel-white">
-                <div class="panel-body no-padding">
-                    <div id="statusChart" class="col-xs-12"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-6 col-lg-4">
-            <div class="panel panel-white">
-                <div class="panel-body no-padding">
-                    <div id="periodChart" class="col-xs-12"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-6 col-lg-4">
-            <div class="panel panel-white">
-                <div class="panel-body no-padding">
-                    <div id="catChart" class="col-xs-12"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-white no-radius">
                 <div class="panel-heading">
                     <h5>Operation Risk Incident</h5>
                     <div class="panel-tools">
-                        <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.itrisk.incident.form">Add Incident</a>
+                        <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.admin.tmpUplds.add">Add Incident</a>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -62,24 +38,21 @@
                             <thead>
                             <tr class="sortable-headers">
                                 <th><input type="checkbox"></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskName' }" ng-click="Grid1.SortMe('rcsa_name')"><i class="fa {{Grid1.GetIco('riskName')}}"></i> Name</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='IDate' }" ng-click="Grid1.SortMe('IDate')"><i class="fa {{Grid1.GetIco('IDate')}}"></i> Identified Date</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskSeverity' }" ng-click="Grid1.SortMe('riskSeverity')"><i class="fa {{Grid1.GetIco('riskSeverity')}}"></i> Severity</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskStatus' }" ng-click="Grid1.SortMe('riskStatus')"><i class="fa {{Grid1.GetIco('riskStatus')}}"></i> Status</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> RiskCategory</a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskType' }" ng-click="Grid1.SortMe('riskType')"><i class="fa {{Grid1.GetIco('riskName')}}"></i> RiskType</a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='templateName' }" ng-click="Grid1.SortMe('templateName')"><i class="fa {{Grid1.GetIco('templateName')}}"></i> Template Name </a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='templateDesc' }" ng-click="Grid1.SortMe('templateDesc')"><i class="fa {{Grid1.GetIco('templateDesc')}}"></i> Template Description </a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='fileName' }" ng-click="Grid1.SortMe('fileName')"><i class="fa {{Grid1.GetIco('fileName')}}"></i> Uploaded File</a></th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
                                 <th><input type="checkbox"></th>
-                                <td>{{r.riskName}}</td>
-                                <td>{{r.IDate | date}}</td>
-                                <td>{{r.riskSeverity}}</td>
-                                <td>{{r.riskStatus}}</td>
-                                <td>{{r.riskCategory}}</td>
+                                <td>{{r.riskType}}</td>
+                                <td>{{r.templateName}}</td>
+                                <td>{{r.templateDesc}}</td>
+                                <td>{{r.fileName}}</td>
                                 <td>
-                                    <a ui-sref="app.itrisk.incident.update({ id: r.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
                                     <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
                                 </td>
                             </tr>

@@ -29,5 +29,30 @@
             </div>
         </a>
     </li>
+
+    <li ng-class="{'active open':$state.includes('app.admin.misc')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-hand-stop"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title"> Misc </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ng-class="{'active': $state.includes('app.admin.misc.ctrlDataUpload') }">
+                <a ui-sref="app.admin.misc.ctrlDataUpload.main">
+                    <span class="title"> Control Data Upload </span>
+                </a>
+            </li>
+            <!--<li ng-class="{'active': $state.includes('app.oprisk.assessment') }">-->
+                <!--<a ui-sref="app.oprisk.assessment.main">-->
+                    <!--<span class="title">  </span>-->
+                <!--</a>-->
+            <!--</li>-->
+        </ul>
+    </li>
 </ul>
 <!-- end: MAIN NAVIGATION MENU -->

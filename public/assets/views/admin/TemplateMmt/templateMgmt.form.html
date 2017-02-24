@@ -1,0 +1,76 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle" >{{mainTitle}}</h1>
+            <span class="mainDescription">{{mainDesc}} </span>
+        </div>
+    </div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white no-radius">
+                <div class="panel-body">
+                    <form name="Form.TemplateUpload" ng-submit="submitAction()" role="form" ng-init="IsSubmitted=false">
+                        <div class="row" ng-if="IsSubmitted && Form.TemplateUpload.$invalid">
+                            <div class="col-xs-12 error text-red">
+                                <p ng-if="Form.TemplateUpload.assessmentType.$invalid || Form.TemplateUpload.riskType.$dirty"><i class="fa fa-times"></i> Please select an Risk Type </p>
+                                <p ng-if="Form.TemplateUpload.docName.$invalid || Form.TemplateUpload.templateName.$dirty"><i class="fa fa-times"></i> Template Name invalid or empty </p>
+                                <p ng-if="Form.TemplateUpload.docDesc.$invalid || Form.TemplateUpload.templateDesc.$dirty"><i class="fa fa-times"></i> Template Description invalid or empty </p>
+                            </div>
+                        </div>
+                        <fieldset>
+                            <legend>TEMPLATE DETAILS</legend>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6" style="margin: 0 auto; float: none;">
+                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.riskType.$dirty && Form.TemplateUpload.riskType.$invalid }">
+                                        <label> Risk Type </label>
+                                        <select type="text" class="form-control" name="riskType" ng-model="VM.assessmentType[0].asTypeCode" ng-options="at.asTypeCode as at.asTypeDesc for at in app.Lookup.AssessTypes" required>
+                                            <option selected value>Select Assessment</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6" style="margin: 0 auto; float: none;">
+                                    <div class="form-group"  ng-class="{'has-error': Form.TemplateUpload.templateName.$dirty && Form.TemplateUpload.templateName.$invalid }">
+                                        <label> Template Name </label>
+                                        <input type="text" name="templateName" ng-model="VM.templateName" placeholder="Template Name" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-6" style="margin: 0 auto; float: none;">
+                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.templateDesc.$dirty && Form.TemplateUpload.templateDesc.$invalid }">
+                                        <label> Template Description </label>
+                                        <input type="text" name="templateDesc" ng-model="VM.templateDesc" placeholder="Template Description" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-6"  style="margin: 0 auto; float: none;">
+                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.templateDesc.$dirty && Form.TemplateUpload.templateDesc.$invalid }">
+                                        <label> Files </label>
+                                        <input type="file" file-model="VM.fileModel" />
+                                        <ul class="col-xs-12">
+                                            <li ng-repeat="file in VM.fileModel" ng-click="download(file.id, file.fileName)">
+                                                {{file.fileName}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <hr class="hrule4" />
+                                <div class="col-xs-12 text-right">
+                                    <button type="submit" ng-disabled="Form.TemplateUpload.$invalid" class="btn btn-squared btn-dark-blue"><i class="fa fa-save"></i> Save</button>
+                                    <!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+                                    <button type="button" class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

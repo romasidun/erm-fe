@@ -1,0 +1,95 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle" >{{mainTitle}}</h1>
+            <span class="mainDescription">{{mainDesc}} </span>
+        </div>
+    </div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white no-radius">
+                <div class="panel-heading">
+                    <h5>Control Data Upload</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 text-left">
+                            <input type="file" file-model="VM.fileModel" />
+                            <ul class="col-xs-12">
+                                <li ng-repeat="file in VM.fileModel" ng-click="download(file.id, file.fileName)">
+                                    {{file.fileName}}
+                                </li>
+                                <!--<li ng-repeat="file in VM.fileModel">
+                                    <a href = "{{app.APIPrefix + 'policies/download/stream/' + file.id}}" download="{{file.fileName}">
+                                        {{file.fileName}}
+                                    </a>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <div class="col-xs-12 text-left">
+                            <button class="btn btn-squared btn-dark-red" ng-disabled="Form.ITRisk.$invalid" type="submit"><i class="fa fa-save"></i> Save</button>
+                            <!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+                            <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+                        </div>
+                    </div>
+                    <div class="clearfix margin-top-20"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                            <select id="perpage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+                            <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+								<span class="input-icon">
+									<input type="text" ng-model="Grid1.Filter" placeholder="search" class="form-control input-sm" />
+									<i class="fa fa-search"></i>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-striped table-responsive col-xs-12">
+                            <thead>
+                            <tr class="sortable-headers">
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskName' }" ng-click="Grid1.SortMe('rcsa_name')"><i class="fa {{Grid1.GetIco('riskName')}}"></i> Name</a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='IDate' }" ng-click="Grid1.SortMe('IDate')"><i class="fa {{Grid1.GetIco('IDate')}}"></i> Identified Date</a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskSeverity' }" ng-click="Grid1.SortMe('riskSeverity')"><i class="fa {{Grid1.GetIco('riskSeverity')}}"></i> Severity</a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskStatus' }" ng-click="Grid1.SortMe('riskStatus')"><i class="fa {{Grid1.GetIco('riskStatus')}}"></i> Status</a></th>
+                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> RiskCategory</a></th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
+                                <td>{{r.riskName}}</td>
+                                <td>{{r.IDate | date}}</td>
+                                <td>{{r.riskSeverity}}</td>
+                                <td>{{r.riskStatus}}</td>
+                                <td>{{r.riskCategory}}</td>
+                                <td>
+                                    <span class="label label-success arrowed">Success</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
+                        </div>
+                        <div class="col-xs-12 col-sm-8 pagination-right">
+                            <uib-pagination total-items="Grid1.Total" ng-model="Grid1.CurrPage" items-per-page="Grid1.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
