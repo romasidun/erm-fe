@@ -5,7 +5,7 @@
 <!-- start: MAIN NAVIGATION MENU -->
 <ul class="main-navigation-menu">
     <li ui-sref-active="active">
-        <a ui-sref="app.dashboard.main">
+        <a ui-sref="app.admin.dashboard">
             <div class="item-content">
                 <div class="item-media">
                     <i class="ti-bar-chart"></i>
@@ -16,75 +16,18 @@
             </div>
         </a>
     </li>
-    <li ng-class="{'active open':$state.includes('app.oprisk')}">
-        <a href="javascript:void(0)">
-            <div class="item-content">
-                <div class="item-media">
-                    <i class="ti-hand-stop"></i>
-                </div>
-                <div class="item-inner">
-                    <span class="title"> Operational Risk </span><i class="icon-arrow"></i>
-                </div>
-            </div>
-        </a>
-        <ul class="sub-menu">
-            <li ng-class="{'active': $state.includes('app.oprisk.incident') }">
-                <a ui-sref="app.oprisk.incident.main">
-                    <span class="title"> Operation Risk Incident  </span>
-                </a>
-            </li>
-            <li ng-class="{'active': $state.includes('app.oprisk.assessment') }">
-                <a ui-sref="app.oprisk.assessment.main">
-                    <span class="title"> Risk Control Self Assessment </span>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li ng-class="{'active open':$state.includes('app.vendorrisk')}">
-        <a href="javascript:void(0)">
-            <div class="item-content">
-                <div class="item-media">
-                    <i class="ti-receipt"></i>
-                </div>
-                <div class="item-inner">
-                    <span class="title"> Vendor Risk </span><i class="icon-arrow"></i>
-                </div>
-            </div>
-        </a>
-        <ul class="sub-menu">
-            <li>
-                <a ui-sref="app.vendorrisk.stinfo.main">
-                    <span class="title"> Standardized Info Gathering </span>
-                </a>
-            </li>
-            <!--<li >-->
-            <!--<a ui-sref="app.vendorrisk.assessment">-->
-            <!--<span class="title"> Vendor Risk Assessment </span>-->
-            <!--</a>-->
-            <!--</li>-->
-            <li >
-                <a href="https://securityscorecard.com/">
-                    <span class="title"> Vendor Risk ScoreCards </span>
-                </a>
-            </li>
-            <li >
-                <a ui-sref="app.vendorrisk.scorecard.main">
-                    <span class="title"> Vendor Risk Heatmap </span>
-                </a>
-            </li>
-        </ul>
-    </li>
 
     <li ui-sref-active="active">
-        <a ui-sref="app.audit.main">
+        <a ui-sref="app.admin.tmpUplds.main">
             <div class="item-content">
                 <div class="item-media">
-                    <i class="ti-zoom-in"></i>
+                    <i class="menu-icon fa fa-picture-o"></i>
                 </div>
                 <div class="item-inner">
-                    <span class="title"> Audit </span>
+                    <span class="title"> Template Mgmt </span>
                 </div>
             </div>
         </a>
     </li>
+</ul>
 <!-- end: MAIN NAVIGATION MENU -->

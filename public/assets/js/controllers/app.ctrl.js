@@ -3,10 +3,13 @@
  * Clip-Two Main Controller
  */
 app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $window, $document, $timeout, cfpLoadingBar, APIHandler) {
-
-	// Loading bar transition
+    $rootScope.adminState = false;
+    // Loading bar transition
 	// -----------------------------------
 	var $win = $($window);
+    $rootScope.$on("$locationChangeSuccess", function(event, url, oldUrl, state, oldState) {
+		$rootScope.adminState = true;
+    });
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
@@ -18,10 +21,9 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
 
 		if ($rootScope.app.CurrentModal) {
             $rootScope.app.CurrentModal.dismiss();
-    }
+    	}
 	});
 	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-
 		//stop loading bar on stateChangeSuccess
 		event.targetScope.$watch("$viewContentLoaded", function() {
 
@@ -188,6 +190,9 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
     	{ key: 'Medium', val: 'Medium' },
         { key: 'High', val: 'High' }
 	];
+
+
+
 	/*
 	  --- Lookup Glossary ---
 	  LIST001 --- Region
