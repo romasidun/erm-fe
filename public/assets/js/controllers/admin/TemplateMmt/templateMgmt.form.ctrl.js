@@ -1,7 +1,7 @@
 (function(){
-    TempMgmtFormController.$inject = ['$scope', '$rootScope', '$state', '$filter', 'ChartFactory', 'Utils'];
+    TempMgmtFormController.$inject = ['$scope', '$rootScope', '$state', 'Utils', 'TmpmgmtService'];
     app.controller('tmpUpldsFormCtrl', TempMgmtFormController);
-    function TempMgmtFormController($scope, $rootScope, $state, $filter, ChartFactory, Utils){
+    function TempMgmtFormController($scope, $rootScope, $state, Utils, TmpmgmtService){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Template Detail";
 
@@ -20,13 +20,15 @@
 
         $scope.submitAction = function(){
             $scope.IsSubmitted = true;
-            if($scope.Form.Policy.$pristine || $scope.Form.Policy.$invalid) return false;
+            if($scope.Form.TemplateUpload.$pristine || $scope.Form.TemplateUpload.$invalid) return false;
 
             var fileModel = $scope.VM.fileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
-            PolicyService.FileUpload(idd, fileModel).then(function(res){
+
+            console.log($scope.VM);
+            TmpmgmtService.FileUpload(idd, fileModel).then(function(res){
                 if(res.status === 200) {
                     for (var i in fileModel) {
                         fileModel[i].id = res.data.fileId;
@@ -34,10 +36,10 @@
                     }
                 }
             }).finally(function () {
-                PolicyService.AddPolicy($scope.VM).then(function (res) {
+                TmpmgmtService.AddTemplate($scope.VM).then(function (res) {
                     console.log('res',res);
                 }).finally(function () {
-                    $state.go('app.policy.main');
+                    $state.go('app.admin.tmpUplds.main');
                 });
             });
         };

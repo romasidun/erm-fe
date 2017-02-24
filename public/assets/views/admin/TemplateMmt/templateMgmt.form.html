@@ -18,38 +18,38 @@
                     <form name="Form.TemplateUpload" ng-submit="submitAction()" role="form" ng-init="IsSubmitted=false">
                         <div class="row" ng-if="IsSubmitted && Form.TemplateUpload.$invalid">
                             <div class="col-xs-12 error text-red">
-                                <p ng-if="Form.TemplateUpload.assessmentType.$invalid || Form.TemplateUpload.assessmentType.$dirty"><i class="fa fa-times"></i> Please select an Risk Type </p>
-                                <p ng-if="Form.TemplateUpload.docName.$invalid || Form.TemplateUpload.docName.$dirty"><i class="fa fa-times"></i> Template Name invalid or empty </p>
-                                <p ng-if="Form.TemplateUpload.docDesc.$invalid || Form.TemplateUpload.docDesc.$dirty"><i class="fa fa-times"></i> Template Description invalid or empty </p>
+                                <p ng-if="Form.TemplateUpload.assessmentType.$invalid || Form.TemplateUpload.riskType.$dirty"><i class="fa fa-times"></i> Please select an Risk Type </p>
+                                <p ng-if="Form.TemplateUpload.docName.$invalid || Form.TemplateUpload.templateName.$dirty"><i class="fa fa-times"></i> Template Name invalid or empty </p>
+                                <p ng-if="Form.TemplateUpload.docDesc.$invalid || Form.TemplateUpload.templateDesc.$dirty"><i class="fa fa-times"></i> Template Description invalid or empty </p>
                             </div>
                         </div>
                         <fieldset>
                             <legend>TEMPLATE DETAILS</legend>
                             <div class="row">
                                 <div class="col-xs-12 col-md-6" style="margin: 0 auto; float: none;">
-                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.assessmentType.$dirty && Form.TemplateUpload.assessmentType.$invalid }">
+                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.riskType.$dirty && Form.TemplateUpload.riskType.$invalid }">
                                         <label> Risk Type </label>
-                                        <select type="text" class="form-control" name="assessmentType" ng-model="VM.assessmentType[0].asTypeCode" ng-options="at.asTypeCode as at.asTypeDesc for at in app.Lookup.AssessTypes" required>
+                                        <select type="text" class="form-control" name="riskType" ng-model="VM.assessmentType[0].asTypeCode" ng-options="at.asTypeCode as at.asTypeDesc for at in app.Lookup.AssessTypes" required>
                                             <option selected value>Select Assessment</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6" style="margin: 0 auto; float: none;">
-                                    <div class="form-group"  ng-class="{'has-error': Form.TemplateUpload.docName.$dirty && Form.TemplateUpload.docName.$invalid }">
+                                    <div class="form-group"  ng-class="{'has-error': Form.TemplateUpload.templateName.$dirty && Form.TemplateUpload.templateName.$invalid }">
                                         <label> Template Name </label>
-                                        <input type="text" name="docName" ng-model="VM.docName" placeholder="Template Name" class="form-control" required>
+                                        <input type="text" name="templateName" ng-model="VM.templateName" placeholder="Template Name" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-md-6" style="margin: 0 auto; float: none;">
-                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.docDesc.$dirty && Form.TemplateUpload.docDesc.$invalid }">
+                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.templateDesc.$dirty && Form.TemplateUpload.templateDesc.$invalid }">
                                         <label> Template Description </label>
-                                        <input type="text" name="docDesc" ng-model="VM.docDesc" placeholder="Template Description" class="form-control" required>
+                                        <input type="text" name="templateDesc" ng-model="VM.templateDesc" placeholder="Template Description" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-md-6"  style="margin: 0 auto; float: none;">
-                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.docDesc.$dirty && Form.TemplateUpload.docDesc.$invalid }">
+                                    <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.templateDesc.$dirty && Form.TemplateUpload.templateDesc.$invalid }">
                                         <label> Files </label>
                                         <input type="file" file-model="VM.fileModel" />
                                         <ul class="col-xs-12">
