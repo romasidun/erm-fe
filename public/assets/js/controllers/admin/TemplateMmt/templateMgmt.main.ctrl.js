@@ -51,16 +51,17 @@
         function loadRim() {
             TmpmgmtService.GetTemplate().then(function (data) {
                 data.forEach(function (r) {
-                    r.riskType = r.assessmentType[0].asTypeCode
+                    r.riskType = r.assessmentType[0].asTypeDesc;
                 });
+
                 console.log('datadatadatadatadatadata',data);
 
                 $scope.Grid1.Total = data.length;
                 $scope.Grid1.Data = data;
+                console.log('$scope.Grid1.Data = data;',$scope.Grid1.Data)
 
                 $rootScope.app.Mask = false;
             });
         }
-        $rootScope.app.Mask =  false;
     }
 })();
