@@ -116,7 +116,7 @@
             $scope.VM = data;
             return VendorService.GetVendor();
         }).then(function (vendor) {
-            /*
+
             $scope.Grid1.Data = vendor;
             angular.forEach($scope.Grid1.Data, function (obj, ind) {
                 var tmpObj = $filter('filter')($scope.VM.vendors, {id: obj.id});
@@ -126,8 +126,7 @@
                 }
                 //setStatus(obj);
             });
-            */
-            $scope.Grid1.Data = $scope.VM.vendors;
+
             $rootScope.app.Mask = false;
         });
 
