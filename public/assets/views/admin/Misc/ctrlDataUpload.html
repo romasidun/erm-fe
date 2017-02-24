@@ -51,24 +51,24 @@
                     <div class="row">
                         <table class="table table-bordered table-hover col-xs-12">
                             <thead>
-                            <tr class="sortable-headers">
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskName' }" ng-click="Grid1.SortMe('rcsa_name')"><i class="fa {{Grid1.GetIco('riskName')}}"></i> File Name</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='IDate' }" ng-click="Grid1.SortMe('IDate')"><i class="fa {{Grid1.GetIco('IDate')}}"></i> Uploaded By</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskSeverity' }" ng-click="Grid1.SortMe('riskSeverity')"><i class="fa {{Grid1.GetIco('riskSeverity')}}"></i> Uploaded On</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskStatus' }" ng-click="Grid1.SortMe('riskStatus')"><i class="fa {{Grid1.GetIco('riskStatus')}}"></i> No of Records</a></th>
-                                <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> Status</a></th>
-                            </tr>
+                                <tr class="sortable-headers">
+                                    <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskName' }" ng-click="Grid1.SortMe('rcsa_name')"><i class="fa {{Grid1.GetIco('riskName')}}"></i> File Name</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.CurrCol==='IDate' }" ng-click="Grid1.SortMe('IDate')"><i class="fa {{Grid1.GetIco('IDate')}}"></i> Uploaded By</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskSeverity' }" ng-click="Grid1.SortMe('riskSeverity')"><i class="fa {{Grid1.GetIco('riskSeverity')}}"></i> Uploaded On</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskStatus' }" ng-click="Grid1.SortMe('riskStatus')"><i class="fa {{Grid1.GetIco('riskStatus')}}"></i> No of Records</a></th>
+                                    <th><a ng-class="{'text-azure': Grid1.CurrCol==='riskCategory' }" ng-click="Grid1.SortMe('riskCategory')"><i class="fa {{Grid1.GetIco('riskCategory')}}"></i> Status</a></th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
-                                <td>{{r.fileName}}</td>
-                                <td>{{r.uploadedBy}}</td>
-                                <td>{{r.uploadedOn | date}}</td>
-                                <td></td>
-                                <td>
-                                    <span class="label label-success arrowed">{{r.status}}</span>
-                                </td>
-                            </tr>
+                                <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
+                                    <td>{{r.fileName}}</td>
+                                    <td>{{r.uploadedBy}}</td>
+                                    <td>{{r.uploadedOn | date}}</td>
+                                    <td></td>
+                                    <td>
+                                        <span class="label label-success arrowed">{{r.status}}</span>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
