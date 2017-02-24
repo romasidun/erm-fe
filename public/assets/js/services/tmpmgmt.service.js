@@ -28,7 +28,7 @@ app.service('TmpmgmtService', function(APIHandler){
             fileModel[i].id = idd + '_' + i;
             formdata.append("file", fileModel[i]._file);
         }
-        var url = 'policies/' + idd + '/upload';
+        var url = 'template/upload/' + idd;
         return APIHandler.UploadFile(url, formdata);
     };
 });
