@@ -8,7 +8,7 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
 	// -----------------------------------
 	var $win = $($window);
     $rootScope.$on("$locationChangeSuccess", function(event, url, oldUrl, state, oldState) {
-		$rootScope.adminState = true;
+		$rootScope.adminState = false;
     });
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
