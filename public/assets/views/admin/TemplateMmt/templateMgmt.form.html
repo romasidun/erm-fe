@@ -30,7 +30,7 @@
                                 <div class="col-xs-12 col-md-6" style="margin: 0 auto; float: none;">
                                     <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.riskType.$dirty && Form.TemplateUpload.riskType.$invalid }">
                                         <label> Risk Type </label>
-                                        <select type="text" class="form-control" name="riskType" ng-model="VM.assessmentType[0].asTypeDesc" ng-options="at.asTypeDesc as at.asTypeDesc for at in app.Lookup.AssessTypes" required>
+                                        <select type="text" class="form-control" name="riskType" ng-model="VM.assessmentType[0].asTypeCode" ng-options="at.asTypeDesc as at.asTypeCode for at in app.Lookup.AssessTypes" required>
                                             <option selected value>Select Assessment</option>
                                         </select>
                                     </div>
