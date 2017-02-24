@@ -121,7 +121,10 @@ app.constant('JS_REQUIRES', {
         // Dashboard Controller
         'adminDashboardCtrl' : 'assets/js/controllers/admin/Dashboard/dashboard.main.ctrl.js',
         // Template Management Controller
-        'tmpUpldsCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.main.ctrl.js'
+        'tmpUpldsCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.main.ctrl.js',
+        'tmpUpldsFormCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.form.ctrl.js',
+        //Misc Control Data Upload
+        'adminCtrlDataUpload' : 'assets/js/controllers/admin/Misc/CtrlDataUpload.ctrl.js'
     },
 
     /*

@@ -14,12 +14,33 @@
         <div class="col-md-12">
             <div class="panel panel-white no-radius">
                 <div class="panel-heading">
-                    <h5>Operation Risk Incident</h5>
-                    <div class="panel-tools">
-                        <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.admin.tmpUplds.add">Add Incident</a>
-                    </div>
+                    <h5>Control Data Upload</h5>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 text-left">
+                            <input type="file" file-model="VM.fileModel" />
+                            <ul class="col-xs-12">
+                                <li ng-repeat="file in VM.fileModel" ng-click="download(file.id, file.fileName)">
+                                    {{file.fileName}}
+                                </li>
+                                <!--<li ng-repeat="file in VM.fileModel">
+                                    <a href = "{{app.APIPrefix + 'policies/download/stream/' + file.id}}" download="{{file.fileName}">
+                                        {{file.fileName}}
+                                    </a>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <div class="col-xs-12 text-left">
+                            <button class="btn btn-squared btn-dark-red" ng-disabled="Form.ITRisk.$invalid" type="submit"><i class="fa fa-save"></i> Save</button>
+                            <!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+                            <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+                        </div>
+                    </div>
+                    <div class="clearfix margin-top-20"></div>
                     <div class="row">
                         <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
                             <select id="perpage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
@@ -55,8 +76,7 @@
                                 <td>{{r.riskStatus}}</td>
                                 <td>{{r.riskCategory}}</td>
                                 <td>
-                                    <a ui-sref="app.itrisk.incident.update({ id: r.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
-                                    <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                    <span class="label label-success arrowed">Success</span>
                                 </td>
                             </tr>
                             </tbody>

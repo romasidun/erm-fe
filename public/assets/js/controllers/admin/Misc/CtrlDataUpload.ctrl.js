@@ -1,10 +1,9 @@
 (function(){
-    TemplateManagementController.$inject = ['$scope', '$rootScope', '$state', '$filter', 'ITRiskService', 'ChartFactory', 'Utils'];
-    app.controller('tmpUpldsCtrl', TemplateManagementController);
-
-    function TemplateManagementController($scope, $rootScope, $state, $filter, ITRiskService, ChartFactory, Utils){
+    CtrlDataUploadController.$inject = ['$scope', '$rootScope', '$state', '$filter', 'ITRiskService', 'Utils'];
+    app.controller('adminCtrlDataUpload', CtrlDataUploadController);
+    function CtrlDataUploadController($scope, $rootScope, $state, $filter, ITRiskService, Utils){
         $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "Template Management";
+        $scope.mainDesc = "Control Data Upload";
 
         $scope.OpList = [5, 10, 25, 50, 100];
         $scope.Grid1 = {
@@ -47,6 +46,10 @@
             });
         };
 
+        $scope.editAction = function (r) {
+
+        };
+
         function loadRim() {
             ITRiskService.GetRim().then(function (data) {
                 data.forEach(function (r) {
@@ -59,6 +62,5 @@
                 $rootScope.app.Mask = false;
             });
         }
-        $rootScope.app.Mask =  false;
     }
 })();

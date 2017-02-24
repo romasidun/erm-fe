@@ -663,12 +663,13 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
     })
     /* Admin page url */
 
-    /* Template Management */
     .state('app.admin', {
         url: '/admin',
         template: '<div ui-view class="fade-in-up"></div>',
         abstract: true
     })
+
+    /* Dashboard */
     .state('app.admin.dashboard', {
         url: '/dashboard',
         templateUrl: 'assets/views/admin/Dashboard/dashboard.main.html',
@@ -677,6 +678,8 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'adminDashboardCtrl',
         resolve: loadSequence('adminDashboardCtrl')
     })
+
+    /* Template Management */
     .state('app.admin.tmpUplds',{
         url: '/tmpUplds',
         template: '<div ui-view class="fade-in-up"></div>',
@@ -688,6 +691,30 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         icon: 'ti-layout-media-left-alt',
         controller: 'tmpUpldsCtrl',
         resolve: loadSequence('tmpUpldsCtrl')
+    }).state('app.admin.tmpUplds.add', {
+        url: '/templateForm',
+        templateUrl: 'assets/views/admin/TemplateMmt/templateMgmt.form.html',
+        title: 'Template Details',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'tmpUpldsFormCtrl',
+        resolve: loadSequence('tmpUpldsFormCtrl')
+    })
+    /*  */
+    .state('app.admin.misc', {
+        url: '/misc',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.admin.misc.ctrlDataUpload', {
+        url: '/ctrlDataUpload',
+        template: '<div ui-view class="fade-in-up"></div>',
+        abstract: true
+    }).state('app.admin.misc.ctrlDataUpload.main', {
+        url: '',
+        templateUrl: 'assets/views/admin/Misc/ctrlDataUpload.html',
+        title: 'Control Data Upload',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'adminCtrlDataUpload',
+        resolve: loadSequence('adminCtrlDataUpload')
     });
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
