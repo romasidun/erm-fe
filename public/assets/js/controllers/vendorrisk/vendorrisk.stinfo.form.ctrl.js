@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    VendorriskStinfoFormController.$inject = ['$scope','$rootScope', '$state', 'VendorService','Utils', '$filter', 'UniqueID'];
+    VendorriskStinfoFormController.$inject = ['$scope', '$rootScope', '$state', 'VendorService', 'Utils', '$filter', 'UniqueID'];
     app.controller('VendorriskStinfoFormCtrl', VendorriskStinfoFormController);
     function VendorriskStinfoFormController($scope, $rootScope, $state, VendorService, Utils, $filter, UniqueID) {
         $scope.mainTitle = $state.current.title;
@@ -15,7 +15,7 @@
             approver: "",
             approvedDate: "",
             assessmentsDate: "",
-            riskScore: "",
+            riskScore: 0,
             vendorRiskType: "",
             docType: "",
             period: "",
@@ -43,16 +43,16 @@
         };
 
         /*var vendor = {
-            address: "",
-            assessmentIds: [],
-            email: "",
-            id: "",
-            primaryContact: "",
-            statusMsg: "",
-            vendorId: "",
-            vendorName: "",
-            vendorStatus: ""
-        }*/
+         address: "",
+         assessmentIds: [],
+         email: "",
+         id: "",
+         primaryContact: "",
+         statusMsg: "",
+         vendorId: "",
+         vendorName: "",
+         vendorStatus: ""
+         }*/
 
         $scope.submitAction = function () {
             var dtype = 'YYYY-MM-DD';
@@ -61,15 +61,16 @@
             $scope.VM.assessmentsDate = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.approvedDate = (d2.isValid()) ? d2.format(dtype) : '';
 
-            var selectedVendors = $filter('filter')($scope.Grid1.Data, {checked : true});
-            if(selectedVendors.length < 1 || selectedVendors == null){
+            var selectedVendors = $filter('filter')($scope.Grid1.Data, {checked: true});
+            if (selectedVendors.length < 1 || selectedVendors == null) {
                 alert("Please select at least one vendor");
                 return false;
             }
 
             angular.forEach(selectedVendors, function (item, ind) {
-               item.vendorId = $scope.generateUuid();
-               item.statusMsg = "Create Assessment";
+                delete item.checked;
+                item.vendorId = $scope.generateUuid();
+                item.statusMsg = "Create Assessment";
             });
 
             if ($scope.Form.VendorRisk.$pristine || $scope.Form.VendorRisk.$invalid) return false;
@@ -82,10 +83,10 @@
             });
         };
 
-        $scope.cancelAction = function(){
-            if($scope.Form.VendorRisk.$dirty){
+        $scope.cancelAction = function () {
+            if ($scope.Form.VendorRisk.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){
+                confirm.result.then(function () {
                     $state.go('app.vendorrisk.stinfo.main');
                 });
                 return false;
@@ -93,15 +94,15 @@
             $state.go('app.vendorrisk.stinfo.main');
         };
 
-        $scope.generateUuid = function() {
+        $scope.generateUuid = function () {
             var uid = UniqueID.new();
             return uid;
-        }
+        };
 
-        VendorService.GerUserList().then(function(user){
+        VendorService.GerUserList().then(function (user) {
             $scope.userList = user;
             return VendorService.GetRiskType();
-        }).then(function(risktype){
+        }).then(function (risktype) {
             $scope.riskTypeList = risktype;
             return VendorService.GetVendor();
         }).then(function (vendor) {
