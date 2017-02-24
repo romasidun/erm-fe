@@ -665,9 +665,17 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
 
     /* Template Management */
     .state('app.admin', {
-        url: '',
+        url: '/admin',
         template: '<div ui-view class="fade-in-up"></div>',
         abstract: true
+    })
+    .state('app.admin.dashboard', {
+        url: '/dashboard',
+        templateUrl: 'assets/views/admin/Dashboard/dashboard.main.html',
+        title: 'Admin Dashboard',
+        icon: 'ti-layout-media-left-alt',
+        controller: 'adminDashboardCtrl',
+        resolve: loadSequence('adminDashboardCtrl')
     })
     .state('app.admin.tmpUplds',{
         url: '/tmpUplds',
@@ -681,9 +689,6 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controller: 'tmpUpldsCtrl',
         resolve: loadSequence('tmpUpldsCtrl')
     });
-
-    /* Template Management */
-
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
     function loadSequence() {

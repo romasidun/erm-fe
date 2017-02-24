@@ -118,8 +118,10 @@ app.constant('JS_REQUIRES', {
         'htmlToPlaintext': 'assets/js/filters/htmlToPlaintext.js',
 
         //****// Admin start
+        // Dashboard Controller
+        'adminDashboardCtrl' : 'assets/js/controllers/admin/Dashboard/dashboard.main.ctrl.js',
         // Template Management Controller
-        'tmpUpldsCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.main.ctrl.js'
+        'adminTmpUpldsCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.main.ctrl.js'
     },
 
     /*

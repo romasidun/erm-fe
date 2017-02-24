@@ -1,3 +1,6 @@
 <!-- start: SIDEBAR -->
-<nav data-ng-include=" 'assets/views/app/nav.html' "></nav>
+<nav ng-hide="admin" data-ng-include=" 'assets/views/app/nav.html' "></nav>
 <!-- end: SIDEBAR -->
+<!-- start: ADMIN SIDEBAR -->
+<nav ng-show="admin" data-ng-include=" 'assets/views/app/adminnav.html' "></nav>
+<!-- end: ADMIN SIDEBAR -->

@@ -12,11 +12,13 @@
 <!-- start: NAVBAR COLLAPSE -->
 <div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if='!navbarCollapsed' off-click-filter="#menu-toggler">
 	<ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
-
 		<!-- start: USER OPTIONS DROPDOWN -->
 		<li class="dropdown current-user" uib-dropdown on-toggle="toggled(open)">
 			<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="assets/images/avatar-5.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></span> </a>
 			<ul class="dropdown-menu">
+				<li>
+					<a ui-sref="app.admin.dashboard"> Admin </a>
+				</li>
 				<li>
 					<a ui-sref="app.pages.user"> My Profile </a>
 				</li>
