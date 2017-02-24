@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope', '$scope', '$state', 'VendorService', 'Utils', 'ExcelFactory', '$timeout'];
+    VendorAssessmentController.$inject = ['$rootScope', '$scope', '$state', 'VendorService', 'Utils', '$filter'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils, ExcelFactory, $timeout) {
+    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils, $filter) {
         $scope.mainTitle = $state.current.title;
         var asId = $state.params.asId;
         var vrId = $state.params.vrId;
@@ -13,16 +13,26 @@
             data.approvedDate = new Date(data.approvedDate);
             $scope.VM.approvedDate = Utils.GetDPDate(data.approvedDate);
             $scope.VM.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
+            //$scope.vendor = $filter('filter1')($scope.VM.vendors, {id: vrId});
+            var foundVendor = $filter('filter')($scope.VM.vendors, {id: vrId});
 
-            return VendorService.GetVendorById(vrId);
+            if(angular.isArray(foundVendor) && foundVendor.length > 0)
+                $scope.vendor = foundVendor[0];
 
-        }).then(function (data) {
-            $scope.vendor = data;
             return VendorService.GetVendorAssessment($scope.VM.vendorRiskType);
+
         }).then(function (data) {
             $scope.vrStinfoCT = data;
             $rootScope.app.Mask = false;
-        });
+
+            //Vendor Status Update
+            setStateus('Waiting For Response');
+
+            //return VendorService.GetVendorById(vrId);
+        });/*.then(function (data) {
+            $scope.vendor = data;
+            $rootScope.app.Mask = false;
+        })*/
 
         $scope.vendorResponseVal = function (para, ele, event) {
             if ($(event.target).prop('checked') == true) {
@@ -72,31 +82,33 @@
                     vendor: $scope.vendor
                 };
                 VendorService.PostVendorData(sendData).then(function () {
+                    //Vendor Status Update
+                    setStateus('Completed');
+
                     $rootScope.app.Mask = false;
                 })
             });
+        };
 
-            /*for (var i in $scope.vrStinfoCT) {
-             /!*var post_data = {
-             comments: vendor_comment + "",
-             control_Category: vendor_Category + "",
-             docType: $scope.VM.docType + "",
-             finding: vendor_Findings,
-             response: vendor_response + "",
-             riskScore: $scope.VM.riskScore * 1,
-             riskType: $scope.VM.vendorRiskType + "",
-             vendor: {
-             id: $scope.vendor.id + "",
-             primaryContact: $scope.vendor.primaryContact + "",
-             vendorName: $scope.vendor.vendorName + ""
-             }
-             };*!/
-             }*/
+        function setStateus(msg){
+            //Vendor Status Update----------------------
+            angular.forEach($scope.VM.vendors, function (item, ind) {
+                if(item.id == vrId){
+                    item.statusMsg = msg;
+                }
+            });
+
+            var params = {
+                vendors: $scope.VM.vendors
+            };
+            return VendorService.PutAseessmentList(asId, params);
+            //-------------------------------------------
         }
 
         $scope.goBack = function () {
             $state.go('app.vendorrisk.stinfo.update', {id: asId});
-        }
+        };
+
         $scope.downloadExcel = function () {
             var data = {};
             data.heights = [];

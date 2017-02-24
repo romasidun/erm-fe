@@ -8,6 +8,7 @@
 
         $scope.Grid1 = {
             Column: 'vendorName',
+            Filter: '',
             IsAsc: true,
             Data: [],
             SortMe: function (col) {
@@ -72,43 +73,61 @@
                 subject: 'Please fill out the assessment',
                 to: to
             };
+
             VendorService.SendMail(params).then(function (res) {
-                alert("The Email was sent correctly");
+
+                angular.forEach($scope.VM.vendors, function (item, ind) {
+                    if(item.id == vendor.id){
+                        item.statusMsg = "Email sent successfully";
+                        vendor.statusMsg = "Email sent successfully";
+                    }
+                });
 
                 var params = {
-                    assessmentStatus: "Email sent successfully"
+                    vendors: $scope.VM.vendors
                 };
                 return VendorService.PutAseessmentList($state.params.id, params);
             }).then(function (re) {
-                $scope.VM.assessmentStatus = "Email sent successfully";
+                alert("The Email was sent correctly");
             });
         };
+
         $scope.createAssessment = function(vendor){
             $state.go('app.vendorrisk.assessment',{asId: $state.params.id, vrId: vendor.id});
         };
+
         $scope.viewAssessment = function(vendor){
             $state.go('app.vendorrisk.assessment',{asId: $state.params.id, vrId: vendor.id});
             /*var baseUrl = $location.$$absUrl.substr(0, $location.$$absUrl.length - $location.$$url.length);
             window.open(baseUrl + '/vr/' + $state.params.id + '/' + vendor.id, "_blank");*/
         };
+
         $scope.calcAssessment = function(vendor){
             calcMetrics(vendor);
         };
 
         VendorService.GetRiskType().then(function (risktype) {
             $scope.riskTypeList = risktype;
-            return VendorService.GetVendor();
-        }).then(function (vendor) {
-            $scope.Grid1.Data = vendor;
-            angular.forEach($scope.Grid1.Data, function (obj, ind) {
-                setStatus(obj);
-            });
             return VendorService.GetRimById($state.params.id);
         }).then(function (data) {
             data.approvedDate = new Date(data.approvedDate);
             $scope.approvedDate = Utils.GetDPDate(data.approvedDate);
             $scope.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
             $scope.VM = data;
+            return VendorService.GetVendor();
+        }).then(function (vendor) {
+            /*
+            $scope.Grid1.Data = vendor;
+            angular.forEach($scope.Grid1.Data, function (obj, ind) {
+                var tmpObj = $filter('filter')($scope.VM.vendors, {id: obj.id});
+                if (angular.isArray(tmpObj) && tmpObj.length > 0){
+                    obj.vendorId = tmpObj[0].vendorId;
+                    obj.statusMsg = tmpObj[0].statusMsg;
+                }
+                //setStatus(obj);
+            });
+            */
+            $scope.Grid1.Data = $scope.VM.vendors;
             $rootScope.app.Mask = false;
         });
 

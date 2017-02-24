@@ -142,7 +142,6 @@
                                     <thead>
                                     <tr class="sortable-headers">
                                         <th><input type="checkbox"></th>
-                                        <th>ID</th>
                                         <th>Title</th>
                                         <th><a ng-class="{'text-azure': Grid1.Column==='vendorName' }"
                                                ng-click="Grid1.SortMe('vendorName')"><i
@@ -165,16 +164,15 @@
                                     </thead>
                                     <tbody>
 
-                                    <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc">
+                                    <tr ng-repeat="r in Grid1.Data | filter: Grid1.Filter | orderBy: Grid1.Column:Grid1.IsAsc">
                                         <th><input type="checkbox" ng-click="r.checked=!r.checked"></th>
-                                        <td>{{r.id}}</td>
                                         <td>{{VM.title}}</td>
                                         <td>{{r.vendorName}}</td>
                                         <td>{{r.primaryContact}}</td>
                                         <td>{{r.email}}</td>
                                         <td>{{r.address}}</td>
-                                        <td>{{VM.assessmentStatus}}</td>
-                                        <td>{{VM.id}}</td>
+                                        <td>{{r.statusMsg}}</td>
+                                        <td>{{r.vendorId}}</td>
                                         <td ng-if="currPage=='update'">
                                             <a ng-click="sendMailOne(r)" title="Send Mail"
                                                class="btn btn-xs btn-squared btn-dark-blue"><i class="ti-email"></i></a>
@@ -182,8 +180,8 @@
                                                class="btn btn-xs btn-squared btn-maroon"><i class="ti-receipt"></i></a>
                                             <a ng-click="viewAssessment(r)" title="View Assessment"
                                                class="btn btn-xs btn-squared btn-primary"><i class="ti-notepad"></i></a>
-                                            <a ng-click="calcAssessment(r)" title="Calculate Metrics"
-                                               class="btn btn-xs btn-squared btn-danger"><i class="ti-mobile"></i></a>
+                                            <a ng-click="calcAssessment(r)" title="Calculat Assessment"
+                                               class="btn btn-xs btn-squared btn-primary"><i class="ti-notepad"></i></a>
                                         </td>
                                     </tr>
                                     </tbody>

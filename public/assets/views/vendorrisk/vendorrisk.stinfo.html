@@ -102,19 +102,15 @@
                                            ng-click="Grid1.SortMe('docType')"><i class="fa {{Grid1.GetIco('docType')}}"></i>DocType</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='vendorRiskType' }"
                                            ng-click="Grid1.SortMe('vendorRiskType')"><i class="fa {{Grid1.GetIco('vendorRiskType')}}"></i>RiskType</a></th>
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='emailOrLink' }"
-                                           ng-click="Grid1.SortMe('emailOrLink')"><i class="fa {{Grid1.GetIco('emailOrLink')}}"></i>Email</a></th>
                                     <th><a ng-class="{'text-azure': Grid1.Column==='riskScore' }"
                                            ng-click="Grid1.SortMe('riskScore')"><i class="fa {{Grid1.GetIco('riskScore')}}"></i>Risk Score</a></th>
-                                    <th><a ng-class="{'text-azure': Grid1.Column==='status' }"
-                                           ng-click="Grid1.SortMe('status')"><i class="fa {{Grid1.GetIco('status')}}"></i>Status</a></th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
                                     <td><input type="checkbox"></td>
-                                    <td>{{r.id}}</td>
+                                    <td>{{r.vraid}}</td>
                                     <td>{{r.title}}</td>
                                     <td>{{r.period}}</td>
                                     <td>{{r.approver}}</td>
@@ -122,9 +118,7 @@
                                     <td>{{r.approvedDate | date}}</td>
                                     <td>{{r.docType}}</td>
                                     <td>{{r.vendorRiskType}}</td>
-                                    <td>{{r.emailOrLink}}</td>
                                     <td>{{r.riskScore}}</td>
-                                    <td>{{r.assessmentStatus}}</td>
                                     <td class="action_tools">
                                         <a ui-sref="app.vendorrisk.stinfo.update({ id: r.id})" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
                                         <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>

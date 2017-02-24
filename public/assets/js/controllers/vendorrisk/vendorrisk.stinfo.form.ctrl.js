@@ -1,63 +1,30 @@
 (function () {
     'use strict';
-    VendorriskStinfoFormController.$inject = ['$scope','$rootScope', '$state', 'VendorService','Utils', '$filter'];
+    VendorriskStinfoFormController.$inject = ['$scope','$rootScope', '$state', 'VendorService','Utils', '$filter', 'UniqueID'];
     app.controller('VendorriskStinfoFormCtrl', VendorriskStinfoFormController);
-    function VendorriskStinfoFormController($scope, $rootScope, $state, VendorService, Utils, $filter) {
+    function VendorriskStinfoFormController($scope, $rootScope, $state, VendorService, Utils, $filter, UniqueID) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Manage VendorRisk Form";
         $rootScope.app.Mask = true;
         $scope.currPage = 'insert';
 
         $scope.VM = {
-            actualName: "",
-            aggregatedRiskScore: "",
-            approval: "",
-            approvalStatus: "",
-            approvedDate: "",
-            approvedDtStr: "",
-            approver: "",
-            asmntType: "",
-            asmntTypeName: "",
-            asmntType_name: "",
-            assessDesc: "",
-            assessId: "",
-            assessName: "",
-            assessmentBy: "",
-            assessmentDtStr: "",
-            assessmentIds: [],
-            assessmentStatus: "None",
-            assessmentsDate: "",
-            business: "",
-            createdBy: "",
-            createdOn: "",
-            createdOnStr: "",
-            docType: "",
-            dueDtStr: "",
-            due_date: "",
-            emailOrLink: "",
-            filemodel: [],
-            filename: "",
-            frequency: "",
-            modifiedBy: "",
-            modifiedOn: "",
-            modifiedOnStr: "",
-            overallRiskScore: "",
-            period: "",
-            priority: "",
-            region: "",
-            resPerson: "",
-            riskScore: 0,
-            status: null,
             title: "",
-            vendorContact: "",
-            vendorName: "",
+            approval: "",
+            assessmentBy: "",
+            approver: "",
+            approvedDate: "",
+            assessmentsDate: "",
+            riskScore: "",
             vendorRiskType: "",
-            vendors: [],
-            version: ""
+            docType: "",
+            period: "",
+            vendors: []
         };
 
         $scope.Grid1 = {
             Column: 'vendorName',
+            Filter: '',
             IsAsc: true,
             Data: [],
             SortMe: function (col) {
@@ -99,6 +66,12 @@
                 alert("Please select at least one vendor");
                 return false;
             }
+
+            angular.forEach(selectedVendors, function (item, ind) {
+               item.vendorId = $scope.generateUuid();
+               item.statusMsg = "Create Assessment";
+            });
+
             if ($scope.Form.VendorRisk.$pristine || $scope.Form.VendorRisk.$invalid) return false;
 
             $scope.VM.vendors = selectedVendors;
@@ -119,6 +92,11 @@
             }
             $state.go('app.vendorrisk.stinfo.main');
         };
+
+        $scope.generateUuid = function() {
+            var uid = UniqueID.new();
+            return uid;
+        }
 
         VendorService.GerUserList().then(function(user){
             $scope.userList = user;
