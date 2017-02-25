@@ -85,7 +85,7 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
     };
 
     this.calcMetrics = function (asId, vrName) {
-        return APIHandler.Get('vendorriskcollectiondata/computeRiskDataMetrics/'+vrName+'/'+asId);
+        return APIHandler.Post('vendorriskassessment/computeRiskDataMetrics/'+vrName+'/'+asId);
     }
 
     this.SetAssessmentData = function(set_data) {

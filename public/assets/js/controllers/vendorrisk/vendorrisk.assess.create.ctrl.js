@@ -65,7 +65,7 @@
                 var sendData = {
                     assessmentDate: asData.assessmentDate,
                     assessmentDtStr: asData.assessmentDtStr,
-                    assessmentId: asId,
+                    vraid: asId,
                     comments: vendor_comment,
                     control_Ref_ID: '',
                     control_Category: vendor_Category,
