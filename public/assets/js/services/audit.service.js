@@ -10,18 +10,18 @@ app.service('AuditService', function(APIHandler){
 
     this.DeleteAudit = function (id) {
         return APIHandler.Delete('auditmgmt/' + id);
-    }
+    };
 
-    this.GetAudit = function(id){
+    this.GetEachAudit = function(id){
         return APIHandler.Get('audits/'+id);
     };
 
-    this.GetTopic = function(id){
-        return APIHandler.Get('audittopic/'+id);
+    this.GetTopics = function(){
+        return APIHandler.Get('audittopic');
     };
 
-    this.GetFindings = function(size, page){
-        return APIHandler.Get('auditfindings?size='+size+'&page='+page);
+    this.GetFindings = function(){
+        return APIHandler.Get('auditfindings');
     };
 
     this.GetFinding = function(id){

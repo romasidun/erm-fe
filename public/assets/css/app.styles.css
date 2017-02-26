@@ -327,3 +327,7 @@ hr.hrule4 {
 .bg-light-yellow {
     background-color: rgba(214, 237, 158, 0.48);
 }
+
+.dataTables_length{
+    width: 100%;
+}
