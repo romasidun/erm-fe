@@ -16,6 +16,7 @@
             templateDesc: '',
             templateName: '',
             fileName: '',
+            fileId: '',
             modifiedBy: null,
             modifiedOn: null,
             key: ''
@@ -39,6 +40,7 @@
                         alert('success');
                         console.log(res);
                         $scope.VM.fileName = $scope.FileModel[0].fileName;
+                        $scope.VM.fileId = res.data.fileId;
                         // for (var i in fileModel) {
                         //     fileModel[i].id = res.data.fileId;
                         //     fileModel[i].filePath = res.data.path;
