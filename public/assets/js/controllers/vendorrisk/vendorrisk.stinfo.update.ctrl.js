@@ -63,7 +63,7 @@
                 '<p style=\"text-indent: 40px\">' +
                 'You are receiving this email, because you are the vendor contact for ' + vendor.vendorName + ' in our system. <br/>' +
                 'Please enter the responses Y or N for the questions and enter if you have any findings or comments: <br/><br/>' +
-                '<a href=\"' + baseUrl + '/vendorrisk/assess.create/' + $state.params.id + '/' + vendor.id + '\">Link to Assessment</a><br/><br/>' +
+                '<a href=\"' + baseUrl + '/vendorrisk/assess.create/' + $state.params.id + '/' + vendor.id + '/email\">Link to Assessment</a><br/><br/>' +
                 '</p>' +
                 '<p>Regards,</p><br/>' +
                 '<p>CWT_testuser</p>';
@@ -93,11 +93,11 @@
         };
 
         $scope.createAssessment = function(vendor){
-            $state.go('app.vendorrisk.assessment',{asId: $state.params.id, vrId: vendor.id});
+            $state.go('app.vendorrisk.assessment',{asId: $state.params.id, vrId: vendor.id, page: 'create'});
         };
 
         $scope.viewAssessment = function(vendor){
-            $state.go('app.vendorrisk.assessment',{asId: $state.params.id, vrId: vendor.id});
+            $state.go('app.vendorrisk.assessment',{asId: $state.params.id, vrId: vendor.id, page: 'view'});
             /*var baseUrl = $location.$$absUrl.substr(0, $location.$$absUrl.length - $location.$$url.length);
             window.open(baseUrl + '/vr/' + $state.params.id + '/' + vendor.id, "_blank");*/
         };

@@ -205,7 +205,7 @@ function ($stateProvider, $urlRouterProvider ,$locationProvider, $controllerProv
         controllerAs: 'vrStinfoupdate',
         resolve: loadSequence('VendorStinfoUpdateCtrl')
     }).state('app.vendorrisk.assessment', {
-        url: '/assess.create/:asId/:vrId',
+        url: '/assess.create/:asId/:vrId/:page',
         templateUrl: 'assets/views/vendorrisk/vendorrisk.assess.create.html',
         title: 'Vendor Risk Assessment ',
         icon: 'ti-layout-media-left-alt',

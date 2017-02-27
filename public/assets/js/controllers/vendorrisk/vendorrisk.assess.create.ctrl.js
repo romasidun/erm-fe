@@ -6,6 +6,7 @@
         $scope.mainTitle = $state.current.title;
         var asId = $state.params.asId;
         var vrId = $state.params.vrId;
+        var page = $state.params.page;
 
         VendorService.GetRimById(asId).then(function (data) {
             $rootScope.app.Mask = true;
@@ -26,7 +27,8 @@
             $rootScope.app.Mask = false;
 
             //Vendor Status Update
-            setStateus('Waiting For Response');
+            if(page === 'email')
+                setStatus('Waiting For Response');
 
             //return VendorService.GetVendorById(vrId);
         });/*.then(function (data) {
@@ -45,6 +47,7 @@
             /*            var date = new Date();
              var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
              var current_user = $('.dropdown.current-user .username').text();*/
+            $rootScope.app.Mask = true;
             angular.forEach($scope.vrStinfoCT, function (obj, ind) {
                 var asData = $scope.VM;
                 var vendor_response = "NA";
@@ -83,14 +86,17 @@
                 };
                 VendorService.PostVendorData(sendData).then(function () {
                     //Vendor Status Update
-                    setStateus('Completed');
+                    if(page === 'email')
+                        setStatus('Completed');
 
-                    $rootScope.app.Mask = false;
+                    if(($scope.vrStinfoCT.length-1) === ind){
+                        $rootScope.app.Mask = false;
+                    }
                 })
             });
         };
 
-        function setStateus(msg){
+        function setStatus(msg){
             //Vendor Status Update----------------------
             angular.forEach($scope.VM.vendors, function (item, ind) {
                 if(item.id == vrId){
