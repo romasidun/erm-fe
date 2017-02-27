@@ -45,7 +45,7 @@
                     items: function () {
                         return {
                             TempLoader: OPRiskService.GetRSATemplates(),
-                            prefix: 'oprisk'
+                            prefix: 'rcsa/templates/'
                         };
                     }
                 }

@@ -17,7 +17,11 @@
         };
 
         this.GetTemplate = function(){
-            return APIHandler.Get('/itram/templates');
+            return APIHandler.Get('itram/templates');
+        };
+        
+        this.TemplateDownload = function(id){
+            return APIHandler.Get('itram/templates/download/' + id);
         };
 
         this.AddRim = function(params){

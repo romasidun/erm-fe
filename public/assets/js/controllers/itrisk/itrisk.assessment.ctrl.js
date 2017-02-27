@@ -57,7 +57,7 @@
                     items: function () {
                         return {
                             TempLoader: ITRiskService.GetTemplate(),
-                            prefix: 'itrisk'
+                            prefix: 'itram/templates/'
                         };
                     }
                 }
