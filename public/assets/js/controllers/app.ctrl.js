@@ -8,8 +8,11 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
 	// -----------------------------------
 	var $win = $($window);
     $rootScope.$on("$locationChangeSuccess", function(event, url, oldUrl, state, oldState) {
-        if(url.indexOf('admin') > 0){
-			$rootScope.adminState = true;
+        // 1) Check if localStorage has "UserStatus", and UserStatus is admin
+        if($localStorage['UserState'] == 'admin'){
+		 	$rootScope.adminState = true;
+		}else{
+            $rootScope.adminState = false;
 		}
     });
 
@@ -224,4 +227,29 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
     // Highcharts.setOptions({
     //     colors: ['#E20D01', '#B49400', '#EDA300', '#1372DF', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#0FF900']
     // });
+
+
+
+
+	/*
+	* User's event handling
+	* */
+
+    // When click "Admin" link for admin page on User's page
+    // 1) localStorage <- UserStatus:admin
+    // 2) Goto /admin/dashboard page
+
+	$scope.gotoAdminPage = function(){
+    	$localStorage['UserState'] = 'admin';
+        $state.go('app.admin.dashboard');
+	};
+
+    // When click "Main" link for dashboard page on Admin's page
+    // 1) localStorage <- UserStatus:user
+    // 2) Goto /dashboard page
+
+    $scope.gotoUserDashboard = function(){
+        $localStorage['UserState'] = 'user';
+        $state.go('app.dashboard.main');
+    };
 });
