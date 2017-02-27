@@ -1,121 +1,114 @@
+/**
+ Desc: Controller for Create and View the Vendor Assessment Data
+ author: Roma
+ */
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope', '$scope', '$state', 'VendorService', 'Utils', '$filter'];
+    VendorAssessmentController.$inject = ['$rootScope', '$state', 'VendorService', 'Utils', '$filter'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $scope, $state, VendorService, Utils, $filter) {
-        $scope.mainTitle = $state.current.title;
+    function VendorAssessmentController($rootScope, $state, VendorService, Utils, $filter) {
+        var vm = this;
+        vm.mainTitle = $state.current.title;
         var asId = $state.params.asId;
         var vrId = $state.params.vrId;
         var page = $state.params.page;
+        vm.page = page;
 
         VendorService.GetRimById(asId).then(function (data) {
             $rootScope.app.Mask = true;
-            $scope.VM = data;
-            data.approvedDate = new Date(data.approvedDate);
-            $scope.VM.approvedDate = Utils.GetDPDate(data.approvedDate);
-            $scope.VM.assessmentsDate = Utils.GetDPDate(data.assessmentsDate);
-            //$scope.vendor = $filter('filter1')($scope.VM.vendors, {id: vrId});
-            var foundVendor = $filter('filter')($scope.VM.vendors, {id: vrId});
-
-            if(angular.isArray(foundVendor) && foundVendor.length > 0)
-                $scope.vendor = foundVendor[0];
-
-            return VendorService.GetVendorAssessment($scope.VM.vendorRiskType);
-
-        }).then(function (data) {
-            $scope.vrStinfoCT = data;
-            $rootScope.app.Mask = false;
-
-            //Vendor Status Update
-            if(page === 'email')
-                setStatus('Waiting For Response');
-
-            //return VendorService.GetVendorById(vrId);
-        });/*.then(function (data) {
-            $scope.vendor = data;
-            $rootScope.app.Mask = false;
-        })*/
-
-        $scope.vendorResponseVal = function (para, ele, event) {
-            if ($(event.target).prop('checked') == true) {
-                $(event.target).prop('checked', true);
-                $(event.target).parent('td').siblings('.res').children('input:checkbox').prop('checked', false);
+            data.approvedDate = moment(data.approvedDate).format('MM/DD/YYYY');
+            data.assessmentsDate = moment(data.assessmentsDate).format('MM/DD/YYYY');
+            vm.formData = data;
+            return VendorService.GetVendorById(vrId);
+        }).then(function(re) {
+            vm.vendor = re;
+            return VendorService.GetVRCollectByVendor(asId, vm.vendor.vendorName);
+        }).then(function(re){
+            if(angular.isArray(re) && re.length > 0){
+                vm.gridData = re;
+                vm.data_flag = 'assessment';
+                $rootScope.app.Mask = false;
+            } else {
+                setStatus('Waiting for response');
+                VendorService.GetVRCollectionFromControl(vm.formdata.vendorRiskType).then(function(re){
+                    vm.gridData = re;
+                    vm.data_flag = 'new';
+                    $rootScope.app.Mask = false;
+                });
             }
-        };
 
-        $scope.saveVendorData = function () {
-            /*            var date = new Date();
-             var current_date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-             var current_user = $('.dropdown.current-user .username').text();*/
+        });
+
+        vm.saveVendorData = function () {
             $rootScope.app.Mask = true;
-            angular.forEach($scope.vrStinfoCT, function (obj, ind) {
-                var asData = $scope.VM;
-                var vendor_response = "NA";
-                if (obj.responseN == false && obj.responseY == false) {
-                    vendor_response = "NA";
+            angular.forEach(vm.gridData, function (obj, ind) {
+                var asData = vm.formdata;
+                if(vm.data_flag === 'new'){
+                    var category = obj.category;
+                    var rname = obj.name;
+                } else {
+                    var category = obj.control_Category;
+                    var rname = obj.control_Name;
                 }
-                if (obj.responseN == true) {
-                    obj.responseY = false;
-                    vendor_response = "N";
-                }
-                if (obj.responseY == true) {
-                    obj.responseN = false;
-                    vendor_response = "Y";
-                }
-                var vendor_comment = angular.isDefined(obj.comments) ? obj.comments : "";
-                var vendor_Findings = angular.isDefined(obj.findings) ? obj.findings : 0;
-                var vendor_Category = angular.isDefined(obj.category) ? obj.category : "";
                 var sendData = {
                     assessmentDate: asData.assessmentDate,
                     assessmentDtStr: asData.assessmentDtStr,
                     vraid: asId,
-                    comments: vendor_comment,
+                    comments: obj.comments || '',
                     control_Ref_ID: '',
-                    control_Category: vendor_Category,
-                    control_Name: asData.actualName,
+                    control_Category: category,
+                    control_Name: rname,
                     control_Source: asData.vendorRiskType,
                     docType: asData.docType,
-                    finding: vendor_Findings,
-                    response: vendor_response,
+                    finding: obj.finding || 0,
+                    response: obj.response || '',
                     riskScore: asData.riskScore,
                     riskType: asData.vendorRiskType,
                     riskWeight: 0,
                     status: asData.status,
                     title: asData.title,
-                    vendor: $scope.vendor
+                    vendor: vm.vendor
                 };
-                VendorService.PostVendorData(sendData).then(function () {
-                    //Vendor Status Update
-                    if(page === 'email')
-                        setStatus('Completed');
-
-                    if(($scope.vrStinfoCT.length-1) === ind){
-                        $rootScope.app.Mask = false;
-                    }
-                })
+                if(vm.data_flag === 'new') {
+                    VendorService.PostVRCollection(sendData).then(function () {
+                        if ((vm.gridData.length - 1) === ind) {
+                            $rootScope.app.Mask = false;
+                        }
+                    });
+                } else {
+                    VendorService.PutVRCollection(obj.id, sendData).then(function () {
+                        if ((vm.gridData.length - 1) === ind) {
+                            $rootScope.app.Mask = false;
+                        }
+                    });
+                }
             });
+
+            //Vendor Status Update
+            if(page === 'email')
+                setStatus('Completed');
         };
 
         function setStatus(msg){
             //Vendor Status Update----------------------
-            angular.forEach($scope.VM.vendors, function (item, ind) {
+            angular.forEach(vm.formdata.vendors, function (item, ind) {
                 if(item.id == vrId){
                     item.statusMsg = msg;
                 }
             });
 
             var params = {
-                vendors: $scope.VM.vendors
+                vendors: vm.formdata.vendors
             };
             return VendorService.PutAseessmentList(asId, params);
             //-------------------------------------------
         }
 
-        $scope.goBack = function () {
+        vm.goBack = function () {
             $state.go('app.vendorrisk.stinfo.update', {id: asId});
         };
 
-        $scope.downloadExcel = function () {
+        vm.downloadExcel = function () {
             var data = {};
             data.heights = [];
             data.sheetName = "Vendor Risk Assessment";
@@ -130,13 +123,13 @@
             data.heights.push({row: 1, height: 60});
 
             data.body.push({
-                col: 2, row: 3, text: 'Vendor: ' + $scope.vendor.vendorName, align: 'center',
+                col: 2, row: 3, text: 'Vendor: ' + vm.vendor.vendorName, align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
             data.heights.push({row: 3, height: 25});
 
             data.body.push({
-                col: 2, row: 4, text: 'Primary Contact: ' + $scope.vendor.primaryContact, align: 'center',
+                col: 2, row: 4, text: 'Primary Contact: ' + vm.vendor.primaryContact, align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
             data.heights.push({row: 4, height: 25});
@@ -144,7 +137,7 @@
             data.body.push({
                 col: 2,
                 row: 5,
-                text: 'Assessment Date: ' + $scope.VM.assessmentsDate + '  Assessment By: ' + $scope.VM.assessmentBy,
+                text: 'Assessment Date: ' + vm.formdata.assessmentsDate + '  Assessment By: ' + vm.formdata.assessmentBy,
                 align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
@@ -153,14 +146,14 @@
             data.body.push({
                 col: 2,
                 row: 6,
-                text: 'Doc Title: ' + $scope.VM.title + '  Doc Type: Survey' + $scope.VM.docType,
+                text: 'Doc Title: ' + vm.formdata.title + '  Doc Type: Survey' + vm.formdata.docType,
                 align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
             data.heights.push({row: 6, height: 25});
 
             data.body.push({
-                col: 2, row: 7, text: 'Risk Score: ' + $scope.VM.riskScore, align: 'center',
+                col: 2, row: 7, text: 'Risk Score: ' + vm.formdata.riskScore, align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
             data.heights.push({row: 7, height: 25});
@@ -181,19 +174,20 @@
 
             var num = 10;
             var newObj = []
-            angular.forEach($scope.vrStinfoCT, function (obj, ind) {
+            angular.forEach(vm.gridData, function (obj, ind) {
                 var yesStr = '';
                 var noStr = '';
-                if (obj.responseN == true) {
-                    noStr = "N";
-                }
-                if (obj.responseY == true) {
+                if (obj.response == 'Y') {
                     yesStr = "Y";
                 }
-                var vendor_comment = angular.isDefined(obj.comments) ? obj.comments : "";
-                var vendor_Findings = angular.isDefined(obj.findings) ? obj.findings : 0;
-                var vendor_Category = angular.isDefined(obj.category) ? obj.category : "";
-                newObj.push([vendor_Category, obj.name, yesStr, noStr, vendor_Findings, vendor_comment]);
+                if (obj.responseY == true) {
+                    noStr = "N";
+                }
+                var vendor_comment = obj.comments || '';
+                var vendor_Findings = obj.finding || '';
+                var vendor_Category = obj.category || obj.control_Category;
+                var name = obj.name || obj.control_Name;
+                newObj.push([vendor_Category, name, yesStr, noStr, vendor_Findings, vendor_comment]);
                 num++;
             });
 
@@ -224,5 +218,4 @@
             });
         };
     }
-
 })();

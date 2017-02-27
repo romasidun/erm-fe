@@ -2,12 +2,12 @@
 /**
  * Created by Star on 1/24/2017.
  */
-app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler, $localStorage) {
-    this.GetRim = function(){
+app.service('VendorService', ['APIHandler', '$localStorage', function (APIHandler, $localStorage) {
+    this.GetRim = function () {
         return APIHandler.Get('vendorassessmentlist');
     };
 
-    this.GetRimById = function(id){
+    this.GetRimById = function (id) {
         return APIHandler.Get('vendorassessmentlist/' + id);
     };
 
@@ -15,52 +15,45 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Get('vendorriskassessment');
     };
 
-    this.AddRim = function(data){
+    this.AddRim = function (data) {
         return APIHandler.Post('vendorassessmentlist', data);
     };
-    this.PutAseessmentList = function(id, data){
-        return APIHandler.Put('vendorassessmentlist/'+id, data);
+    this.PutAseessmentList = function (id, data) {
+        return APIHandler.Put('vendorassessmentlist/' + id, data);
     };
 
-    this.PostVendorData = function(data){
-        return APIHandler.Post('vendorriskcollectiondata', data);
-    };
-
-    this.GetRimStatus = function(){
+    this.GetRimStatus = function () {
         return APIHandler.Get('vendorassessmentlist/status');
     };
 
-    this.GetRimPeriod = function(){
+    this.GetRimPeriod = function () {
         return APIHandler.Get('vendorassessmentlist/period');
     };
 
-    this.DeleteRim = function(id){
-        return APIHandler.Delete('vendorassessmentlist/'+id);
+    this.DeleteRim = function (id) {
+        return APIHandler.Delete('vendorassessmentlist/' + id);
     };
 
-    this.GetRimVendor = function(){
+    this.GetRimVendor = function () {
         return APIHandler.Get('vendorassessmentlist/vendor');
     };
 
-    this.GetRimRiskScore = function(){
+    this.GetRimRiskScore = function () {
         return APIHandler.Get('vendorassessmentlist/riskScore');
     };
 
-    this.GetRimDocType = function(){
+    this.GetRimDocType = function () {
         return APIHandler.Get('vendorassessmentlist/docType');
     };
 
-    this.GetRimRiskType = function(){
+    this.GetRimRiskType = function () {
         return APIHandler.Get('vendorassessmentlist/riskType');
     };
 
-    this.UpdateRam = function(id, params){
-        return APIHandler.Put('vendorassessmentlist/'+id, params);
+    this.UpdateRam = function (id, params) {
+        return APIHandler.Put('vendorassessmentlist/' + id, params);
     };
 
-    this.GetVendorAssessment = function (sourceName) {
-        return APIHandler.Get('crtldata/vr/questions?sourcename=' + sourceName);
-    };
 
     this.GetVendor = function () {
         return APIHandler.Get('vendor');
@@ -80,15 +73,45 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
         return APIHandler.Post('vendorriskassessment/sendEmail', params);
     };
 
-    this.isAssessmentComplete = function (asId, vrName) {
-        return APIHandler.Get('vendorriskcollectiondata/isAssessmentComplete/'+vrName+'/'+asId);
+    this.calcMetrics = function (asId, vrName) {
+        return APIHandler.Post('vendorriskassessment/computeRiskDataMetrics/' + vrName + '/' + asId);
     };
 
-    this.calcMetrics = function (asId, vrName) {
-        return APIHandler.Post('vendorriskassessment/computeRiskDataMetrics/'+vrName+'/'+asId);
-    }
+    //vendor risk collection data
+    this.GetVRCollectByVendor = function (asId, vrName) {
+        return APIHandler.Get('vendorriskcollectiondata/' + vrName + '/' + asId);
+    };
 
-    this.SetAssessmentData = function(set_data) {
+    /*
+     Desc: Get Control Data by vendor risk type
+     param1: vendor risk type - i.g : 3rd Party Outsourcing Information, SIG, VRAQ
+     author: Roma
+     */
+    this.GetVRCollectionFromControl = function (sourceName) {
+        return APIHandler.Get('crtldata/vr/questions?sourcename=' + sourceName);
+    };
+
+    /*
+     Desc: Post Vendor Assessment Data
+     param1: Post Data - i.g : 2d array
+     author: Roma
+     */
+    this.PostVRCollection = function (data) {
+        return APIHandler.Post('vendorriskcollectiondata', data);
+    };
+
+    /*
+     Desc: Update Vendor Assessment Data
+     param1: id - i.g : string
+     param2: Post Data - i.g : 2d array
+     author: Roma
+     */
+    this.PutVRCollection = function (id, data) {
+        return APIHandler.Post('vendorriskcollectiondata/' + id, data);
+    };
+    /////////////////////////////////////////////////////////////
+
+    this.SetAssessmentData = function (set_data) {
         $localStorage.Vendor_data_selected = set_data.Vendor_data_selected;
         $localStorage.RiskAssessmentType_selected = set_data.RiskAssessmentType_selected;
         $localStorage.AssessmentData_by_vendorName = set_data.AssessmentData_by_vendorName;
@@ -113,9 +136,9 @@ app.service('VendorService', ['APIHandler','$localStorage', function (APIHandler
  * Created by Hafeez on 27/01/2017.
  */
 
-app.service('RiskDataService', function(APIHandler){
+app.service('RiskDataService', function (APIHandler) {
 
-    this.GetRiskMetrics = function(){
+    this.GetRiskMetrics = function () {
         return APIHandler.Get('riskdatametrics');
     };
 

@@ -1,5 +1,6 @@
 /**
- * Created by Hafeez on 26/12/2016.
+ * Created by Roma on 28/2/2017.
+ * Email Link Login Controller
  */
 
 (function(){
@@ -15,22 +16,20 @@
 
 
         $scope.loginAction = function(){
-
             $scope.submit = true;
             $scope.errs.user = $scope.creds.username === "";
             $scope.errs.pass = $scope.creds.password === "";
 
             if($scope.errs.user || $scope.errs.pass) return false;
-            //var res = AuthFactory.Authenticate($scope.creds);
-            //console.log(res);
-            // if(res.user && res.pass) {
-            //     $scope.submit = false;
-            //     $rootScope.app.IsAuthenticated = true;
-            //     $state.go('app.dashboard.main');
-            // } else
-            //     $scope.invalidCreds = true;
-            $scope.submit = false;
-            $state.go('vendor.assessment');
+
+            var res = AuthFactory.Authenticate($scope.creds);
+            console.log(res);
+            if(res.user && res.pass) {
+                $scope.submit = false;
+                $rootScope.app.IsAuthenticated = true;
+                $state.go('app.vendorrisk.assessment',{asId: $state.params.asId, vrId: $state.params.vrId, page: $state.params.page});
+            } else
+                $scope.invalidCreds = true;
         };
     }
 })();
