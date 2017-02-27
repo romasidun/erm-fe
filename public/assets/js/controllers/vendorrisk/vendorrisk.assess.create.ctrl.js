@@ -87,7 +87,7 @@
                 VendorService.PostVendorData(sendData).then(function () {
                     //Vendor Status Update
                     if(page === 'email')
-                        setStatus('Submitted Successfully');
+                        setStatus('Completed');
 
                     if(($scope.vrStinfoCT.length-1) === ind){
                         $rootScope.app.Mask = false;

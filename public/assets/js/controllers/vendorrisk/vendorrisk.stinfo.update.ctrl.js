@@ -77,7 +77,7 @@
             };
 
             VendorService.SendMail(params).then(function (res) {
-                vendor.statusMsg = "Email sent successfully";
+                vendor.statusMsg = "Email submitted successfully";
                 if(vendor.vendorId == null || vendor.vendorId == '')
                     vendor.vendorId = $scope.generateId();
 
