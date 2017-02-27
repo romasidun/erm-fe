@@ -1,7 +1,7 @@
 (function () {
-    VendorStinfoUpdateController.inject = ['$scope', '$rootScope', '$state', 'VendorService', 'Utils', '$filter'];
+    VendorStinfoUpdateController.inject = ['$scope', '$rootScope', '$state', 'VendorService', 'Utils', '$filter', 'UniqueID'];
     app.controller('VendorStinfoUpdateCtrl', VendorStinfoUpdateController);
-    function VendorStinfoUpdateController($scope, $rootScope, $state, VendorService, Utils, $filter, $location) {
+    function VendorStinfoUpdateController($scope, $rootScope, $state, VendorService, Utils, $filter, $location, UniqueID) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "VENDOR UPDATE PAGE";
         $scope.currPage = 'update';
@@ -55,6 +55,8 @@
         };
 
         $scope.sendMailOne = function (vendor) {
+            $rootScope.app.Mask = true;
+
             var baseUrl = $location.$$absUrl.substr(0, $location.$$absUrl.length - $location.$$url.length);
             var to = vendor.email;
 
@@ -75,20 +77,23 @@
             };
 
             VendorService.SendMail(params).then(function (res) {
+                vendor.statusMsg = "Email sent successfully";
+                if(vendor.vendorId == null || vendor.vendorId == '')
+                    vendor.vendorId = $scope.generateId();
 
-                angular.forEach($scope.VM.vendors, function (item, ind) {
-                    if(item.id == vendor.id){
-                        item.statusMsg = "Email sent successfully";
-                        vendor.statusMsg = "Email sent successfully";
-                    }
-                });
+                var arr = $filter('filter')($scope.VM.vendors, {id: vendor.id});
+                if(angular.isArray(arr) && arr.length > 0){
+                    arr[0] = vendor;
+                } else {
+                    $scope.VM.vendors.push(vendor);
+                }
 
                 var params = {
                     vendors: $scope.VM.vendors
                 };
                 return VendorService.PutAseessmentList($state.params.id, params);
             }).then(function (re) {
-                alert("The Email was sent correctly");
+                $rootScope.app.Mask = false;
             });
         };
 
@@ -130,33 +135,10 @@
             $rootScope.app.Mask = false;
         });
 
-        function setStatus(obj){
-            VendorService.isAssessmentComplete($state.params.id, obj.vendorName).then(function (res) {
-                if(!res){
-                    $scope.VM.assessmentStatus = "Waiting for Response";
-                    var params = {
-                        assessmentStatus: "Waiting for Response"
-                    };
-                    VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
-                        $rootScope.app.Mask = false;
-                        $scope.VM.assessmentStatus = "Waiting for Response";
-                    }).catch(function () {
-
-                    });
-                } else {
-                    $scope.VM.assessmentStatus = "Assessment Completed";
-                    var params = {
-                        assessmentStatus: "Assessment Completed"
-                    };
-                    VendorService.PutAseessmentList($state.params.id, params).then(function (res1) {
-                        $rootScope.app.Mask = false;
-                        $scope.VM.assessmentStatus = "Assessment Completed";
-                    }).catch(function () {
-
-                    });
-                }
-            });
-        }
+        $scope.generateId = function () {
+            var uid = UniqueID.new();
+            return uid;
+        };
 
         function calcMetrics(obj){
             VendorService.calcMetrics($state.params.id, obj.vendorName).then(function (res) {
