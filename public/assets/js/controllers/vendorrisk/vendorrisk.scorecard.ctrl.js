@@ -4,16 +4,85 @@
 (function(){
     'use strict';
 
-    ScoreController.$inject = ['$scope','$rootScope','$state',  'RiskDataService', 'ChartFactory', 'Utils'];
+    ScoreController.$inject = ['$scope','$rootScope','$state',  'RiskDataService', 'ChartFactory', 'Utils', 'VendorService', '$filter'];
     app.controller('VendScoreCardCtrl', ScoreController);
 
-    function ScoreController ($scope, $rootScope, $state, RiskDataService, ChartFactory, Utils){
+    function ScoreController ($scope, $rootScope, $state, RiskDataService, ChartFactory, Utils, VendorService, $filter){
 
         $scope.mainTitle = $state.current.title;
-        $rootScope.app.Mask = false;
+        $rootScope.app.Mask = true;
 
         $scope.VendList = {};
         $scope.VendOpts = [];
+
+        $scope.selectedVType = '';
+        $scope.selectedVPeriod = 'Select Period';
+        $scope.selectedVRisk = 'Select Vendor Risk';
+        $scope.riskData = [];
+        $scope.riskDataOrigin = [];
+        VendorService.GetRiskType().then(function (risktype) {
+            $scope.VRiskType = risktype;
+            if($scope.selectedVType == ''){
+                $scope.selectedVType = risktype[0]['riskType'];
+            }
+            console.log($scope.VRiskType);
+        });
+
+        $scope.setVType = function (vt) {
+            $scope.selectedVType = vt;
+            console.log($scope.riskData);
+            $scope.riskData = $filter('filter')($scope.riskDataOrigin, {riskSource: vt});
+        };
+        $scope.setVRisk = function (vr) {
+
+        };
+        $scope.setVPeriod = function (vp) {
+            $scope.selectedVPeriod = vp;
+            $scope.riskData = $filter('filter')($scope.riskDataOrigin, {controlPeriod: vp});
+        };
+
+        $scope.$watch('riskData', function(nv){
+            if(nv) setupVRiskChart(nv);
+        });
+
+        function setupVRiskChart(data){
+            console.log(data);
+            if(data.length < 1) {
+                $('#riskHeatMap').html('');
+                return;
+            }
+            var ChartOpts = {
+                Title: 'Vendor Risk  Ratings',
+                XCategories: [],
+                YCategories: [],
+                SeriesName: 'Risk Ratings',
+                SeriesData: []
+            };
+
+            for(var i in $scope.VendOpts){
+                ChartOpts.XCategories.push($scope.VendOpts[i]+'-ORW');
+                ChartOpts.XCategories.push($scope.VendOpts[i]+'-OFW');
+            }
+            console.log(ChartOpts.XCategories);
+
+            $scope.VendList[$scope.VendOpts[0]].forEach(function(li){
+                ChartOpts.YCategories.push(li.riskCategory);
+            });
+
+            var xval1, xval2, yval;
+            angular.forEach(data, function(li, ind){
+                yval = ChartOpts.YCategories.indexOf(li.riskCategory);
+                xval1 = ChartOpts.XCategories.indexOf(li.vendorName+'-ORW');
+                xval2 = ChartOpts.XCategories.indexOf(li.vendorName+'-OFW');
+                ChartOpts.SeriesData.push({ y: yval, x: xval1, value: li.overallRiskWeight, color: cellColor(li.overallRiskWeight) });
+                ChartOpts.SeriesData.push({ y: yval, x: xval2, value: li.overallFindingWeight, color: cellColor(li.overallFindingWeight) });
+            });
+
+            console.log(ChartOpts);
+
+            ChartFactory.BuildHeatMap('riskHeatMap', ChartOpts);
+        }
+
         RiskDataService.GetRiskMetrics().then(function(data){
             //Setup Model for Single Vendor Chart Control
             data.forEach(function(v){
@@ -32,6 +101,9 @@
 
             //MultiVendor Chart load
             setupMultiVendChart(data);
+
+            $scope.riskDataOrigin = data;
+            $rootScope.app.Mask = false;
         });
 
         $scope.selectVendor = function(v){ $scope.CurrVendor = v };
