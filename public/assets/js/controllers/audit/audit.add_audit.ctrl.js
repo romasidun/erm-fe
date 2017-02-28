@@ -7,6 +7,8 @@
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "ADD AUDIT";
         $rootScope.app.Mask = false;
+        $scope.submitAction = function(){
 
+        }
     }
 })();

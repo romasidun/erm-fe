@@ -55,7 +55,7 @@
                                     '<th> Responsilbe </th>' +
                                     '<th> Status </th>'+
                                     '</tr>' +
-                                    '</thead>' +
+                                '</thead>' +
                                 '<tbody>' +
                                 '</tbody>' +
                             '</table>';

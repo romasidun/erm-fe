@@ -27,6 +27,8 @@
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
+            // console.log('idd', idd);
+            // console.log('idd', fileModel);
             PolicyService.FileUpload(idd, fileModel).then(function(res){
                 if(res.status === 200) {
                     for (var i in fileModel) {
