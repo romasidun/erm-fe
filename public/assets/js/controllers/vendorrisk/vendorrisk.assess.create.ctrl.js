@@ -4,9 +4,9 @@
  */
 (function () {
     'use strict';
-    VendorAssessmentController.$inject = ['$rootScope', '$state', 'VendorService', 'Utils', '$filter'];
+    VendorAssessmentController.$inject = ['$rootScope', '$state', 'VendorService', 'Utils', '$filter', 'UniqueID'];
     app.controller('VendorAssessmentCtrl', VendorAssessmentController);
-    function VendorAssessmentController($rootScope, $state, VendorService, Utils, $filter) {
+    function VendorAssessmentController($rootScope, $state, VendorService, Utils, $filter, UniqueID) {
         var vm = this;
         vm.mainTitle = $state.current.title;
         var asId = $state.params.asId;
@@ -79,13 +79,13 @@
                 if(vm.data_flag === 'new') {
                     VendorService.PostVRCollection(sendData).then(function () {
                         if ((vm.gridData.length - 1) === ind) {
-                            $rootScope.app.Mask = false;
+                            closeWindow();
                         }
                     });
                 } else {
                     VendorService.PutVRCollection(obj.id, sendData).then(function () {
                         if ((vm.gridData.length - 1) === ind) {
-                            $rootScope.app.Mask = false;
+                            closeWindow();
                         }
                     });
                 }
@@ -93,23 +93,48 @@
 
         };
 
+        function closeWindow(){
+            $rootScope.app.Mask = false;
+            if(page == 'email'){
+                alert('It is success.');
+            }
+        }
+
         function setStatus(msg){
             //Vendor Status Update----------------------
-            angular.forEach(vm.formData.vendors, function (item, ind) {
+            var arr = $filter('filter')(vm.formData.vendors, {id: vrId});
+            if(angular.isArray(arr) && arr.length > 0){
+                arr[0].statusMsg = msg;
+            } else {
+                if(vm.vendor.vendorId == null || vm.vendor.vendorId == '')
+                    vm.vendor.vendorId = vm.generateId();
+                vm.vendor.statusMsg = msg;
+                vm.formData.vendors.push(vm.vendor);
+            }
+            
+            /*angular.forEach(vm.formData.vendors, function (item, ind) {
                 if(item.id == vrId){
+                    console.log(111);
                     item.statusMsg = msg;
                 }
             });
-
+*/
             var params = {
                 vendors: vm.formData.vendors
             };
-            return VendorService.PutAseessmentList(asId, params);
+            VendorService.PutAseessmentList(asId, params).then(function (res) {
+
+            });
             //-------------------------------------------
         }
 
         vm.goBack = function () {
             $state.go('app.vendorrisk.stinfo.update', {id: asId});
+        };
+
+        vm.generateId = function () {
+            var uid = UniqueID.new();
+            return uid;
         };
 
         vm.downloadExcel = function () {
