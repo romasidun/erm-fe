@@ -109,8 +109,8 @@
             window.open(baseUrl + '/vr/' + $state.params.id + '/' + vendor.id, "_blank");*/
         };
 
-        $scope.calcAssessment = function(vendor){
-            calcMetrics(vendor);
+        $scope.completeAssessment = function(vendor){
+            completeAssessment(vendor);
         };
 
         VendorService.GetRiskType().then(function (risktype) {
@@ -142,8 +142,23 @@
             return uid;
         };
 
-        function calcMetrics(obj){
-            VendorService.calcMetrics($state.params.id, obj.vendorName).then(function (res) {
+        function completeAssessment(vendor){
+            vendor.statusMsg = "Completed";
+            if(vendor.vendorId == null || vendor.vendorId == '')
+                vendor.vendorId = $scope.generateId();
+
+            var arr = $filter('filter')($scope.VM.vendors, {id: vendor.id});
+            if(angular.isArray(arr) && arr.length > 0){
+                arr[0].statusMsg = vendor.statusMsg;
+                arr[0].vendorId = $scope.generateId();
+            } else {
+                $scope.VM.vendors.push(vendor);
+            }
+
+            var params = {
+                vendors: $scope.VM.vendors
+            };
+            VendorService.PutAseessmentList($state.params.id, params).then(function () {
 
             });
         }
