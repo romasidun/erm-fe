@@ -22,14 +22,18 @@
 
             if($scope.errs.user || $scope.errs.pass) return false;
 
-            var res = AuthFactory.Authenticate($scope.creds);
+            $scope.submit = false;
+            $rootScope.app.IsAuthenticated = true;
+            $state.go('app.dashboard.main');
+
+            /*var res = AuthFactory.login($scope.creds.username, $scope.creds.password);
             console.log(res);
             if(res.user && res.pass) {
                 $scope.submit = false;
                 $rootScope.app.IsAuthenticated = true;
                 $state.go('app.dashboard.main');
             } else
-                $scope.invalidCreds = true;
+                $scope.invalidCreds = true;*/
 
         };
     }

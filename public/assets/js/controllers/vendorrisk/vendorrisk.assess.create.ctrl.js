@@ -16,8 +16,8 @@
 
         VendorService.GetRimById(asId).then(function (data) {
             $rootScope.app.Mask = true;
-            data.approvedDate = moment(data.approvedDate).format('MM/DD/YYYY');
-            data.assessmentsDate = moment(data.assessmentsDate).format('MM/DD/YYYY');
+            /*data.approvedDate = moment(data.approvedDate).format('MM-DD-YYYY');
+            data.assessmentsDate = moment(data.assessmentsDate).format('MM-DD-YYYY');*/
             vm.formData = data;
             return VendorService.GetVendorById(vrId);
         }).then(function(re) {
@@ -56,7 +56,7 @@
                     var rname = obj.control_Name;
                 }
                 var sendData = {
-                    assessmentDate: asData.assessmentDate,
+                    assessmentDate: asData.assessmentsDate,
                     assessmentDtStr: asData.assessmentDtStr,
                     vraid: asId,
                     comments: obj.comments || '',
