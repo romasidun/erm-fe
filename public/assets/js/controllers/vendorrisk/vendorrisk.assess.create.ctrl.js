@@ -43,6 +43,11 @@
 
         vm.saveVendorData = function () {
             $rootScope.app.Mask = true;
+
+            //Vendor Status Update
+            if(page === 'email')
+                setStatus('Submitted Successfully');
+
             angular.forEach(vm.gridData, function (obj, ind) {
                 var asData = vm.formData;
                 if(vm.data_flag === 'new'){
@@ -86,9 +91,6 @@
                 }
             });
 
-            //Vendor Status Update
-            if(page === 'email')
-                setStatus('Completed');
         };
 
         function setStatus(msg){
