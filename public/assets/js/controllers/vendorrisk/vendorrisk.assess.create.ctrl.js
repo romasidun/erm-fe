@@ -44,7 +44,7 @@
         vm.saveVendorData = function () {
             $rootScope.app.Mask = true;
             angular.forEach(vm.gridData, function (obj, ind) {
-                var asData = vm.formdata;
+                var asData = vm.formData;
                 if(vm.data_flag === 'new'){
                     var category = obj.category;
                     var rname = obj.name;
@@ -93,14 +93,14 @@
 
         function setStatus(msg){
             //Vendor Status Update----------------------
-            angular.forEach(vm.formdata.vendors, function (item, ind) {
+            angular.forEach(vm.formData.vendors, function (item, ind) {
                 if(item.id == vrId){
                     item.statusMsg = msg;
                 }
             });
 
             var params = {
-                vendors: vm.formdata.vendors
+                vendors: vm.formData.vendors
             };
             return VendorService.PutAseessmentList(asId, params);
             //-------------------------------------------
@@ -139,7 +139,7 @@
             data.body.push({
                 col: 2,
                 row: 5,
-                text: 'Assessment Date: ' + vm.formdata.assessmentsDate + '  Assessment By: ' + vm.formdata.assessmentBy,
+                text: 'Assessment Date: ' + vm.formData.assessmentsDate + '  Assessment By: ' + vm.formData.assessmentBy,
                 align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
@@ -148,14 +148,14 @@
             data.body.push({
                 col: 2,
                 row: 6,
-                text: 'Doc Title: ' + vm.formdata.title + '  Doc Type: Survey' + vm.formdata.docType,
+                text: 'Doc Title: ' + vm.formData.title + '  Doc Type: Survey' + vm.formData.docType,
                 align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
             data.heights.push({row: 6, height: 25});
 
             data.body.push({
-                col: 2, row: 7, text: 'Risk Score: ' + vm.formdata.riskScore, align: 'center',
+                col: 2, row: 7, text: 'Risk Score: ' + vm.formData.riskScore, align: 'center',
                 font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
             data.heights.push({row: 7, height: 25});
