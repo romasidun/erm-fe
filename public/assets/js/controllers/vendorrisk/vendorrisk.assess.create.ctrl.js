@@ -29,11 +29,13 @@
                 vm.data_flag = 'assessment';
                 $rootScope.app.Mask = false;
             } else {
-                setStatus('Waiting for response');
-                VendorService.GetVRCollectionFromControl(vm.formdata.vendorRiskType).then(function(re){
+                console.log(vm.formData.vendorRiskType);
+                VendorService.GetVRCollectionFromControl(vm.formData.vendorRiskType).then(function(re){
                     vm.gridData = re;
                     vm.data_flag = 'new';
                     $rootScope.app.Mask = false;
+                }).finally(function () {
+                    setStatus('Waiting for response');
                 });
             }
 

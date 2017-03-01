@@ -48,8 +48,8 @@
             <div class="save_button">
                 <a class="btn btn-success center-block text-bold" ng-click="vm.saveVendorData()"><i class="fa fa-save"></i> Save</a>
             </div>
-            <div class="back_button" ng-if="vm.page!='email'">
-                <a class="btn btn-primary center-block text-bold" ng-click="vm.goBack()"><i class="fa fa-backward"></i> Back</a>
+            <div class="back_button">
+                <a class="btn btn-primary center-block text-bold" ng-click="vm.goBack()" ng-if="vm.page!='email'"><i class="fa fa-backward"></i> Back</a>
             </div>
             <div class="back_button">
                 <a class="btn btn-info center-block text-bold" ng-click="vm.downloadExcel()"><i class="fa fa-download"></i> Download Excel</a>
