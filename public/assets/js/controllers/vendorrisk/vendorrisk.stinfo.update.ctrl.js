@@ -77,13 +77,15 @@
             };
 
             VendorService.SendMail(params).then(function (res) {
-                vendor.statusMsg = "Email submitted successfully";
+
+                vendor.statusMsg = "Email Send successfully";
                 if(vendor.vendorId == null || vendor.vendorId == '')
                     vendor.vendorId = $scope.generateId();
 
                 var arr = $filter('filter')($scope.VM.vendors, {id: vendor.id});
                 if(angular.isArray(arr) && arr.length > 0){
-                    arr[0] = vendor;
+                    arr[0].statusMsg = vendor.statusMsg;
+                    arr[0].vendorId = $scope.generateId();
                 } else {
                     $scope.VM.vendors.push(vendor);
                 }

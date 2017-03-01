@@ -107,7 +107,7 @@ app.service('VendorService', ['APIHandler', '$localStorage', function (APIHandle
      author: Roma
      */
     this.PutVRCollection = function (id, data) {
-        return APIHandler.Post('vendorriskcollectiondata/' + id, data);
+        return APIHandler.Put('vendorriskcollectiondata/' + id, data);
     };
     /////////////////////////////////////////////////////////////
 

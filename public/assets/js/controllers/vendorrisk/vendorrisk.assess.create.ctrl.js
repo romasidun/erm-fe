@@ -16,8 +16,8 @@
 
         VendorService.GetRimById(asId).then(function (data) {
             $rootScope.app.Mask = true;
-            /*data.approvedDate = moment(data.approvedDate).format('MM-DD-YYYY');
-            data.assessmentsDate = moment(data.assessmentsDate).format('MM-DD-YYYY');*/
+            data.approvedDate = moment(data.approvedDate).format('MM-DD-YYYY');
+            data.assessmentsDate = moment(data.assessmentsDate).format('MM-DD-YYYY');
             vm.formData = data;
             return VendorService.GetVendorById(vrId);
         }).then(function(re) {
@@ -36,7 +36,8 @@
                 });
             }
         }).finally(function (re) {
-            setStatus('Waiting for response');
+            if(page === 'email')
+                setStatus('Waiting for response');
         });
 
         vm.saveVendorData = function () {
@@ -56,7 +57,7 @@
                     var rname = obj.control_Name;
                 }
                 var sendData = {
-                    assessmentDate: asData.assessmentsDate,
+                    assessmentDate: moment(asData.assessmentsDate).format('YYYY-MM-DD'),
                     assessmentDtStr: asData.assessmentDtStr,
                     vraid: asId,
                     comments: obj.comments || '',
