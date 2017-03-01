@@ -100,9 +100,12 @@
             });
 
             //MultiVendor Chart load
-            setupMultiVendChart(data);
+            /*setupMultiVendChart(data);*/
 
             $scope.riskDataOrigin = data;
+
+            $scope.riskData = $filter('filter')($scope.riskDataOrigin, {riskSource: $scope.selectedVType});
+
             $rootScope.app.Mask = false;
         });
 
@@ -111,7 +114,7 @@
             if(nv) setupVendorChart(nv);
         });
 
-        function setupMultiVendChart(data){
+        /*function setupMultiVendChart(data){
             var XCategories = ['overallRiskWeight', 'overallFindingWeight'];
             var ChartOpts = {
                 Title: 'Multi-Vendor Risk  Ratings',
@@ -143,7 +146,7 @@
             console.log(ChartOpts);
 
             ChartFactory.BuildHeatMap('multiVendHeatMap', ChartOpts);
-        }
+        }*/
 
         function setupVendorChart(vend){
             var XCategories = ['responsesNumYes', 'responsesNumNo', 'responsesNumNA', 'findingTotal', 'overallRiskWeight', 'overallFindingWeight'];
