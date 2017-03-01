@@ -9,26 +9,18 @@
 
     function VendorLoginController($scope, $rootScope, $state , AuthFactory){
 
-        $scope.creds = { username: "", password: "" };
-        $scope.invalidCreds = false;
-        $scope.errs = {pass: false };
+        $scope.password = '';
         $scope.submit = false;
-
 
         $scope.loginAction = function(){
             $scope.submit = true;
-            $scope.errs.pass = $scope.creds.password === "";
-
-            if($scope.errs.pass) return false;
-
+            if($scope.password === '') return false;
             //var res = AuthFactory.Authenticate($scope.creds);
-            console.log(res);
-            if($scope.errs.pass === 'test123$') {
+            if($scope.password === 'test123$') {
                 $scope.submit = false;
-                $rootScope.app.IsAuthenticated = true;
+                //$rootScope.app.IsAuthenticated = true;
                 $state.go('app.vendorrisk.assessment',{asId: $state.params.asId, vrId: $state.params.vrId, page: $state.params.page});
-            } else
-                $scope.invalidCreds = true;
+            }
         };
     }
 })();

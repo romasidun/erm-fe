@@ -12,15 +12,14 @@
 					<legend>
 						Sign in to your account
 					</legend>
-					<div class="login-errors row" ng-if="submit && (invalidCreds || errs.pass)">
+					<div class="login-errors row" ng-if="submit && (password=='')">
 						<div class="col-xs-12">
-							<p ng-if="invalidCreds"> <i class="fa fa-times"></i> Invalid username or password </p>
-							<p ng-if="errs.pass">	<i class="fa fa-times"></i> Password cannot be blank </p>
+							<p ng-if="password==''">	<i class="fa fa-times"></i> Password cannot be blank </p>
 						</div>						
 					</div>
 					<div class="form-group form-actions">
 						<span class="input-icon"></span>
-						<input type="password" class="form-control password" name="password" ng-model="creds.password" placeholder="Password">
+						<input type="password" class="form-control password" name="password" ng-model="password" placeholder="Password">
 							<!--<i class="fa fa-lock"></i>-->
 							<!--<a class="forgot" ui-sref="login.forgot"> I forgot my password </a> </span>-->
 					</div>
