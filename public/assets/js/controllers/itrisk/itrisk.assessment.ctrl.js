@@ -62,9 +62,8 @@
                     }
                 }
             });
-            // // console.log('dlTmpModal',TempLoader);
-            // return;
-            //
+            console.log('dlTmpModal', dlTmpModal);
+
             dlTmpModal.result.then(function (updEquip) {
                 console.log("Done");
             });

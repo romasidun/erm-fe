@@ -110,6 +110,7 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
 
     APIHandler.prototype.UploadFile = function (url, formdata) {
         url = baseUrl + url;
+        console.log('url',url);
         if (isDebug) console.info("UPLOAD: " + url);
         if (isDebug) console.info("with body: ", formdata);
 

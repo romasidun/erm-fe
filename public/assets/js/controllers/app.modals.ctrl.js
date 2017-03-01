@@ -48,6 +48,7 @@
                 if(tmps.id !== null){
                     $scope.urlPreFix = items.prefix;
                     $scope.Templates = tmps;
+                    console.log('tmps',tmps);
                 }
             });
         }

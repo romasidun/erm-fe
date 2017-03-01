@@ -10,7 +10,6 @@
 <!-- End: Page Header -->
 
 <div class="container-fluid container-fullw bg-white">
-
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-white no-radius">
@@ -29,29 +28,29 @@
                     <div class="row">
                         <table class="table table-striped table-responsive col-xs-12">
                             <thead>
-                            <tr class="sortable-headers">
-                                <th><input type="checkbox"></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='docName' }" ng-click="sortMe('docName')"><i class="fa {{resSort('docName')}}"></i> Name</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='docDesc' }" ng-click="sortMe('docDesc')"><i class="fa {{resSort('docDesc')}}"></i> Description</a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='assessmentType' }" ng-click="sortMe('assessmentType')"><i class="fa {{resSort('assessmentType')}}"></i> Assessment Type </a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='createdBy' }" ng-click="sortMe('createdBy')"><i class="fa {{resSort('createdBy')}}"></i> Created By </a></th>
-                                <th><a ng-class="{'text-azure': CurrCol==='modifiedBy' }" ng-click="sortMe('modifiedBy')"><i class="fa {{resSort('modifiedBy')}}"></i> Modified By </a></th>
-                                <th>Action</th>
-                            </tr>
+                                <tr class="sortable-headers">
+                                    <th><input type="checkbox"></th>
+                                    <th><a ng-class="{'text-azure': CurrCol==='docName' }" ng-click="sortMe('docName')"><i class="fa {{resSort('docName')}}"></i> Name</a></th>
+                                    <th><a ng-class="{'text-azure': CurrCol==='docDesc' }" ng-click="sortMe('docDesc')"><i class="fa {{resSort('docDesc')}}"></i> Description</a></th>
+                                    <th><a ng-class="{'text-azure': CurrCol==='assessmentType' }" ng-click="sortMe('assessmentType')"><i class="fa {{resSort('assessmentType')}}"></i> Assessment Type </a></th>
+                                    <th><a ng-class="{'text-azure': CurrCol==='createdBy' }" ng-click="sortMe('createdBy')"><i class="fa {{resSort('createdBy')}}"></i> Created By </a></th>
+                                    <th><a ng-class="{'text-azure': CurrCol==='modifiedBy' }" ng-click="sortMe('modifiedBy')"><i class="fa {{resSort('modifiedBy')}}"></i> Modified By </a></th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="p in Policies | orderBy: CurrCol:IsAsc">
-                                <th><input type="checkbox"></th>
-                                <td>{{p.docName}}</td>
-                                <td>{{p.docDesc}}</td>
-                                <td>{{p.assessmentType}}</td>
-                                <td>{{p.createdBy}}</td>
-                                <td>{{p.modifiedBy}}</td>
-                                <td>
-                                    <a ui-sref="app.policy.update({id: p.id})" class="btn btn-xs btn-squared btn-azure"><i class="ti-pencil"></i></a>
-                                    <a ng-click="deleteAction(p)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
-                                </td>
-                            </tr>
+                                <tr ng-repeat="p in Policies | orderBy: CurrCol:IsAsc">
+                                    <th><input type="checkbox"></th>
+                                    <td>{{p.docName}}</td>
+                                    <td>{{p.docDesc}}</td>
+                                    <td>{{p.assessmentType}}</td>
+                                    <td>{{p.createdBy}}</td>
+                                    <td>{{p.modifiedBy}}</td>
+                                    <td>
+                                        <a ui-sref="app.policy.update({id: p.id})" class="btn btn-xs btn-squared btn-azure"><i class="ti-pencil"></i></a>
+                                        <a ng-click="deleteAction(p)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
