@@ -15,7 +15,8 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
             $rootScope.adminState = false;
 		}
 
-        if (!AuthFactory.isLoggedIn()) {
+		var url_flag = url.indexOf('/#!/vr/');
+        if (url_flag === -1 && !AuthFactory.isLoggedIn()) {
             console.log('User Authentication  DENY');
             event.preventDefault();
             $location.path('/login');
