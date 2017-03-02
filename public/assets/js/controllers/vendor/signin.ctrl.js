@@ -19,7 +19,7 @@
             if($scope.password === 'test123$') {
                 $scope.submit = false;
                 //$rootScope.app.IsAuthenticated = true;
-                $state.go('app.vendorrisk.assessment',{asId: $state.params.asId, vrId: $state.params.vrId, page: $state.params.page});
+                $state.go('vr.assessment',{asId: $state.params.asId, vrId: $state.params.vrId, page: $state.params.page});
             }
         };
     }

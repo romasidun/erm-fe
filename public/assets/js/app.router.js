@@ -236,6 +236,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             templateUrl: "assets/views/vendor/login.html",
             controller: 'VendorLoginCtrl',
             resolve: loadSequence('VendorLoginCtrl')
+        }).state('vr.assessment', {
+            url: '/assessment/:asId/:vrId/:page',
+            templateUrl: 'assets/views/vendorrisk/vendorrisk.assess.create.html',
+            title: 'Vendor Risk Assessment ',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'VendorAssessmentCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('VendorAssessmentCtrl')
         })
 
         /*
