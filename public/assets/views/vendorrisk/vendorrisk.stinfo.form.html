@@ -174,12 +174,12 @@
                                         <td>{{r.statusMsg}}</td>
                                         <td>{{r.vendorId}}</td>
                                         <td ng-if="currPage=='update'">
-                                            <a ng-click="sendMailOne(r)" title="Send Mail"
-                                               class="btn btn-xs btn-squared btn-dark-blue"><i class="ti-email"></i></a>
                                             <a ng-click="createAssessment(r)" title="Create Assessment"
                                                class="btn btn-xs btn-squared btn-maroon"><i class="ti-receipt"></i></a>
                                             <a ng-click="viewAssessment(r)" title="View Assessment"
                                                class="btn btn-xs btn-squared btn-primary"><i class="ti-notepad"></i></a>
+                                            <a ng-click="sendMailOne(r)" title="Send Mail"
+                                               class="btn btn-xs btn-squared btn-dark-blue"><i class="ti-email"></i></a>
                                             <a ng-click="completeAssessment(r)" title="Complete Assessment"
                                                class="btn btn-xs btn-squared btn-danger"><i class="ti-lock"></i></a>
                                         </td>

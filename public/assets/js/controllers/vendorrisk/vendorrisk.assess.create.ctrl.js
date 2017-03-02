@@ -95,7 +95,7 @@
         function closeWindow(){
             $rootScope.app.Mask = false;
             if(page == 'email'){
-                alert('It is success.');
+                alert('Assessment Submitted Successfully.');
             }
         }
 
