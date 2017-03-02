@@ -15,8 +15,9 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
             $rootScope.adminState = false;
 		}
 
-		var url_flag = url.indexOf('/#!/vr/');
-        if (url_flag === -1 && !AuthFactory.isLoggedIn()) {
+		var url_flag1 = url.indexOf('/#!/vr/');
+		var url_flag2 = url.indexOf('/assess.create/');
+        if (url_flag1 === -1 && url_flag2 === -1 && !AuthFactory.isLoggedIn()) {
             console.log('User Authentication  DENY');
             event.preventDefault();
             $location.path('/login');
