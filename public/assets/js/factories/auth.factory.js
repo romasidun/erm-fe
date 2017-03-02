@@ -24,10 +24,17 @@ app.factory('AuthFactory', function ($q, $timeout, $http) {
         // create a new instance of deferred
         var deferred = $q.defer();
 
+        if(username === 'Alan' && password === 'Alan1234'){
+            user = true;
+            deferred.resolve(user);
+        } else {
+            user = false;
+            deferred.reject();
+        }
+
+        /*
         // send a post request to the server
-        $http.post('/user/login',
-            {username: username, password: password})
-        // handle success
+        $http.post('/user/login',{username: username, password: password})
             .success(function (data, status) {
                 if(status === 200 && data.status){
                     user = true;
@@ -37,15 +44,13 @@ app.factory('AuthFactory', function ($q, $timeout, $http) {
                     deferred.reject();
                 }
             })
-            // handle error
             .error(function (data) {
                 user = false;
                 deferred.reject();
             });
-
         // return promise object
+        */
         return deferred.promise;
-
     }
 
     function logout() {

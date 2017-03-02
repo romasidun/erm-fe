@@ -2,7 +2,7 @@
 /**
  * Clip-Two Main Controller
  */
-app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $window, $document, $timeout, cfpLoadingBar, APIHandler) {
+app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $localStorage, $window, $document, $timeout, cfpLoadingBar, APIHandler, AuthFactory) {
     $rootScope.adminState = false;
     // Loading bar transition
 	// -----------------------------------
@@ -14,10 +14,19 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
 		}else{
             $rootScope.adminState = false;
 		}
+
+        if (!AuthFactory.isLoggedIn()) {
+            console.log('User Authentication  DENY');
+            event.preventDefault();
+            $location.path('/login');
+        }
+        else {
+            console.log('User Authentication ALLOW');
+            //$location.path('/home');
+        }
     });
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-
 		// console.log(toState);
 		// if(!$rootScope.app.IsAuthenticated && !toState.name === 'app.login') $state.go('app.login.signin');
 
@@ -28,6 +37,7 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $localStorage, $w
             $rootScope.app.CurrentModal.dismiss();
     	}
 	});
+
 	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 		//stop loading bar on stateChangeSuccess
 		event.targetScope.$watch("$viewContentLoaded", function() {
