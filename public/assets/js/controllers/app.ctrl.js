@@ -14,18 +14,23 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
 		}else{
             $rootScope.adminState = false;
 		}
-
-		var url_flag1 = url.indexOf('/#!/vr/');
-		var url_flag2 = url.indexOf('/assess.create/');
-        if (url_flag1 === -1 && url_flag2 === -1 && !AuthFactory.isLoggedIn()) {
+/*
+		var page_flag = false;
+		var urlArray = ['dashboard', 'oprisk', 'itrisk', 'vendorrisk', 'audit', 'compliance', 'control', 'policy', 'remediations'];
+		for(var i = 0; i < urlArray.length; i++){
+			if(url.indexOf('/#!/' + urlArray[i]) !== -1){
+				page_flag = true;
+				i = urlArray.length;
+			}
+		}
+        if (page_flag && !AuthFactory.isLoggedIn()) {
             console.log('User Authentication  DENY');
             event.preventDefault();
             $location.path('/login');
-        }
-        else {
+        } else {
             console.log('User Authentication ALLOW');
             //$location.path('/home');
-        }
+        }*/
     });
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
