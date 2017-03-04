@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/meanAuth';
+var dbURI = 'mongodb://root:goldstar8693@cluster0-shard-00-00-pxtma.mongodb.net:27017,cluster0-shard-00-01-pxtma.mongodb.net:27017,cluster0-shard-00-02-pxtma.mongodb.net:27017/mydb1?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }

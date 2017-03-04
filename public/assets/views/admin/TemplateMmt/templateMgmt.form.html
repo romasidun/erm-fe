@@ -52,7 +52,7 @@
                                 <div class="col-xs-12 col-md-6"  style="margin: 0 auto; float: none;">
                                     <div class="form-group" ng-class="{'has-error': Form.TemplateUpload.fileupload.$dirty && Form.TemplateUpload.fileupload.$invalid }">
                                         <label> Files </label>
-                                        <input type="file" file-model="FileModel" name="fileupload" required/>
+                                        <input type="file" file-model="FileModel" multiple="multiple" name="fileupload" required/>
                                         <!--<ul class="col-xs-12">-->
                                             <!--<li ng-repeat="file in FileModel" ng-click="download(file.id, file.fileName)" >-->
                                                 <!--{{file.fileName}}-->
