@@ -4,18 +4,24 @@
 
 app.service('AuditService', function(APIHandler){
 
+    //audit
     this.GetAudits = function(){
         return APIHandler.Get('auditmgmt');
+    };
+
+    this.GetEachAudit = function(id){
+        return APIHandler.Get('auditmgmt/'+id);
+    };
+
+    this.AddAudits = function(param){
+        return APIHandler.Post('auditmgmt', param);
     };
 
     this.DeleteAudit = function (id) {
         return APIHandler.Delete('auditmgmt/' + id);
     };
 
-    this.GetEachAudit = function(id){
-        return APIHandler.Get('audits/'+id);
-    };
-
+    //topic
     this.GetTopics = function(){
         return APIHandler.Get('audittopic');
     };
@@ -48,6 +54,10 @@ app.service('AuditService', function(APIHandler){
         return APIHandler.Get('auditfindings/openfindings');
     };
 
+    this.GetPolicyDocs = function(size, page){
+        return APIHandler.Get('policies?pagesize=' + size + '&page=' + page);
+    };
+
     this.GetManageStatus = function(){
         return APIHandler.Get('auditmgmt/status');
     };
@@ -62,6 +72,31 @@ app.service('AuditService', function(APIHandler){
 
     this.GetActionStatus = function() {
         return APIHandler.Get('auditactions/status');
-    }
+    };
+
+    this.GetControlData = function() {
+        return APIHandler.Get('crtldata');
+    };
+
+    this.FileUpload = function (idd, fileModel) {
+        if(fileModel.length < 1){
+            return APIHandler.NullPromise();
+        }
+        var formdata = new FormData();
+        for (var i in fileModel) {
+            if(fileModel[i].id != 'newfile'){
+                return APIHandler.NullPromise();
+            }
+            fileModel[i].id = idd + '_' + i;
+            formdata.append("file", fileModel[i]._file);
+        }
+        var url = 'auditmgmt/' + idd + '/upload';
+        return APIHandler.UploadFile(url, formdata);
+    };
+
+    this.FileDownload = function(idd){
+        var url = 'auditmgmt/download/' + idd;
+        return APIHandler.Get(url);
+    };
 
 });

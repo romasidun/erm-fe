@@ -2,8 +2,8 @@
 <section id="page-title" class="padding-top-15 padding-bottom-15">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="mainTitle">{{AuditAdd.mainTitle}}</h1>
-            <span class="mainDescription">{{AuditAdd.mainDesc}}</span>
+            <h1 class="mainTitle">{{mainTitle}}</h1>
+            <span class="mainDescription">{{mainDesc}}</span>
         </div>
     </div>
 </section>
@@ -14,91 +14,157 @@
         <div class="col-md-12">
             <div class="panel panel-transparent">
                 <div class="panel-body">
-                    <form name="Form.addAudit" ng-submit="submitAction()" role="form" >
+                    <form name="Form.addAudit" ng-click="asdf()" role="form">
+                    <!--<form name="Form.addAudit" ng-submit="submitAction()" role="form">-->
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.addAudit.auditName.$invalid && (!Form.addAudit.auditName.$pristine || Form.addAudit.auditName.$touched || Form.addAudit.auditName.$submitted) }">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.auditName.$invalid && (!Form.addAudit.auditName.$pristine || Form.addAudit.auditName.$touched || Form.addAudit.auditName.$submitted) }">
                                     <label> Audit Name </label>
-                                    <input type="text" name="auditName" ng-model="VM.addAudit" placeholder="Audit Name" class="form-control" required>
+                                    <input type="text" name="auditName" ng-model="VM.auditName" placeholder="Audit Name"
+                                           class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.addAudit.auditDesc.$invalid && (!Form.addAudit.auditDesc.$pristine || Form.addAudit.auditDesc.$touched || Form.addAudit.auditDesc.$submitted) }">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.auditDesc.$invalid && (!Form.addAudit.auditDesc.$pristine || Form.addAudit.auditDesc.$touched || Form.addAudit.auditDesc.$submitted) }">
                                     <label> Audit Description </label>
-                                    <input type="text" name="auditDesc" ng-model="VM.auditDesc" placeholder="Audit Description" class="form-control" required>
+                                    <input type="text" name="auditDesc" ng-model="VM.auditDesc"
+                                           placeholder="Audit Description" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group"  ng-class="{ 'has-error' : Form.addAudit.region.$invalid && (!Form.addAudit.region.$pristine || Form.addAudit.region.$touched || Form.addAudit.region.$submitted) }">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.region.$invalid && (!Form.addAudit.region.$pristine || Form.addAudit.region.$touched || Form.addAudit.region.$submitted) }">
                                     <label> Region </label>
-                                    <select type="text" name="region" ng-model="VM.region" class="form-control" ng-options="r.key as r.val for r in app.Lookup.LIST001">
+                                    <select type="text" name="region" ng-model="VM.region" class="form-control"
+                                            ng-options="r.val as r.val for r in app.Lookup.LIST001" required>
                                         <option selected value>Select Region</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-md-6" ng-class="{ 'has-error' : Form.addAudit.department.$invalid && (!Form.addAudit.department.$pristine || Form.addAudit.department.$touched || Form.addAudit.department.$submitted) }">
+                            <div class="col-xs-12 col-md-6"
+                                 ng-class="{ 'has-error' : Form.addAudit.department.$invalid && (!Form.addAudit.department.$pristine || Form.addAudit.department.$touched || Form.addAudit.department.$submitted) }">
                                 <div class="form-group">
                                     <label> Department </label>
-                                    <select type="text" name="department" ng-model="VM.department" class="form-control" ng-options="d.deptName as d.deptName for d in app.Lookup.Departments">
+                                    <select type="text" name="department" ng-model="VM.department" class="form-control"
+                                            ng-options="d.deptName as d.deptName for d in app.Lookup.Departments" required>
                                         <option selected value>Select Department</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.addAudit.status.$invalid && (!Form.addAudit.status.$pristine || Form.addAudit.status.$touched || Form.addAudit.status.$submitted) }">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.auditStatus.$invalid && (!Form.addAudit.auditStatus.$pristine || Form.addAudit.auditStatus.$touched || Form.addAudit.auditStatus.$submitted) }">
                                     <label> Status</label>
-                                    <select type="text" name="status" ng-model="VM.approval" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
+                                    <select type="text" name="auditStatus" ng-model="VM.auditStatus" class="form-control"
+                                            ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
                                         <option selected value>Select Status</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.addAudit.department.$invalid && (!Form.addAudit.department.$pristine || Form.addAudit.department.$touched || Form.addAudit.department.$submitted) }">
-                                    <label> Frequency </label>
-                                    <select type="text" name="frequency" ng-model="VM.frequency" class="form-control" ng-options="op.key as op.val for op in app.Lookup.LIST003">
-                                        <option selected value>Select Frequency</option>
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.auditControlValidated.$invalid && (!Form.addAudit.auditControlValidated.$pristine || Form.addAudit.auditControlValidated.$touched || Form.addAudit.auditControlValidated.$submitted) }">
+                                    <label> Related To Control(s) </label>
+                                    <select type="text" name="auditControlValidated" ng-model="VM.auditControlValidated"
+                                            class="form-control" required>
+                                        <option selected value>Select Status</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group">
-                                    <label> Priority </label>
-                                    <select type="text" name="priority" ng-model="VM.priority" class="form-control" ng-options="p.key as p.val for p in app.Lookup.LIST005">
-                                        <option selected value>Select Priority</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group">
-                                    <label> Responsible Person </label>
-                                    <select type="text" name="resPerson" ng-model="VM.resPerson" class="form-control" ng-options="op.id as op.name for op in app.Lookup.Users">
-                                        <option selected value>Select Person</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group">
-                                    <label> Period </label>
-                                    <select type="text" name="period" ng-model="VM.period" class="form-control" ng-options="per.key as per.val for per in app.Lookup.LIST002">
-                                        <option selected value>Select Period</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.Rcsa.due_date.$invalid && (!Form.Rcsa.due_date.$pristine || Form.Rcsa.due_date.$touched || Form.Rcsa.due_date.$submitted) }">
-                                    <label> Due Date </label>
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.dateOccurance.$invalid && (!Form.addAudit.dateOccurance.$pristine || Form.addAudit.dateOccurance.$touched || Form.addAudit.dateOccurance.$submitted) }">
+                                    <label> Audit Start Date </label>
                                     <datepicker date-format="MM-dd-yyyy">
-                                        <input type="text" name="due_date" ng-model="VM.due_date" placeholder="Due Date" class="form-control" required>
+                                        <input type="text" name="dateOccurance" ng-model="VM.dateOccurance"
+                                               placeholder="Start Date" class="form-control" required>
                                     </datepicker>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.dueDate.$invalid && (!Form.addAudit.dueDate.$pristine || Form.addAudit.dueDate.$touched || Form.addAudit.dueDate.$submitted) }">
+                                    <label> Target End Date </label>
+                                    <datepicker date-format="MM-dd-yyyy">
+                                        <input type="text" name="dueDate" ng-model="VM.dueDate" placeholder="End Date"
+                                               class="form-control" required>
+                                    </datepicker>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.resUserName.$invalid && (!Form.addAudit.resUserName.$pristine || Form.addAudit.resUserName.$touched || Form.addAudit.resUserName.$submitted) }">
+                                    <label> Responsible Person </label>
+                                    <select type="text" name="resUserName" ng-model="VM.resUserName" class="form-control"
+                                            ng-options="op.name as op.name for op in app.Lookup.Users" required>
+                                        <option selected value>Select Person</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : Form.addAudit.priority.$invalid && (!Form.addAudit.priority.$pristine || Form.addAudit.priority.$touched || Form.addAudit.priority.$submitted) }">
+                                    <label> priority </label>
+                                    <select type="text" name="priority" ng-model="VM.priority" class="form-control"
+                                            ng-options="p.key as p.val for p in app.Lookup.LIST005" required>
+                                        <option selected value>Select Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label> Policies <a ng-click="addPolicyDocs()" class="btn btn-link"><i class="fa fa-search"></i></a> </label>
+                                    <div class="col-xs-12">
+                                        <ul class="multi-select-list-group col-xs-12 no-padding">
+                                            <li class="list-item-container row" ng-repeat="p in VM.policies">
+                                                <div class="list-item col-xs-12 padding-left-0">
+                                                    <span class="col-xs-4">{{p.docName}}</span>
+                                                    <span class="col-xs-6">{{p.docDesc}}</span>
+                                                    <span class="col-xs-2">
+                                                            <a class="pull-right delete" ng-click="removeItem('policies', $index)"> remove </a>
+                                                        </span>
+                                                </div>
+                                            </li>
+                                            <li class="no-result no-padding" ng-if="!VM.policiesData.length"> <i class="fa fa-info-circle"></i> no policies selected</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label> Associate Control <a ng-click="addControls()" class="btn btn-link"><i class="fa fa-search"></i></a>  </label>
+                                    <div class="col-xs-12">
+                                        <ul class="multi-select-list-group col-xs-12 padding-left-0">
+                                            <li class="list-item-container row" ng-repeat="con in VM.controlDataModel">
+                                                <div class="list-item col-xs-12 padding-left-0">
+                                                    <span class="col-sm-10"> {{con.controlName}} </span>
+                                                    <span class="col-sm-2">
+														<a class="text-right delete" ng-click="removeItem('controlDataModel', $index)"> remove </a>
+													</span>
+                                                </div>
+                                            </li>
+                                            <li class="no-result padding-left-0" ng-if="!VM.controlDataModel.length"> <i class="fa fa-info-circle"></i> no test plan selected</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Files to upload </label>
-                                    <input type="file" file-model="VM.filemodel" class="form-control" />
+                                    <input type="file" file-model="VM.auditFileModel" class="form-control"/>
                                     <ul class="file-list-group col-xs-12">
-                                        <li class="file-list-item" ng-repeat="file in VM.filemodel">
-                                            <a href="{{app.APIPrefix + 'policies/download/stream/'+file.id}}" download="{{file.fileName}}" ng-if="file.id!=1">
+                                        <li class="file-list-item" ng-repeat="file in VM.auditFileModel">
+                                            <a href="{{app.APIPrefix + 'policies/download/stream/'+file.id}}"
+                                               download="{{file.fileName}}" ng-if="file.id!=1">
                                                 {{file.fileName}}
                                             </a>
                                             <span ng-if="file.id==1">{{file.fileName}}</span>
@@ -106,202 +172,205 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                        <hr class="hrule4" />
-                        <div class="col-xs-12 text-right">
-                            <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i> Save</button>
-                            <!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
-                            <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</button>
+                            <hr class="hrule4"/>
+                            <div class="col-xs-12 text-center">
+                                <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                                <!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+                                <button class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i
+                                        class="fa fa-times"></i> Cancel
+                                </button>
+                            </div>
                         </div>
                     </form>
-                    <form id="launchAuditForm" name="launchAuditForm" action="" method="POST"
-                          onsubmit="return onsubmitform();">
-                        <input id="auditId" type="hidden" name="auditId" value="<%=auditId %>"/>
-                        <% if (role_name == "CONTROLLER" && ITAuditModel[0].audit_status == 'Draft' ) { %>
+                    <!--<form id="launchAuditForm" name="launchAuditForm" action="" method="POST"-->
+                          <!--onsubmit="return onsubmitform();">-->
+                        <!--<input id="auditId" type="hidden" name="auditId" value="<%=auditId %>"/>-->
+                        <!--<% if (role_name == "CONTROLLER" && ITAuditModel[0].audit_status == 'Draft' ) { %>-->
 
-                        <div class="clearfix form-actions" style="border-top:none;">
-                            <div class="col-md-offset-4 col-md-11">
-                                <button value="Launch" class="btn btn-info" name="operation"
-                                        onclick="document.pressed=this.value">
-                                    <i class="ace-icon fa fa-check bigger-110"></i>
-                                    Launch
-                                </button>
+                        <!--<div class="clearfix form-actions" style="border-top:none;">-->
+                            <!--<div class="col-md-offset-4 col-md-11">-->
+                                <!--<button value="Launch" class="btn btn-info" name="operation"-->
+                                        <!--onclick="document.pressed=this.value">-->
+                                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
+                                    <!--Launch-->
+                                <!--</button>-->
 
-                                <button class="btn btn-xl btn-danger" name="operation" value="Cancel"
-                                        onclick="document.pressed=this.value">
-                                    <i class="ace-icon fa fa-times"></i>
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
+                                <!--<button class="btn btn-xl btn-danger" name="operation" value="Cancel"-->
+                                        <!--onclick="document.pressed=this.value">-->
+                                    <!--<i class="ace-icon fa fa-times"></i>-->
+                                    <!--Cancel-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <% } %>
-                    </form>
-                    <div id="openModal" class="modalDialog ">
-                        <div class="main-container" id="main-container"
-                             style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">
+                        <!--<% } %>-->
+                    <!--</form>-->
+                    <!--<div id="openModal" class="modalDialog ">-->
+                        <!--<div class="main-container" id="main-container"-->
+                             <!--style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">-->
 
-                            <div class="row-fluid border-bottom1">
-                                <div class="op-title" style="margin-bottom:20px;">Policies Control Data</div>
-                                <a href="#close" title="Close" class="close">X</a>
-                                <div style="clear:both"></div>
-                            </div>
-
-
-                            <table id="dynamic-table12"
-                                   class="table table-striped table-bordered table-hover main-container"
-                                   style="width:700px;height:200px;">
-                                <thead>
-                                <tr>
-                                    <th valign="middle" align="left"><input type="checkbox" name="checkall"
-                                                                            id="checkall"
-                                                                            onclick="checkAll();"></th>
-                                    <th valign="middle" align="left">Document Name</th>
-                                    <th valign="middle" align="left">Document Description</th>
-                                    <th valign="middle" align="left">Type</th>
-                                    <th valign="middle" align="left">File Name</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <% if(typeof PoliciesProceduresModel != null || typeof PoliciesProceduresModel !=
-                                'undefined'){ %>
-                                <% PoliciesProceduresModel.forEach( function( PoliciesProceduresModel ){ %>
-                                <tr>
-                                    <td width="1%" valign="middle" align="left"><input type="checkbox" name="CB12"
-                                                                                       id="CB"
-                                                                                       value="<%=PoliciesProceduresModel._id %> : <%=PoliciesProceduresModel.doc_name %> :  <%=PoliciesProceduresModel.assessment_type[0].as_type_desc %>   ">
-                                    </td>
-                                    <td width="4%" align="left" valign="middle">
-                                        <% if ( typeof PoliciesProceduresModel.doc_name != 'undefined' ) { %>
-                                        <%= PoliciesProceduresModel.doc_name %>
-                                        <%}%>
-                                    </td>
-                                    <td width="6%" align="left" valign="middle">
-                                        <% if ( typeof PoliciesProceduresModel.doc_desc != 'undefined' ) { %>
-                                        <%= PoliciesProceduresModel.doc_desc %> <%}%>
-                                    </td>
-                                    <td width="4%" align="left" valign="middle">
-                                        <% if ( typeof PoliciesProceduresModel.assessment_type[0].as_type_desc !=
-                                        'undefined' ) { %>
-                                        <%= PoliciesProceduresModel.assessment_type[0].as_type_desc %> <%}%>
-                                    </td>
-
-                                    <td width="4%" valign="middle" align="left">
-                                        <% PoliciesProceduresModel.file_model.forEach(function(dobj){ %>
-                                        <% count=1;length=PoliciesProceduresModel.file_model.length;%>
-                                        <%= dobj.original_name %>
-                                        <% if(count < length){ %>,<% }count++; %>
-
-                                        <% }); %>
-                                    </td>
+                            <!--<div class="row-fluid border-bottom1">-->
+                                <!--<div class="op-title" style="margin-bottom:20px;">Policies Control Data</div>-->
+                                <!--<a href="#close" title="Close" class="close">X</a>-->
+                                <!--<div style="clear:both"></div>-->
+                            <!--</div>-->
 
 
-                                </tr>
-                                <% }); %>
-                                <% } %>
-                                </tbody>
-                            </table>
-                            <div class="col-md-11"
-                                 style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">
-                                <input type="hidden" name="action" value="submit"/>
-                                <button class="btn btn-info"
-                                        type="submit" onclick="javascript:setPoliciesControl();">
-                                    <i class="ace-icon fa fa-check bigger-110"></i>
-                                    Select
-                                </button>
+                            <!--<table id="dynamic-table12"-->
+                                   <!--class="table table-striped table-bordered table-hover main-container"-->
+                                   <!--style="width:700px;height:200px;">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th valign="middle" align="left"><input type="checkbox" name="checkall"-->
+                                                                            <!--id="checkall"-->
+                                                                            <!--onclick="checkAll();"></th>-->
+                                    <!--<th valign="middle" align="left">Document Name</th>-->
+                                    <!--<th valign="middle" align="left">Document Description</th>-->
+                                    <!--<th valign="middle" align="left">Type</th>-->
+                                    <!--<th valign="middle" align="left">File Name</th>-->
 
-                                &nbsp; &nbsp; &nbsp;
-                                <button class="btn btn-xl btn-danger" type="button"
-                                        onclick="javascript:window.history.back();">
-                                    <i></i>
-                                    Cancel
-                                </button>
-                            </div>
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<% if(typeof PoliciesProceduresModel != null || typeof PoliciesProceduresModel !=-->
+                                <!--'undefined'){ %>-->
+                                <!--<% PoliciesProceduresModel.forEach( function( PoliciesProceduresModel ){ %>-->
+                                <!--<tr>-->
+                                    <!--<td width="1%" valign="middle" align="left"><input type="checkbox" name="CB12"-->
+                                                                                       <!--id="CB"-->
+                                                                                       <!--value="<%=PoliciesProceduresModel._id %> : <%=PoliciesProceduresModel.doc_name %> :  <%=PoliciesProceduresModel.assessment_type[0].as_type_desc %>   ">-->
+                                    <!--</td>-->
+                                    <!--<td width="4%" align="left" valign="middle">-->
+                                        <!--<% if ( typeof PoliciesProceduresModel.doc_name != 'undefined' ) { %>-->
+                                        <!--<%= PoliciesProceduresModel.doc_name %>-->
+                                        <!--<%}%>-->
+                                    <!--</td>-->
+                                    <!--<td width="6%" align="left" valign="middle">-->
+                                        <!--<% if ( typeof PoliciesProceduresModel.doc_desc != 'undefined' ) { %>-->
+                                        <!--<%= PoliciesProceduresModel.doc_desc %> <%}%>-->
+                                    <!--</td>-->
+                                    <!--<td width="4%" align="left" valign="middle">-->
+                                        <!--<% if ( typeof PoliciesProceduresModel.assessment_type[0].as_type_desc !=-->
+                                        <!--'undefined' ) { %>-->
+                                        <!--<%= PoliciesProceduresModel.assessment_type[0].as_type_desc %> <%}%>-->
+                                    <!--</td>-->
 
-                        </div>
+                                    <!--<td width="4%" valign="middle" align="left">-->
+                                        <!--<% PoliciesProceduresModel.file_model.forEach(function(dobj){ %>-->
+                                        <!--<% count=1;length=PoliciesProceduresModel.file_model.length;%>-->
+                                        <!--<%= dobj.original_name %>-->
+                                        <!--<% if(count < length){ %>,<% }count++; %>-->
 
-                    </div>
-                    <div id="openModal_Policies" class="modalDialog ">
-                        <div class="main-container" id="main-container"
-                             style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">
-                            <div class="row-fluid border-bottom1">
-                                <div class="op-title" style="margin-bottom:20px;">Associate Control Data</div>
-                                <a href="#close" title="Close" class="close">X</a>
-                                <div style="clear:both"></div>
+                                        <!--<% }); %>-->
+                                    <!--</td>-->
 
-                            </div>
 
-                            <table id="dynamic-table_Policies"
-                                   class="table table-striped table-bordered table-hover main-container"
-                                   style="width:700px;height:200px;">
-                                <thead>
-                                <tr>
-                                    <th valign="middle" align="left"><input type="checkbox" name="checkall"
-                                                                            id="checkall"
-                                                                            onclick="checkAll();"></th>
-                                    <th valign="middle" align="left">Control Category</th>
-                                    <th valign="middle" align="left">Control Ref ID</th>
-                                    <th valign="middle" align="left">Control Source</th>
-                                    <th valign="middle" align="left">Business Process</th>
-                                    <th valign="middle" align="left">Control Name</th>
-                                    <th valign="middle" align="left">Control Owner</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <% ControlDataModel.forEach( function( ControlDataModel ){ %>
-                                <tr>
-                                    <td width="4%" valign="middle" align="left"><input type="checkbox" name="CB" id="CB"
-                                                                                       value="<%=ControlDataModel._id %> : <%=ControlDataModel.Control_Name %> : <%=ControlDataModel.Control_Ref_ID %> : <%=ControlDataModel.Control_Source %>   ">
-                                    </td>
-                                    <td width="4%" align="left" valign="middle">
-                                        <% if ( typeof ControlDataModel.Control_Category != 'undefined' ) { %>
-                                        <%= ControlDataModel.Control_Category %>
-                                        <%}%>
-                                    </td>
-                                    <td width="4%" align="left" valign="middle">
-                                        <% if ( typeof ControlDataModel.Control_Ref_ID != 'undefined' ) { %>
-                                        <%= ControlDataModel.Control_Ref_ID %> <%}%>
-                                    </td>
-                                    <td width="4%" align="left" valign="middle">
-                                        <% if ( typeof ControlDataModel.Control_Source != 'undefined' ) { %>
-                                        <%= ControlDataModel.Control_Source %> <%}%>
-                                    </td>
+                                <!--</tr>-->
+                                <!--<% }); %>-->
+                                <!--<% } %>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                            <!--<div class="col-md-11"-->
+                                 <!--style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">-->
+                                <!--<input type="hidden" name="action" value="submit"/>-->
+                                <!--<button class="btn btn-info"-->
+                                        <!--type="submit" onclick="javascript:setPoliciesControl();">-->
+                                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
+                                    <!--Select-->
+                                <!--</button>-->
 
-                                    <td width="4%" valign="middle" align="left">
-                                        <% if ( typeof ControlDataModel.Business_Process != 'undefined' ) { %>
-                                        <%= ControlDataModel.Business_Process %> <%}%>
-                                    </td>
-                                    <td width="4%" valign="middle" align="left">
-                                        <% if ( typeof ControlDataModel.Control_Name != 'undefined' ) { %>
-                                        <%= ControlDataModel.Control_Name %> <%}%>
-                                    </td>
-                                    <td width="4%" valign="middle" align="left">
-                                        <% if ( typeof ControlDataModel.Control_Owner != null ) { %>
-                                        <%= ControlDataModel.Control_Owner %> <%}%>
-                                    </td>
+                                <!--<button class="btn btn-xl btn-danger" type="button"-->
+                                        <!--onclick="javascript:window.history.back();">-->
+                                    <!--<i></i>-->
+                                    <!--Cancel-->
+                                <!--</button>-->
+                            <!--</div>-->
 
-                                </tr>
-                                <% }); %>
-                                </tbody>
+                        <!--</div>-->
 
-                            </table>
-                            <div class="col-md-11"
-                                 style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">
-                                <input type="hidden" name="action" value="submit"/>
-                                <button class="btn btn-info"
-                                        type="submit" onclick="javascript:setAssociateControl();">
-                                    <i class="ace-icon fa fa-check bigger-110"></i>
-                                    Select
-                                </button>
-                                <button class="btn btn-xl btn-danger" type="button"
-                                        onclick="javascript:window.history.back();">
-                                    <i></i>
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <!--</div>-->
+                    <!--<div id="openModal_Policies" class="modalDialog ">-->
+                        <!--<div class="main-container" id="main-container"-->
+                             <!--style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">-->
+                            <!--<div class="row-fluid border-bottom1">-->
+                                <!--<div class="op-title" style="margin-bottom:20px;">Associate Control Data</div>-->
+                                <!--<a href="#close" title="Close" class="close">X</a>-->
+                                <!--<div style="clear:both"></div>-->
+
+                            <!--</div>-->
+
+                            <!--<table id="dynamic-table_Policies"-->
+                                   <!--class="table table-striped table-bordered table-hover main-container"-->
+                                   <!--style="width:700px;height:200px;">-->
+                                <!--<thead>-->
+                                <!--<tr>-->
+                                    <!--<th valign="middle" align="left"><input type="checkbox" name="checkall"-->
+                                                                            <!--id="checkall"-->
+                                                                            <!--onclick="checkAll();"></th>-->
+                                    <!--<th valign="middle" align="left">Control Category</th>-->
+                                    <!--<th valign="middle" align="left">Control Ref ID</th>-->
+                                    <!--<th valign="middle" align="left">Control Source</th>-->
+                                    <!--<th valign="middle" align="left">Business Process</th>-->
+                                    <!--<th valign="middle" align="left">Control Name</th>-->
+                                    <!--<th valign="middle" align="left">Control Owner</th>-->
+                                <!--</tr>-->
+                                <!--</thead>-->
+                                <!--<tbody>-->
+                                <!--<% ControlDataModel.forEach( function( ControlDataModel ){ %>-->
+                                <!--<tr>-->
+                                    <!--<td width="4%" valign="middle" align="left"><input type="checkbox" name="CB" id="CB"-->
+                                                                                       <!--value="<%=ControlDataModel._id %> : <%=ControlDataModel.Control_Name %> : <%=ControlDataModel.Control_Ref_ID %> : <%=ControlDataModel.Control_Source %>   ">-->
+                                    <!--</td>-->
+                                    <!--<td width="4%" align="left" valign="middle">-->
+                                        <!--<% if ( typeof ControlDataModel.Control_Category != 'undefined' ) { %>-->
+                                        <!--<%= ControlDataModel.Control_Category %>-->
+                                        <!--<%}%>-->
+                                    <!--</td>-->
+                                    <!--<td width="4%" align="left" valign="middle">-->
+                                        <!--<% if ( typeof ControlDataModel.Control_Ref_ID != 'undefined' ) { %>-->
+                                        <!--<%= ControlDataModel.Control_Ref_ID %> <%}%>-->
+                                    <!--</td>-->
+                                    <!--<td width="4%" align="left" valign="middle">-->
+                                        <!--<% if ( typeof ControlDataModel.Control_Source != 'undefined' ) { %>-->
+                                        <!--<%= ControlDataModel.Control_Source %> <%}%>-->
+                                    <!--</td>-->
+
+                                    <!--<td width="4%" valign="middle" align="left">-->
+                                        <!--<% if ( typeof ControlDataModel.Business_Process != 'undefined' ) { %>-->
+                                        <!--<%= ControlDataModel.Business_Process %> <%}%>-->
+                                    <!--</td>-->
+                                    <!--<td width="4%" valign="middle" align="left">-->
+                                        <!--<% if ( typeof ControlDataModel.Control_Name != 'undefined' ) { %>-->
+                                        <!--<%= ControlDataModel.Control_Name %> <%}%>-->
+                                    <!--</td>-->
+                                    <!--<td width="4%" valign="middle" align="left">-->
+                                        <!--<% if ( typeof ControlDataModel.Control_Owner != null ) { %>-->
+                                        <!--<%= ControlDataModel.Control_Owner %> <%}%>-->
+                                    <!--</td>-->
+
+                                <!--</tr>-->
+                                <!--<% }); %>-->
+                                <!--</tbody>-->
+
+                            <!--</table>-->
+                            <!--<div class="col-md-11"-->
+                                 <!--style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">-->
+                                <!--<input type="hidden" name="action" value="submit"/>-->
+                                <!--<button class="btn btn-info"-->
+                                        <!--type="submit" onclick="javascript:setAssociateControl();">-->
+                                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
+                                    <!--Select-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-xl btn-danger" type="button"-->
+                                        <!--onclick="javascript:window.history.back();">-->
+                                    <!--<i></i>-->
+                                    <!--Cancel-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>

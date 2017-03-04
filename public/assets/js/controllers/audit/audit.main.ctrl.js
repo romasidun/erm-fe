@@ -5,6 +5,7 @@
     function AuditMainController($scope, $rootScope, $state, AuditService, ChartFactory, Utils, $filter) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "AUDIT MANAGEMENT";
+
         $scope.Audittable = null;
         $scope.Top = [];
         $scope.topicId = null;
@@ -114,7 +115,6 @@
                             console.log('$scope.topicId',$scope.topicId);
                             console.log('$scope.auditId',$scope.auditId);
                         if(key.topicId == $scope.topicId && key.auditId == $scope.auditId){
-                            alert()
                             AssoData.push(key);
                             key.createdOn = Utils.createDate(key.createdOn) + "";
                             var split = key.createdOn.split(' ');
@@ -141,7 +141,6 @@
                     })
                 }
 
-
                 var theTable2 = $('#T'+ newTableId).DataTable(
                     {
                         "data": AssoData,
@@ -153,26 +152,26 @@
         });
 
         AuditService.GetManageDept()
-            .then(function (data) {
-                ChartFactory.CreateDepartMentChart('Management Department', 'Audit Management Department', data, 'audit_MGDeptChart');
-                return AuditService.GetFindingOpen();
-            })
-            .then(function (data) {
-                ChartFactory.CreateFindingChart('By FindingOpen', data, audit_FDOpenChart);
-                return AuditService.GetManageStatus();
-            })
-            .then(function (data) {
-                ChartFactory.CreateStatusChart('Management Status', 'Management Status', data, 'audit_MGStatus');
-                return AuditService.GetManagePeriod();
-            })
-            .then(function (data) {
-                ChartFactory.CreatePeriodChart('By FindingOpen', data, 'audit_MGPeriod');
-                return AuditService.GetManageRegion();
-            })
-            .then(function (data) {
-                ChartFactory.CreateRegionChart(data, 'openFinding_periodChart', $filter );
-                return AuditService.GetActionStatus();
-            })
+            // .then(function (data) {
+            //     ChartFactory.CreateDepartMentChart('Management Department', 'Audit Management Department', data, 'audit_MGDeptChart');
+            //     return AuditService.GetFindingOpen();
+            // })
+            // .then(function (data) {
+            //     ChartFactory.CreateFindingChart('By FindingOpen', data, audit_FDOpenChart);
+            //     return AuditService.GetManageStatus();
+            // })
+            // .then(function (data) {
+            //     ChartFactory.CreateStatusChart('Management Status', 'Management Status', data, 'audit_MGStatus');
+            //     return AuditService.GetManagePeriod();
+            // })
+            // .then(function (data) {
+            //     ChartFactory.CreatePeriodChart('By FindingOpen', data, 'audit_MGPeriod');
+            //     return AuditService.GetManageRegion();
+            // })
+            // .then(function (data) {
+            //     ChartFactory.CreateRegionChart(data, 'openFinding_periodChart', $filter );
+            //     return AuditService.GetActionStatus();
+            // })
             .then(function (data){
                 ChartFactory.CreateStatusChart('By Status', 'action status', data, 'status_department');
                 loadData();
@@ -180,7 +179,8 @@
 
             var loadData = function(){
                 $scope.AuditData = [];
-                $scope.FindingData = [];
+                // $scope.FindingData = [];
+
                 $scope.TopicData = [];
                 AuditService.GetAudits()
                     .then(function (datas){

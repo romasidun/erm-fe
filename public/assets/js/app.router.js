@@ -527,25 +527,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controllerAs: 'AuditAdd',
             resolve: loadSequence('AuditAdd_AuditCtrl')
         }).state('app.audit.add_topic', {
-            url: '/audit.add_topic',
+            url: '/audit.add_topic/:audit_id',
             templateUrl: "assets/views/audit/audit.add_topic.html",
             title: 'Topic Add',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditAdd_TopicCtrl',
-            controllerAs: 'TopicAdd',
             resolve: loadSequence('AuditAdd_TopicCtrl')
-        }).state('app.audit.add_action', {
-            url: '/audit.add_action',
+        }).state('app.audit.add_findings', {
+            url: '/audit.add_findings',
             templateUrl: "assets/views/audit/audit.add_action.html",
-            title: 'Topic Add',
+            title: 'Finding Add',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditAdd_ActionCtrl',
-            controllerAs: 'ActionAdd',
             resolve: loadSequence('AuditAdd_ActionCtrl')
         })
-
-
-
 
         /*
          ---- Policy Route ----
