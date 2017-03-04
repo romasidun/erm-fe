@@ -15,7 +15,7 @@
             <div class="panel panel-transparent">
                 <div class="panel-body">
                     <form name="Form.addAudit" ng-click="asdf()" role="form">
-                    <!--<form name="Form.addAudit" ng-submit="submitAction()" role="form">-->
+                        <!--<form name="Form.addAudit" ng-submit="submitAction()" role="form">-->
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group"
@@ -160,7 +160,11 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                     <label> Files to upload </label>
+                                    <<<<<<< HEAD
                                     <input type="file" file-model="VM.auditFileModel" class="form-control"/>
+                                    =======
+                                    <input type="file" file-model="VM.filemodel"  multiple="multiple" class="form-control" />
+                                    >>>>>>> f95c7e9337176142562898a5b56db8b4d730a3b8
                                     <ul class="file-list-group col-xs-12">
                                         <li class="file-list-item" ng-repeat="file in VM.auditFileModel">
                                             <a href="{{app.APIPrefix + 'policies/download/stream/'+file.id}}"
@@ -185,191 +189,191 @@
                         </div>
                     </form>
                     <!--<form id="launchAuditForm" name="launchAuditForm" action="" method="POST"-->
-                          <!--onsubmit="return onsubmitform();">-->
-                        <!--<input id="auditId" type="hidden" name="auditId" value="<%=auditId %>"/>-->
-                        <!--<% if (role_name == "CONTROLLER" && ITAuditModel[0].audit_status == 'Draft' ) { %>-->
+                    <!--onsubmit="return onsubmitform();">-->
+                    <!--<input id="auditId" type="hidden" name="auditId" value="<%=auditId %>"/>-->
+                    <!--<% if (role_name == "CONTROLLER" && ITAuditModel[0].audit_status == 'Draft' ) { %>-->
 
-                        <!--<div class="clearfix form-actions" style="border-top:none;">-->
-                            <!--<div class="col-md-offset-4 col-md-11">-->
-                                <!--<button value="Launch" class="btn btn-info" name="operation"-->
-                                        <!--onclick="document.pressed=this.value">-->
-                                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
-                                    <!--Launch-->
-                                <!--</button>-->
+                    <!--<div class="clearfix form-actions" style="border-top:none;">-->
+                    <!--<div class="col-md-offset-4 col-md-11">-->
+                    <!--<button value="Launch" class="btn btn-info" name="operation"-->
+                    <!--onclick="document.pressed=this.value">-->
+                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
+                    <!--Launch-->
+                    <!--</button>-->
 
-                                <!--<button class="btn btn-xl btn-danger" name="operation" value="Cancel"-->
-                                        <!--onclick="document.pressed=this.value">-->
-                                    <!--<i class="ace-icon fa fa-times"></i>-->
-                                    <!--Cancel-->
-                                <!--</button>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <!--<button class="btn btn-xl btn-danger" name="operation" value="Cancel"-->
+                    <!--onclick="document.pressed=this.value">-->
+                    <!--<i class="ace-icon fa fa-times"></i>-->
+                    <!--Cancel-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
 
-                        <!--<% } %>-->
+                    <!--<% } %>-->
                     <!--</form>-->
                     <!--<div id="openModal" class="modalDialog ">-->
-                        <!--<div class="main-container" id="main-container"-->
-                             <!--style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">-->
+                    <!--<div class="main-container" id="main-container"-->
+                    <!--style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">-->
 
-                            <!--<div class="row-fluid border-bottom1">-->
-                                <!--<div class="op-title" style="margin-bottom:20px;">Policies Control Data</div>-->
-                                <!--<a href="#close" title="Close" class="close">X</a>-->
-                                <!--<div style="clear:both"></div>-->
-                            <!--</div>-->
-
-
-                            <!--<table id="dynamic-table12"-->
-                                   <!--class="table table-striped table-bordered table-hover main-container"-->
-                                   <!--style="width:700px;height:200px;">-->
-                                <!--<thead>-->
-                                <!--<tr>-->
-                                    <!--<th valign="middle" align="left"><input type="checkbox" name="checkall"-->
-                                                                            <!--id="checkall"-->
-                                                                            <!--onclick="checkAll();"></th>-->
-                                    <!--<th valign="middle" align="left">Document Name</th>-->
-                                    <!--<th valign="middle" align="left">Document Description</th>-->
-                                    <!--<th valign="middle" align="left">Type</th>-->
-                                    <!--<th valign="middle" align="left">File Name</th>-->
-
-                                <!--</tr>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--<% if(typeof PoliciesProceduresModel != null || typeof PoliciesProceduresModel !=-->
-                                <!--'undefined'){ %>-->
-                                <!--<% PoliciesProceduresModel.forEach( function( PoliciesProceduresModel ){ %>-->
-                                <!--<tr>-->
-                                    <!--<td width="1%" valign="middle" align="left"><input type="checkbox" name="CB12"-->
-                                                                                       <!--id="CB"-->
-                                                                                       <!--value="<%=PoliciesProceduresModel._id %> : <%=PoliciesProceduresModel.doc_name %> :  <%=PoliciesProceduresModel.assessment_type[0].as_type_desc %>   ">-->
-                                    <!--</td>-->
-                                    <!--<td width="4%" align="left" valign="middle">-->
-                                        <!--<% if ( typeof PoliciesProceduresModel.doc_name != 'undefined' ) { %>-->
-                                        <!--<%= PoliciesProceduresModel.doc_name %>-->
-                                        <!--<%}%>-->
-                                    <!--</td>-->
-                                    <!--<td width="6%" align="left" valign="middle">-->
-                                        <!--<% if ( typeof PoliciesProceduresModel.doc_desc != 'undefined' ) { %>-->
-                                        <!--<%= PoliciesProceduresModel.doc_desc %> <%}%>-->
-                                    <!--</td>-->
-                                    <!--<td width="4%" align="left" valign="middle">-->
-                                        <!--<% if ( typeof PoliciesProceduresModel.assessment_type[0].as_type_desc !=-->
-                                        <!--'undefined' ) { %>-->
-                                        <!--<%= PoliciesProceduresModel.assessment_type[0].as_type_desc %> <%}%>-->
-                                    <!--</td>-->
-
-                                    <!--<td width="4%" valign="middle" align="left">-->
-                                        <!--<% PoliciesProceduresModel.file_model.forEach(function(dobj){ %>-->
-                                        <!--<% count=1;length=PoliciesProceduresModel.file_model.length;%>-->
-                                        <!--<%= dobj.original_name %>-->
-                                        <!--<% if(count < length){ %>,<% }count++; %>-->
-
-                                        <!--<% }); %>-->
-                                    <!--</td>-->
+                    <!--<div class="row-fluid border-bottom1">-->
+                    <!--<div class="op-title" style="margin-bottom:20px;">Policies Control Data</div>-->
+                    <!--<a href="#close" title="Close" class="close">X</a>-->
+                    <!--<div style="clear:both"></div>-->
+                    <!--</div>-->
 
 
-                                <!--</tr>-->
-                                <!--<% }); %>-->
-                                <!--<% } %>-->
-                                <!--</tbody>-->
-                            <!--</table>-->
-                            <!--<div class="col-md-11"-->
-                                 <!--style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">-->
-                                <!--<input type="hidden" name="action" value="submit"/>-->
-                                <!--<button class="btn btn-info"-->
-                                        <!--type="submit" onclick="javascript:setPoliciesControl();">-->
-                                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
-                                    <!--Select-->
-                                <!--</button>-->
+                    <!--<table id="dynamic-table12"-->
+                    <!--class="table table-striped table-bordered table-hover main-container"-->
+                    <!--style="width:700px;height:200px;">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                    <!--<th valign="middle" align="left"><input type="checkbox" name="checkall"-->
+                    <!--id="checkall"-->
+                    <!--onclick="checkAll();"></th>-->
+                    <!--<th valign="middle" align="left">Document Name</th>-->
+                    <!--<th valign="middle" align="left">Document Description</th>-->
+                    <!--<th valign="middle" align="left">Type</th>-->
+                    <!--<th valign="middle" align="left">File Name</th>-->
 
-                                <!--<button class="btn btn-xl btn-danger" type="button"-->
-                                        <!--onclick="javascript:window.history.back();">-->
-                                    <!--<i></i>-->
-                                    <!--Cancel-->
-                                <!--</button>-->
-                            <!--</div>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<% if(typeof PoliciesProceduresModel != null || typeof PoliciesProceduresModel !=-->
+                    <!--'undefined'){ %>-->
+                    <!--<% PoliciesProceduresModel.forEach( function( PoliciesProceduresModel ){ %>-->
+                    <!--<tr>-->
+                    <!--<td width="1%" valign="middle" align="left"><input type="checkbox" name="CB12"-->
+                    <!--id="CB"-->
+                    <!--value="<%=PoliciesProceduresModel._id %> : <%=PoliciesProceduresModel.doc_name %> :  <%=PoliciesProceduresModel.assessment_type[0].as_type_desc %>   ">-->
+                    <!--</td>-->
+                    <!--<td width="4%" align="left" valign="middle">-->
+                    <!--<% if ( typeof PoliciesProceduresModel.doc_name != 'undefined' ) { %>-->
+                    <!--<%= PoliciesProceduresModel.doc_name %>-->
+                    <!--<%}%>-->
+                    <!--</td>-->
+                    <!--<td width="6%" align="left" valign="middle">-->
+                    <!--<% if ( typeof PoliciesProceduresModel.doc_desc != 'undefined' ) { %>-->
+                    <!--<%= PoliciesProceduresModel.doc_desc %> <%}%>-->
+                    <!--</td>-->
+                    <!--<td width="4%" align="left" valign="middle">-->
+                    <!--<% if ( typeof PoliciesProceduresModel.assessment_type[0].as_type_desc !=-->
+                    <!--'undefined' ) { %>-->
+                    <!--<%= PoliciesProceduresModel.assessment_type[0].as_type_desc %> <%}%>-->
+                    <!--</td>-->
 
-                        <!--</div>-->
+                    <!--<td width="4%" valign="middle" align="left">-->
+                    <!--<% PoliciesProceduresModel.file_model.forEach(function(dobj){ %>-->
+                    <!--<% count=1;length=PoliciesProceduresModel.file_model.length;%>-->
+                    <!--<%= dobj.original_name %>-->
+                    <!--<% if(count < length){ %>,<% }count++; %>-->
+
+                    <!--<% }); %>-->
+                    <!--</td>-->
+
+
+                    <!--</tr>-->
+                    <!--<% }); %>-->
+                    <!--<% } %>-->
+                    <!--</tbody>-->
+                    <!--</table>-->
+                    <!--<div class="col-md-11"-->
+                    <!--style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">-->
+                    <!--<input type="hidden" name="action" value="submit"/>-->
+                    <!--<button class="btn btn-info"-->
+                    <!--type="submit" onclick="javascript:setPoliciesControl();">-->
+                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
+                    <!--Select-->
+                    <!--</button>-->
+
+                    <!--<button class="btn btn-xl btn-danger" type="button"-->
+                    <!--onclick="javascript:window.history.back();">-->
+                    <!--<i></i>-->
+                    <!--Cancel-->
+                    <!--</button>-->
+                    <!--</div>-->
+
+                    <!--</div>-->
 
                     <!--</div>-->
                     <!--<div id="openModal_Policies" class="modalDialog ">-->
-                        <!--<div class="main-container" id="main-container"-->
-                             <!--style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">-->
-                            <!--<div class="row-fluid border-bottom1">-->
-                                <!--<div class="op-title" style="margin-bottom:20px;">Associate Control Data</div>-->
-                                <!--<a href="#close" title="Close" class="close">X</a>-->
-                                <!--<div style="clear:both"></div>-->
+                    <!--<div class="main-container" id="main-container"-->
+                    <!--style=" background:#fff !important;height: 700px; overflow: scroll; width:750px;">-->
+                    <!--<div class="row-fluid border-bottom1">-->
+                    <!--<div class="op-title" style="margin-bottom:20px;">Associate Control Data</div>-->
+                    <!--<a href="#close" title="Close" class="close">X</a>-->
+                    <!--<div style="clear:both"></div>-->
 
-                            <!--</div>-->
+                    <!--</div>-->
 
-                            <!--<table id="dynamic-table_Policies"-->
-                                   <!--class="table table-striped table-bordered table-hover main-container"-->
-                                   <!--style="width:700px;height:200px;">-->
-                                <!--<thead>-->
-                                <!--<tr>-->
-                                    <!--<th valign="middle" align="left"><input type="checkbox" name="checkall"-->
-                                                                            <!--id="checkall"-->
-                                                                            <!--onclick="checkAll();"></th>-->
-                                    <!--<th valign="middle" align="left">Control Category</th>-->
-                                    <!--<th valign="middle" align="left">Control Ref ID</th>-->
-                                    <!--<th valign="middle" align="left">Control Source</th>-->
-                                    <!--<th valign="middle" align="left">Business Process</th>-->
-                                    <!--<th valign="middle" align="left">Control Name</th>-->
-                                    <!--<th valign="middle" align="left">Control Owner</th>-->
-                                <!--</tr>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--<% ControlDataModel.forEach( function( ControlDataModel ){ %>-->
-                                <!--<tr>-->
-                                    <!--<td width="4%" valign="middle" align="left"><input type="checkbox" name="CB" id="CB"-->
-                                                                                       <!--value="<%=ControlDataModel._id %> : <%=ControlDataModel.Control_Name %> : <%=ControlDataModel.Control_Ref_ID %> : <%=ControlDataModel.Control_Source %>   ">-->
-                                    <!--</td>-->
-                                    <!--<td width="4%" align="left" valign="middle">-->
-                                        <!--<% if ( typeof ControlDataModel.Control_Category != 'undefined' ) { %>-->
-                                        <!--<%= ControlDataModel.Control_Category %>-->
-                                        <!--<%}%>-->
-                                    <!--</td>-->
-                                    <!--<td width="4%" align="left" valign="middle">-->
-                                        <!--<% if ( typeof ControlDataModel.Control_Ref_ID != 'undefined' ) { %>-->
-                                        <!--<%= ControlDataModel.Control_Ref_ID %> <%}%>-->
-                                    <!--</td>-->
-                                    <!--<td width="4%" align="left" valign="middle">-->
-                                        <!--<% if ( typeof ControlDataModel.Control_Source != 'undefined' ) { %>-->
-                                        <!--<%= ControlDataModel.Control_Source %> <%}%>-->
-                                    <!--</td>-->
+                    <!--<table id="dynamic-table_Policies"-->
+                    <!--class="table table-striped table-bordered table-hover main-container"-->
+                    <!--style="width:700px;height:200px;">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                    <!--<th valign="middle" align="left"><input type="checkbox" name="checkall"-->
+                    <!--id="checkall"-->
+                    <!--onclick="checkAll();"></th>-->
+                    <!--<th valign="middle" align="left">Control Category</th>-->
+                    <!--<th valign="middle" align="left">Control Ref ID</th>-->
+                    <!--<th valign="middle" align="left">Control Source</th>-->
+                    <!--<th valign="middle" align="left">Business Process</th>-->
+                    <!--<th valign="middle" align="left">Control Name</th>-->
+                    <!--<th valign="middle" align="left">Control Owner</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<% ControlDataModel.forEach( function( ControlDataModel ){ %>-->
+                    <!--<tr>-->
+                    <!--<td width="4%" valign="middle" align="left"><input type="checkbox" name="CB" id="CB"-->
+                    <!--value="<%=ControlDataModel._id %> : <%=ControlDataModel.Control_Name %> : <%=ControlDataModel.Control_Ref_ID %> : <%=ControlDataModel.Control_Source %>   ">-->
+                    <!--</td>-->
+                    <!--<td width="4%" align="left" valign="middle">-->
+                    <!--<% if ( typeof ControlDataModel.Control_Category != 'undefined' ) { %>-->
+                    <!--<%= ControlDataModel.Control_Category %>-->
+                    <!--<%}%>-->
+                    <!--</td>-->
+                    <!--<td width="4%" align="left" valign="middle">-->
+                    <!--<% if ( typeof ControlDataModel.Control_Ref_ID != 'undefined' ) { %>-->
+                    <!--<%= ControlDataModel.Control_Ref_ID %> <%}%>-->
+                    <!--</td>-->
+                    <!--<td width="4%" align="left" valign="middle">-->
+                    <!--<% if ( typeof ControlDataModel.Control_Source != 'undefined' ) { %>-->
+                    <!--<%= ControlDataModel.Control_Source %> <%}%>-->
+                    <!--</td>-->
 
-                                    <!--<td width="4%" valign="middle" align="left">-->
-                                        <!--<% if ( typeof ControlDataModel.Business_Process != 'undefined' ) { %>-->
-                                        <!--<%= ControlDataModel.Business_Process %> <%}%>-->
-                                    <!--</td>-->
-                                    <!--<td width="4%" valign="middle" align="left">-->
-                                        <!--<% if ( typeof ControlDataModel.Control_Name != 'undefined' ) { %>-->
-                                        <!--<%= ControlDataModel.Control_Name %> <%}%>-->
-                                    <!--</td>-->
-                                    <!--<td width="4%" valign="middle" align="left">-->
-                                        <!--<% if ( typeof ControlDataModel.Control_Owner != null ) { %>-->
-                                        <!--<%= ControlDataModel.Control_Owner %> <%}%>-->
-                                    <!--</td>-->
+                    <!--<td width="4%" valign="middle" align="left">-->
+                    <!--<% if ( typeof ControlDataModel.Business_Process != 'undefined' ) { %>-->
+                    <!--<%= ControlDataModel.Business_Process %> <%}%>-->
+                    <!--</td>-->
+                    <!--<td width="4%" valign="middle" align="left">-->
+                    <!--<% if ( typeof ControlDataModel.Control_Name != 'undefined' ) { %>-->
+                    <!--<%= ControlDataModel.Control_Name %> <%}%>-->
+                    <!--</td>-->
+                    <!--<td width="4%" valign="middle" align="left">-->
+                    <!--<% if ( typeof ControlDataModel.Control_Owner != null ) { %>-->
+                    <!--<%= ControlDataModel.Control_Owner %> <%}%>-->
+                    <!--</td>-->
 
-                                <!--</tr>-->
-                                <!--<% }); %>-->
-                                <!--</tbody>-->
+                    <!--</tr>-->
+                    <!--<% }); %>-->
+                    <!--</tbody>-->
 
-                            <!--</table>-->
-                            <!--<div class="col-md-11"-->
-                                 <!--style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">-->
-                                <!--<input type="hidden" name="action" value="submit"/>-->
-                                <!--<button class="btn btn-info"-->
-                                        <!--type="submit" onclick="javascript:setAssociateControl();">-->
-                                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
-                                    <!--Select-->
-                                <!--</button>-->
-                                <!--<button class="btn btn-xl btn-danger" type="button"-->
-                                        <!--onclick="javascript:window.history.back();">-->
-                                    <!--<i></i>-->
-                                    <!--Cancel-->
-                                <!--</button>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                    <!--</table>-->
+                    <!--<div class="col-md-11"-->
+                    <!--style="bottom: 7px; margin-left: 227px; position: fixed; scroll-behavior: auto; z-index: 99999;">-->
+                    <!--<input type="hidden" name="action" value="submit"/>-->
+                    <!--<button class="btn btn-info"-->
+                    <!--type="submit" onclick="javascript:setAssociateControl();">-->
+                    <!--<i class="ace-icon fa fa-check bigger-110"></i>-->
+                    <!--Select-->
+                    <!--</button>-->
+                    <!--<button class="btn btn-xl btn-danger" type="button"-->
+                    <!--onclick="javascript:window.history.back();">-->
+                    <!--<i></i>-->
+                    <!--Cancel-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </div>
             </div>
