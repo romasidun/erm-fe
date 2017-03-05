@@ -7,6 +7,7 @@
         $scope.mainDesc = "Add Audit Topic";
         $rootScope.app.Mask = false;
 
+
         $scope.VM = {
             auditId: $stateParams.audit_id,
             topicDesc: "",
@@ -20,11 +21,14 @@
         AuditService
             .GetEachAudit($stateParams.audit_id)
             .then(function(data){
+                console.log('$stateParams.audit_id',data);
                 $scope.auditName = data.auditName;
             });
 
         $scope.submitAction = function(){
-            if($scope.Form.addAudit.$invalid) return false;
+            if($scope.Form.addTopic.$invalid) return false;
+            console.log($scope.VM);
+            // return;
             $rootScope.app.Mask = true;
             // var dtype = 'YYYY-MM-DD';
             // var d1 = moment($scope.VM.dateOccurance);
@@ -46,7 +50,7 @@
                 var topic_id = "";
                 console.log('$scope.VM',$scope.VM);
                 // return;
-                AuditService.AddAudits($scope.VM).then(function (res) {
+                AuditService.AddTopic($scope.VM).then(function (res) {
                     console.log('res',res);
                     topic_id = res.data.id
                 }).finally(function () {

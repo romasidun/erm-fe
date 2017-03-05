@@ -535,11 +535,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             resolve: loadSequence('AuditAdd_TopicCtrl')
         }).state('app.audit.add_findings', {
             url: '/audit.add_findings',
-            templateUrl: "assets/views/audit/audit.add_action.html",
+            templateUrl: "assets/views/audit/audit.add_finding.html",
             title: 'Finding Add',
             icon: 'ti-layout-media-left-alt',
-            controller: 'AuditAdd_ActionCtrl',
-            resolve: loadSequence('AuditAdd_ActionCtrl')
+            controller: 'AuditAdd_FindingCtrl',
+            resolve: loadSequence('AuditAdd_FindingCtrl')
         })
 
         /*

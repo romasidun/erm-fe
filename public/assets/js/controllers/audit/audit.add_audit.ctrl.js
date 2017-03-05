@@ -23,7 +23,7 @@
         };
 
         $scope.asdf = function(){
-            var audit_id = "58b9e6623679e76f3e69dca7";
+            var audit_id = "58b98ddc3679e70f3c4e2bd4";
             $state.go('app.audit.add_topic', {audit_id: audit_id});
         };
 

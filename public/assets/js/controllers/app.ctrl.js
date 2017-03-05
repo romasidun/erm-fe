@@ -15,22 +15,22 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
             $rootScope.adminState = false;
 		}
 
-		var page_flag = false;
-		var urlArray = ['dashboard', 'oprisk', 'itrisk', 'vendorrisk', 'audit', 'compliance', 'control', 'policy', 'remediations'];
-		for(var i = 0; i < urlArray.length; i++){
-			if(url.indexOf('/#!/' + urlArray[i]) !== -1){
-				page_flag = true;
-				i = urlArray.length;
-			}
-		}
-        if (page_flag && !AuthFactory.isLoggedIn()) {
-            console.log('User Authentication  DENY');
-            event.preventDefault();
-            $location.path('/login');
-        } else {
-            console.log('User Authentication ALLOW');
-            //$location.path('/home');
-        }
+        // var page_flag = false;
+        // var urlArray = ['dashboard', 'oprisk', 'itrisk', 'vendorrisk', 'audit', 'compliance', 'control', 'policy', 'remediations'];
+        // for(var i = 0; i < urlArray.length; i++){
+			// if(url.indexOf('/#!/' + urlArray[i]) !== -1){
+			// 	page_flag = true;
+			// 	i = urlArray.length;
+			// }
+        // }
+        // if (page_flag && !AuthFactory.isLoggedIn()) {
+        //     console.log('User Authentication  DENY');
+        //     event.preventDefault();
+        //     $location.path('/login');
+        // } else {
+        //     console.log('User Authentication ALLOW');
+        //     //$location.path('/home');
+        // }
     });
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

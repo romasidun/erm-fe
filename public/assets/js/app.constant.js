@@ -84,7 +84,7 @@ app.constant('JS_REQUIRES', {
         'AuditMainCtrl':     'assets/js/controllers/audit/audit.main.ctrl.js',
         'AuditAdd_AuditCtrl':     'assets/js/controllers/audit/audit.add_audit.ctrl.js',
         'AuditAdd_TopicCtrl':     'assets/js/controllers/audit/audit.add_topic.ctrl.js',
-        'AuditAdd_ActionCtrl':     'assets/js/controllers/audit/audit.add_action.ctrl.js',
+        'AuditAdd_FindingCtrl':     'assets/js/controllers/audit/audit.add_finding.ctrl.js',
 
         //Control related Controllers
         'RepoCtrl':             'assets/js/controllers/control/repo.ctrl.js',

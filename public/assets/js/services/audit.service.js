@@ -4,7 +4,7 @@
 
 app.service('AuditService', function(APIHandler){
 
-    //audit
+    // begin audit
     this.GetAudits = function(){
         return APIHandler.Get('auditmgmt');
     };
@@ -20,11 +20,25 @@ app.service('AuditService', function(APIHandler){
     this.DeleteAudit = function (id) {
         return APIHandler.Delete('auditmgmt/' + id);
     };
+    // end topic
 
-    //topic
+    // begin topic
     this.GetTopics = function(){
         return APIHandler.Get('audittopic');
     };
+
+    this.GetEachTopic =  function(id){
+        return APIHandler.Post('audittopic/' + id);
+    };
+
+    this.AddTopic = function(param){
+        return APIHandler.Post('audittopic', param);
+    };
+
+    this.DeleteTopic = function (id) {
+        return APIHandler.Delete('audittopic/' + id);
+    };
+    // end topic
 
     this.GetFindings = function(){
         return APIHandler.Get('auditfindings');
