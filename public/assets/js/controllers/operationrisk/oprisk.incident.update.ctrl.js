@@ -9,6 +9,7 @@
     function OprIncFormController($scope, $rootScope, $state, $stateParams, $filter, OPRiskService, Utils) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
+        $scope.isAction = true;
 
         $scope.RiskCategories = { List: [], SelCount: 0 };
         $scope.Lookups = {};

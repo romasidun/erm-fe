@@ -197,8 +197,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<button class="btn btn-squared btn-dark-blue" ng-click="addNewAction()" onsubmit="return false;"><i class="fa fa-check"></i>  Add Action</button>
+							<div class="row" ng-if="isAction">
+								<a class="btn btn-squared btn-dark-blue margin-left-20" ng-click="addAction()"><i class="fa fa-edit"></i> Add Action</a>
 							</div>
 						</fieldset>
 						<fieldset>

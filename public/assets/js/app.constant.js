@@ -55,6 +55,7 @@ app.constant('JS_REQUIRES', {
         'ITRiskIncCtrl':        'assets/js/controllers/itrisk/itrisk.incident.ctrl.js',
         'ITRiskIncFormCtrl':    'assets/js/controllers/itrisk/itrisk.incident.form.ctrl.js',
         'ITRiskIncUpdateCtrl':    'assets/js/controllers/itrisk/itrisk.incident.update.ctrl.js',
+        'ITRiskActionFormCtrl': 'assets/js/controllers/itrisk/itrisk.action.form.ctrl.js',
         'ITRiskAssCtrl':        'assets/js/controllers/itrisk/itrisk.assessment.ctrl.js',
         'ITRiskAssFormCtrl':    'assets/js/controllers/itrisk/itrisk.assessment.form.ctrl.js',
         'ITRiskAssUpdateCtrl':    'assets/js/controllers/itrisk/itrisk.assessment.update.ctrl.js',

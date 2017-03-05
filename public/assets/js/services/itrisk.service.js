@@ -92,6 +92,14 @@
             return APIHandler.Get('itram/templates');
         };
 
+        this.PostAction = function(params){
+            return APIHandler.Post('itrisk/itrim/actions', params);
+        };
+
+        this.PutAction = function(id, params){
+            return APIHandler.Put('itrisk/itrim/actions/' + id, params);
+        };
+
         this.FileUpload = function (idd, fileModel) {
             if(fileModel.length < 1){
                 return APIHandler.NullPromise();

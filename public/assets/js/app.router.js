@@ -135,7 +135,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'OprIncidentUpdateCtrl',
             resolve: loadSequence('OprIncidentUpdateCtrl')
         }).state('app.oprisk.incident.addaction', {
-            url: '/addaction:pid',
+            url: '/addaction/:pid',
             templateUrl: "assets/views/operationrisk/oprisk.action.form.html",
             title: 'Add Action',
             icon: 'ti-layout-media-left-alt',
@@ -278,6 +278,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             icon: 'ti-layout-media-left-alt',
             controller: 'ITRiskIncUpdateCtrl',
             resolve: loadSequence('ITRiskIncUpdateCtrl')
+        }).state('app.itrisk.incident.addaction', {
+            url: '/addaction/:pid',
+            templateUrl: "assets/views/itrisk/itrisk.action.form.html",
+            title: 'Add Action',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'ITRiskActionFormCtrl',
+            resolve: loadSequence('ITRiskActionFormCtrl')
         }).state('app.itrisk.assessment', {
             url: '/assessment',
             template: '<div ui-view class="fade-in-up"></div>',

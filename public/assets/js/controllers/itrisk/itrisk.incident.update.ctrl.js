@@ -1,79 +1,79 @@
-(function(){
-    ITRiskIncFormController.$inject = ['$filter', '$scope','$rootScope','$state', '$stateParams', 'ITRiskService', 'OPRiskService', 'Utils'];
+(function () {
+    ITRiskIncFormController.$inject = ['$filter', '$scope', '$rootScope', '$state', '$stateParams', 'ITRiskService', 'OPRiskService', 'Utils'];
     app.controller('ITRiskIncUpdateCtrl', ITRiskIncFormController);
 
-    function ITRiskIncFormController ($filter, $scope, $rootScope, $state, $stateParams, ITRiskService, OPRiskService, Utils){
-       $scope.mainTitle = $state.current.title;
-       $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
+    function ITRiskIncFormController($filter, $scope, $rootScope, $state, $stateParams, ITRiskService, OPRiskService, Utils) {
+        $scope.mainTitle = $state.current.title;
+        $scope.mainDesc = "RISK CONTROL SELF ASSESSMENTS";
+        $scope.isAction = true;
 
-        $scope.RiskCategories = { List: [], SelCount: 0 };
+        $scope.RiskCategories = {List: [], SelCount: 0};
         $scope.Lookups = {};
 
-        $scope.setOpt = function(op){
+        $scope.setOpt = function (op) {
             op.Selected = !op.Selected;
-            if(op.Selected){
+            if (op.Selected) {
                 $scope.RiskCategories.SelCount++;
             } else {
                 $scope.RiskCategories.SelCount--;
             }
         };
 
-        $scope.setAll = function(val) {
-            $scope.RiskCategories.List.forEach(function(op){
+        $scope.setAll = function (val) {
+            $scope.RiskCategories.List.forEach(function (op) {
                 op.Selected = val;
             });
-            $scope.RiskCategories.SelCount = val? $scope.RiskCategories.List.length : 0;
+            $scope.RiskCategories.SelCount = val ? $scope.RiskCategories.List.length : 0;
         };
 
-        $scope.addControls = function(){
-            var headers= ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
-                cols =["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
+        $scope.addControls = function () {
+            var headers = ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
+                cols = ["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
 
             $rootScope.app.Mask = true;
-            OPRiskService.GetControlData().then(function(data){
-                data.forEach(function(c, i){
+            OPRiskService.GetControlData().then(function (data) {
+                data.forEach(function (c, i) {
                     c.Selected = false;
                     c.modifiedOn = Utils.createDate(c.modifiedOn);
                 });
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
-                controlModal.result.then(function(list){
+                controlModal.result.then(function (list) {
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
             });
         };
 
-        $scope.addPolicyDocs = function(){
-            var headers= ["Document Name", "Description", "Type", "File Name"],
+        $scope.addPolicyDocs = function () {
+            var headers = ["Document Name", "Description", "Type", "File Name"],
                 cols = ["docName", "docDesc", "docType", "fileName"];
 
             $rootScope.app.Mask = true;
-            OPRiskService.GetPolicyDocs(10, 1).then(function(data){
-                data.forEach(function(c, i){
+            OPRiskService.GetPolicyDocs(10, 1).then(function (data) {
+                data.forEach(function (c, i) {
                     c.Selected = false;
-                    c.docType = c.assessmentType[0]? c.assessmentType[0].asTypeDesc : "";
-                    c.fileName = c.fileModel[0]? c.fileModel[0].fileName : "";
+                    c.docType = c.assessmentType[0] ? c.assessmentType[0].asTypeDesc : "";
+                    c.fileName = c.fileModel[0] ? c.fileModel[0].fileName : "";
                 });
                 var polModal = Utils.CreateSelectListView("Select Policy Documents", data, headers, cols);
-                polModal.result.then(function(list){
+                polModal.result.then(function (list) {
                     $scope.VM.policiesData = $scope.VM.policiesData.concat(list);
                 });
                 $rootScope.app.Mask = false;
             });
         };
 
-        $scope.removeItem = function(type, idx) {
+        $scope.removeItem = function (type, idx) {
             $scope.VM[type].splice(idx, 1);
         };
 
 
-        $scope.submitAction = function(){
-            if($scope.Form.ITRisk.$pristine || $scope.Form.ITRisk.$invalid) return false;
-            if($scope.RiskCategories.SelCount < 1){
+        $scope.submitAction = function () {
+            if ($scope.Form.ITRisk.$pristine || $scope.Form.ITRisk.$invalid) return false;
+            if ($scope.RiskCategories.SelCount < 1) {
                 alert("Please select Risk Category.");
                 return false;
             }
-
 
 
             var dtype = 'YYYY-MM-DD';
@@ -84,36 +84,36 @@
 
             var selectedCategories = $filter('filter')($scope.RiskCategories.List, {Selected: true});
             var categoriesStr = '';
-            for(var i in selectedCategories){
+            for (var i in selectedCategories) {
                 categoriesStr = categoriesStr + selectedCategories[i].Label + ",";
             }
-            categoriesStr = categoriesStr.substr(0, categoriesStr.length -1);
+            categoriesStr = categoriesStr.substr(0, categoriesStr.length - 1);
             $scope.VM.riskCategory = categoriesStr;
 
             var fileModel = $scope.VM.auditFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
-            ITRiskService.FileUpload(idd, fileModel).then(function(res){
-                if(res.status === 200) {
+            ITRiskService.FileUpload(idd, fileModel).then(function (res) {
+                if (res.status === 200) {
                     for (var i in fileModel) {
                         fileModel[i].id = res.data.fileId;
                         fileModel[i].filePath = res.data.path;
                     }
                 }
             }).finally(function () {
-                ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function(res){
-                    console.log('res',res);
+                ITRiskService.UpdateRim($stateParams.id, $scope.VM).then(function (res) {
+                    console.log('res', res);
                 }).finally(function () {
                     $state.go('app.itrisk.incident.main');
                 });
             });
         };
 
-        $scope.cancelAction = function(){
-            if($scope.Form.ITRisk.$dirty){
+        $scope.cancelAction = function () {
+            if ($scope.Form.ITRisk.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
-                confirm.result.then(function(){
+                confirm.result.then(function () {
                     $state.go('app.itrisk.incident.main');
                 });
                 return false;
@@ -127,18 +127,18 @@
             return false;
         };
 
-        ITRiskService.GetRimById($stateParams.id).then(function(data){
+        ITRiskService.GetRimById($stateParams.id).then(function (data) {
             data.identifiedDate = new Date(data.identifiedDate);
             $scope.identifiedDate = Utils.GetDPDate(data.identifiedDate);
             $scope.VM = data;
             return ITRiskService.GetRimRiskCategory()
-        }).then(function(data){
+        }).then(function (data) {
             var categories = $scope.VM.riskCategory.split(',');
             $scope.RiskCategories.SelCount = categories.length;
-            angular.forEach(data.categories, function(val, key){
+            angular.forEach(data.categories, function (val, key) {
                 var sel = false;
-                for(var i in categories){
-                    if(categories[i] == val){
+                for (var i in categories) {
+                    if (categories[i] == val) {
                         sel = true;
                     }
                 }
@@ -146,5 +146,9 @@
             });
             $rootScope.app.Mask = false;
         });
+
+        $scope.addAction = function () {
+            $state.go('app.itrisk.incident.addaction', {pid: $stateParams.id});
+        };
     }
 })();
