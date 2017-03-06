@@ -9,6 +9,7 @@
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Actions";
+        $rootScope.app.Mask = true;
 
         console.log("In ITRisk.Action.Form.ctrl");
         $scope.VM = {
@@ -44,13 +45,8 @@
         };
 
         $scope.submitAction = function () {
-            if ($scope.Form.OpAction.$invalid || $scope.Form.OpAction.pristine) return false;
-
-            /*var fileModel = $scope.VM.actionfileModel;
-             ITRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
-             console.log(res);
-             });*/
-
+            if ($scope.Form.ITAction.$invalid || $scope.Form.ITAction.pristine) return false;
+            $rootScope.app.Mask = true;
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.dueDate);
             $scope.VM.dueDate = (d1.isValid()) ? d1.format(dtype) : '';
