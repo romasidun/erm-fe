@@ -3,32 +3,32 @@
  */
 
 (function () {
-    LoginController.$inject = ['$scope', '$rootScope', '$state', 'AuthFactory'];
+    LoginController.$inject = ['$rootScope', '$state', 'AuthFactory'];
     app.controller('LoginCtrl', LoginController);
 
-    function LoginController($scope, $rootScope, $state, AuthFactory) {
+    function LoginController($rootScope, $state, AuthFactory) {
+        var vm = this;
+        vm.creds = {username: "", password: ""};
+        vm.invalidCreds = false;
+        vm.errs = {user: false, pass: false};
+        vm.submit = false;
 
-        $scope.creds = {username: "", password: ""};
-        $scope.invalidCreds = false;
-        $scope.errs = {user: false, pass: false};
-        $scope.submit = false;
 
+        vm.loginAction = function () {
 
-        $scope.loginAction = function () {
+            vm.submit = true;
+            vm.errs.user = vm.creds.username === "";
+            vm.errs.pass = vm.creds.password === "";
 
-            $scope.submit = true;
-            $scope.errs.user = $scope.creds.username === "";
-            $scope.errs.pass = $scope.creds.password === "";
+            if (vm.errs.user || vm.errs.pass) return false;
 
-            if ($scope.errs.user || $scope.errs.pass) return false;
-
-            AuthFactory.login($scope.creds.username, $scope.creds.password)
+            AuthFactory.login(vm.creds.username, vm.creds.password)
                 .then(function (res) {
                     $rootScope.app.IsAuthenticated = true;
                     $state.go('app.dashboard.main');
                 })
                 .catch(function (err) {
-                    $scope.submit = false;
+                    vm.submit = false;
                     $rootScope.app.IsAuthenticated = false;
                 });
         };

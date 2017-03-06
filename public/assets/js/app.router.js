@@ -284,6 +284,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             title: 'Add Action',
             icon: 'ti-layout-media-left-alt',
             controller: 'ITRiskActionFormCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('ITRiskActionFormCtrl')
         }).state('app.itrisk.assessment', {
             url: '/assessment',
@@ -660,6 +661,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             url: '',
             templateUrl: "assets/views/login.signin.html",
             controller: 'LoginCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('LoginCtrl')
         }).state('login.forgot', {
             url: '/forgot',

@@ -2,12 +2,13 @@
  * Created by Roma on 03/01/2017.
  */
 
-app.factory('AuthFactory', function ($q, $timeout, $http) {
+app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage) {
     // create user variable
     var user = null;
 
     // return available functions for use in the controllers
     function isLoggedIn() {
+        var user = $localStorage.user;
         if (user) {
             return true;
         } else {
@@ -16,6 +17,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http) {
     }
 
     function getUserStatus() {
+        var user = $localStorage.user;
         return user;
     }
 
@@ -25,10 +27,12 @@ app.factory('AuthFactory', function ($q, $timeout, $http) {
         var deferred = $q.defer();
 
         if(username === 'Alan' && password === 'Alan1234'){
-            user = true;
+            user = { username: 'Alan', password: 'Alan1234' };
+            $localStorage.user = user;
             deferred.resolve(user);
         } else {
             user = false;
+            $localStorage.user = user;
             deferred.reject();
         }
 
@@ -59,6 +63,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http) {
         var deferred = $q.defer();
 
         // send a get request to the server
+        delete $localStorage.user;
         $http.get('/user/logout')
         // handle success
             .success(function (data) {

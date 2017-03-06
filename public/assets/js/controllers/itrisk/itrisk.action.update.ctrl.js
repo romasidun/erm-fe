@@ -2,11 +2,11 @@
 
     "use strict";
 
-    ITRIncFormController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'ITRiskService', 'Utils'];
-    app.controller('ITRIncidentUpdateCtrl', ITRIncFormController);
+    ITRActionUpdateCtrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'ITRiskService', 'Utils'];
+    app.controller('ITRActionUpdateCtrl', ITRActionUpdateCtrl);
 
 
-    function ITRIncFormController($scope, $rootScope, $state, $stateParams, ITRiskService, Utils) {
+    function ITRActionUpdateCtrl($scope, $rootScope, $state, $stateParams, ITRiskService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Actions";

@@ -2,15 +2,15 @@
 
     "use strict";
 
-    ITRActionFormController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'ITRiskService', 'Utils'];
-    app.controller('ITRActionFormCtrl', ITRActionFormController);
+    ITRiskActionFormCtrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'ITRiskService', 'Utils'];
+    app.controller('ITRiskActionFormCtrl', ITRiskActionFormCtrl);
 
-    function ITRActionFormController($scope, $rootScope, $state, $stateParams, $window, ITRiskService, Utils) {
+    function ITRiskActionFormCtrl($scope, $rootScope, $state, $stateParams, $window, ITRiskService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Actions";
 
-	console.log("In ITRisk.Action.Form.ctrl");
+        console.log("In ITRisk.Action.Form.ctrl");
         $scope.VM = {
             actionStatus: "",
             actionfileModel: [],

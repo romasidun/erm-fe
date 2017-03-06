@@ -7,28 +7,28 @@
 			<a href="http://www.aasricontrols.com" target="_blank">© www.aasricontrols.com</a>
 		</div>
 		<div class="box-login">
-			<form name="form.signin" class="form-login" ng-submit="loginAction()">
+			<form name="vm.form.signin" class="form-login" ng-submit="vm.loginAction()">
 				<fieldset>
 					<legend>
 						Sign in to your account
 					</legend>
-					<div class="login-errors row" ng-if="submit && (invalidCreds || errs.user || errs.pass)">
+					<div class="login-errors row" ng-if="vm.submit && (vm.invalidCreds || vm.errs.user || vm.errs.pass)">
 						<div class="col-xs-12">
-							<p ng-if="invalidCreds"> <i class="fa fa-times"></i> Invalid username or password </p>
-							<p ng-if="errs.user">	<i class="fa fa-times"></i> Login name cannot be blank </p>
-							<p ng-if="errs.pass">	<i class="fa fa-times"></i> Password cannot be blank </p>
+							<p ng-if="vm.invalidCreds"> <i class="fa fa-times"></i> Invalid username or password </p>
+							<p ng-if="vm.errs.user">	<i class="fa fa-times"></i> Login name cannot be blank </p>
+							<p ng-if="vm.errs.pass">	<i class="fa fa-times"></i> Password cannot be blank </p>
 						</div>						
 					</div>
 					<br>
 					<div class="form-group">
 						<span class="input-icon">
-							<input type="text" class="form-control" name="username" ng-model="creds.username" placeholder="Username">
+							<input type="text" class="form-control" name="username" ng-model="vm.creds.username" placeholder="Username">
 							<i class="fa fa-user"></i>
 						</span>
 					</div>
 					<div class="form-group form-actions">
 						<span class="input-icon">
-							<input type="password" class="form-control password" name="password" ng-model="creds.password" placeholder="Password">
+							<input type="password" class="form-control password" name="password" ng-model="vm.creds.password" placeholder="Password">
 							<i class="fa fa-lock"></i>
 							<a class="forgot" ui-sref="login.forgot"> I forgot my password </a> </span>
 					</div>
@@ -37,7 +37,12 @@
 							<input type="checkbox" id="remember" value="1">
 							<label for="remember"> Keep me signed in </label>
 						</div>
-						<button type="submit" ng-disabled="form.signin.$invalid || form.signin.$pristine" class="btn btn-primary pull-right"> Login <i class="fa fa-arrow-circle-right"></i> </button>
+					</div>
+					<div>
+						<div class="pull-right">
+							<button type="submit" ng-disabled="vm.form.signin.$invalid || vm.form.signin.$pristine" class="btn btn-primary"> Login <i class="fa fa-arrow-circle-right"></i> </button>
+							<a class="btn btn-primary"> Sign Up <i class="fa fa-arrow-circle-up"></i></a>
+						</div>
 					</div>
 				</fieldset>
 			</form>
