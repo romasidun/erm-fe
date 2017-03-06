@@ -2,16 +2,15 @@
 
     "use strict";
 
-    ITRiskActionFormCtrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'OPRiskService', 'Utils'];
-    app.controller('ITRiskActionFormCtrl', ITRiskActionFormCtrl);
+    ITRActionFormController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'ITRiskService', 'Utils'];
+    app.controller('ITRActionFormCtrl', ITRActionFormController);
 
-
-    function ITRiskActionFormCtrl($scope, $rootScope, $state, $stateParams, $window, ITRiskService, Utils) {
+    function ITRActionFormController($scope, $rootScope, $state, $stateParams, $window, ITRiskService, Utils) {
 
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Actions";
 
-
+	console.log("In ITRisk.Action.Form.ctrl");
         $scope.VM = {
             actionStatus: "",
             actionfileModel: [],
@@ -45,10 +44,10 @@
         };
 
         $scope.submitAction = function () {
-            if ($scope.Form.ITAction.$invalid || $scope.Form.ITAction.pristine) return false;
+            if ($scope.Form.OpAction.$invalid || $scope.Form.OpAction.pristine) return false;
 
             /*var fileModel = $scope.VM.actionfileModel;
-             OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
+             ITRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
              console.log(res);
              });*/
 
@@ -81,7 +80,7 @@
         };
 
         $scope.cancelAction = function () {
-            if ($scope.Form.ITAction.$dirty) {
+            if ($scope.Form.OpAction.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
                 confirm.result.then(function () {
                     $window.history.back();

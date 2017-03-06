@@ -16,6 +16,26 @@
             return APIHandler.Get('itrisk/itrim/' + id);
         };
 
+    this.PostAction = function(params){
+        return APIHandler.Post('itrisk/itrim/actions', params);
+    };
+
+    this.PutAction = function(id, params){
+        return APIHandler.Put('itrisk/itrim/actions/' + id, params);
+    };
+
+    this.GetOneAction = function(id){
+        return APIHandler.Get('itrisk/itrim/actions/' + id);
+    };
+
+    this.DeleteAction = function(id){
+        return APIHandler.Delete('itrisk/itrim/actions/' + id);
+    };
+
+    this.GetActionsByRiskId = function(id){
+        return APIHandler.Get('itrisk/itrim/actionsbyriskid/' + id);
+    };
+
         this.GetTemplate = function(){
             return APIHandler.Get('itram/templates');
         };
@@ -92,13 +112,6 @@
             return APIHandler.Get('itram/templates');
         };
 
-        this.PostAction = function(params){
-            return APIHandler.Post('itrisk/itrim/actions', params);
-        };
-
-        this.PutAction = function(id, params){
-            return APIHandler.Put('itrisk/itrim/actions/' + id, params);
-        };
 
         this.FileUpload = function (idd, fileModel) {
             if(fileModel.length < 1){
