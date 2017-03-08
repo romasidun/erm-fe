@@ -532,7 +532,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             title: 'Audit Add',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditAdd_AuditCtrl',
-            controllerAs: 'AuditAdd',
+            controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_AuditCtrl')
         }).state('app.audit.add_topic', {
             url: '/audit.add_topic/:audit_id',
@@ -540,6 +540,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             title: 'Topic Add',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditAdd_TopicCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_TopicCtrl')
         }).state('app.audit.add_findings', {
             url: '/audit.add_findings',
