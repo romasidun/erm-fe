@@ -1,44 +1,20 @@
 var express     = require('express');
 var path = require('path');
 var bodyParser  = require('body-parser');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var port        = process.env.PORT || 8000;
-
-// [SH] Require Passport
-var passport = require('passport');
-
-// [SH] Bring in the data model
-require('./server/models/database');
-// [SH] Bring in the Passport config after model is defined
-require('./server/config/passport');
-
-
-// [SH] Bring in the routes for the API (delete the default routes)
-var routesApi = require('./server/routes/index');
-
 var app         = express();
 var fs          = require('fs');
 var guid        = require('guid');
 
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
-
-// [SH] Initialise Passport before using the route middleware
-app.use(passport.initialize());
-
-// [SH] Use the API routes when path starts with /api
-app.use('/api', routesApi);
 
 // [SH] Otherwise render the index.html page for the Angular SPA
 // [SH] This means we don't have to map all of the SPA routes in Express
 app.use(function(req, res) {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,7 +24,6 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
 // [SH] Catch unauthorised errors
 app.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') {

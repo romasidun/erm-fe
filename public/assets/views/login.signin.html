@@ -1,53 +1,125 @@
 <!-- start: LOGIN -->
 <div class="row">
-	<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">		
-		<!-- start: LOGIN BOX -->
-		<div class="col-xs-12 text-center padding-15">
-			<h2><img src="./assets/img/logo-icon.png"/> Aasri Control</h2>
-			<a href="http://www.aasricontrols.com" target="_blank">© www.aasricontrols.com</a>
-		</div>
-		<div class="box-login">
-			<form name="vm.form.signin" class="form-login" ng-submit="vm.loginAction()">
-				<fieldset>
-					<legend>
-						Sign in to your account
-					</legend>
-					<div class="login-errors row" ng-if="vm.submit && (vm.invalidCreds || vm.errs.user || vm.errs.pass)">
-						<div class="col-xs-12">
-							<p ng-if="vm.invalidCreds"> <i class="fa fa-times"></i> Invalid username or password </p>
-							<p ng-if="vm.errs.user">	<i class="fa fa-times"></i> Login name cannot be blank </p>
-							<p ng-if="vm.errs.pass">	<i class="fa fa-times"></i> Password cannot be blank </p>
-						</div>						
-					</div>
-					<br>
-					<div class="form-group">
+    <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+        <!-- start: LOGIN BOX -->
+        <div class="col-xs-12 text-center padding-15">
+            <h2><img src="./assets/img/logo-icon.png"/> Aasri Control</h2>
+            <a href="http://www.aasricontrols.com" target="_blank">© www.aasricontrols.com</a>
+        </div>
+        <div class="box-login" ng-if="vm.signin">
+            <form name="vm.form.signin" class="form-login" ng-submit="vm.loginAction()">
+                <fieldset>
+                    <legend>
+                        Sign in to your account
+                    </legend>
+                    <div class="login-errors row"
+                         ng-if="vm.submit && (vm.invalidCreds || vm.errs.user || vm.errs.pass)">
+                        <div class="col-xs-12">
+                            <p ng-if="vm.invalidCreds"><i class="fa fa-times"></i> Invalid username or password </p>
+                            <p ng-if="vm.errs.user"><i class="fa fa-times"></i> Login name cannot be blank </p>
+                            <p ng-if="vm.errs.pass"><i class="fa fa-times"></i> Password cannot be blank </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
 						<span class="input-icon">
-							<input type="text" class="form-control" name="username" ng-model="vm.creds.username" placeholder="Username">
+							<input type="text" class="form-control" name="username" ng-model="vm.creds.username"
+                                   placeholder="Username">
 							<i class="fa fa-user"></i>
 						</span>
-					</div>
-					<div class="form-group form-actions">
+                    </div>
+                    <div class="form-group form-actions">
 						<span class="input-icon">
-							<input type="password" class="form-control password" name="password" ng-model="vm.creds.password" placeholder="Password">
+							<input type="password" class="form-control password" name="password"
+                                   ng-model="vm.creds.password" placeholder="Password">
 							<i class="fa fa-lock"></i>
 							<a class="forgot" ui-sref="login.forgot"> I forgot my password </a> </span>
-					</div>
-					<div class="form-actions">
-						<div class="checkbox clip-check check-primary">
-							<input type="checkbox" id="remember" value="1">
-							<label for="remember"> Keep me signed in </label>
-						</div>
-					</div>
-					<div>
-						<div class="pull-right">
-							<button type="submit" ng-disabled="vm.form.signin.$invalid || vm.form.signin.$pristine" class="btn btn-primary"> Login <i class="fa fa-arrow-circle-right"></i> </button>
-							<a class="btn btn-primary"> Sign Up <i class="fa fa-arrow-circle-up"></i></a>
-						</div>
-					</div>
-				</fieldset>
-			</form>
-		</div>
-		<!-- end: LOGIN BOX -->
-	</div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="checkbox clip-check check-primary">
+                            <input type="checkbox" id="remember" value="1">
+                            <label for="remember"> Keep me signed in </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="pull-right">
+                            <button type="submit" ng-disabled="vm.form.signin.$invalid"
+                                    class="btn btn-primary"> Login <i class="fa fa-arrow-circle-right"></i></button>
+                            <a class="btn btn-primary" ng-click="vm.signin=false"> Sign Up <i
+                                    class="fa fa-arrow-circle-up"></i></a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <!-- end: LOGIN BOX -->
+
+        <!--Begin: SignUp BOX -->
+        <div class="box-login" ng-if="!vm.signin">
+            <form name="vm.form.signup" class="form-login" ng-submit="vm.registerAction()">
+                <fieldset>
+                    <legend>
+                        Sign Up Form
+                    </legend>
+                    <div class="form-group" ng-class="{ 'has-error' : vm.form.signup.regUserName.$invalid && !vm.form.signup.regUserName.$pristine }">
+                        <label for="regUserName">UserName</label>
+                        <input type="text" ng-model="vm.regs.username" class="form-control" id="regUserName"
+                               name="regUserName" placeholder="Enter Username" required>
+                        <p ng-show="vm.form.signup.regUserName.$invalid && !vm.form.signup.regUserName.$pristine"
+                           class="help-block">You name is required.</p>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : vm.form.signup.regEmail.$invalid && !vm.form.signup.regEmail.$pristine }">
+                        <label for="regEmail">Email</label>
+                        <input type="email" ng-model="vm.regs.email" class="form-control" id="regEmail" name="regEmail"
+                               placeholder="Enter Email" required>
+                        <p ng-show="vm.form.signup.regEmail.$invalid && !vm.form.signup.regEmail.$pristine"
+                           class="help-block">Enter a valid email.</p>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : (vm.form.signup.regPassword.$invalid ||  vm.showPwdValidation) && !vm.form.signup.regPassword.$pristine}">
+                        <label for="regPassword">Password</label>
+                        <input type="password" ng-model="vm.regs.password" class="form-control password"
+                               id="regPassword" name="regPassword" placeholder="Enter Password" required
+                               ng-focus="vm.pwdFocus()" ng-blur="vm.pwdBlur()"
+                        >
+
+                        <div class="popover validPopover ng-isolate-scope top signup-tooltip fade top-right" ng-class="{'in': vm.showPwdValidation && vm.isPwdFocus }">
+                            <div class="arrow" style="bottom: -11px; right: 6px;"></div>
+                            <div class="popover-inner">
+                                <!-- ngIf: uibTitle -->
+                                <div class="popover-content">
+                                    <div>Password must contain at least below characters:</div>
+                                    <ul>
+                                        <li ng-repeat="r in vm.pwd_validations">{{r}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group"  ng-class="{ 'has-error' : (vm.form.signup.regConfPassword.$invalid || vm.showPwdValidation) && !vm.form.signup.regConfPassword.$pristine }">
+                        <label for="regConfPassword">Confirm Password</label>
+                        <input type="password" ng-model="vm.regs.confpassword" class="form-control password"
+                               id="regConfPassword" name="regConfPassword" placeholder="Repeat Password" required compare-to="vm.regs.password">
+                    </div>
+                    <div class="form-group">
+                        <label for="regCaptcha">Captcha</label>
+                        <span class="input-icon input-icon-right">
+							<input type="text" ng-model="vm.regs.captcha" class="form-control" id="regCaptcha"
+                                   name="regCaptcha" placeholder="Enter Code" required>
+							<i class="fa fa-refresh"></i>
+						</span>
+                    </div>
+                    <div>
+                        <div class="pull-right">
+                            <a class="btn btn-primary" ng-click="vm.signin=true"> Cancel <i
+                                    class="fa fa-times-circle"></i></a>
+                            <button type="submit" ng-disabled="vm.form.signup.$invalid || vm.form.signup.$pristine"
+                                    class="btn btn-primary"> Register <i class="fa fa-user-circle"></i></button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- end: LOGIN -->

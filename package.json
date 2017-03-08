@@ -11,22 +11,11 @@
   "dependencies": {
     "angular-toast": "^1.0.4",
     "angularjs-datepicker": "^2.1.12",
-    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
-    "cookie-parser": "^1.4.3",
-    "crypto": "0.0.3",
     "express": "^4.14.0",
-    "express-jwt": "^5.1.0",
     "guid": "0.0.12",
-    "jsonwebtoken": "^7.3.0",
-    "jwt-simple": "^0.5.1",
     "moment": "^2.17.1",
-    "mongoose": "^4.8.5",
-    "morgan": "^1.8.1",
     "msexcel-builder-colorfix": "0.0.3",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "xlsx": "^0.8.1"
   }

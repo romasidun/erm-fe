@@ -4845,7 +4845,7 @@ select[multiple="multiple"]:focus option {
 
 label {
   font-weight: 600;
-  color: ##585656;
+  color: #585656;
 }
 
 span.input-icon, span.input-help {
@@ -9575,6 +9575,16 @@ nav.links a {
   margin-top: 15px;
   padding-top: 10px;
   display: block;
+}
+
+#regPassword+.validPopover{
+  position: absolute;
+  bottom: 44px !important;
+  right: 0px !important;
+  top: inherit;
+  left: inherit;
+  display: block;
+  max-width: 400px;
 }
 
 /* ---------------------------------------------------------------------- */
