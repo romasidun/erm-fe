@@ -524,7 +524,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             title: 'Audit main',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditMainCtrl',
-            controllerAs: 'AuditMain',
+            controllerAs: 'vm',
             resolve: loadSequence('AuditMainCtrl')
         }).state('app.audit.add_audit', {
             url: '/audit.add_audit',

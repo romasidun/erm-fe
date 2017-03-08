@@ -3,229 +3,231 @@
     app.controller('AuditMainCtrl', AuditMainController);
 
     function AuditMainController($scope, $rootScope, $state, AuditService, ChartFactory, Utils, $filter) {
-        $scope.mainTitle = $state.current.title;
-        $scope.mainDesc = "AUDIT MANAGEMENT";
+        var vm = this;
+        vm.mainTitle = $state.current.title;
+        vm.mainDesc = "AUDIT MANAGEMENT";
 
-        $scope.Audittable = null;
-        $scope.Top = [];
-        $scope.topicId = null;
-        $scope.auditId = null;
-
-        var headerTemplates = {
-            format_level_2: function(rowIdent) {
-                // `d` is the original data object for the row - i.e. take finding ID, get JSON and render
-                return  '<div class="holder">'+
-                    '<table id="'+rowIdent+'" class="topicTable table table-striped table-bordered table-hover nested_table" style="width: 100%;" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="table-striped table-bordered table-hover nested_table">' +
-                        '<thead>' +
-                            '<tr>' +
-                                '<th> <input type="checkbox"> </th>' +
-                                '<th> Topic Names </th>' +
-                                '<th> Occur Date </th>' +
-                                '<th> Responsilbe </th>' +
-                                '<th> Status </th>'+
-                            '</tr>' +
-                        '</thead>' +
-                        '<tbody>' +
-                        '</tbody>' +
-                    '</table>' +
-                '</div>';
+        vm.OpList = [5, 10, 25, 50, 100];
+        vm.Grid1 = {
+            PerPage: 10,
+            CurrPage: 1,
+            Column: 'auditName',
+            IsAsc: true,
+            Filter: "",
+            Total: 0,
+            Data: [],
+            SortMe: function (col) {
+                if (vm.Grid1.Column === col)
+                    vm.Grid1.IsAsc = !vm.Grid1.IsAsc;
+                else
+                    vm.Grid1.Column = col;
             },
-            format_level_2_columns: function(){
-                return [
-                    {
-                        "className": 'details-control',
-                        "orderable": false,
-                        "data": null,
-                        "defaultContent": 'X'
-                    },
-                    {data: "topicName"},
-                    {data: "createdOn"},
-                    {data: "resUserName"},
-                    {data: "cur_status"}
-                ]
-            },
-            format_level_3: function(rowIdent) {
-                // `d` is the original data object for the row - i.e. take finding ID, get JSON and render
-                return  '<div class="holder">'+
-                            '<table id="'+rowIdent+'" class="FindingTable table table-striped table-bordered table-hover nested_table" style="width: 100%;" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="table-striped table-bordered table-hover nested_table">' +
-                                '<thead>' +
-                                    '<tr>' +
-                                    '<th> <input type="checkbox"> </th>' +
-                                    '<th> Topic Names </th>' +
-                                    '<th> Occur Date </th>' +
-                                    '<th> Responsilbe </th>' +
-                                    '<th> Status </th>'+
-                                    '</tr>' +
-                                '</thead>' +
-                                '<tbody>' +
-                                '</tbody>' +
-                            '</table>';
-                        '</div>'        ;
-            },
-            format_level_3_columns: function(){
-                return [
-                    {
-                        "className": 'details-control',
-                        "orderable": false,
-                        "data": null,
-                        "defaultContent": 'X'
-                    },
-                    {data: "findingName"},
-                    {data: "createdOn"},
-                    {data: "findDesc"},
-                    {data: "findStatus"}
-                ]
+            GetIco: function (col) {
+                if (vm.Grid1.Column === col) {
+                    return vm.Grid1.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+                } else {
+                    return 'fa-unsorted';
+                }
             }
         };
+        $scope.$watch('vm.Grid1.Filter', function (n, o) {
+            var searchedData = $filter('filter')(vm.Grid1.Data, vm.Grid1.Filter);
+            vm.Grid1.Total = searchedData.length;
+        });
 
-        $(document).on('click', 'table.Audit_Main_Table div.table_actions .deleteButton', function(){
-            $scope.AuditData = [];
-            var r = $(this).parent('div.table_actions').attr('id');
-            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
-            confirmation.result.then(function () {
-                console.log("U chose Yes");
+        vm.deleteAction = function (r) {
+
+        };
+
+        vm.editAction = function (r) {
+
+        };
+
+        AuditService.GetManageStatus()
+            .then(function (data) {
                 $rootScope.app.Mask = true;
-                AuditService.DeleteAudit(r).then(function (data) {
-                    if (data.status === 200) window.location.reload();
-                });
-            });
-        });
+                ChartFactory.CreatePieChart('Audit By Status', 'Audit By Status', data, 'audit_MGStatus');
+                return AuditService.GetManagePeriod();
+            })
+            .then(function (data) {
+                ChartFactory.CreateLineChart('Audit By Period', data, 'audit_MGPeriod');
+                return AuditService.GetManageRegion();
+            })
+            .then(function (data) {
+                loadRegion(data);
+                return AuditService.GetActionStatus();
+            })
+            .then(function (data) {
+                ChartFactory.CreatePieChart('Actions By Status', 'Actions By Status', data, 'action_StatusChart');
+                return AuditService.GetFindingOpen();
+            })
+            .then(function (data) {
+                loadFinding(data);
+                console.log(1111);
+                return AuditService.GetManageDept();
+            })
+            .then(function (data) {
+                console.log(data);
+                ChartFactory.CreatePieChart('Status By Department', 'Status By Department', data, 'status_department');
 
-        $('table.Audit_Main_Table').on('click', 'td.details-control', function () {
-            var tr = $(this).closest('tr');
-            var tableElem = tr.closest('table');
-            var theTable = tableElem.DataTable();
-            var row = theTable.row(tr);
-            if (row.child.isShown()) {
-                row.child.hide();
-            }
-            else {
-                var level = null;
-                var d = new Date();
-                var newTableId = d.getTime().toString();
-                var dataRow = row.data();
-                var AssoData = [];
-
-                if($(tableElem).hasClass('topicTable')){
-                    $scope.topicId = dataRow.id;
-                    level = "3";
-                    row.child(headerTemplates['format_level_3']('T'+newTableId)).show();
-                    $scope.FindingData.forEach(function(key){
-                            console.log('keykey',key);
-                            console.log('$scope.topicId',$scope.topicId);
-                            console.log('$scope.auditId',$scope.auditId);
-                        if(key.topicId == $scope.topicId && key.auditId == $scope.auditId){
-                            AssoData.push(key);
-                            key.createdOn = Utils.createDate(key.createdOn) + "";
-                            var split = key.createdOn.split(' ');
-                            key.createdOn = split[1] + " " + split[2] + " " + split[3];
-                        }
-                    });
-                    console.log('AssoDataAssoData',AssoData);
-                }
-                else{
-                    console.log(tr);
-                    console.log(dataRow);
-                    $scope.auditId = dataRow.id;
-                    level = "2";
-                    row.child(headerTemplates['format_level_2']('T'+newTableId)).show();
-
-                    $scope.TopicData.forEach(function(key){
-                        if(key.auditId == $scope.auditId){
-                            AssoData.push(key);
-                            key.createdOn = Utils.createDate(key.createdOn) + "";
-                            var split = key.createdOn.split(' ');
-                            key.createdOn = split[1] + " " + split[2] + " " + split[3];
-                            key.cur_status = key.status.statusMsg
-                        }
-                    })
-                }
-
-                var theTable2 = $('#T'+ newTableId).DataTable(
-                    {
-                        "data": AssoData,
-                        "columns": headerTemplates['format_level_' + level + '_columns'](),
-                        "order": []
-                    }
-                )
-            }
-        });
-
-        AuditService.GetManageDept()
-            // .then(function (data) {
-            //     ChartFactory.CreateDepartMentChart('Management Department', 'Audit Management Department', data, 'audit_MGDeptChart');
-            //     return AuditService.GetFindingOpen();
-            // })
-            // .then(function (data) {
-            //     ChartFactory.CreateFindingChart('By FindingOpen', data, audit_FDOpenChart);
-            //     return AuditService.GetManageStatus();
-            // })
-            // .then(function (data) {
-            //     ChartFactory.CreateStatusChart('Management Status', 'Management Status', data, 'audit_MGStatus');
-            //     return AuditService.GetManagePeriod();
-            // })
-            // .then(function (data) {
-            //     ChartFactory.CreatePeriodChart('By FindingOpen', data, 'audit_MGPeriod');
-            //     return AuditService.GetManageRegion();
-            // })
-            // .then(function (data) {
-            //     ChartFactory.CreateRegionChart(data, 'openFinding_periodChart', $filter );
-            //     return AuditService.GetActionStatus();
-            // })
-            .then(function (data){
-                ChartFactory.CreateStatusChart('By Status', 'action status', data, 'status_department');
+            })
+            .finally(function () {
                 loadData();
             });
 
-            var loadData = function(){
-                $scope.AuditData = [];
-                // $scope.FindingData = [];
 
-                $scope.TopicData = [];
-                AuditService.GetAudits()
-                    .then(function (datas){
-                        $scope.AuditData = datas;
-                        var dtype = 'MM-DD-YYYY';
-                        $scope.AuditData.forEach(function (r) {
-                            console.info(r.id);
-                            r.action = '<div class="table_actions" id=' + r.id + ' ><a class="btn editButton btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a><a class="btn btn-xs btn-squared btn-red deleteButton"><i class="ti-trash"></i></a></div>';
-                            var d1 = moment(r.dateOccurance);
-                            r.dateOccurance = (d1.isValid()) ? d1.format(dtype) : '';
-                            r.dateOccurance = Utils.createDate(r.dateOccurance) + "";
-                            var split = r.dateOccurance.split(' ');
-                            r.dateOccurance = split[1] + " " + split[2] + " " + split[3];
-                        });
+        function loadRegion(data) {
+            var categories = ['All', 'Asia', 'South Ameria', 'North America', 'Europe'];
+            var tmpobj = {};
+            for (var i in categories) {
+                var item = categories[i];
+                var tmpit = (item === 'South Ameria') ? 'EMEA' : item;
+                angular.forEach(data, function (val, key) {
+                    if (key.indexOf(tmpit) === 0) {
+                        var re = key.substr(+tmpit.length + 1);
+                        if(re.indexOf('Pacific') !== -1) re = re.substr(8);
+                        if (angular.isArray(tmpobj[re])) {
+                            tmpobj[re][i] += val * 1;
+                        } else {
+                            tmpobj[re] = [0, 0, 0, 0, 0];
+                            tmpobj[re][i] = val;
+                        }
+                    }
+                });
 
-                        $scope.Audittable = $('.Audit_Main_Table').DataTable( {
-                            "data": $scope.AuditData,
-                            "columns": [
-                                {
-                                    "className": 'details-control',
-                                    "orderable": false,
-                                    "data": null,
-                                    "defaultContent": 'X'
-                                },
-                                {data: "auditName"},
-                                {data: "region"},
-                                {data: "department"},
-                                {data: "dateOccurance"},
-                                {data: "resUserName"},
-                                {data: "priority"},
-                                {data: "auditStatus"},
-                                {data: "action"}
-                            ],
-                            "aaSorting" : []
-                        } );
-                        return AuditService.GetTopics();
-                    })
-                    .then(function(data){
-                       $scope.TopicData = data;
-                       return AuditService.GetFindings();
-                    })
-                    .then(function(data){
-                       $scope.FindingData = data;
-                       $rootScope.app.Mask = false;
-                    });
+            }
+            var series = [];
+            angular.forEach(tmpobj, function (ary, key) {
+                series.push({
+                    name: key,
+                    data: ary
+                })
+            });
+            var config = {
+                Text: 'Audit By Region',
+                Title: '',
+                Categories: categories,
+                Series: series
             };
+            config = ChartFactory.SetupStackedChart(config);
+            Highcharts.chart('audit_MGRegion', config);
+        }
+
+        function loadFinding(data) {
+            var categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var tmpobj = {};
+            for (var i in categories) {
+                var item = categories[i].toLowerCase();
+                angular.forEach(data, function (val, key) {
+                    if (key.indexOf(item) === 0) {
+                        var re = key.substr(item.length);
+                        if (angular.isArray(tmpobj[re])) {
+                            tmpobj[re][i] += val * 1;
+                        } else {
+                            tmpobj[re] = [0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0];
+                            tmpobj[re][i] = val;
+                        }
+                    }
+                });
+
+            }
+            var series = [];
+            angular.forEach(tmpobj, function (ary, key) {
+                series.push({
+                    name: key,
+                    data: ary
+                })
+            });
+            var config = {
+                Text: 'Open Findings By Period',
+                yTitle: '1',
+                subTitle: '1',
+                Tooltip: '1',
+                Categories: categories,
+                Series: series
+            };
+            console.log(config);
+            config = ChartFactory.SetupMonthLineChart(config);
+            Highcharts.chart('openFinding_periodChart', config);
+        }
+
+        function loadData() {
+            AuditService.GetAudits().then(function (data) {
+                vm.Grid1.Total = data.length;
+                vm.Grid1.Data = data;
+
+                return AuditService.GetFindings();
+            }).then(function (data) {
+                vm.FindingData = data;
+                return AuditService.GetTopics();
+            }).then(function (data) {
+                angular.forEach(vm.Grid1.Data, function (r, k) {
+                    r.dateOccurance = moment(r.dateOccurance).format('MMM-DD-YYYY');
+
+                    r.Grid1 = {
+                        PerPage: 10, CurrPage: 1, Column: 'topicName', IsAsc: true, Filter: "", Total: 0, Data: [],
+                        SortMe: function (col, obj) {
+                            if (obj.Grid1.Column === col)
+                                obj.Grid1.IsAsc = !obj.Grid1.IsAsc;
+                            else
+                                obj.Grid1.Column = col;
+                        },
+                        GetIco: function (col, obj) {
+                            if (obj.Grid1.Column === col) {
+                                return obj.Grid1.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+                            } else {
+                                return 'fa-unsorted';
+                            }
+                        }
+                    };
+
+                    var tdata = $filter('filter')(data, {'auditId': r.id});
+                    r.Grid1.Total = tdata.length;
+                    r.Grid1.Data = tdata;
+                    $scope.$watch('r.Grid1.Filter', function (n, o) {
+                        var searchedData = $filter('filter')(r.Grid1.Data, r.Grid1.Filter);
+                        r.Grid1.Total = searchedData.length;
+                    });
+
+                    //---------Finding SubGrid----------------------
+                    r.Grid1.Data.forEach(function (topic) {
+                        topic.Grid1 = {
+                            PerPage: 10,
+                            CurrPage: 1,
+                            Column: 'findingName',
+                            IsAsc: true,
+                            Filter: "",
+                            Total: 0,
+                            Data: [],
+                            SortMe: function (col, obj) {
+                                if (obj.Grid1.Column === col)
+                                    obj.Grid1.IsAsc = !obj.Grid1.IsAsc;
+                                else
+                                    obj.Grid1.Column = col;
+                            },
+                            GetIco: function (col, obj) {
+                                if (obj.Grid1.Column === col) {
+                                    return obj.Grid1.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+                                } else {
+                                    return 'fa-unsorted';
+                                }
+                            }
+                        };
+
+                        var fdata = $filter('filter')(vm.FindingData, {auditId: r.id, topicId: topic.id});
+                        topic.Grid1.Total = fdata.length;
+                        topic.Grid1.Data = fdata;
+
+                        $scope.$watch('topic.Grid1.Filter', function (n, o) {
+                            var searchedData = $filter('filter')(topic.Grid1.Data, topic.Grid1.Filter);
+                            topic.Grid1.Total = searchedData.length;
+                        });
+                    });
+                    //----------------------------------------------
+                });
+
+                $rootScope.app.Mask = false;
+            });
+        }
     }
 })();

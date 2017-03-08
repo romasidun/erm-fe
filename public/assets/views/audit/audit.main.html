@@ -2,8 +2,8 @@
 <section id="page-title" class="padding-top-15 padding-bottom-15">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="mainTitle" >{{mainTitle}}</h1>
-            <span class="mainDescription">{{mainDesc}} </span>
+            <h1 class="mainTitle" >{{vm.mainTitle}}</h1>
+            <span class="mainDescription">{{vm.mainDesc}} </span>
         </div>
     </div>
 </section>
@@ -14,21 +14,21 @@
         <div class="col-xs-12 col-md-4">
             <div class="panel panel-white">
                 <div class="panel-body">
-                    <div id="audit_MGDeptChart" class="col-xs-12"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-4">
-            <div class="panel panel-white">
-                <div class="panel-body">
-                    <div id="audit_FDOpenChart" class="col-xs-12"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-4">
-            <div class="panel panel-white">
-                <div class="panel-body">
                     <div id="audit_MGStatus" class="col-xs-12"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <div id="audit_MGPeriod" class="col-xs-12"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <div id="audit_MGRegion" class="col-xs-12"></div>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="col-xs-12 col-md-4">
             <div class="panel panel-white">
                 <div class="panel-body">
-                    <div id="audit_MGPeriod" class="col-xs-12 col-md-offset-2 col-md-8"></div>
+                    <div id="action_StatusChart" class="col-xs-12 col-md-offset-2 col-md-8"></div>
                 </div>
             </div>
         </div>
@@ -56,33 +56,170 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-white no-radius">
                 <div class="panel-heading">
-                    <h5>Audits</h5>
+                    <h5> Audits </h5>
                     <div class="panel-tools">
                         <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.audit.add_audit">Add Audit</a>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <table class="Audit_Main_Table table table-striped table-bordered table-hover nested_table" style="width: 100%;">
+                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                            <select id="perpage" ng-model="vm.Grid1.PerPage" ng-options="op as op for op in vm.OpList" class="form-control input-sm"> </select>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+                            <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+								<span class="input-icon">
+									<input type="text" ng-model="vm.Grid1.Filter" placeholder="search" class="form-control input-sm" />
+									<i class="fa fa-search"></i>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-striped table-responsive col-xs-12">
                             <thead>
-                                <tr>
-                                    <th  valign="middle"  align="left"><input type="checkbox"></th>
-                                    <th  valign="middle" align="left">Name</th>
-                                    <th  valign="middle" align="left">Region </th>
-                                    <th  valign="middle" align="left">Department</th>
-                                    <th valign="middle" align="left">Occur Date</th>
-                                    <th  valign="middle" align="left">Responsible</th>
-                                    <th  valign="middle" align="left">Priority </th>
-                                    <th  valign="middle" align="left">Status </th>
-                                    <th  valign="middle" align="left">Action</th>
-                                </tr>
+                            <tr class="sortable-headers">
+                                <th><input type="checkbox"></th>
+                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='auditName' }" ng-click="vm.Grid1.SortMe('auditName')"><i class="fa {{vm.Grid1.GetIco('auditName')}}"></i> Name</a></th>
+                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='region' }" ng-click="vm.Grid1.SortMe('region')"><i class="fa {{vm.Grid1.GetIco('region')}}"></i> Region</a></th>
+                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='department' }" ng-click="vm.Grid1.SortMe('department')"><i class="fa {{vm.Grid1.GetIco('department')}}"></i> Department</a></th>
+                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='dateOccurance' }" ng-click="vm.Grid1.SortMe('dateOccurance')"><i class="fa {{ vm.Grid1.GetIco('dateOccurance')}}"></i> Occur Date</a></th>
+                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='resUserName' }" ng-click="vm.Grid1.SortMe('resUserName')"><i class="fa {{vm.Grid1.GetIco('resUserName')}}"></i> Responsible</a></th>
+                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='priority' }" ng-click="vm.Grid1.SortMe('priority')"><i class="fa {{vm.Grid1.GetIco('priority')}}"></i> Priority</a></th>
+                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='auditStatus' }" ng-click="vm.Grid1.SortMe('auditStatus')"><i class="fa {{vm.Grid1.GetIco('auditStatus')}}"></i> Status</a></th>
+                                <th>Action</th>
+                            </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+
+                            <tr ng-repeat-start="r in vm.Grid1.Data | orderBy: vm.Grid1.Column:vm.Grid1.IsAsc | filter: vm.Grid1.Filter |  limitTo : vm.Grid1.PerPage : (vm.Grid1.CurrPage -1) * vm.Grid1.PerPage">
+                                <th><a ng-click="r.child=!r.child">X</a></th>
+                                <td>{{r.auditName}}</td>
+                                <td>{{r.region}}</td>
+                                <td>{{r.department}}</td>
+                                <td>{{r.dateOccurance}}</td>
+                                <td>{{r.resUserName}}</td>
+                                <td>{{r.priority}}</td>
+                                <td>{{r.auditStatus}}</td>
+                                <td>
+                                    <a ng-click="vm.editAction(r)"  class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                                    <a ng-click="vm.deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-end ng-show="r.child">
+                                <td colspan="9">
+                                    <div class="panel panel-white no-radius">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                                                    <select id="perpage{{r.id}}" ng-model="r.Grid1.PerPage" ng-options="op as op for op in vm.OpList" class="form-control input-sm"> </select>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+                                                    <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+                                                            <span class="input-icon">
+                                                                <input type="text" ng-model="r.Grid1.Filter" placeholder="search" class="form-control input-sm" />
+                                                                <i class="fa fa-search"></i>
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <table class="table table-striped table-responsive col-xs-12">
+                                                    <thead>
+                                                    <tr class="sortable-headers">
+                                                        <th><input type="checkbox"></th>
+                                                        <th><a ng-class="{'text-azure': r.Grid1.Column==='topicName' }" ng-click="r.Grid1.SortMe('topicName', r)"><i class="fa {{r.Grid1.GetIco('topicName', r)}}"></i> Topic Name</a></th>
+                                                        <th><a ng-class="{'text-azure': r.Grid1.Column==='modifiedonDtStr' }" ng-click="r.Grid1.SortMe('modifiedonDtStr', r)"><i class="fa {{r.Grid1.GetIco('modifiedonDtStr', r)}}"></i> Occur Date</a></th>
+                                                        <th><a ng-class="{'text-azure': r.Grid1.Column==='topicResponse' }" ng-click="r.Grid1.SortMe('topicResponse', r)"><i class="fa {{r.Grid1.GetIco('topicResponse', r)}}"></i> Responsible</a></th>
+                                                        <th><a ng-class="{'text-azure': r.Grid1.Column==='topicStatus' }" ng-click="r.Grid1.SortMe('topicStatus', r)"><i class="fa {{ r.Grid1.GetIco('topicStatus', r)}}"></i> Status</a></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat-start="topic in r.Grid1.Data | orderBy: r.Grid1.Column:vm.Grid1.IsAsc | filter: r.Grid1.Filter |  limitTo : r.Grid1.PerPage : (r.Grid1.CurrPage -1) * r.Grid1.PerPage">
+                                                        <th><a ng-click="topic.child=!topic.child">X</a></th>
+                                                        <td>{{topic.topicName}}</td>
+                                                        <td>{{topic.modifiedonDtStr}}</td>
+                                                        <td>{{topic.topicResponse}}</td>
+                                                        <td>{{topic.topicStatus}}</td>
+                                                    </tr>
+                                                    <tr ng-repeat-end>
+                                                        <td colspan="5">
+                                                            <div class="panel panel-white no-radius">
+                                                                <div class="panel-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                                                                            <select id="perpage{{topic.id}}" ng-model="topic.Grid1.PerPage" ng-options="op as op for op in vm.OpList" class="form-control input-sm"> </select>
+                                                                        </div>
+                                                                        <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+                                                                            <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+                                                                                    <span class="input-icon">
+                                                                                        <input type="text" ng-model="topic.Grid1.Filter" placeholder="search" class="form-control input-sm" />
+                                                                                        <i class="fa fa-search"></i>
+                                                                                    </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <table class="table table-striped table-responsive col-xs-12">
+                                                                            <thead>
+                                                                            <tr class="sortable-headers">
+                                                                                <th><a ng-class="{'text-azure': topic.Grid1.Column==='findingName' }" ng-click="topic.Grid1.SortMe('findingName', topic)"><i class="fa {{topic.Grid1.GetIco('findingName', topic)}}"></i> Finding Name</a></th>
+                                                                                <th><a ng-class="{'text-azure': topic.Grid1.Column==='createdOn' }" ng-click="topic.Grid1.SortMe('createdOn', topic)"><i class="fa {{topic.Grid1.GetIco('createdOn', topic)}}"></i> Occur Date</a></th>
+                                                                                <th><a ng-class="{'text-azure': topic.Grid1.Column==='findStatus' }" ng-click="topic.Grid1.SortMe('findStatus', topic)"><i class="fa {{topic.Grid1.GetIco('findStatus', topic)}}"></i> Status</a></th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            <tr ng-repeat="finding in topic.Grid1.Data | orderBy: topic.Grid1.Column:vm.Grid1.IsAsc | filter: topic.Grid1.Filter |  limitTo : topic.Grid1.PerPage : (topic.Grid1.CurrPage -1) * topic.Grid1.PerPage">
+                                                                                <td>{{finding.findingName}}</td>
+                                                                                <td>{{finding.createdOn}}</td>
+                                                                                <td>{{finding.findStatus}}</td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="row margin-top-10">
+                                                                        <div class="col-xs-12 col-sm-5">
+                                                                            Showing {{(topic.Grid1.CurrPage -1) * topic.Grid1.PerPage + 1}} to {{ ((topic.Grid1.CurrPage * topic.Grid1.PerPage) >  topic.Grid1.Total) ?  topic.Grid1.Total : (topic.Grid1.CurrPage * topic.Grid1.PerPage); }} of {{topic.Grid1.Total}} entries
+                                                                        </div>
+                                                                        <div class="col-xs-12 col-sm-7 pagination-right">
+                                                                            <ul uib-pagination total-items="topic.Grid1.Total" ng-model="topic.Grid1.CurrPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="row margin-top-10">
+                                                <div class="col-xs-12 col-sm-5">
+                                                    Showing {{(r.Grid1.CurrPage -1) * r.Grid1.PerPage + 1}} to {{ ((r.Grid1.CurrPage * r.Grid1.PerPage) >  r.Grid1.Total) ?  r.Grid1.Total : (r.Grid1.CurrPage * r.Grid1.PerPage); }} of {{r.Grid1.Total}} entries
+                                                </div>
+                                                <div class="col-xs-12 col-sm-7 pagination-right">
+                                                    <ul uib-pagination total-items="r.Grid1.Total" ng-model="r.Grid1.CurrPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
                         </table>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-xs-12 col-sm-5">
+                            Showing {{(vm.Grid1.CurrPage -1) * vm.Grid1.PerPage + 1}} to {{ ((vm.Grid1.CurrPage * vm.Grid1.PerPage) >  vm.Grid1.Total) ?  vm.Grid1.Total : (vm.Grid1.CurrPage * vm.Grid1.PerPage); }} of {{vm.Grid1.Total}} entries
+                        </div>
+                        <div class="col-xs-12 col-sm-7 pagination-right">
+                            <ul uib-pagination total-items="vm.Grid1.Total" ng-model="vm.Grid1.CurrPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -765,6 +765,45 @@
             return chartObj;
         };
 
+        ChartFactory.prototype.SetupMonthLineChart = function(opts){
+
+            var chartObj = {
+                title: {
+                    text: opts.Text,
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: opts.subTitle,
+                    x: -20
+                },
+                xAxis: {
+                    categories: opts.Categories
+                },
+                yAxis: {
+                    title: {
+                        text: opts.yTitle
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: opts.Tooltip
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: opts.Series
+            };
+
+            return chartObj;
+        };
+
         ChartFactory.prototype.BuildHeatMap = function (el, opts) {
 
             var chartObj = {
