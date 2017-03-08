@@ -1,8 +1,8 @@
 (function () {
-    AuditTopicController.$inject = ['vm', '$stateParams', '$rootScope', '$state', '$uibModal', '$filter', 'AuditService', 'ChartFactory', 'Utils'];
+    AuditTopicController.$inject = ['$scope', '$stateParams', '$rootScope', '$state', '$uibModal', '$filter', 'AuditService', 'Utils'];
     app.controller('AuditAdd_TopicCtrl', AuditTopicController);
 
-    function AuditTopicController(vm, $stateParams, $rootScope, $state, $uibModal, $filter, AuditService, Utils) {
+    function AuditTopicController($scope, $stateParams, $rootScope, $state, $uibModal, $filter, AuditService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "Add Audit Topic";
@@ -58,7 +58,7 @@
                     confirmation.result.then(function () {
                         if(topic_id === '') return;
                         $rootScope.app.Mask = true;
-                        $state.go('app.audit.add_findings', {topic_id: topic_id});
+                        $state.go('app.audit.add_findings', {audit_id: $stateParams.audit_id, topic_id: topic_id});
                     });
                 });
             });

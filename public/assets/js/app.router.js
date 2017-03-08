@@ -543,12 +543,21 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_TopicCtrl')
         }).state('app.audit.add_findings', {
-            url: '/audit.add_findings',
+            url: '/audit.add_findings/:audit_id/:topic_id',
             templateUrl: "assets/views/audit/audit.add_finding.html",
             title: 'Finding Add',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditAdd_FindingCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_FindingCtrl')
+        }).state('app.audit.add_action', {
+            url: '/audit.add_action/:audit_id/:topic_id/:finding_id',
+            templateUrl: "assets/views/audit/audit.add_action.html",
+            title: 'Action Add',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'AuditAdd_ActionCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('AuditAdd_ActionCtrl')
         })
 
         /*

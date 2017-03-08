@@ -44,8 +44,12 @@ app.service('AuditService', function(APIHandler){
         return APIHandler.Get('auditfindings');
     };
 
-    this.GetFinding = function(id){
+    this.GetEachFinding = function(id){
         return APIHandler.Get('auditfindings/'+id);
+    };
+
+    this.AddFinding = function(param){
+        return APIHandler.Post('auditfindings', param);
     };
 
     this.GetActions = function(size, page){
