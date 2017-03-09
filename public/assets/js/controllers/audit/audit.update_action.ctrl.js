@@ -8,30 +8,21 @@
         vm.mainDesc = "ADD Action";
 
         $rootScope.app.Mask = false;
-
-        var finding_id = $stateParams.finding_id;
+        var action_id = $stateParams.action_id;
+        var finding_id = '';
         var audit_id = '';
         var topic_id = '';
-        vm.formdata = {
-            auditId: audit_id,
-            topicId: topic_id,
-            findingId: finding_id,
-            actionsName: "",
-            actionsDesc: "",
-            actionStatus: "",
-            deptId: "",
-            userName: '',
-            dueDate: "",
-            actionfileModel: []
-        };
 
-        AuditService.GetEachFinding(finding_id)
-            .then(function(data){
-                vm.findingName = data.findingName;
+        AuditService.GetAction(action_id)
+            .then(function (data) {
+                vm.formdata = data;
+                finding_id = data.findingId;
                 audit_id = data.auditId;
                 topic_id = data.topicId;
-                vm.formdata.auditId = audit_id;
-                vm.formdata.topicId = topic_id;
+                return AuditService.GetEachFinding(finding_id);
+            })
+            .then(function(data){
+                vm.findingName = data.findingName;
                 return AuditService.GetEachTopic(topic_id);
             })
             .then(function (data) {

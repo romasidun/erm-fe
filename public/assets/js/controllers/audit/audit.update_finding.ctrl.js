@@ -1,26 +1,52 @@
 (function () {
-    AuditFindingController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$uibModal', '$filter', 'AuditService', 'Utils'];
-    app.controller('AuditAdd_FindingCtrl', AuditFindingController);
+    AuditUpdateFindingController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$uibModal', '$filter', 'AuditService', 'Utils'];
+    app.controller('AuditUpdate_FindingCtrl', AuditUpdateFindingController);
 
-    function AuditFindingController($scope, $rootScope, $state, $stateParams, $uibModal, $filter, AuditService, Utils) {
+    function AuditUpdateFindingController($scope, $rootScope, $state, $stateParams, $uibModal, $filter, AuditService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
-        vm.mainDesc = "ADD AUDIT";
+        vm.mainDesc = "Update Finding";
 
         $rootScope.app.Mask = true;
 
         var audit_id = '';
-        var topic_id = $stateParams.topic_id;
-        vm.formdata = {
-            auditId: audit_id,
-            topicId: topic_id,
-            findDesc: "",
-            findStatus: "",
-            findingName: "",
-            findingfileModel: []
-        };
+        var topic_id = '';
+        var finding_id = $stateParams.finding_id;
 
-        AuditService.GetEachTopic(topic_id)
+        vm.OpList = [5, 10, 25, 50, 100];
+        vm.Grid1 = {
+            PerPage: 10,
+            CurrPage: 1,
+            Column: 'actionName',
+            IsAsc: true,
+            Filter: "",
+            Total: 0,
+            Data: [],
+            SortMe: function (col) {
+                if (vm.Grid1.Column === col)
+                    vm.Grid1.IsAsc = !vm.Grid1.IsAsc;
+                else
+                    vm.Grid1.Column = col;
+            },
+            GetIco: function (col) {
+                if (vm.Grid1.Column === col) {
+                    return vm.Grid1.IsAsc ? 'fa-sort-up' : 'fa-sort-down';
+                } else {
+                    return 'fa-unsorted';
+                }
+            }
+        };
+        $scope.$watch('vm.Grid1.Filter', function (n, o) {
+            var searchedData = $filter('filter')(vm.Grid1.Data, vm.Grid1.Filter);
+            vm.Grid1.Total = searchedData.length;
+        });
+
+        AuditService.GetEachFinding(finding_id)
+            .then(function (data) {
+                vm.formdata = data;
+                topic_id = data.topicId;
+                return AuditService.GetEachTopic(topic_id);
+            })
             .then(function(data){
                 vm.topicName = data.topicName;
                 audit_id = data.auditId;
@@ -28,6 +54,12 @@
             })
             .then(function (data) {
                 vm.auditName = data.auditName;
+                return AuditService.GetActionByFinding(finding_id);
+            })
+            .then(function (data) {
+                vm.Grid1.Total = data.length;
+                vm.Grid1.Data = data;
+
                 $rootScope.app.Mask = false;
             });
 

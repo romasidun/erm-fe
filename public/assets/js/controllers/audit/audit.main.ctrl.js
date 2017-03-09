@@ -39,10 +39,6 @@
 
         };
 
-        vm.editAction = function (r) {
-
-        };
-
         AuditService.GetManageStatus()
             .then(function (data) {
                 $rootScope.app.Mask = true;

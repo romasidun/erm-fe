@@ -1,0 +1,245 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle">{{vm.mainTitle}}</h1>
+        </div>
+    </div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <form name="vm.Form.addAudit" ng-submit="vm.submitAction()" role="form">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" ng-class="{ 'has-error' : vm.Form.addAudit.auditName.$invalid && (!vm.Form.addAudit.auditName.$pristine || vm.Form.addAudit.auditName.$touched || vm.Form.addAudit.auditName.$submitted) }">
+                                    <label> Audit Name </label>
+                                    <input type="text" name="auditName" ng-model="vm.formdata.auditName" placeholder="Audit Name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.auditDesc.$invalid && (!vm.Form.addAudit.auditDesc.$pristine || vm.Form.addAudit.auditDesc.$touched || vm.Form.addAudit.auditDesc.$submitted) }">
+                                    <label> Audit Description </label>
+                                    <input type="text" name="auditDesc" ng-model="vm.formdata.auditDesc"
+                                           placeholder="Audit Description" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.region.$invalid && (!vm.Form.addAudit.region.$pristine || vm.Form.addAudit.region.$touched || vm.Form.addAudit.region.$submitted) }">
+                                    <label> Region </label>
+                                    <select type="text" name="region" ng-model="vm.formdata.region" class="form-control"
+                                            ng-options="r.val as r.val for r in app.Lookup.LIST001" required>
+                                        <option selected value>Select Region</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6"
+                                 ng-class="{ 'has-error' : vm.Form.addAudit.department.$invalid && (!vm.Form.addAudit.department.$pristine || vm.Form.addAudit.department.$touched || vm.Form.addAudit.department.$submitted) }">
+                                <div class="form-group">
+                                    <label> Department </label>
+                                    <select type="text" name="department" ng-model="vm.formdata.department" class="form-control"
+                                            ng-options="d.deptName as d.deptName for d in app.Lookup.Departments" required>
+                                        <option selected value>Select Department</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.auditStatus.$invalid && (!vm.Form.addAudit.auditStatus.$pristine || vm.Form.addAudit.auditStatus.$touched || vm.Form.addAudit.auditStatus.$submitted) }">
+                                    <label> Status</label>
+                                    <select type="text" name="auditStatus" ng-model="vm.formdata.auditStatus" class="form-control"
+                                            ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
+                                        <option selected value>Select Status</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.auditControlValidated.$invalid && (!vm.Form.addAudit.auditControlValidated.$pristine || vm.Form.addAudit.auditControlValidated.$touched || vm.Form.addAudit.auditControlValidated.$submitted) }">
+                                    <label> Related To Control(s) </label>
+                                    <select type="text" name="auditControlValidated" ng-model="vm.formdata.auditControlValidated"
+                                            class="form-control" required>
+                                        <option selected value>Select Status</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.dateOccurance.$invalid && (!vm.Form.addAudit.dateOccurance.$pristine || vm.Form.addAudit.dateOccurance.$touched || vm.Form.addAudit.dateOccurance.$submitted) }">
+                                    <label> Audit Start Date </label>
+                                    <datepicker date-format="MM-dd-yyyy">
+                                        <input type="text" name="dateOccurance" ng-model="vm.formdata.dateOccurance"
+                                               placeholder="Start Date" class="form-control" required>
+                                    </datepicker>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.dueDate.$invalid && (!vm.Form.addAudit.dueDate.$pristine || vm.Form.addAudit.dueDate.$touched || vm.Form.addAudit.dueDate.$submitted) }">
+                                    <label> Target End Date </label>
+                                    <datepicker date-format="MM-dd-yyyy">
+                                        <input type="text" name="dueDate" ng-model="vm.formdata.dueDate" placeholder="End Date"
+                                               class="form-control" required>
+                                    </datepicker>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.resUserName.$invalid && (!vm.Form.addAudit.resUserName.$pristine || vm.Form.addAudit.resUserName.$touched || vm.Form.addAudit.resUserName.$submitted) }">
+                                    <label> Responsible Person </label>
+                                    <select type="text" name="resUserName" ng-model="vm.formdata.resUserName" class="form-control"
+                                            ng-options="op.name as op.name for op in app.Lookup.Users" required>
+                                        <option selected value>Select Person</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group"
+                                     ng-class="{ 'has-error' : vm.Form.addAudit.priority.$invalid && (!vm.Form.addAudit.priority.$pristine || vm.Form.addAudit.priority.$touched || vm.Form.addAudit.priority.$submitted) }">
+                                    <label> priority </label>
+                                    <select type="text" name="priority" ng-model="vm.formdata.priority" class="form-control"
+                                            ng-options="p.key as p.val for p in app.Lookup.LIST005" required>
+                                        <option selected value>Select Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label> Policies <a ng-click="vm.addPolicyDocs()" class="btn btn-link"><i class="fa fa-search"></i></a> </label>
+                                    <div class="col-xs-12">
+                                        <ul class="multi-select-list-group col-xs-12 no-padding">
+                                            <li class="list-item-container row" ng-repeat="p in vm.formdata.policies">
+                                                <div class="list-item col-xs-12 padding-left-0">
+                                                    <span class="col-xs-4">{{p.docName}}</span>
+                                                    <span class="col-xs-6">{{p.docDesc}}</span>
+                                                    <span class="col-xs-2">
+                                                            <a class="pull-right delete" ng-click="vm.removeItem('policies', $index)"> remove </a>
+                                                        </span>
+                                                </div>
+                                            </li>
+                                            <li class="no-result no-padding" ng-if="!vm.formdata.policiesData.length"> <i class="fa fa-info-circle"></i> no policies selected</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label> Associate Control <a ng-click="vm.addControls()" class="btn btn-link"><i class="fa fa-search"></i></a>  </label>
+                                    <div class="col-xs-12">
+                                        <ul class="multi-select-list-group col-xs-12 padding-left-0">
+                                            <li class="list-item-container row" ng-repeat="con in vm.formdata.controlDataModel">
+                                                <div class="list-item col-xs-12 padding-left-0">
+                                                    <span class="col-sm-10"> {{con.controlName}} </span>
+                                                    <span class="col-sm-2">
+														<a class="text-right delete" ng-click="vm.removeItem('controlDataModel', $index)"> remove </a>
+													</span>
+                                                </div>
+                                            </li>
+                                            <li class="no-result padding-left-0" ng-if="!vm.formdata.controlDataModel.length"> <i class="fa fa-info-circle"></i> no test plan selected</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label> Files to upload </label>
+                                    <input type="file" file-model="vm.formdata.auditFileModel" class="form-control"/>
+                                    <!--<ul class="file-list-group col-xs-12">-->
+                                        <!--<li class="file-list-item" ng-repeat="file in VM.auditFileModel">-->
+                                            <!--<a href="{{app.APIPrefix + 'policies/download/stream/'+file.id}}"-->
+                                               <!--download="{{file.fileName}}" ng-if="file.id!=1">-->
+                                                <!--{{file.fileName}}-->
+                                            <!--</a>-->
+                                            <!--<span ng-if="file.id==1">{{file.fileName}}</span>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                </div>
+                            </div>
+                            <hr class="hrule4"/>
+                            <div class="col-xs-12 text-center">
+                                <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                                <!--<button class="btn btn-squared btn-dark-blue" type="reset"><i class="fa fa-refresh"></i> Reset</button>-->
+                                <a class="btn btn-squared btn-dark-blue" ng-click="vm.cancelAction()"><i class="fa fa-times"></i> Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-white no-radius">
+                                <div class="panel-heading">
+                                    <h5> Topic </h5>
+                                    <div class="panel-tools">
+                                        <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.audit.add_topic({ audit_id: vm.audit_id })">Add Topic</a>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                                            <select id="perpage" ng-model="vm.Grid1.PerPage" ng-options="op as op for op in vm.OpList" class="form-control input-sm"> </select>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+                                            <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+                                                                            <span class="input-icon">
+                                                                                <input type="text" ng-model="vm.Grid1.Filter" placeholder="search" class="form-control input-sm" />
+                                                                                <i class="fa fa-search"></i>
+                                                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <table class="table table-striped table-responsive col-xs-12">
+                                            <thead>
+                                            <tr class="sortable-headers">
+                                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='topicName' }" ng-click="vm.Grid1.SortMe('topicName')"><i class="fa {{vm.Grid1.GetIco('topicName')}}"></i> Name</a></th>
+                                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='topicDesc' }" ng-click="vm.Grid1.SortMe('topicDesc')"><i class="fa {{vm.Grid1.GetIco('topicDesc')}}"></i> Description</a></th>
+                                                <th>Documents</th>
+                                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='topicResponse' }" ng-click="vm.Grid1.SortMe('topicResponse')"><i class="fa {{vm.Grid1.GetIco('topicResponse')}}"></i> Responsible</a></th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="r in vm.Grid1.Data | orderBy: vm.Grid1.Column:vm.Grid1.IsAsc | filter: vm.Grid1.Filter |  limitTo : vm.Grid1.PerPage : (vm.Grid1.CurrPage -1) * vm.Grid1.PerPage">
+                                                <td>{{r.topicName}}</td>
+                                                <td>{{r.topicDesc}}</td>
+                                                <td></td>
+                                                <td>{{r.topicResponse}}</td>
+                                                <td>
+                                                    <a ui-sref="app.audit.update_topic({ topic_id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                                                    <a ng-click="vm.deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-xs-12 col-sm-5">
+                                            Showing {{(vm.Grid1.CurrPage -1) * vm.Grid1.PerPage + 1}} to {{ ((vm.Grid1.CurrPage * vm.Grid1.PerPage) >  vm.Grid1.Total) ?  vm.Grid1.Total : (vm.Grid1.CurrPage * vm.Grid1.PerPage); }} of {{vm.Grid1.Total}} entries
+                                        </div>
+                                        <div class="col-xs-12 col-sm-7 pagination-right">
+                                            <ul uib-pagination total-items="vm.Grid1.Total" ng-model="vm.Grid1.CurrPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

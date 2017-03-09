@@ -107,7 +107,7 @@
                                 <td>{{r.priority}}</td>
                                 <td>{{r.auditStatus}}</td>
                                 <td>
-                                    <a ng-click="vm.editAction(r)"  class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                                    <a ui-sref="app.audit.update_audit({ audit_id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
                                     <a ng-click="vm.deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
                                 </td>
                             </tr>

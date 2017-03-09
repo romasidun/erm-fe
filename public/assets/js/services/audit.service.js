@@ -28,7 +28,11 @@ app.service('AuditService', function(APIHandler){
     };
 
     this.GetEachTopic =  function(id){
-        return APIHandler.Post('audittopic/' + id);
+        return APIHandler.Get('audittopic/' + id);
+    };
+
+    this.GetTopicByAudit =  function(audit_id){
+        return APIHandler.Get('audittopic/topicssByAuditId/' + audit_id);
     };
 
     this.AddTopic = function(param){
@@ -48,6 +52,10 @@ app.service('AuditService', function(APIHandler){
         return APIHandler.Get('auditfindings/'+id);
     };
 
+    this.GetFindingByTopic =  function(topic_id){
+        return APIHandler.Get('auditfindings/findingsByTopicId/' + topic_id);
+    };
+
     this.AddFinding = function(param){
         return APIHandler.Post('auditfindings', param);
     };
@@ -58,6 +66,11 @@ app.service('AuditService', function(APIHandler){
 
     this.GetAction = function(id){
         return APIHandler.Get('auditactions/'+id);
+    };
+
+    this.GetActionByFinding = function(finding_id){
+        return APIHandler.Get('auditactions');
+        //return APIHandler.Get('auditactions/'+finding_id);
     };
 
     this.ReviewAction = function(id, params){

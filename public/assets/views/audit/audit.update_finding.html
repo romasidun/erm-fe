@@ -11,7 +11,7 @@
 <div class="container-fluid container-fullw bg-white">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-transparent">
+            <div class="panel panel-white">
                 <div class="panel-body">
                     <form name="vm.Form.addFinding" ng-submit="vm.submitAction()" role="form" >
                         <div class="row">
@@ -77,6 +77,65 @@
                             </div>
                         </div>
                     </form>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-white no-radius">
+                                <div class="panel-heading">
+                                    <h5> Action </h5>
+                                    <div class="panel-tools">
+                                        <a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.audit.add_action({ finding_id: vm.finding_id })">Add Action</a>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                                            <select id="perpage" ng-model="vm.Grid1.PerPage" ng-options="op as op for op in vm.OpList" class="form-control input-sm"> </select>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+                                            <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+                                                                            <span class="input-icon">
+                                                                                <input type="text" ng-model="vm.Grid1.Filter" placeholder="search" class="form-control input-sm" />
+                                                                                <i class="fa fa-search"></i>
+                                                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <table class="table table-striped table-responsive col-xs-12">
+                                            <thead>
+                                            <tr class="sortable-headers">
+                                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='actionsName' }" ng-click="vm.Grid1.SortMe('actionsName')"><i class="fa {{vm.Grid1.GetIco('actionsName')}}"></i> Name</a></th>
+                                                <th><a ng-class="{'text-azure': vm.Grid1.Column==='actionsDesc' }" ng-click="vm.Grid1.SortMe('actionsDesc')"><i class="fa {{vm.Grid1.GetIco('actionsDesc')}}"></i> Description</a></th>
+                                                <th>Documents</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="r in vm.Grid1.Data | orderBy: vm.Grid1.Column:vm.Grid1.IsAsc | filter: vm.Grid1.Filter |  limitTo : vm.Grid1.PerPage : (vm.Grid1.CurrPage -1) * vm.Grid1.PerPage">
+                                                <td>{{r.actionsName}}</td>
+                                                <td>{{r.actionsDesc}}</td>
+                                                <td></td>
+                                                <td>
+                                                    <a ui-sref="app.audit.update_action({ action_id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                                                    <a ng-click="vm.deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-xs-12 col-sm-5">
+                                            Showing {{(vm.Grid1.CurrPage -1) * vm.Grid1.PerPage + 1}} to {{ ((vm.Grid1.CurrPage * vm.Grid1.PerPage) >  vm.Grid1.Total) ?  vm.Grid1.Total : (vm.Grid1.CurrPage * vm.Grid1.PerPage); }} of {{vm.Grid1.Total}} entries
+                                        </div>
+                                        <div class="col-xs-12 col-sm-7 pagination-right">
+                                            <ul uib-pagination total-items="vm.Grid1.Total" ng-model="vm.Grid1.CurrPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

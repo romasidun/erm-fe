@@ -534,6 +534,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'AuditAdd_AuditCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_AuditCtrl')
+        }).state('app.audit.update_audit', {
+            url: '/update/:audit_id',
+            templateUrl: "assets/views/audit/audit.update_audit.html",
+            title: 'Audit Update',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'AuditUpdate_AuditCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('AuditUpdate_AuditCtrl')
         }).state('app.audit.add_topic', {
             url: '/audit.add_topic/:audit_id',
             templateUrl: "assets/views/audit/audit.add_topic.html",
@@ -542,22 +550,46 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'AuditAdd_TopicCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_TopicCtrl')
+        }).state('app.audit.update_topic', {
+            url: '/audit.update_topic/:topic_id',
+            templateUrl: "assets/views/audit/audit.update_topic.html",
+            title: 'Topic Update',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'AuditUpdate_TopicCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('AuditUpdate_TopicCtrl')
         }).state('app.audit.add_findings', {
-            url: '/audit.add_findings/:audit_id/:topic_id',
+            url: '/audit.add_findings/:topic_id',
             templateUrl: "assets/views/audit/audit.add_finding.html",
             title: 'Finding Add',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditAdd_FindingCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_FindingCtrl')
+        }).state('app.audit.update_findings', {
+            url: '/audit.update_findings/:finding_id',
+            templateUrl: "assets/views/audit/audit.update_finding.html",
+            title: 'Finding Update',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'AuditUpdate_FindingCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('AuditUpdate_FindingCtrl')
         }).state('app.audit.add_action', {
-            url: '/audit.add_action/:audit_id/:topic_id/:finding_id',
+            url: '/audit.add_action/:finding_id',
             templateUrl: "assets/views/audit/audit.add_action.html",
             title: 'Action Add',
             icon: 'ti-layout-media-left-alt',
             controller: 'AuditAdd_ActionCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('AuditAdd_ActionCtrl')
+        }).state('app.audit.update_action', {
+            url: '/audit.update_action/:finding_id',
+            templateUrl: "assets/views/audit/audit.update_action.html",
+            title: 'Action Update',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'AuditUpdate_ActionCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('AuditUpdate_ActionCtrl')
         })
 
         /*
