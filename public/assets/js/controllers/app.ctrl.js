@@ -9,14 +9,15 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
 	var $win = $($window);
     $rootScope.$on("$locationChangeSuccess", function(event, url, oldUrl, state, oldState) {
         // 1) Check if localStorage has "UserStatus", and UserStatus is admin
-        if($localStorage['UserState'] == 'admin'){
+        if($localStorage['UserState'] === 'admin'){
 		 	$rootScope.adminState = true;
 		}else{
             $rootScope.adminState = false;
 		}
 
+
 		var page_flag = false;
-		var urlArray = ['dashboard', 'oprisk', 'itrisk', 'vendorrisk', 'audit', 'compliance', 'control', 'policy', 'remediations'];
+		var urlArray = ['dashboard', 'oprisk', 'itrisk', 'vendorrisk', 'audit', 'compliance', 'control', 'policy', 'remediations', 'admin'];
 		for(var i = 0; i < urlArray.length; i++){
 			if(url.indexOf('/#!/' + urlArray[i]) !== -1){
 				page_flag = true;
@@ -31,7 +32,6 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
             console.log('User Authentication ALLOW');
             //$location.path('/home');
         }
-
     });
 
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

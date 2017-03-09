@@ -130,7 +130,9 @@ app.constant('JS_REQUIRES', {
         'tmpUpldsCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.main.ctrl.js',
         'tmpUpldsFormCtrl' : 'assets/js/controllers/admin/TemplateMmt/templateMgmt.form.ctrl.js',
         //Misc Control Data Upload
-        'adminCtrlDataUpload' : 'assets/js/controllers/admin/Misc/CtrlDataUpload.ctrl.js'
+        'adminCtrlDataUpload' : 'assets/js/controllers/admin/Misc/CtrlDataUpload.ctrl.js',
+
+        'RolesMainCtrl' : 'assets/js/controllers/admin/roles/role.main.ctrl.js'
     },
 
     /*

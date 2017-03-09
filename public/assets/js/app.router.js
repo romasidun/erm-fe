@@ -105,11 +105,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- OP RISK Routes ----
          */
-            .state('app.oprisk', {
-                url: '/oprisk',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.oprisk.incident', {
+        .state('app.oprisk', {
+            url: '/oprisk',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.oprisk.incident', {
             url: '/incident',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
@@ -172,11 +172,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- VENDOR RISK Routes ----
          */
-            .state('app.vendorrisk', {
-                url: '/vendorrisk',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.vendorrisk.stinfo', {
+        .state('app.vendorrisk', {
+            url: '/vendorrisk',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.vendorrisk.stinfo', {
             url: '/stinfo',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
@@ -249,11 +249,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- IT RISK Routes ----
          */
-            .state('app.itrisk', {
-                url: '/itrisk',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.itrisk.incident', {
+        .state('app.itrisk', {
+            url: '/itrisk',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.itrisk.incident', {
             url: '/incident',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
@@ -316,11 +316,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- CONTROL Routes ----
          */
-            .state('app.control', {
-                url: '/control',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.control.repo', {
+        .state('app.control', {
+            url: '/control',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.control.repo', {
             url: '/repo',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
@@ -414,11 +414,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- Compliance Routes ----
          */
-            .state('app.compliance', {
-                url: '/compliance',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.compliance.soxtp', {
+        .state('app.compliance', {
+            url: '/compliance',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.compliance.soxtp', {
             url: '/soxtp',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
@@ -514,11 +514,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- Audit  ----
          */
-            .state('app.audit', {
-                url: '/audit',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.audit.main', {
+        .state('app.audit', {
+            url: '/audit',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.audit.main', {
             url: '',
             templateUrl: "assets/views/audit/audit.main.html",
             title: 'Audit main',
@@ -595,11 +595,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- Policy Route ----
          */
-            .state('app.policy', {
-                url: '/policy',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.policy.main', {
+        .state('app.policy', {
+            url: '/policy',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.policy.main', {
             url: '',
             templateUrl: "assets/views/policy/policy.html",
             title: 'Policies and Procedures Management',
@@ -625,28 +625,28 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          ---- Remediations Routes ----
          */
-            .state('app.mitigate', {
-                url: '/mitigate',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            })
-            .state('app.mitigate.remediations', {
-                url: '/remediations',
-                templateUrl: "assets/views/mitigate/remediations.html",
-                title: 'Remediations Management',
-                icon: 'ti-layout-media-left-alt',
-                controller: 'RemediationsCtrl',
-                resolve: loadSequence('RemediationsCtrl')
-            })
+        .state('app.mitigate', {
+            url: '/mitigate',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        })
+        .state('app.mitigate.remediations', {
+            url: '/remediations',
+            templateUrl: "assets/views/mitigate/remediations.html",
+            title: 'Remediations Management',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'RemediationsCtrl',
+            resolve: loadSequence('RemediationsCtrl')
+        })
 
-            /*
-             ---- IT RISK Routes ----
-             */
-            .state('app.measure', {
-                url: '/measure',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.measure.pentest', {
+        /*
+         ---- IT RISK Routes ----
+         */
+        .state('app.measure', {
+            url: '/measure',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.measure.pentest', {
             url: '/penetration',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
@@ -664,14 +664,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         })
 
 
-            .state('app.contact', {
-                url: '/contact',
-                templateUrl: "assets/views/contactus.html",
-                title: 'Contact Us',
-                icon: 'ti-layout-media-left-alt',
-                controller: 'ContactusCtrl',
-                resolve: loadSequence('ContactusCtrl')
-            }).state('app.glossary', {
+        .state('app.contact', {
+            url: '/contact',
+            templateUrl: "assets/views/contactus.html",
+            title: 'Contact Us',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'ContactusCtrl',
+            resolve: loadSequence('ContactusCtrl')
+        }).state('app.glossary', {
             url: '/glossary',
             templateUrl: "assets/views/glossary.html",
             title: 'Glossary',
@@ -683,10 +683,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         /*
          *   ---- App Utility Page Routes ----
          */
-            .state('error', {
-                url: '/error',
-                template: '<div ui-view class="fade-in-up"></div>'
-            }).state('error.404', {
+        .state('error', {
+            url: '/error',
+            template: '<div ui-view class="fade-in-up"></div>'
+        }).state('error.404', {
             url: '/404',
             templateUrl: "assets/views/utility_404.html",
         }).state('error.500', {
@@ -695,11 +695,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
         })
 
         /* Login Page Routes */
-            .state('login', {
-                url: '/login',
-                template: '<div ui-view class="fade-in-right-big smooth"></div>',
-                abstract: true
-            }).state('login.signin', {
+        .state('login', {
+            url: '/login',
+            template: '<div ui-view class="fade-in-right-big smooth"></div>',
+            abstract: true
+        }).state('login.signin', {
             url: '',
             templateUrl: "assets/views/login.signin.html",
             controller: 'LoginCtrl',
@@ -718,28 +718,44 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
 
         /* Admin page url */
 
-            .state('app.admin', {
-                url: '/admin',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            })
+        .state('app.admin', {
+            url: '/admin',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        })
 
-            /* Dashboard */
-            .state('app.admin.dashboard', {
-                url: '/dashboard',
-                templateUrl: 'assets/views/admin/Dashboard/dashboard.main.html',
-                title: 'Admin Dashboard',
-                icon: 'ti-layout-media-left-alt',
-                controller: 'adminDashboardCtrl',
-                resolve: loadSequence('adminDashboardCtrl')
-            })
+        /* Dashboard */
+        .state('app.admin.dashboard', {
+            url: '/dashboard',
+            templateUrl: 'assets/views/admin/Dashboard/dashboard.main.html',
+            title: 'Admin Dashboard',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'adminDashboardCtrl',
+            resolve: loadSequence('adminDashboardCtrl')
+        })
 
-            /* Template Management */
-            .state('app.admin.tmpUplds', {
-                url: '/tmpUplds',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.admin.tmpUplds.main', {
+        /* Roles */
+        .state('app.admin.roles', {
+            url: '/roles',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        })
+        .state('app.admin.roles.main', {
+            url: '',
+            templateUrl: 'assets/views/admin/roles/role.main.html',
+            title: 'Role Management',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'RolesMainCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('RolesMainCtrl')
+        })
+
+        /* Template Management */
+        .state('app.admin.tmpUplds', {
+            url: '/tmpUplds',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.admin.tmpUplds.main', {
             url: '',
             templateUrl: 'assets/views/admin/TemplateMmt/templateMgmt.main.html',
             title: 'Template Management',
@@ -755,11 +771,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             resolve: loadSequence('tmpUpldsFormCtrl')
         })
         /*  */
-            .state('app.admin.misc', {
-                url: '/misc',
-                template: '<div ui-view class="fade-in-up"></div>',
-                abstract: true
-            }).state('app.admin.misc.ctrlDataUpload', {
+        .state('app.admin.misc', {
+            url: '/misc',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.admin.misc.ctrlDataUpload', {
             url: '/ctrlDataUpload',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
@@ -785,7 +801,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
                         return promise;
 
                         function promiseThen(_arg) {
-                            if (typeof _arg == 'function')
+                            if (typeof _arg === 'function')
                                 return promise.then(_arg);
                             else
                                 return promise.then(function () {
