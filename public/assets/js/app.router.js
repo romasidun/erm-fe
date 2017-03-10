@@ -802,6 +802,40 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             resolve: loadSequence('UsersUpdateCtrl')
         })
 
+        /* Department Management */
+        .state('app.admin.dept', {
+            url: '/dept',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        })
+        .state('app.admin.dept.main', {
+            url: '',
+            templateUrl: 'assets/views/admin/dept/dept.main.html',
+            title: 'Department Management',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DeptMainCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('DeptMainCtrl')
+        })
+        .state('app.admin.dept.add', {
+            url: '/add',
+            templateUrl: 'assets/views/admin/dept/dept.add.html',
+            title: 'Add Department',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DeptAddCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('DeptAddCtrl')
+        })
+        .state('app.admin.dept.update', {
+            url: '/update/:deptId',
+            templateUrl: 'assets/views/admin/dept/dept.add.html',
+            title: 'Update Department',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DeptUpdateCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('DeptUpdateCtrl')
+        })
+
         /* Template Management */
         .state('app.admin.tmpUplds', {
             url: '/tmpUplds',

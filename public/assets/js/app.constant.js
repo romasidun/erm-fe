@@ -138,7 +138,11 @@ app.constant('JS_REQUIRES', {
 
         'UsersMainCtrl' : 'assets/js/controllers/admin/users/user.main.ctrl.js',
         'UsersAddCtrl' : 'assets/js/controllers/admin/users/user.add.ctrl.js',
-        'UsersUpdateCtrl' : 'assets/js/controllers/admin/users/user.update.ctrl.js'
+        'UsersUpdateCtrl' : 'assets/js/controllers/admin/users/user.update.ctrl.js',
+
+        'DeptMainCtrl' : 'assets/js/controllers/admin/dept/dept.main.ctrl.js',
+        'DeptAddCtrl' : 'assets/js/controllers/admin/dept/dept.add.ctrl.js',
+        'DeptUpdateCtrl' : 'assets/js/controllers/admin/dept/dept.update.ctrl.js'
     },
 
     /*
