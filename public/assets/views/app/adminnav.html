@@ -30,31 +30,6 @@
         </a>
     </li>
 
-    <li ng-class="{'active open':$state.includes('app.admin.misc')}">
-        <a href="javascript:void(0)">
-            <div class="item-content">
-                <div class="item-media">
-                    <i class="ti-hand-stop"></i>
-                </div>
-                <div class="item-inner">
-                    <span class="title"> Misc </span><i class="icon-arrow"></i>
-                </div>
-            </div>
-        </a>
-        <ul class="sub-menu">
-            <li ng-class="{'active': $state.includes('app.admin.misc.ctrlDataUpload') }">
-                <a ui-sref="app.admin.misc.ctrlDataUpload.main">
-                    <span class="title"> Control Data Upload </span>
-                </a>
-            </li>
-            <!--<li ng-class="{'active': $state.includes('app.oprisk.assessment') }">-->
-                <!--<a ui-sref="app.oprisk.assessment.main">-->
-                    <!--<span class="title">  </span>-->
-                <!--</a>-->
-            <!--</li>-->
-        </ul>
-    </li>
-
     <li ui-sref-active="active">
         <a ui-sref="app.admin.dept.main">
             <div class="item-content">
@@ -82,7 +57,7 @@
     </li>
 
     <li ui-sref-active="active">
-        <a ui-sref="app.admin.users">
+        <a ui-sref="app.admin.users.main">
             <div class="item-content">
                 <div class="item-media">
                     <i class="ti-user"></i>
@@ -105,6 +80,35 @@
                 </div>
             </div>
         </a>
+    </li>
+    <li ng-class="{'active open':$state.includes('app.admin.misc')}">
+        <a href="javascript:void(0)">
+            <div class="item-content">
+                <div class="item-media">
+                    <i class="ti-view-list-alt"></i>
+                </div>
+                <div class="item-inner">
+                    <span class="title"> Misc </span><i class="icon-arrow"></i>
+                </div>
+            </div>
+        </a>
+        <ul class="sub-menu">
+            <li ng-class="{'active': $state.includes('app.admin.misc.dynlist') }">
+                <a ui-sref="app.admin.misc.dynlist.main">
+                    <span class="title"> Dynamic List Management  </span>
+                </a>
+            </li>
+            <li ng-class="{'active': $state.includes('app.admin.misc.artifact') }">
+                <a ui-sref="app.admin.misc.artifact.main">
+                    <span class="title"> Artifact Management </span>
+                </a>
+            </li>
+            <li ng-class="{'active': $state.includes('app.admin.misc.ctrlDataUpload') }">
+                <a ui-sref="app.admin.misc.ctrlDataUpload.main">
+                    <span class="title"> Control Data Upload </span>
+                </a>
+            </li>
+        </ul>
     </li>
 </ul>
 <!-- end: MAIN NAVIGATION MENU -->

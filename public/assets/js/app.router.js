@@ -773,8 +773,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             url: '/users',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
-        })
-        .state('app.admin.users.main', {
+        }).state('app.admin.users.main', {
             url: '',
             templateUrl: 'assets/views/admin/users/user.main.html',
             title: 'User Management',
@@ -782,8 +781,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'UsersMainCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('UsersMainCtrl')
-        })
-        .state('app.admin.users.add', {
+        }).state('app.admin.users.add', {
             url: '/add',
             templateUrl: 'assets/views/admin/users/user.add.html',
             title: 'Add User',
@@ -791,9 +789,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'UsersAddCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('UsersAddCtrl')
-        })
-        .state('app.admin.users.update', {
-            url: '/update/:roleId',
+        }).state('app.admin.users.update', {
+            url: '/update/:userId',
             templateUrl: 'assets/views/admin/users/user.add.html',
             title: 'Update User',
             icon: 'ti-layout-media-left-alt',
@@ -807,8 +804,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             url: '/dept',
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
-        })
-        .state('app.admin.dept.main', {
+        }).state('app.admin.dept.main', {
             url: '',
             templateUrl: 'assets/views/admin/dept/dept.main.html',
             title: 'Department Management',
@@ -816,8 +812,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'DeptMainCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('DeptMainCtrl')
-        })
-        .state('app.admin.dept.add', {
+        }).state('app.admin.dept.add', {
             url: '/add',
             templateUrl: 'assets/views/admin/dept/dept.add.html',
             title: 'Add Department',
@@ -825,8 +820,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'DeptAddCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('DeptAddCtrl')
-        })
-        .state('app.admin.dept.update', {
+        }).state('app.admin.dept.update', {
             url: '/update/:deptId',
             templateUrl: 'assets/views/admin/dept/dept.add.html',
             title: 'Update Department',
@@ -834,6 +828,82 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'DeptUpdateCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('DeptUpdateCtrl')
+        })
+
+        /* Department Management */
+        .state('app.admin.approver', {
+            url: '/approver',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.admin.approver.main', {
+            url: '',
+            templateUrl: 'assets/views/admin/approver/approver.main.html',
+            title: 'Approver Hierarchy',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'AppMainCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('DeptMainCtrl')
+        }).state('app.admin.dept.add', {
+            url: '/add',
+            templateUrl: 'assets/views/admin/dept/dept.add.html',
+            title: 'Add Department',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DeptAddCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('DeptAddCtrl')
+        }).state('app.admin.dept.update', {
+            url: '/update/:deptId',
+            templateUrl: 'assets/views/admin/dept/dept.add.html',
+            title: 'Update Department',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DeptUpdateCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('DeptUpdateCtrl')
+        })
+
+        /*
+         ---- OP RISK Routes ----
+         */
+        .state('app.admin.misc', {
+            url: '/misc',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.admin.misc.dynlist', {
+            url: '/dynlist',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.admin.misc.dynlist.main', {
+            url: '',
+            templateUrl: "assets/views/admin/dynlist/dynlist.main.html",
+            title: 'Dynamic List Management',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DynListMgmCtrl',
+            resolve: loadSequence('DynListMgmCtrl')
+        }).state('app.admin.misc.dynlist.add', {
+            url: '/add',
+            templateUrl: "assets/views/admin/dynlist/dynlist.form.html",
+            title: 'Add Dynamic List',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DynListMgmAddCtrl',
+            resolve: loadSequence('DynListMgmAddCtrl')
+        }).state('app.admin.misc.dynlist.update', {
+            url: '/update/:id',
+            templateUrl: "assets/views/admin/dynlist/dynlist.form.html",
+            title: 'Update Dynamic List',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'DynListMgmUpdateCtrl',
+            resolve: loadSequence('DynListMgmUpdateCtrl')
+        }).state('app.admin.misc.ctrlDataUpload', {
+            url: '/ctrlDataUpload',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.admin.misc.ctrlDataUpload.main', {
+            url: '',
+            templateUrl: 'assets/views/admin/Misc/ctrlDataUpload.html',
+            title: 'Control Data Upload',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'adminCtrlDataUpload',
+            resolve: loadSequence('adminCtrlDataUpload')
         })
 
         /* Template Management */
@@ -855,23 +925,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             icon: 'ti-layout-media-left-alt',
             controller: 'tmpUpldsFormCtrl',
             resolve: loadSequence('tmpUpldsFormCtrl')
-        })
-        /*  */
-        .state('app.admin.misc', {
-            url: '/misc',
-            template: '<div ui-view class="fade-in-up"></div>',
-            abstract: true
-        }).state('app.admin.misc.ctrlDataUpload', {
-            url: '/ctrlDataUpload',
-            template: '<div ui-view class="fade-in-up"></div>',
-            abstract: true
-        }).state('app.admin.misc.ctrlDataUpload.main', {
-            url: '',
-            templateUrl: 'assets/views/admin/Misc/ctrlDataUpload.html',
-            title: 'Control Data Upload',
-            icon: 'ti-layout-media-left-alt',
-            controller: 'adminCtrlDataUpload',
-            resolve: loadSequence('adminCtrlDataUpload')
         });
 
         // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)

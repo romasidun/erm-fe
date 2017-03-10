@@ -1,66 +1,21 @@
-var express     = require('express');
-var path = require('path');
-var bodyParser  = require('body-parser');
-var port        = process.env.PORT || 8000;
-var app         = express();
-var fs          = require('fs');
-var guid        = require('guid');
+var express = require('express');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(__dirname + '/public'));
-
-// [SH] Otherwise render the index.html page for the Angular SPA
-// [SH] This means we don't have to map all of the SPA routes in Express
-app.use(function(req, res) {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handlers
-// [SH] Catch unauthorised errors
-app.use(function (err, req, res, next) {
-    if (err.name === 'UnauthorizedError') {
-        res.status(401);
-        res.json({"message" : err.name + ": " + err.message});
-    }
-});
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
-
-module.exports = app;
+var bodyParser = require('body-parser');
+var app = express();
+var fs = require('fs');
+var guid = require('guid');
 
 var excel = require('./excel-generator');
 var excel_generator = require('./excel-generator-common');
 var control_excel = require('./control_excel-generator');
 
+var port = process.env.PORT || 8000;
+
 var xlsDirectory = __dirname + "/excel/";
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname + '/public'));
 
 /* GET home page. */
 app.get('/', function (req, res, next) {

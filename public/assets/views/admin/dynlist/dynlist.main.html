@@ -13,9 +13,9 @@
 		<div class="col-md-12">
 			<div class="panel panel-white no-radius">
 				<div class="panel-heading">
-					<h5> User Management </h5>
+					<h5> Role Management </h5>
 					<div class="panel-tools">
-						<a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.admin.users.add">Add User</a>
+						<a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.admin.roles.add">Add Role</a>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -37,10 +37,8 @@
 							<thead>
 							<tr class="sortable-headers">
 								<th><input type="checkbox"></th>
-								<th><a ng-class="{'text-azure': vm.Grid1.Column==='username' }" ng-click="vm.Grid1.SortMe('username')"><i class="fa {{vm.Grid1.GetIco('username')}}"></i> User Name</a></th>
-								<th><a ng-class="{'text-azure': vm.Grid1.Column==='email' }" ng-click="vm.Grid1.SortMe('email')"><i class="fa {{vm.Grid1.GetIco('email')}}"></i> Email</a></th>
-								<th>Department</th>
-								<th>Role</th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='roleCode' }" ng-click="vm.Grid1.SortMe('roleCode')"><i class="fa {{vm.Grid1.GetIco('roleCode')}}"></i> ID</a></th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='roleDesc' }" ng-click="vm.Grid1.SortMe('roleDesc')"><i class="fa {{vm.Grid1.GetIco('roleDesc')}}"></i> Name</a></th>
 								<th>Action</th>
 							</tr>
 							</thead>
@@ -48,12 +46,10 @@
 
 							<tr ng-repeat="r in vm.Grid1.Data | orderBy: vm.Grid1.Column:vm.Grid1.IsAsc | filter: vm.Grid1.Filter |  limitTo : vm.Grid1.PerPage : (vm.Grid1.CurrPage -1) * vm.Grid1.PerPage">
 								<th><input type="checkbox"></th>
-								<td>{{r.username}}</td>
-								<td>{{r.email}}</td>
-								<td>{{r.department.deptName}}</td>
-								<td>{{r.role.roleDesc}}</td>
+								<td>{{r.roleCode}}</td>
+								<td>{{r.roleDesc}}</td>
 								<td>
-									<a ui-sref="app.admin.users.update({ userId: r.id })"  class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+									<a ui-sref="app.admin.roles.update({ id: r.id })"  class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
 									<a ng-click="vm.deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
 								</td>
 							</tr>

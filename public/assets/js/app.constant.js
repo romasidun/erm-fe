@@ -142,7 +142,11 @@ app.constant('JS_REQUIRES', {
 
         'DeptMainCtrl' : 'assets/js/controllers/admin/dept/dept.main.ctrl.js',
         'DeptAddCtrl' : 'assets/js/controllers/admin/dept/dept.add.ctrl.js',
-        'DeptUpdateCtrl' : 'assets/js/controllers/admin/dept/dept.update.ctrl.js'
+        'DeptUpdateCtrl' : 'assets/js/controllers/admin/dept/dept.update.ctrl.js',
+
+        'DynListMgmCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.main.ctrl.js',
+        'DynListMgmAddCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.add.ctrl.js',
+        'DynListMgmUpdateCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.update.ctrl.js'
     },
 
     /*

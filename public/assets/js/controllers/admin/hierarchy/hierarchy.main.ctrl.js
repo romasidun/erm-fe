@@ -1,10 +1,10 @@
 (function () {
     "use strict";
 
-    UsersMainCtrl.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'UsersService', 'Utils'];
-    app.controller('UsersMainCtrl', UsersMainCtrl);
+    HierarchyMainCtrl.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'HierarchyService', 'Utils'];
+    app.controller('HierarchyMainCtrl', HierarchyMainCtrl);
 
-    function UsersMainCtrl($scope, $rootScope, $state, $filter, $uibModal, UsersService, Utils) {
+    function HierarchyMainCtrl($scope, $rootScope, $state, $filter, $uibModal, HierarchyService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "Role Management";
@@ -37,7 +37,7 @@
             vm.Grid1.Total = searchedData.length;
         });
 
-        UsersService.Get().then(function (data) {
+        RolesService.Get().then(function (data) {
             vm.Grid1.Total = data.length;
             vm.Grid1.Data = data;
 
@@ -49,7 +49,7 @@
             confirmation.result.then(function () {
                 $rootScope.app.Mask = true;
                 var rowId = r.id;
-                UsersService.Delete(rowId).then(function (data) {
+                RolesService.Delete(r.id).then(function (data) {
                     if (data.status === 200){
                         vm.Grid1.Total--;
                         for(var i in vm.Grid1.Data){

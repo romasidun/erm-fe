@@ -1,22 +1,31 @@
 (function () {
-    UsersAddController.$inject = ['$scope', '$rootScope', '$state', '$uibModal', '$filter', 'UsersService', 'Utils'];
+    UsersAddController.$inject = ['$scope', '$rootScope', '$state', '$uibModal', '$filter', 'UsersService', 'RolesService', 'Utils'];
     app.controller('UsersAddCtrl', UsersAddController);
 
-    function UsersAddController($scope, $rootScope, $state, $uibModal, $filter, UsersService, Utils) {
+    function UsersAddController($scope, $rootScope, $state, $uibModal, $filter, UsersService, RolesService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "ADD Users";
 
         vm.formdata = {
-            userCode: "",
-            userDesc: ""
+            department: [],
+            email: '',
+            role: [],
+            username: ''
         };
 
         $rootScope.app.Mask = false;
 
+        RolesService.Get().then(function (data) {
+            vm.roles = data;
+        });
+
         vm.submitAction = function(){
             $rootScope.app.Mask = true;
             if(vm.UsersForm.$invalid) return false;
+
+            vm.formdata.department = $filter('filter')($rootScope.app.Lookup.Departments, {id: vm.tmp_deptId});
+            vm.formdata.role = $filter('filter')(vm.roles, {id: vm.tmp_roleId});
 
             UsersService.Post(vm.formdata).then(function (res) {
 

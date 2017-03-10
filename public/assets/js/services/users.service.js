@@ -8,6 +8,10 @@ app.service('UsersService', function(APIHandler){
         return APIHandler.Get('users');
     };
 
+    this.GetOne = function(id){
+        return APIHandler.Get('users/' + id);
+    };
+
     this.Post = function(params){
         return APIHandler.Post('users', params);
     };

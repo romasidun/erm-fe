@@ -14,15 +14,33 @@
             <div class="panel-body">
                 <form name="vm.UsersForm" ng-submit="vm.submitAction()" role="form">
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.roleCode.$invalid && (!vm.UsersForm.roleCode.$pristine || vm.UsersForm.roleCode.$touched || vm.UsersForm.roleCode.$submitted) }">
-                            <label> Role ID </label>
-                            <input type="text" name="roleCode" ng-model="vm.formdata.roleCode" placeholder="Role ID" class="form-control" required>
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.username.$invalid && (!vm.UsersForm.username.$pristine || vm.UsersForm.username.$touched || vm.UsersForm.username.$submitted) }">
+                            <label> User Name </label>
+                            <input type="text" name="username" ng-model="vm.formdata.username" placeholder="User Name" class="form-control" required>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.roleDesc.$invalid && (!vm.UsersForm.roleDesc.$pristine || vm.UsersForm.roleDesc.$touched || vm.UsersForm.roleDesc.$submitted) }">
-                            <label> Role Name </label>
-                            <input type="text" name="roleDesc" ng-model="vm.formdata.roleDesc" placeholder="Role Name" class="form-control" required>
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.email.$invalid && (!vm.UsersForm.email.$pristine || vm.UsersForm.email.$touched || vm.UsersForm.email.$submitted) }">
+                            <label> Email </label>
+                            <input type="email" name="email" ng-model="vm.formdata.email" placeholder="Email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.department.$invalid && (!vm.UsersForm.department.$pristine || vm.UsersForm.department.$touched || vm.UsersForm.department.$submitted) }">
+                            <label> Department </label>
+                            <select type="text" name="department" ng-model="vm.tmp_deptId" class="form-control"
+                                    ng-options="d.id as d.deptName for d in app.Lookup.Departments" required>
+                                <option selected value>Select Department</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.role.$invalid && (!vm.UsersForm.role.$pristine || vm.UsersForm.role.$touched || vm.UsersForm.role.$submitted) }">
+                            <label> Role </label>
+                            <select type="text" name="role" ng-model="vm.tmp_roleId" class="form-control"
+                                    ng-options="r.id as r.roleDesc for r in vm.roles" required>
+                                <option selected value>Select Role</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row">

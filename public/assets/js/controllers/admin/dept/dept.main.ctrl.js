@@ -48,9 +48,16 @@
             var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
             confirmation.result.then(function () {
                 $rootScope.app.Mask = true;
+                var rowId = r.id;
                 DeptService.Delete(r.id).then(function (data) {
                     if (data.status === 200){
-
+                        vm.Grid1.Total--;
+                        for(var i in vm.Grid1.Data){
+                            if(vm.Grid1.Data[i].id === rowId){
+                                delete vm.Grid1.Data[i];
+                            }
+                        }
+                        $rootScope.app.Mask = false;
                     }
                 });
             });

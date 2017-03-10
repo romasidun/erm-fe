@@ -1,22 +1,34 @@
 (function () {
-    UsersUpdateController.$inject = ['$scope', '$rootScope', '$state', '$uibModal', '$filter', 'UsersService', 'Utils'];
+    UsersUpdateController.$inject = ['$scope', '$rootScope', '$state', '$uibModal', '$filter', 'UsersService', 'RolesService', 'Utils'];
     app.controller('UsersUpdateCtrl', UsersUpdateController);
 
-    function UsersUpdateController($scope, $rootScope, $state, $uibModal, $filter, UsersService, Utils) {
+    function UsersUpdateController($scope, $rootScope, $state, $uibModal, $filter, UsersService, RolesService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "Update User";
         var userId = $state.params.userId;
 
-        $rootScope.app.Mask = false;
+        vm.tmp_deptId = '';
+        vm.tmp_roleId = '';
 
-        UsersService.GetOne(userId).then(function (data) {
+        $rootScope.app.Mask = false;
+        RolesService.Get().then(function (data) {
+            vm.roles = data;
+            console.log(data);
+            return UsersService.GetOne(userId);
+        }).then(function (data) {
             vm.formdata = data;
+            if(angular.isArray(vm.formdata.department)) vm.tmp_deptId = vm.formdata.department[0].id;
+            if(angular.isArray(vm.formdata.role)) vm.tmp_roleId = vm.formdata.role[0].id;
+            return RolesService.Get();
         });
 
         vm.submitAction = function(){
             $rootScope.app.Mask = true;
             if(vm.UsersForm.$invalid) return false;
+
+            vm.formdata.department = $filter('filter')($rootScope.app.Lookup.Departments, {id: vm.tmp_deptId});
+            vm.formdata.role = $filter('filter')(vm.roles, {id: vm.tmp_roleId});
 
             UsersService.Post(vm.formdata).then(function (res) {
 

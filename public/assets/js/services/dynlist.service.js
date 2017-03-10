@@ -2,14 +2,10 @@
  * Created by Roma on 03/09/2017.
  */
 
-app.service('RolesService', function(APIHandler){
+app.service('DynListService', function(APIHandler){
 
     this.Get = function(){
         return APIHandler.Get('roles');
-    };
-
-    this.GetOne = function(id){
-        return APIHandler.Get('roles/' + id);
     };
 
     this.Post = function(params){

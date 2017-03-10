@@ -1,0 +1,39 @@
+<!-- Page Header -->
+<section id="page-title" class="padding-top-15 padding-bottom-15">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mainTitle">{{vm.mainTitle}}</h1>
+        </div>
+    </div>
+</section>
+<!-- End: Page Header -->
+
+<div class="container-fluid container-fullw bg-white">
+    <div class="row">
+        <div class="panel panel-white col-md-6  col-md-offset-3">
+            <div class="panel-body">
+                <form name="vm.RolesForm" ng-submit="vm.submitAction()" role="form">
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.RolesForm.roleCode.$invalid && (!vm.RolesForm.roleCode.$pristine || vm.RolesForm.roleCode.$touched || vm.RolesForm.roleCode.$submitted) }">
+                            <label> Role ID </label>
+                            <input type="text" name="roleCode" ng-model="vm.formdata.roleCode" placeholder="Role ID" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.RolesForm.roleDesc.$invalid && (!vm.RolesForm.roleDesc.$pristine || vm.RolesForm.roleDesc.$touched || vm.RolesForm.roleDesc.$submitted) }">
+                            <label> Role Name </label>
+                            <input type="text" name="roleDesc" ng-model="vm.formdata.roleDesc" placeholder="Role Name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr class="hrule4"/>
+                        <div class="col-xs-12 text-center">
+                            <button class="btn btn-squared btn-dark-blue" type="submit"><i class="fa fa-save"></i>Save</button>
+                            <a class="btn btn-squared btn-dark-blue" ng-click="vm.cancelAction()"><i class="fa fa-times"></i> Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

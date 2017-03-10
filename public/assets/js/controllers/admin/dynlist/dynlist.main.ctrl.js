@@ -1,13 +1,13 @@
 (function () {
     "use strict";
 
-    UsersMainCtrl.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'UsersService', 'Utils'];
-    app.controller('UsersMainCtrl', UsersMainCtrl);
+    DynListMgmCtrl.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'DynListService', 'Utils'];
+    app.controller('DynListMgmCtrl', DynListMgmCtrl);
 
-    function UsersMainCtrl($scope, $rootScope, $state, $filter, $uibModal, UsersService, Utils) {
+    function DynListMgmCtrl($scope, $rootScope, $state, $filter, $uibModal, DynListService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
-        vm.mainDesc = "Role Management";
+        vm.mainDesc = "Dynamic List Management";
 
         vm.OpList = [5, 10, 25, 50, 100];
         vm.Grid1 = {
@@ -37,7 +37,7 @@
             vm.Grid1.Total = searchedData.length;
         });
 
-        UsersService.Get().then(function (data) {
+        DynListService.Get().then(function (data) {
             vm.Grid1.Total = data.length;
             vm.Grid1.Data = data;
 
@@ -48,16 +48,9 @@
             var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
             confirmation.result.then(function () {
                 $rootScope.app.Mask = true;
-                var rowId = r.id;
-                UsersService.Delete(rowId).then(function (data) {
+                DynListService.Delete(r.id).then(function (data) {
                     if (data.status === 200){
-                        vm.Grid1.Total--;
-                        for(var i in vm.Grid1.Data){
-                            if(vm.Grid1.Data[i].id === rowId){
-                                delete vm.Grid1.Data[i];
-                            }
-                        }
-                        $rootScope.app.Mask = false;
+
                     }
                 });
             });
