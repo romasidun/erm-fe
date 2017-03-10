@@ -132,7 +132,13 @@ app.constant('JS_REQUIRES', {
         //Misc Control Data Upload
         'adminCtrlDataUpload' : 'assets/js/controllers/admin/Misc/CtrlDataUpload.ctrl.js',
 
-        'RolesMainCtrl' : 'assets/js/controllers/admin/roles/role.main.ctrl.js'
+        'RolesMainCtrl' : 'assets/js/controllers/admin/roles/role.main.ctrl.js',
+        'RolesAddCtrl' : 'assets/js/controllers/admin/roles/role.add.ctrl.js',
+        'RolesUpdateCtrl' : 'assets/js/controllers/admin/roles/role.update.ctrl.js',
+
+        'UsersMainCtrl' : 'assets/js/controllers/admin/users/user.main.ctrl.js',
+        'UsersAddCtrl' : 'assets/js/controllers/admin/users/user.add.ctrl.js',
+        'UsersUpdateCtrl' : 'assets/js/controllers/admin/users/user.update.ctrl.js'
     },
 
     /*

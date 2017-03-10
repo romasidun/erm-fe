@@ -749,6 +749,58 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controllerAs: 'vm',
             resolve: loadSequence('RolesMainCtrl')
         })
+        .state('app.admin.roles.add', {
+            url: '/add',
+            templateUrl: 'assets/views/admin/roles/role.add.html',
+            title: 'Add Role',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'RolesAddCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('RolesAddCtrl')
+        })
+        .state('app.admin.roles.update', {
+            url: '/update/:roleId',
+            templateUrl: 'assets/views/admin/roles/role.add.html',
+            title: 'Update Role',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'RolesUpdateCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('RolesUpdateCtrl')
+        })
+
+        /* Users Management */
+        .state('app.admin.users', {
+            url: '/users',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        })
+        .state('app.admin.users.main', {
+            url: '',
+            templateUrl: 'assets/views/admin/users/user.main.html',
+            title: 'User Management',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'UsersMainCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('UsersMainCtrl')
+        })
+        .state('app.admin.users.add', {
+            url: '/add',
+            templateUrl: 'assets/views/admin/users/user.add.html',
+            title: 'Add User',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'UsersAddCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('UsersAddCtrl')
+        })
+        .state('app.admin.users.update', {
+            url: '/update/:roleId',
+            templateUrl: 'assets/views/admin/users/user.add.html',
+            title: 'Update User',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'UsersUpdateCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('UsersUpdateCtrl')
+        })
 
         /* Template Management */
         .state('app.admin.tmpUplds', {

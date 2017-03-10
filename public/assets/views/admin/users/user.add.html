@@ -12,15 +12,15 @@
     <div class="row">
         <div class="panel panel-white col-md-6  col-md-offset-3">
             <div class="panel-body">
-                <form name="vm.RolesForm" ng-submit="vm.submitAction()" role="form">
+                <form name="vm.UsersForm" ng-submit="vm.submitAction()" role="form">
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.RolesForm.roleCode.$invalid && (!vm.RolesForm.roleCode.$pristine || vm.RolesForm.roleCode.$touched || vm.RolesForm.roleCode.$submitted) }">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.roleCode.$invalid && (!vm.UsersForm.roleCode.$pristine || vm.UsersForm.roleCode.$touched || vm.UsersForm.roleCode.$submitted) }">
                             <label> Role ID </label>
                             <input type="text" name="roleCode" ng-model="vm.formdata.roleCode" placeholder="Role ID" class="form-control" required>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.RolesForm.roleDesc.$invalid && (!vm.RolesForm.roleDesc.$pristine || vm.RolesForm.roleDesc.$touched || vm.RolesForm.roleDesc.$submitted) }">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.roleDesc.$invalid && (!vm.UsersForm.roleDesc.$pristine || vm.UsersForm.roleDesc.$touched || vm.UsersForm.roleDesc.$submitted) }">
                             <label> Role Name </label>
                             <input type="text" name="roleDesc" ng-model="vm.formdata.roleDesc" placeholder="Role Name" class="form-control" required>
                         </div>
