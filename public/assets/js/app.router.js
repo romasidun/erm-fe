@@ -830,7 +830,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             resolve: loadSequence('DeptUpdateCtrl')
         })
 
-        /* Department Management */
+        /* Approver Hierarchy Management */
         .state('app.admin.approver', {
             url: '/approver',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -840,25 +840,25 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             templateUrl: 'assets/views/admin/approver/approver.main.html',
             title: 'Approver Hierarchy',
             icon: 'ti-layout-media-left-alt',
-            controller: 'AppMainCtrl',
+            controller: 'ApproverMainCtrl',
             controllerAs: 'vm',
-            resolve: loadSequence('DeptMainCtrl')
-        }).state('app.admin.dept.add', {
+            resolve: loadSequence('ApproverMainCtrl')
+        }).state('app.admin.approver.add', {
             url: '/add',
-            templateUrl: 'assets/views/admin/dept/dept.add.html',
-            title: 'Add Department',
+            templateUrl: 'assets/views/admin/approver/approver.add.html',
+            title: 'Add Approver Hierarchy',
             icon: 'ti-layout-media-left-alt',
-            controller: 'DeptAddCtrl',
+            controller: 'ApproverAddCtrl',
             controllerAs: 'vm',
-            resolve: loadSequence('DeptAddCtrl')
-        }).state('app.admin.dept.update', {
-            url: '/update/:deptId',
-            templateUrl: 'assets/views/admin/dept/dept.add.html',
-            title: 'Update Department',
+            resolve: loadSequence('ApproverAddCtrl')
+        }).state('app.admin.approver.update', {
+            url: '/update/:aprId',
+            templateUrl: 'assets/views/admin/approver/approver.add.html',
+            title: 'Update Approver Hierarchy',
             icon: 'ti-layout-media-left-alt',
-            controller: 'DeptUpdateCtrl',
+            controller: 'ApproverUpdateCtrl',
             controllerAs: 'vm',
-            resolve: loadSequence('DeptUpdateCtrl')
+            resolve: loadSequence('ApproverUpdateCtrl')
         })
 
         /*

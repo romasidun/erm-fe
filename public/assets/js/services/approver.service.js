@@ -2,7 +2,7 @@
  * Created by Roma on 03/09/2017.
  */
 
-app.service('HierarchyService', function(APIHandler){
+app.service('ApproverService', function(APIHandler){
 
     this.Get = function(){
         return APIHandler.Get('approver');

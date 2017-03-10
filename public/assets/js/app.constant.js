@@ -144,6 +144,10 @@ app.constant('JS_REQUIRES', {
         'DeptAddCtrl' : 'assets/js/controllers/admin/dept/dept.add.ctrl.js',
         'DeptUpdateCtrl' : 'assets/js/controllers/admin/dept/dept.update.ctrl.js',
 
+        'ApproverMainCtrl' : 'assets/js/controllers/admin/approver/approver.main.ctrl.js',
+        'ApproverAddCtrl' : 'assets/js/controllers/admin/approver/approver.add.ctrl.js',
+        'ApproverUpdateCtrl' : 'assets/js/controllers/admin/approver/approver.update.ctrl.js',
+
         'DynListMgmCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.main.ctrl.js',
         'DynListMgmAddCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.add.ctrl.js',
         'DynListMgmUpdateCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.update.ctrl.js'

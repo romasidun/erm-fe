@@ -1,19 +1,19 @@
 (function () {
     "use strict";
 
-    HierarchyMainCtrl.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'HierarchyService', 'Utils'];
-    app.controller('HierarchyMainCtrl', HierarchyMainCtrl);
+    ApproverMainController.$inject = ['$scope', '$rootScope', '$state', '$filter', '$uibModal', 'ApproverService', 'Utils'];
+    app.controller('ApproverMainCtrl', ApproverMainController);
 
-    function HierarchyMainCtrl($scope, $rootScope, $state, $filter, $uibModal, HierarchyService, Utils) {
+    function ApproverMainController($scope, $rootScope, $state, $filter, $uibModal, ApproverService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
-        vm.mainDesc = "Role Management";
+        vm.mainDesc = "Approver Hierarchy";
 
         vm.OpList = [5, 10, 25, 50, 100];
         vm.Grid1 = {
             PerPage: 10,
             CurrPage: 1,
-            Column: 'roleCode',
+            Column: '',
             IsAsc: true,
             Filter: "",
             Total: 1,
@@ -37,9 +37,18 @@
             vm.Grid1.Total = searchedData.length;
         });
 
-        RolesService.Get().then(function (data) {
+        ApproverService.Get().then(function (data) {
             vm.Grid1.Total = data.length;
-            vm.Grid1.Data = data;
+            vm.Grid1.Data = [];
+            angular.forEach(data, function (obj, key) {
+                vm.Grid1.Data.push({
+                    id: obj.id,
+                    asmntType: obj.asmntType[0].asTypeDesc,
+                    department: obj.department[0].deptName,
+                    user: obj.user[0].username,
+                    role: obj.roleType[0].roleDesc
+                });
+            });
 
             $rootScope.app.Mask = false;
         });
@@ -49,7 +58,7 @@
             confirmation.result.then(function () {
                 $rootScope.app.Mask = true;
                 var rowId = r.id;
-                RolesService.Delete(r.id).then(function (data) {
+                ApproverService.Delete(r.id).then(function (data) {
                     if (data.status === 200){
                         vm.Grid1.Total--;
                         for(var i in vm.Grid1.Data){
