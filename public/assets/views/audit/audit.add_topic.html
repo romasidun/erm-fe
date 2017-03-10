@@ -36,9 +36,9 @@
 
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group"
-                                     ng-class="{ 'has-error' : vm.Form.addTopic.resUserName.$invalid && (!vm.Form.addTopic.resUserName.$pristine || vm.Form.addTopic.resUserName.$touched || vm.Form.addTopic.resUserName.$submitted) }">
+                                     ng-class="{ 'has-error' : vm.Form.addTopic.topicResponse.$invalid && (!vm.Form.addTopic.topicResponse.$pristine || vm.Form.addTopic.topicResponse.$touched || vm.Form.addTopic.topicResponse.$submitted) }">
                                     <label> Responsible Person </label>
-                                    <select type="text" name="resUserName" ng-model="vm.formdata.resUserName" class="form-control"
+                                    <select type="text" name="topicResponse" ng-model="vm.formdata.topicResponse" class="form-control"
                                             ng-options="op.name as op.name for op in app.Lookup.Users" required>
                                         <option selected value>Select Person</option>
                                     </select>

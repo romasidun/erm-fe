@@ -50,13 +50,13 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group"
-                                     ng-class="{ 'has-error' : vm.Form.addAudit.auditStatus.$invalid && (!vm.Form.addAudit.auditStatus.$pristine || vm.Form.addAudit.auditStatus.$touched || vm.Form.addAudit.auditStatus.$submitted) }">
+                                <div class="form-group">
                                     <label> Status</label>
-                                    <select type="text" name="auditStatus" ng-model="vm.formdata.auditStatus" class="form-control"
+                                    <input type="text" ng-model="vm.formdata.auditStatus" readonly class="form-control"/>
+                                    <!--<select type="text" name="auditStatus" ng-model="vm.formdata.auditStatus" class="form-control"
                                             ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
                                         <option selected value>Select Status</option>
-                                    </select>
+                                    </select>-->
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">

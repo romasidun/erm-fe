@@ -12,7 +12,7 @@
             auditDesc: "",
             region: "",
             department: "",
-            auditStatus: "",
+            auditStatus: "Draft",
             auditControlValidated: "",
             dateOccurance: "",
             dueDate: "",
