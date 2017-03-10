@@ -101,5 +101,16 @@
             vm.formdata[type].splice(idx, 1);
         };
 
+        vm.cancelAction = function () {
+            if (vm.Form.addAudit.$dirty) {
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                confirm.result.then(function () {
+                    $state.go('app.audit.main');
+                });
+                return false;
+            }
+            $state.go('app.audit.main');
+        };
+
     }
 })();

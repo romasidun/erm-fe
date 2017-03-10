@@ -63,11 +63,11 @@
             if (vm.Form.addFinding.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
                 confirm.result.then(function () {
-                    $state.go('app.audit.update_topic', {topic_id: topic_id});
+                    $state.go('app.audit.main');
                 });
                 return false;
             }
-            $state.go('app.audit.update_topic', {topic_id: topic_id});
+            $state.go('app.audit.main');
         };
     }
 })();
