@@ -203,8 +203,11 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
         return APIHandler.Get('users');
 	}).then(function(users){
 		$rootScope.app.Lookup.Users = users;
-		return APIHandler.Get('assessmenttypes');
-	}).then(function(ats){
+		return APIHandler.Get('roles');
+	}).then(function(roles){
+        $rootScope.app.Lookup.Roles = roles;
+        return APIHandler.Get('assessmenttypes');
+    }).then(function(ats){
 		$rootScope.app.Lookup.AssessTypes = ats;
 	});
 

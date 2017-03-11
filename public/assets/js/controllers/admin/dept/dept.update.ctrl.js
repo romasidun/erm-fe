@@ -6,7 +6,7 @@
         var vm = this;
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "Update Department";
-        var deptId = $state.params.deptId;
+        var deptId = $state.params.id;
 
         $rootScope.app.Mask = false;
 
@@ -18,7 +18,7 @@
             $rootScope.app.Mask = true;
             if(vm.DeptForm.$invalid) return false;
 
-            DeptService.Post(vm.formdata).then(function (res) {
+            DeptService.Put(deptId, vm.formdata).then(function (res) {
 
             }).finally(function () {
                 $state.go('app.admin.dept.main');

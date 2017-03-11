@@ -11,8 +11,13 @@
             asmntType: [],
             department: [],
             roleType: [],
-            status: {},
             user: []
+        };
+        vm.tmpdata = {
+            asmntType: '',
+            department: '',
+            roleType: '',
+            user: ''
         };
 
         $rootScope.app.Mask = false;
@@ -21,6 +26,12 @@
             $rootScope.app.Mask = true;
             if(vm.ApproverForm.$invalid) return false;
 
+            vm.formdata = {
+                asmntType: [vm.tmpdata.asmntType],
+                department: [vm.tmpdata.department],
+                roleType: [vm.tmpdata.roleType],
+                user: [vm.tmpdata.user]
+            };
             ApproverService.Post(vm.formdata).then(function (res) {
 
             }).finally(function () {

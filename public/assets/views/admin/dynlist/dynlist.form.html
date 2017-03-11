@@ -12,17 +12,23 @@
     <div class="row">
         <div class="panel panel-white col-md-6  col-md-offset-3">
             <div class="panel-body">
-                <form name="vm.RolesForm" ng-submit="vm.submitAction()" role="form">
+                <form name="vm.DynListForm" ng-submit="vm.submitAction()" role="form">
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.RolesForm.roleCode.$invalid && (!vm.RolesForm.roleCode.$pristine || vm.RolesForm.roleCode.$touched || vm.RolesForm.roleCode.$submitted) }">
-                            <label> Role ID </label>
-                            <input type="text" name="roleCode" ng-model="vm.formdata.roleCode" placeholder="Role ID" class="form-control" required>
+                        <div class="form-group">
+                            <label> Dynamic List Type </label>
+                            <input type="text" name="dylistTypedesc" ng-model="vm.formdata.dylistTypedesc" class="form-control" disabled>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.RolesForm.roleDesc.$invalid && (!vm.RolesForm.roleDesc.$pristine || vm.RolesForm.roleDesc.$touched || vm.RolesForm.roleDesc.$submitted) }">
-                            <label> Role Name </label>
-                            <input type="text" name="roleDesc" ng-model="vm.formdata.roleDesc" placeholder="Role Name" class="form-control" required>
+                        <div class="form-group" ng-class="{ 'has-error' : vm.DynListForm.dylistCode.$invalid && (!vm.DynListForm.dylistCode.$pristine || vm.DynListForm.dylistCode.$touched || vm.DynListForm.dylistCode.$submitted) }">
+                            <label> Dynamic List ID </label>
+                            <input type="text" name="dylistCode" ng-model="vm.formdata.dylistCode" placeholder="Dynamic List ID" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.DynListForm.dylistDesc.$invalid && (!vm.DynListForm.dylistDesc.$pristine || vm.DynListForm.dylistDesc.$touched || vm.DynListForm.dylistDesc.$submitted) }">
+                            <label> Dynamic List Name </label>
+                            <input type="text" name="dylistDesc" ng-model="vm.formdata.dylistDesc" placeholder="Role Name" class="form-control" required>
                         </div>
                     </div>
                     <div class="row">

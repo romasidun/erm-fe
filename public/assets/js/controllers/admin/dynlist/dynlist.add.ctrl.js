@@ -7,33 +7,36 @@
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "ADD Roles";
 
+
         vm.formdata = {
-            roleCode: "",
-            roleDesc: ""
+            dylistCode: '',
+            dylistDesc: '',
+            dylistTypecode: $state.params.dynTypeCode,
+            dylistTypedesc: $state.params.dynTypeDesc
         };
 
         $rootScope.app.Mask = false;
 
         vm.submitAction = function(){
             $rootScope.app.Mask = true;
-            if(vm.RolesForm.$invalid) return false;
+            if(vm.DynListForm.$invalid) return false;
 
             DynListService.Post(vm.formdata).then(function (res) {
 
             }).finally(function () {
-                $state.go('app.admin.roles.main');
+                $state.go('app.admin.misc.dynlist.main', {dynTypeCode: $state.params.dynTypeCode});
             });
         };
 
         vm.cancelAction = function () {
-            if (vm.RolesForm.$dirty) {
+            if (vm.DynListForm.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
                 confirm.result.then(function () {
-                    $state.go('app.admin.roles.main');
+                    $state.go('app.admin.misc.dynlist.main', {dynTypeCode: $state.params.dynTypeCode});
                 });
                 return false;
             }
-            $state.go('app.admin.roles.main');
+            $state.go('app.admin.misc.dynlist.main', {dynTypeCode: $state.params.dynTypeCode});
         };
     }
 })();

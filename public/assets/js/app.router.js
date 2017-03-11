@@ -759,7 +759,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             resolve: loadSequence('RolesAddCtrl')
         })
         .state('app.admin.roles.update', {
-            url: '/update/:roleId',
+            url: '/update/:id',
             templateUrl: 'assets/views/admin/roles/role.add.html',
             title: 'Update Role',
             icon: 'ti-layout-media-left-alt',
@@ -821,7 +821,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controllerAs: 'vm',
             resolve: loadSequence('DeptAddCtrl')
         }).state('app.admin.dept.update', {
-            url: '/update/:deptId',
+            url: '/update/:id',
             templateUrl: 'assets/views/admin/dept/dept.add.html',
             title: 'Update Department',
             icon: 'ti-layout-media-left-alt',
@@ -873,18 +873,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             template: '<div ui-view class="fade-in-up"></div>',
             abstract: true
         }).state('app.admin.misc.dynlist.main', {
-            url: '',
+            url: '/:dynTypeCode',
             templateUrl: "assets/views/admin/dynlist/dynlist.main.html",
             title: 'Dynamic List Management',
             icon: 'ti-layout-media-left-alt',
             controller: 'DynListMgmCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('DynListMgmCtrl')
         }).state('app.admin.misc.dynlist.add', {
-            url: '/add',
+            url: '/add/:dynTypeCode/:dynTypeDesc',
             templateUrl: "assets/views/admin/dynlist/dynlist.form.html",
             title: 'Add Dynamic List',
             icon: 'ti-layout-media-left-alt',
             controller: 'DynListMgmAddCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('DynListMgmAddCtrl')
         }).state('app.admin.misc.dynlist.update', {
             url: '/update/:id',
@@ -892,6 +894,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             title: 'Update Dynamic List',
             icon: 'ti-layout-media-left-alt',
             controller: 'DynListMgmUpdateCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('DynListMgmUpdateCtrl')
         }).state('app.admin.misc.ctrlDataUpload', {
             url: '/ctrlDataUpload',

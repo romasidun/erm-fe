@@ -39,8 +39,8 @@
 								<th><input type="checkbox"></th>
 								<th><a ng-class="{'text-azure': vm.Grid1.Column==='username' }" ng-click="vm.Grid1.SortMe('username')"><i class="fa {{vm.Grid1.GetIco('username')}}"></i> User Name</a></th>
 								<th><a ng-class="{'text-azure': vm.Grid1.Column==='email' }" ng-click="vm.Grid1.SortMe('email')"><i class="fa {{vm.Grid1.GetIco('email')}}"></i> Email</a></th>
-								<th>Department</th>
-								<th>Role</th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='department' }" ng-click="vm.Grid1.SortMe('department')"><i class="fa {{vm.Grid1.GetIco('department')}}"></i> Department</a></th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='role' }" ng-click="vm.Grid1.SortMe('role')"><i class="fa {{vm.Grid1.GetIco('role')}}"></i> Role</a></th>
 								<th>Action</th>
 							</tr>
 							</thead>
@@ -50,8 +50,8 @@
 								<th><input type="checkbox"></th>
 								<td>{{r.username}}</td>
 								<td>{{r.email}}</td>
-								<td>{{r.department.deptName}}</td>
-								<td>{{r.role.roleDesc}}</td>
+								<td>{{r.department}}</td>
+								<td>{{r.role}}</td>
 								<td>
 									<a ui-sref="app.admin.users.update({ userId: r.id })"  class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
 									<a ng-click="vm.deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>

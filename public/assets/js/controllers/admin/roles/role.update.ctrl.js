@@ -6,7 +6,7 @@
         var vm = this;
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "Update Role";
-        var roleId = $state.params.roleId;
+        var roleId = $state.params.id;
 
         $rootScope.app.Mask = false;
 
@@ -18,7 +18,7 @@
             $rootScope.app.Mask = true;
             if(vm.RolesForm.$invalid) return false;
 
-            RolesService.Post(vm.formdata).then(function (res) {
+            RolesService.Put(roleId, vm.formdata).then(function (res) {
 
             }).finally(function () {
                 $state.go('app.admin.roles.main');

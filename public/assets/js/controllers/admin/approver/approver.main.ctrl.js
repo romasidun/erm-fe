@@ -13,7 +13,7 @@
         vm.Grid1 = {
             PerPage: 10,
             CurrPage: 1,
-            Column: '',
+            Column: 'asmntType',
             IsAsc: true,
             Filter: "",
             Total: 1,

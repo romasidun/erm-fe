@@ -14,7 +14,6 @@
         $rootScope.app.Mask = false;
         RolesService.Get().then(function (data) {
             vm.roles = data;
-            console.log(data);
             return UsersService.GetOne(userId);
         }).then(function (data) {
             vm.formdata = data;
@@ -30,7 +29,7 @@
             vm.formdata.department = $filter('filter')($rootScope.app.Lookup.Departments, {id: vm.tmp_deptId});
             vm.formdata.role = $filter('filter')(vm.roles, {id: vm.tmp_roleId});
 
-            UsersService.Post(vm.formdata).then(function (res) {
+            UsersService.Put(userId, vm.formdata).then(function (res) {
 
             }).finally(function () {
                 $state.go('app.admin.users.main');

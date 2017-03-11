@@ -14,11 +14,38 @@
             <div class="panel-body">
                 <form name="vm.ApproverForm" ng-submit="vm.submitAction()" role="form">
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.department.$invalid && (!vm.UsersForm.department.$pristine || vm.UsersForm.department.$touched || vm.UsersForm.department.$submitted) }">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.ApproverForm.asmntType.$invalid && (!vm.ApproverForm.asmntType.$pristine || vm.ApproverForm.asmntType.$touched || vm.ApproverForm.asmntType.$submitted) }">
                             <label> Assessment Type </label>
-                            <select type="text" name="asmntType" ng-model="vm.tmp_asmntType" class="form-control"
-                                    ng-options="d.id as d.deptName for d in app.Lookup.Departments" required>
+                            <select type="text" name="asmntType" ng-model="vm.tmpdata.asmntType" class="form-control"
+                                    ng-options="d as d.asTypeDesc for d in app.Lookup.AssessTypes" required>
+                                <option selected value>Select Assessment Type</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.ApproverForm.department.$invalid && (!vm.ApproverForm.department.$pristine || vm.ApproverForm.department.$touched || vm.ApproverForm.department.$submitted) }">
+                            <label> Department </label>
+                            <select type="text" name="department" ng-model="vm.tmpdata.department" class="form-control"
+                                    ng-options="d as d.deptName for d in app.Lookup.Departments" required>
                                 <option selected value>Select Department</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.ApproverForm.user.$invalid && (!vm.ApproverForm.user.$pristine || vm.ApproverForm.user.$touched || vm.ApproverForm.user.$submitted) }">
+                            <label> User </label>
+                            <select type="text" name="user" ng-model="vm.tmpdata.user" class="form-control"
+                                    ng-options="d as d.username for d in app.Lookup.Users" required>
+                                <option selected value>Select User</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.ApproverForm.roleType.$invalid && (!vm.ApproverForm.roleType.$pristine || vm.ApproverForm.roleType.$touched || vm.ApproverForm.roleType.$submitted) }">
+                            <label> Role Type </label>
+                            <select type="text" name="roleType" ng-model="vm.tmpdata.roleType" class="form-control"
+                                    ng-options="d as d.roleDesc for d in app.Lookup.Roles" required>
+                                <option selected value>Select Role</option>
                             </select>
                         </div>
                     </div>

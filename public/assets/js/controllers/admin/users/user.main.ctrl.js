@@ -7,13 +7,13 @@
     function UsersMainCtrl($scope, $rootScope, $state, $filter, $uibModal, UsersService, Utils) {
         var vm = this;
         vm.mainTitle = $state.current.title;
-        vm.mainDesc = "Role Management";
+        vm.mainDesc = "User Management";
 
         vm.OpList = [5, 10, 25, 50, 100];
         vm.Grid1 = {
             PerPage: 10,
             CurrPage: 1,
-            Column: 'roleCode',
+            Column: 'username',
             IsAsc: true,
             Filter: "",
             Total: 1,
@@ -39,7 +39,16 @@
 
         UsersService.Get().then(function (data) {
             vm.Grid1.Total = data.length;
-            vm.Grid1.Data = data;
+            vm.Grid1.Data = [];
+            angular.forEach(data, function (obj, key) {
+                vm.Grid1.Data.push({
+                    id: obj.id,
+                    username: obj.username,
+                    email: obj.email,
+                    department: obj.department[0].deptName,
+                    role: obj.role[0].roleDesc
+                });
+            });
 
             $rootScope.app.Mask = false;
         });
