@@ -7,9 +7,9 @@
 
     function LoginController($scope, $rootScope, $state, AuthFactory, $sce) {
         var vm = this;
-        vm.creds = {username: "", password: ""};
+        vm.creds = {username: "", password: "", pincode : ''};
         vm.invalidCreds = false;
-        vm.errs = {user: false, pass: false};
+        vm.errs = {user: false, pass: false, pincode: false};
         vm.submit = false;
         vm.signin = true;
 
@@ -19,10 +19,11 @@
             vm.submit = true;
             vm.errs.user = vm.creds.username === "";
             vm.errs.pass = vm.creds.password === "";
+            vm.errs.pincode = vm.creds.pincode === "";
 
-            if (vm.errs.user || vm.errs.pass) return false;
+            if (vm.errs.user || vm.errs.pass || vm.errs.pincode) return false;
 
-            AuthFactory.login(vm.creds.username, vm.creds.password)
+            AuthFactory.login(vm.creds.username, vm.creds.password, vm.creds.pincode)
                 .then(function (res) {
                     $rootScope.app.IsAuthenticated = true;
                     $state.go('app.dashboard.main');
@@ -69,8 +70,8 @@
             }
         });
 
-        vm.registAction = function () {
-
+        vm.registerAction = function () {
+            console.log(1111);
         }
 
         vm.isPwdFocus = false;

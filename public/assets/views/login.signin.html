@@ -35,6 +35,13 @@
 							<i class="fa fa-lock"></i>
 							<a class="forgot" ui-sref="login.forgot"> I forgot my password </a> </span>
                     </div>
+                    <div class="form-group form-actions">
+						<span class="input-icon">
+							<input type="number" class="form-control" name="pincode"
+                                   ng-model="vm.creds.pincode" placeholder="Pin Code" max="999999">
+							<i class="fa fa-keyboard-o"></i>
+                        </span>
+                    </div>
                     <div class="form-actions">
                         <div class="checkbox clip-check check-primary">
                             <input type="checkbox" id="remember" value="1">
@@ -83,7 +90,7 @@
                                ng-focus="vm.pwdFocus()" ng-blur="vm.pwdBlur()"
                         >
 
-                        <div class="popover validPopover ng-isolate-scope top signup-tooltip fade top-right" ng-class="{'in': vm.showPwdValidation && vm.isPwdFocus }">
+                        <div class="popover validPopover ng-isolate-scope top signup-tooltip fade top-right" ng-if="vm.showPwdValidation && vm.isPwdFocus" ng-class="{'in': vm.showPwdValidation && vm.isPwdFocus }">
                             <div class="arrow" style="bottom: -11px; right: 6px;"></div>
                             <div class="popover-inner">
                                 <!-- ngIf: uibTitle -->
@@ -101,13 +108,18 @@
                         <input type="password" ng-model="vm.regs.confpassword" class="form-control password"
                                id="regConfPassword" name="regConfPassword" placeholder="Repeat Password" required compare-to="vm.regs.password">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none;">
                         <label for="regCaptcha">Captcha</label>
                         <span class="input-icon input-icon-right">
 							<input type="text" ng-model="vm.regs.captcha" class="form-control" id="regCaptcha"
                                    name="regCaptcha" placeholder="Enter Code" required>
 							<i class="fa fa-refresh"></i>
 						</span>
+                    </div>
+                    <div class="form-group"  ng-class="{ 'has-error' : vm.form.signup.regPincode.$invalid && !vm.form.signup.regPincode.$pristine }">
+                        <label for="regPincode">Pin Code</label>
+                        <input type="number" ng-model="vm.regs.pincode" class="form-control" max="9999" required="required"
+                               id="regPincode" name="regPincode" placeholder="Pin Code">
                     </div>
                     <div>
                         <div class="pull-right">

@@ -2,7 +2,7 @@
  * Created by Roma on 03/01/2017.
  */
 
-app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage) {
+app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHandler) {
     // create user variable
     var user = null;
 
@@ -21,12 +21,12 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage) {
         return user;
     }
 
-    function login(username, password) {
+    function login(username, password, pincode) {
 
         // create a new instance of deferred
         var deferred = $q.defer();
 
-        if(username === 'Alan' && password === 'Alan1234'){
+        /*if(username === 'Alan' && password === 'Alan1234'){
             user = { username: 'Alan', password: 'Alan1234' };
             $localStorage.user = user;
             deferred.resolve(user);
@@ -34,13 +34,15 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage) {
             user = false;
             $localStorage.user = user;
             deferred.reject();
-        }
+        }*/
 
-        /*
+
         // send a post request to the server
-        $http.post('/user/login',{username: username, password: password})
-            .success(function (data, status) {
-                if(status === 200 && data.status){
+        var senddata = {username: username, password: password, pincode: pincode};
+        APIHandler.Post('users/authenticate', senddata)
+            .then(function (data) {
+                if(data.status === 200){
+                    $localStorage.user = senddata;
                     user = true;
                     deferred.resolve();
                 } else {
@@ -48,12 +50,13 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage) {
                     deferred.reject();
                 }
             })
-            .error(function (data) {
+            .catch(function (data) {
+                delete $localStorage.user;
                 user = false;
                 deferred.reject();
             });
         // return promise object
-        */
+
         return deferred.promise;
     }
 

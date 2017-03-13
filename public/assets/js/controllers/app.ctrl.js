@@ -200,7 +200,7 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
         return APIHandler.Get('depts');
 	}).then(function(depts){
 		$rootScope.app.Lookup.Departments = depts ;
-        return APIHandler.Get('users');
+        return APIHandler.Get('users/usersdropdownlist');
 	}).then(function(users){
 		$rootScope.app.Lookup.Users = users;
 		return APIHandler.Get('roles');
