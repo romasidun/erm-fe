@@ -37,6 +37,27 @@
         });
 
         $scope.downloadTemp = function () {
+        	var dlTmpModal = $uibModal.open({
+                templateUrl: 'tmpdownload.tpl.html',
+                controller: 'TmpDlCtrl',
+                size: 'lg',
+                resolve: {
+                    items: function () {
+                        return {
+                            TempLoader: ComplianceService.GetSOXRCMTemplate(),
+                            prefix: 'compliance/soxrcm/templates/'
+                        };
+                    }
+                }
+            });
+            console.log('dlTmpModal', dlTmpModal);
+
+            dlTmpModal.result.then(function (updEquip) {
+                console.log("Done");
+            });
+        }
+
+        $scope.downloadTemp2 = function () {
             var theadAry = [];
             var tbodyAry = [];
             var checkedRow = $('.table>tbody').find('input:checkbox:checked');

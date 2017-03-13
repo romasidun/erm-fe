@@ -21,6 +21,10 @@ app.service('ComplianceService', function (APIHandler) {
     this.UpdateSOXTP = function (id, params) {
         return APIHandler.Put('compliance/soxtp/' + id, params);
     };
+    
+    this.GetSOXTPTemplate = function(){
+        return APIHandler.Get('compliance/soxtp/templates');
+    };
 
     this.GetSOXRCMs = function (size, page) {
         return APIHandler.Get('compliance/soxrcm?pagesize=' + size + '&pageNumber=' + page);
@@ -41,6 +45,10 @@ app.service('ComplianceService', function (APIHandler) {
     this.UpdateSOXRCM = function (id, params) {
         return APIHandler.Put('compliance/soxrcm/' + id, params);
     };
+    
+    this.GetSOXRCMTemplate = function(){
+        return APIHandler.Get('compliance/soxrcm/templates');
+    };
 
     this.GetSOXPRAs = function (size, page) {
         return APIHandler.Get('compliance/soxpra?pagesize=' + size + '&pageNumber=' + page);
@@ -60,6 +68,10 @@ app.service('ComplianceService', function (APIHandler) {
 
     this.UpdateSOXPRA = function (id, params) {
         return APIHandler.Put('compliance/soxpra/' + id, params);
+    };
+    
+    this.GetSOXPRATemplate = function(){
+        return APIHandler.Get('compliance/soxpra/templates');
     };
 
     this.GetUsers = function () {
