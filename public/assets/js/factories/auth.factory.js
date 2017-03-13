@@ -41,7 +41,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
         var senddata = {username: username, password: password, pincode: pincode};
         APIHandler.Post('users/authenticate', senddata)
             .then(function (data) {
-                if(data.status === 200){
+                if(data.status === 200 && data.data){
                     $localStorage.user = senddata;
                     user = true;
                     deferred.resolve();
