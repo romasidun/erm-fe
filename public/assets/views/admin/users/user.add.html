@@ -26,6 +26,20 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.password.$invalid && (!vm.UsersForm.password.$pristine || vm.UsersForm.password.$touched || vm.UsersForm.password.$submitted) }">
+                            <label> Password </label>
+                            <input type="password" name="password" ng-model="vm.formdata.password" placeholder="Password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.pincode.$invalid && (!vm.UsersForm.pincode.$pristine || vm.UsersForm.pincode.$touched || vm.UsersForm.pincode.$submitted) }">
+                            <label> Pin Code </label>
+                            <input type="password" name="pincode" ng-model="vm.formdata.pincode" placeholder="Pin Code" class="form-control" ng-pattern="/^[1-9]{1}[0-9]{5}$/" required>
+                            <p ng-show="vm.UsersForm.pincode.$invalid && !vm.UsersForm.pincode.$pristine"
+                               class="help-block">The pincode must be 6 digits (numeric).</p>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.department.$invalid && (!vm.UsersForm.department.$pristine || vm.UsersForm.department.$touched || vm.UsersForm.department.$submitted) }">
                             <label> Department </label>
                             <select type="text" name="department" ng-model="vm.tmp_deptId" class="form-control"

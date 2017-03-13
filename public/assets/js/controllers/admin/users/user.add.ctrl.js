@@ -10,6 +10,8 @@
         vm.formdata = {
             department: [],
             email: '',
+            password: '',
+            pincode: '',
             role: [],
             username: ''
         };
