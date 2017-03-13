@@ -20,15 +20,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.email.$invalid && (!vm.UsersForm.email.$pristine || vm.UsersForm.email.$touched || vm.UsersForm.email.$submitted) }">
-                            <label> Email </label>
-                            <input type="email" name="email" ng-model="vm.formdata.email" placeholder="Email" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.password.$invalid && (!vm.UsersForm.password.$pristine || vm.UsersForm.password.$touched || vm.UsersForm.password.$submitted) }">
                             <label> Password </label>
                             <input type="password" name="password" ng-model="vm.formdata.password" placeholder="Password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group" ng-class="{ 'has-error' : vm.UsersForm.email.$invalid && (!vm.UsersForm.email.$pristine || vm.UsersForm.email.$touched || vm.UsersForm.email.$submitted) }">
+                            <label> Email </label>
+                            <input type="email" name="email" ng-model="vm.formdata.email" placeholder="Email" class="form-control" required>
                         </div>
                     </div>
                     <div class="row">
