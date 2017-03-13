@@ -25,11 +25,13 @@
 
             AuthFactory.login(vm.creds.username, vm.creds.password, vm.creds.pincode)
                 .then(function (res) {
+                    vm.invalidCreds = false;
                     $rootScope.app.IsAuthenticated = true;
                     $state.go('app.dashboard.main');
                 })
                 .catch(function (err) {
-                    vm.submit = false;
+                    vm.invalidCreds = true;
+                    //vm.submit = false;
                     $rootScope.app.IsAuthenticated = false;
                 });
         };
@@ -37,7 +39,7 @@
 
 
 
-        vm.regs = {password: ''};
+        vm.regs = {username: '', password: '', email: '', pincode: ''};
 
         var lowerRegex = new RegExp("^(?=.*[a-z])");
         var upperRegex = new RegExp("(?=.*[A-Z])");
@@ -71,7 +73,7 @@
         });
 
         vm.registerAction = function () {
-            console.log(1111);
+            console.log(vm.regs);
         }
 
         vm.isPwdFocus = false;
