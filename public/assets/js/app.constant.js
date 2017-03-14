@@ -150,7 +150,9 @@ app.constant('JS_REQUIRES', {
 
         'DynListMgmCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.main.ctrl.js',
         'DynListMgmAddCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.add.ctrl.js',
-        'DynListMgmUpdateCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.update.ctrl.js'
+        'DynListMgmUpdateCtrl' : 'assets/js/controllers/admin/dynlist/dynlist.update.ctrl.js',
+
+        'ArtifactMgmCtrl' : 'assets/js/controllers/admin/artifact/artifact.main.ctrl.js'
     },
 
     /*

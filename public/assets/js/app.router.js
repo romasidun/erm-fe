@@ -861,9 +861,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             resolve: loadSequence('ApproverUpdateCtrl')
         })
 
-        /*
-         ---- OP RISK Routes ----
-         */
         .state('app.admin.misc', {
             url: '/misc',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -896,6 +893,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'DynListMgmUpdateCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('DynListMgmUpdateCtrl')
+        }).state('app.admin.misc.artifact', {
+            url: '/artifact',
+            template: '<div ui-view class="fade-in-up"></div>',
+            abstract: true
+        }).state('app.admin.misc.artifact.main', {
+            url: '',
+            templateUrl: "assets/views/admin/artifact/artifact.main.html",
+            title: 'Artifact Management',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'ArtifactMgmCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('ArtifactMgmCtrl')
         }).state('app.admin.misc.ctrlDataUpload', {
             url: '/ctrlDataUpload',
             template: '<div ui-view class="fade-in-up"></div>',

@@ -13,19 +13,46 @@
 		<div class="col-md-12">
 			<div class="panel panel-white no-radius">
 				<div class="panel-heading">
-
 					<div class="row">
-						<div class="form-group">
-							<label> Dynamic List Type </label>
-							<select type="text" ng-change="vm.dynTypeChange()" name="department" ng-model="vm.currDynType"
+						<div class="col-md-4">
+							<label> Artifact Type </label>
+						</div>
+						<div class="col-md-2">
+							<label> From Date </label>
+						</div>
+						<div class="col-md-2">
+							<label> To Date </label>
+						</div>
+						<div class="col-md-4">
+							<label> Created By </label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<select type="text" ng-model="vm.artifactType"
 									ng-options="d as d.dylistTypedesc for d in vm.DynTypeList" required>
 								<option selected value>Select</option>
 							</select>
 						</div>
+						<div class="col-md-2">
+							<datepicker date-format="MM-dd-yyyy">
+								<input type="text" ng-model="vm.fromDate" placeholder="From Date" class="form-control">
+							</datepicker>
+						</div>
+						<div class="col-md-2">
+							<datepicker date-format="MM-dd-yyyy">
+								<input type="text" ng-model="vm.toDate" placeholder="To Date" class="form-control">
+							</datepicker>
+						</div>
+						<div class="col-md-4">
+							<select type="text" ng-model="vm.selectedUser"
+									ng-options="r.id as r.name for r in app.Lookup.Users">
+								<option selected value>Select</option>
+							</select>
+						</div>
 					</div>
-
 					<div class="panel-tools">
-						<a class="btn btn-xs btn-dark-blue btn-squared" ng-click="vm.goAddForm()">Add Dynamic List</a>
+						<a class="btn btn-xs btn-dark-blue btn-squared" ng-click="vm.doSearch()">Search</a>
 					</div>
 				</div>
 				<div class="panel-body">
@@ -47,8 +74,10 @@
 							<thead>
 							<tr class="sortable-headers">
 								<th><input type="checkbox"></th>
-								<th><a ng-class="{'text-azure': vm.Grid1.Column==='dylistCode' }" ng-click="vm.Grid1.SortMe('dylistCode')"><i class="fa {{vm.Grid1.GetIco('dylistCode')}}"></i> ID</a></th>
-								<th><a ng-class="{'text-azure': vm.Grid1.Column==='dylistDesc' }" ng-click="vm.Grid1.SortMe('dylistDesc')"><i class="fa {{vm.Grid1.GetIco('dylistDesc')}}"></i> Name</a></th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='fileName' }" ng-click="vm.Grid1.SortMe('fileName')"><i class="fa {{vm.Grid1.GetIco('fileName')}}"></i> File Name</a></th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='fileSize' }" ng-click="vm.Grid1.SortMe('fileSize')"><i class="fa {{vm.Grid1.GetIco('fileSize')}}"></i> File Size</a></th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='createdBy' }" ng-click="vm.Grid1.SortMe('createdBy')"><i class="fa {{vm.Grid1.GetIco('createdBy')}}"></i> Created By</a></th>
+								<th><a ng-class="{'text-azure': vm.Grid1.Column==='fileSize' }" ng-click="vm.Grid1.SortMe('fileSize')"><i class="fa {{vm.Grid1.GetIco('fileSize')}}"></i> File Size</a></th>
 								<th>Action</th>
 							</tr>
 							</thead>
