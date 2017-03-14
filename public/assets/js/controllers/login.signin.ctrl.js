@@ -25,6 +25,9 @@
 
             AuthFactory.login(vm.creds.username, vm.creds.password, vm.creds.pincode)
                 .then(function (res) {
+
+                    $rootScope.user.name = vm.creds.username;
+
                     vm.invalidCreds = false;
                     $rootScope.app.IsAuthenticated = true;
                     $state.go('app.dashboard.main');
