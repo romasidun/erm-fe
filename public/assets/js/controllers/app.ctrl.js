@@ -217,10 +217,11 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
         { key: 'High', val: 'High' }
 	];
 
-    var userinfo = AuthFactory.getUserStatus();
-    $rootScope.user.name = userinfo.username;
 
-
+    if(AuthFactory.isLoggedIn()){
+        var userinfo = AuthFactory.getUserStatus();
+        $rootScope.user.name = userinfo.username;
+	}
 
 	/*
 	  --- Lookup Glossary ---
