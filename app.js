@@ -9,7 +9,7 @@ var excel = require('./excel-generator');
 var excel_generator = require('./excel-generator-common');
 var control_excel = require('./control_excel-generator');
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8000;
 
 var xlsDirectory = __dirname + "/excel/";
 

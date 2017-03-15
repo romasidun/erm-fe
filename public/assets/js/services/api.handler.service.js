@@ -3,6 +3,7 @@
 app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
 
     var baseUrl = $rootScope.app.APIPrefix;
+    var nodeUrl = $rootScope.app.NodeApi;
     var isDebug = $rootScope.app.Debug;
 
     function APIHandler() {
@@ -95,6 +96,7 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
     };
 
     APIHandler.prototype.Excel = function get(url, params) {
+        url = nodeUrl + url;
         if (isDebug) console.info("POST: " + url);
         if (isDebug) console.info("with body: ", params);
         var promise = $http.post(url, params), deferred = $q.defer();
