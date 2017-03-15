@@ -209,7 +209,7 @@
                 if (obj.response == 'Y') {
                     yesStr = "Y";
                 }
-                if (obj.responseY == true) {
+                if (obj.response == 'N') {
                     noStr = "N";
                 }
                 var vendor_comment = obj.comments || '';
