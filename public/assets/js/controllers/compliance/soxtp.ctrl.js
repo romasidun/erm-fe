@@ -117,9 +117,10 @@
             }
 
             ComplianceService.DownloadExcel(data).then(function (response) {
-                location.assign('/downloadExcel/' + response.data);
+                var nodeUrl = $rootScope.app.NodeApi;
+                location.assign(nodeUrl+ '/downloadExcel/' + response.data);
             }).catch(function (error) {
-                alert('error!');
+                console.log('error!');
             });
         };
 
@@ -304,9 +305,10 @@
             data.heights.push({row: 11, height: 45});
 
             ComplianceService.DownloadExcel(data).then(function (response) {
-                location.assign('/downloadExcel/' + response.data);
+                var nodeUrl = $rootScope.app.NodeApi;
+                location.assign(nodeUrl+ '/downloadExcel/' + response.data);
             }).catch(function (error) {
-                alert('error!');
+                console.log('error!');
             });
         };
     }

@@ -104,9 +104,7 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
                 method: 'POST',
                 url: tmpurl,
                 data: params,
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                }
+                withCredentials: false
             }
         ), deferred = $q.defer();
         promise.then(function (res) {

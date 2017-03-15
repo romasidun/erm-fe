@@ -90,9 +90,10 @@
             };
 
             ComplianceService.ExcelDownload(senddata).then(function (response) {
-                location.assign('/download-excel/' + response.data);
+                var nodeUrl = $rootScope.app.NodeApi;
+                location.assign(nodeUrl+ '/downloadExcel/' + response.data);
             }).catch(function (error) {
-                alert('error!');
+                console.log('error!');
             });
         };
 

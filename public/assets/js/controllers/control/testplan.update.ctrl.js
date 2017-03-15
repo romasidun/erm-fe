@@ -135,9 +135,10 @@
                 testPlan_data: testPlan_data
             };
             ControlService.DTExcelDownload(senddata).then(function (response) {
-                location.assign('/control_excel_download/' + response.data);
+                var nodeUrl = $rootScope.app.NodeApi;
+                location.assign(nodeUrl+ '/downloadExcel/' + response.data);
             }).catch(function (error) {
-                alert('error!');
+                console.log('error!');
             });
         };
 
