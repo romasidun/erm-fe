@@ -100,7 +100,7 @@ app.service('ControlService', function ($rootScope, APIHandler, Utils) {
     };
 
     this.DTExcelDownload = function (param) {
-        return APIHandler.Excel('control_xlsx', param);
+        return APIHandler.Excel('/control_xlsx', param);
     };
 
     this.FileUpload = function (idd, fileModel) {

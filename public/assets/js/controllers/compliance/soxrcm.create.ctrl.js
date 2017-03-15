@@ -244,9 +244,9 @@
 
             ComplianceService.DownloadExcel(data).then(function (response) {
                 var nodeUrl = $rootScope.app.NodeApi;
-                location.assign(nodeUrl+ '/downloadExcel/' + response.data);
+                location.assign(nodeUrl + '/downloadExcel/' + response.data);
             }).catch(function (error) {
-                console.log('error!');
+                alert('error!');
             });
         };
 

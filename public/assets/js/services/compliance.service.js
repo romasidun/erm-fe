@@ -134,7 +134,7 @@ app.service('ComplianceService', function (APIHandler) {
     };
 
     this.DTExcelDownload = function (param) {
-        return APIHandler.Excel('control_xlsx', param);
+        return APIHandler.Excel('/control_xlsx', param);
     };
 
     this.GetSOXPRAAssessments = function () {

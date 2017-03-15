@@ -39,7 +39,7 @@ app.get('/', function (req, res, next) {
 });
 
 /* Create Excel Temp File */
-app.post('/createExcel', function (req, res, next) {
+app.post('/api/createExcel', function (req, res, next) {
     var data = req.body;
     //console.log(data);
     var fileName = guid.raw();
@@ -56,7 +56,7 @@ app.post('/createExcel', function (req, res, next) {
 });
 
 /* Download Excel File and Delete temp file */
-app.get('/downloadExcel/:fileName', function (req, res, next) {
+app.get('/api/downloadExcel/:fileName', function (req, res, next) {
     var fileName = req.params.fileName;
     var filePath = xlsDirectory + fileName;
 
@@ -74,7 +74,7 @@ app.get('/downloadExcel/:fileName', function (req, res, next) {
     }
 });
 
-app.post('/xlsx', function (req, res, next) {
+app.post('/api/xlsx', function (req, res, next) {
     var data = req.body;
     var fileName = guid.raw();
     data.filename = fileName;
@@ -89,7 +89,7 @@ app.post('/xlsx', function (req, res, next) {
     });
 });
 
-app.post('/control_xlsx', function (req, res, next) {
+app.post('/api/control_xlsx', function (req, res, next) {
     console.log(req);
     var data = req.body;
     var fileName = guid.raw();
@@ -106,7 +106,7 @@ app.post('/control_xlsx', function (req, res, next) {
 });
 
 
-app.get('/download-excel/:fileName', function (req, res, next) {
+app.get('/api/download-excel/:fileName', function (req, res, next) {
     var fileName = req.params.fileName;
     var filePath = xlsDirectory + fileName;
 
@@ -124,7 +124,7 @@ app.get('/download-excel/:fileName', function (req, res, next) {
     }
 });
 
-app.get('/control_excel_download/:fileName', function (req, res, next) {
+app.get('/api/control_excel_download/:fileName', function (req, res, next) {
     var fileName = req.params.fileName;
     var filePath = xlsDirectory + fileName;
 

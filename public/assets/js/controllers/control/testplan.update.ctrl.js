@@ -136,9 +136,9 @@
             };
             ControlService.DTExcelDownload(senddata).then(function (response) {
                 var nodeUrl = $rootScope.app.NodeApi;
-                location.assign(nodeUrl+ '/downloadExcel/' + response.data);
+                location.assign(nodeUrl + '/control_excel_download/' + response.data);
             }).catch(function (error) {
-                console.log('error!');
+                alert('error!');
             });
         };
 
