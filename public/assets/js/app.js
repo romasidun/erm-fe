@@ -1,6 +1,6 @@
 var app = angular.module('aasriApp', ['app.patch']);
-app.run(['$rootScope', '$state', '$stateParams', '$location',
-function ($rootScope, $state, $stateParams, $location) {
+app.run(['$rootScope', '$state', '$stateParams', '$location', '$http',
+function ($rootScope, $state, $stateParams, $location, $http) {
 
     FastClick.attach(document.body);
 
@@ -32,7 +32,7 @@ function ($rootScope, $state, $stateParams, $location) {
         // APIPrefix: "http://54.173.94.137/api/2/",
         APIPrefix: "http://52.90.105.84/api/2/",
         // APIPrefix: "http://192.168.5.101:8080/api/2/",
-        NodeApi: "localhost:8000",
+        NodeApi: "http://localhost:8000",
         Debug: true,
         Mask: true,
         MaskLabel: null,

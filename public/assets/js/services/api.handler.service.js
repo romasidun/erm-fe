@@ -96,10 +96,19 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
     };
 
     APIHandler.prototype.Excel = function get(url, params) {
-        url = nodeUrl + url;
+        var tmpurl = nodeUrl + url;
         if (isDebug) console.info("POST: " + url);
         if (isDebug) console.info("with body: ", params);
-        var promise = $http.post(url, params), deferred = $q.defer();
+        var promise = $http(
+            {
+                method: 'POST',
+                url: tmpurl,
+                data: params,
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }
+        ), deferred = $q.defer();
         promise.then(function (res) {
             if (isDebug) console.log(res);
             deferred.resolve(res);
