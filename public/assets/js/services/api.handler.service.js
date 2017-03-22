@@ -27,7 +27,6 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
 
     APIHandler.prototype.Post = function get(url, params) {
         url = baseUrl + url;
-        console.log(baseUrl);
         if (isDebug) console.info("POST: " + url);
         if (isDebug) console.info("with body: ", params);
         var promise = $http.post(url, params), deferred = $q.defer();

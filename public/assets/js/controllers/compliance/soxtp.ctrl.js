@@ -206,103 +206,74 @@
             data.sheetName = "Test Plan";
             data.body = [];
 
-            var head_txt = ['Test Number', 'Control Desc', 'Dept', 'Resign', 'Test Status', 'Test Method', 'Current Due Date', 'Next Due Date', 'File Upload', 'TestPlan File Name', 'Control Ref#', 'Control Activity Detailed Description', 'Test Procedures', 'Testing Size', 'Effective Test Date', 'Test Completed to date', 'Exception(s) Description', 'Type of Test', 'Action', 'Resolution Name', 'Description', 'Responsible Person', 'Due Date', 'Status', 'File Upload'];
+            var head_txt = ['Test #', 'Control Ref #', 'Control Activity Detailed Description', 'Test Procedures', 'Type of Test',
+                'Effective Date', 'Control Frequency', 'Control Method', 'Testing Size', 'Tests Completed to-date', 'Number of Exceptions to-date', 'Exception(s) Description (sample # & description)'];
             for (var i = 0; i < head_txt.length; i++) {
                 data.body.push({
-                    col: (+i + 1),
-                    row: 5,
+                    col: (+i + 2),
+                    row: 9,
                     text: head_txt[i],
                     font: {name: 'Calibri', sz: '11', family: '3', scheme: '-'},
                     fill: {type: 'solid', fgColor: 'FFFF00'},
                     border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                    valign: 'center',
+                    align: 'center',
                     wrap: 'true'
                 });
             }
 
             data.body.push({
-                col: 8, row: 6, text: '* INCOME TAX EXPENSE/BENEFIT: is determined in accordance with tax law, and recorded against the applicable component of net income, or equity.',
-                merge: {to: {col: 8, row: 6}, from: {col: 14, row: 8}},
+                col: 2, row: 2, text: 'ABC Company',
+                merge: {to: {col: 2, row: 2}, from: {col: 13, row: 2}},
                 valign: 'center',
-                font: {name: 'Calibri', sz: '10', family: '3', scheme: '-', bold: 'false'},
-                border: {left: 'thin', top: 'thin'},
-                wrap : 'true'
+                font: {name: 'Calibri', sz: '18', family: '3', scheme: '-', bold: 'true'}
+            });
+            data.body.push({
+                col: 2, row: 3, text: 'Test Plan - 2010',
+                merge: {to: {col: 2, row: 3}, from: {col: 13, row: 3}},
+                valign: 'center',
+                font: {name: 'Calibri', sz: '18', family: '3', scheme: '-', bold: 'true'}
             });
 
             data.body.push({
-                col: 16, row: 6, text: 'Key Control',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-            });
-            data.body.push({
-                col: 16, row: 7, text: 'Standard Controls',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-            });
-            data.body.push({
-                col: 16, row: 8, text: 'Total Controls',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+                col: 2, row: 4, text: 'Test Matrix',
+                valign: 'center',
+                align: 'left',
+                font: {name: 'Calibri', sz: '15', family: '3', scheme: '-', bold: 'true'}
             });
 
             data.body.push({
-                col: 17, row: 5, text: 'Count',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                fill: {type: 'solid', fgColor: 'BFBFBF'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-            });
-            data.body.push({
-                col: 18, row: 5, text: 'Testing Hours',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                fill: {type: 'solid', fgColor: 'BFBFBF'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+                col: 2, row: 5, text: '02 Taxes',
+                align: 'left',
+                font: {name: 'Calibri', sz: '13', family: '3', scheme: '-', bold: 'true'}
             });
 
             data.body.push({
-                col: 17, row: 6, text: '5',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-            });
-            data.body.push({
-                col: 18, row: 6, text: '15',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+                col: 2, row: 6, text: '02.1 Taxes',
+                align: 'left',
+                font: {name: 'Calibri', sz: '10', family: '3', scheme: '-', bold: 'true'}
             });
 
             data.body.push({
-                col: 17, row: 7, text: '0',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-            });
-            data.body.push({
-                col: 18, row: 7, text: '0',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+                col: 2, row: 6, text: 'Controls Being Tested:  KEY - Financial',
+                align: 'left',
+                font: {name: 'Calibri', sz: '9', family: '3', scheme: '-'}
             });
 
-            data.body.push({
-                col: 17, row: 8, text: '5',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-            });
-            data.body.push({
-                col: 18, row: 8, text: '15',
-                font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'false'},
-                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-            });
-
-
-            data.cols = 35;
+            data.cols = 14;
             data.rows = 15;
 
-            var wval = [14, 21, 15, 24, 25, 26, 17, 14, 11, 19, 16, 14, 14, 16, 20, 15, 13, 12, 30, 30, 16, 24, 25, 16, 23, 12, 14, 24, 19, 23];
+            var wval = [11, 15, 23, 23, 16, 16, 11, 15, 15, 11, 11, 28];
             data.widths = [];
             for(var i=0;i<wval.length;i++){
                 data.widths.push({col: +i+2, width: wval[i]});
             }
 
             data.heights = [];
-            data.heights.push({row: 5, height: 25});
-            data.heights.push({row: 11, height: 45});
+            data.heights.push({row: 2, height: 25});
+            data.heights.push({row: 3, height: 25});
+            data.heights.push({row: 4, height: 20});
+            data.heights.push({row: 9, height: 45});
 
             ComplianceService.DownloadExcel(data).then(function (response) {
                 var nodeUrl = $rootScope.app.NodeApi;

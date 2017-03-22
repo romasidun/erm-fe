@@ -2,7 +2,7 @@
 /**
  * Clip-Two Main Controller
  */
-app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $localStorage, $window, $document, $timeout, cfpLoadingBar, APIHandler, AuthFactory) {
+app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $localStorage, $window, $document, $timeout, cfpLoadingBar, APIHandler, AuthFactory, $filter) {
     $rootScope.adminState = false;
     // Loading bar transition
 	// -----------------------------------
@@ -25,11 +25,9 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
 			}
 		}
         if (page_flag && !AuthFactory.isLoggedIn()) {
-            console.log('User Authentication  DENY');
             event.preventDefault();
             $location.path('/login');
         } else {
-            console.log('User Authentication ALLOW');
             //$location.path('/home');
         }
     });
@@ -203,12 +201,27 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
         return APIHandler.Get('users/usersdropdownlist');
 	}).then(function(users){
 		$rootScope.app.Lookup.Users = users;
+
+		if(AuthFactory.isLoggedIn()){
+            var userinfo = AuthFactory.getUserStatus();
+            $rootScope.user.name = userinfo.username;
+
+            var tmpary = $filter('filter')(users, {name: userinfo.username});
+
+            APIHandler.Get('users/' + tmpary[0].id).then(function (res) {
+            	$rootScope.currentUserInfo = res;
+				console.log(res);
+            });
+        }
+
 		return APIHandler.Get('roles');
 	}).then(function(roles){
         $rootScope.app.Lookup.Roles = roles;
         return APIHandler.Get('assessmenttypes');
     }).then(function(ats){
 		$rootScope.app.Lookup.AssessTypes = ats;
+
+
 	});
 
 	$rootScope.app.Lookup.Severity = [
@@ -218,10 +231,6 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
 	];
 
 
-    if(AuthFactory.isLoggedIn()){
-        var userinfo = AuthFactory.getUserStatus();
-        $rootScope.user.name = userinfo.username;
-	}
 
 	/*
 	  --- Lookup Glossary ---

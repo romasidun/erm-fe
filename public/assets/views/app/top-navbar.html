@@ -17,7 +17,7 @@
 			<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="assets/images/avatar-5.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></span> </a>
 			<ul class="dropdown-menu">
 				<li>
-					<a ng-if="!adminState" ng-click="gotoAdminPage()"> Admin </a>
+					<a ng-if="!adminState && currentUserInfo.role[0].roleDesc === 'ADMIN'" ng-click="gotoAdminPage()"> Admin </a>
 					<a ng-if="adminState" ng-click="gotoUserDashboard()"> Main </a>
 				</li>
 				<li>
