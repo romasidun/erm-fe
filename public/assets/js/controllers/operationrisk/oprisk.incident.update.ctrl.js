@@ -71,6 +71,17 @@
             $scope.VM[type].splice(idx, 1);
         };
 
+        $scope.cancelAction = function () {
+            if ($scope.Form.OpIncident.$dirty) {
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
+                confirm.result.then(function () {
+                    $state.go('app.oprisk.incident.main');
+                });
+                return false;
+            }
+            $state.go('app.oprisk.incident.main');
+        };
+
         $scope.submitAction = function () {
             if ($scope.Form.OpIncident.$invalid || $scope.Form.OpIncident.pristine) return false;
             if ($scope.RiskCategories.SelCount < 1) {
