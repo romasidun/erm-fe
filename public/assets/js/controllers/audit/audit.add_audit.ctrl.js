@@ -50,7 +50,7 @@
                     audit_id = res.data.id
                 }).finally(function () {
                     $rootScope.app.Mask = false;
-                    var confirmation = Utils.CreateConfirmModal("Confirm New Topic", "Are u sure you want to create new topic?", "Yes", "No");
+                    var confirmation = Utils.CreateConfirmModal("Confirm New Topic", "Are u sure you want to create new topic", "Yes", "No");
                     confirmation.result.then(function () {
                         if(audit_id == '') return;
                         $rootScope.app.Mask = true;
@@ -103,7 +103,7 @@
 
         vm.cancelAction = function () {
             if (vm.Form.addAudit.$dirty) {
-                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
                     $state.go('app.audit.main');
                 });

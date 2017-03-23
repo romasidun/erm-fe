@@ -36,7 +36,7 @@
         loadRepos();
 
         $scope.delete = function (r) {
-            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
+            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
             confirmation.result.then(function () {
                 $rootScope.app.Mask = true;
                 ControlService.DeleteRepo(r.id).then(function (data) {

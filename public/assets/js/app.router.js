@@ -362,6 +362,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             title: 'CONTROL TEST PLAN',
             icon: 'ti-layout-media-left-alt',
             controller: 'TestPlanFormCtrl',
+            controllerAs: 'vm',
             resolve: loadSequence('TestPlanFormCtrl')
         }).state('app.control.testplan.update', {
             url: '/:id/update',

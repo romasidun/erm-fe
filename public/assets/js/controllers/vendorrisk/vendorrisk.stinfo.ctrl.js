@@ -90,7 +90,7 @@
 
 
         $scope.deleteAction = function (name) {
-            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
+            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
             confirmation.result.then(function () {
                 $rootScope.app.Mask = true;
                 VendorService.DeleteRim(name.id).then(function (data) {

@@ -93,7 +93,7 @@
 
         vm.cancelAction = function () {
             if (vm.Form.addFinding.$dirty) {
-                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
                     $state.go('app.audit.update_topic', {topic_id: topic_id});
                 });

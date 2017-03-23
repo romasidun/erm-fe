@@ -55,7 +55,7 @@
         });
 
         $scope.deleteAction = function (r) {
-            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item?", "Yes", "No");
+            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
             confirmation.result.then(function () {
                 console.log("U chose Yes");
                 $rootScope.app.Mask = true;
@@ -80,9 +80,9 @@
             $scope.VM.uploadedBy = current_user;
             $scope.VM.uploadedOn = current_date;
             $scope.VM.status = "success";
-            console.log($scope.VM);
+            /*console.log($scope.VM);
             loadPage($scope.VM);
-            return;
+            return;*/
             var fileModel = $scope.VM.auditFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
@@ -107,7 +107,7 @@
             alert('calcel');
             return;
             if($scope.Form.ITRisk.$dirty){
-                var confirm = Utils.CreateConfirmModal("Confirmation", "Are you sure you want to cancel?", "Yes", "No");
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function(){
                     $state.go('app.itrisk.incident.main');
                 });
