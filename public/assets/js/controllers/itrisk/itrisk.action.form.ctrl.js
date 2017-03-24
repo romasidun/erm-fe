@@ -18,16 +18,11 @@
             actionsName: "",
             createdBy: "",
             createdOn: "",
-            deptId: "",
             dueDate: "",
-            findingId: "",
-            id: "",
             modifiedBy: "",
             modifiedOn: "",
-            rcsaId: '',
             riskId: $stateParams.pid,
             riskType: "",
-            topicid: "",
             userName: ""
         };
 
