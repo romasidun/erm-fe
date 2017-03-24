@@ -11,13 +11,11 @@
         $scope.mainDesc = "Actions";
         $rootScope.app.Mask = true;
 
-        console.log("In ITRisk.Action.Form.ctrl");
         $scope.VM = {
             actionStatus: "",
             actionfileModel: [],
             actionsDesc: "",
             actionsName: "",
-            auditId: "",
             createdBy: "",
             createdOn: "",
             deptId: "",

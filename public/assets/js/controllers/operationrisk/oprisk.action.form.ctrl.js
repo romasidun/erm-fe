@@ -11,13 +11,11 @@
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Actions";
 
-
         $scope.VM = {
             actionStatus: "",
             actionfileModel: [],
             actionsDesc: "",
             actionsName: "",
-            auditId: "",
             createdBy: "",
             createdOn: "",
             deptId: "",
