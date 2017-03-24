@@ -9,9 +9,7 @@
         $scope.Form = {};
 
         $scope.addTestPlan = function(){
-            $scope.VM = {
-                controlDataModel: []
-            };
+            $scope.VM.controlDataModel = [];
             var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
                 cols =["testPlanName", "regionName", "controlStatus", "fileName", "dueDate", "controlPriority"];
 

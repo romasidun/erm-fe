@@ -24,9 +24,7 @@
         };
 
         $scope.addControls = function(){
-            $scope.VM = {
-                controlDataModel: []
-            };
+            $scope.VM.controlDataModel = [];
             var headers= ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
                 cols =["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
 

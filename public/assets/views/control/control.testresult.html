@@ -69,7 +69,7 @@
 							Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
 						</div>
 						<div class="col-xs-12 col-sm-8 pagination-right">
-							<uib-pagination total-items="Grid1.Total" ng-model="Grid1.CurrPage" items-per-page="Grid1.PerPage" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
+							<ul uib-pagination total-items="Grid1.Total" items-per-page="Grid1.PerPage" ng-model="Grid1.CurrPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
 						</div>
 					</div>
 				</div>

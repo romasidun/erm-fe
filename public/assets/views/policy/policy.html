@@ -59,7 +59,7 @@
                             Showing {{1}} to {{Policies.length}} of {{Policies.length}} entries
                         </div>
                         <div class="col-xs-12 col-sm-8 pagination-right">
-                            <uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"></uib-pagination>
+                            <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
                         </div>
                     </div>
                 </div>

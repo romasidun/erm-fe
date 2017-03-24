@@ -49,9 +49,7 @@
         //     });
         // };
         $scope.addTestPlan = function(){
-            $scope.VM = {
-                controlDataModel: []
-            };
+            $scope.VM.controlDataModel = [];
             var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
                 cols =["testPlanName", "regionName", "controlStatus", "fileName", "dueDate", "controlPriority"];
 
@@ -61,9 +59,9 @@
                     c.Selected = false;
                     c.dueDate = c.testDueDate? moment(Utils.createDate(c.testDueDate)).format('DD/MM/YYYY'):'None';
                 });
-                console.log('data',data);
                 var controlModal = Utils.CreateSelectListView("Select Test Plans", data, headers, cols);
                 controlModal.result.then(function(list){
+                    console.log(list);
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
