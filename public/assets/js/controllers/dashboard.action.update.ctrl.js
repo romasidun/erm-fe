@@ -13,7 +13,7 @@
 
         $scope.submitAction = function() {
             if($scope.Form.Audit.$invalid) return false;
-            AuditService.ReviewAction($stateParams, $scope.Action).then(function (res) {
+            AuditService.ReviewAction($stateParams.id, $scope.Action).then(function (res) {
                 if(res.status===200) $state.go('app.dashboard.main');
             });
         };
@@ -28,12 +28,14 @@
         };
 
         $scope.Audit = {};
+        console.log($stateParams.id);
         AuditService.GetAction($stateParams.id).then(function (data) {
             $scope.dueDate = Utils.GetDPDate(data.dueDate);
             $scope.Action = data;
             if($scope.Action.actionStatus === "In Review"){
                 $scope.Action.actionStatus = "In Progress";
             }
+            console.log($scope.Action.auditId)
             return AuditService.GetAudit($scope.Action.auditId);
         }).then(function(audit){
             $scope.Audit = audit;

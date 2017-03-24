@@ -65,7 +65,7 @@ app.service('AuditService', function(APIHandler){
     };
 
     this.GetAction = function(id){
-        return APIHandler.Get('auditactions/'+id);
+        return APIHandler.Get('auditactions/' +id);
     };
 
     this.GetActionByFinding = function(finding_id){
