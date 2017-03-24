@@ -31,6 +31,9 @@
         AuditService.GetAction($stateParams.id).then(function (data) {
             $scope.dueDate = Utils.GetDPDate(data.dueDate);
             $scope.Action = data;
+            if($scope.Action.actionStatus === "In Review"){
+                $scope.Action.actionStatus = "In Progress";
+            }
             return AuditService.GetAudit($scope.Action.auditId);
         }).then(function(audit){
             $scope.Audit = audit;

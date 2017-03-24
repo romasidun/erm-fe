@@ -71,7 +71,7 @@
 								<div class="form-group">
 									<label class="col-sm-3 col-md-4"> Responsible Person </label>
 									<div class="col-sm-9 col-md-8">
-										<select name="userName" ng-model="Action.userName" ng-options="u.id as u.name for u in app.Lookup.Users " class="form-control">
+										<select name="userName" ng-model="Action.userName" ng-options="u.name as u.name for u in app.Lookup.Users " class="form-control">
 											<option value=""> Responsible Person </option>
 										</select>
 									</div>
@@ -91,10 +91,10 @@
 								<div class="form-group">
 									<label class="col-sm-3 col-md-4"> Status </label>
 									<div class="col-xs-12 col-md-6">
-                              	                                        <select type="text" name="actionStatus" ng-model="VM.actionStatus" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
-                                        				<option selected value>Select Status</option>
-                                   					</select>
-                            					    </div>
+										<select type="text" name="actionStatus" ng-model="Action.actionStatus" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
+											<option selected value>Select Status</option>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
