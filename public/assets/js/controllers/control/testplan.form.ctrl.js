@@ -20,7 +20,7 @@
             testPlanDesc: "",
             testPlanFile: "",
             testPlanName: "",
-            filemodel: []
+            testplanFileModel: []
         };
 
         $scope.addControls = function(){
@@ -59,7 +59,7 @@
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
             $scope.VM.nextDueDateStr = $scope.VM.nextDueDate;
 
-            var fileModel = $scope.VM.filemodel;
+            var fileModel = $scope.VM.testplanFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;

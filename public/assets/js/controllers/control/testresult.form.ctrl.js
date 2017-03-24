@@ -8,7 +8,7 @@
 
         $scope.Form = {};
         $scope.VM = {
-            controlDataModel: [],
+            controlTestPlanModel: [],
             controlMethod: "",
             controlPriority: "",
             controlStatus: "",
@@ -31,7 +31,7 @@
             testPlans: "",
             testResultName: "",
             testResults: "",
-            filemodel: []
+            testresultFileModel: []
         };
 
 
@@ -49,9 +49,9 @@
         //     });
         // };
         $scope.addTestPlan = function(){
-            $scope.VM.controlDataModel = [];
+            $scope.VM.controlTestPlanModel = [];
             var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
-                cols =["testPlanName", "regionName", "controlStatus", "fileName", "dueDate", "controlPriority"];
+                cols =["testPlanName", "regionName", "controlStatus", "testPlanFile", "dueDate", "controlPriority"];
 
             $rootScope.app.Mask = true;
             ControlService.GetTestPlans(10, 1).then(function(data){
@@ -61,8 +61,7 @@
                 });
                 var controlModal = Utils.CreateSelectListView("Select Test Plans", data, headers, cols);
                 controlModal.result.then(function(list){
-                    console.log(list);
-                    $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
+                    $scope.VM.controlTestPlanModel = $scope.VM.controlTestPlanModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
             });
@@ -83,7 +82,7 @@
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
 
-            var fileModel = $scope.VM.filemodel;
+            var fileModel = $scope.VM.testresultFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
