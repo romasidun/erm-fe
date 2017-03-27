@@ -18,7 +18,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
 
         //$httpProvider.defaults.headers.common['Authorization'] = 'Basic dXNlcjo2aGYzOCElRFEwOTczNnYsMzIvZjg1QXhAIw==';
 
-        //$httpProvider.interceptors.push('APIInterceptor');
+        $httpProvider.interceptors.push('APIInterceptor');
 
         app.controller = $controllerProvider.register;
         app.directive = $compileProvider.directive;
