@@ -111,13 +111,19 @@
         DashboardService.GetDashboard().then(function(data){
             //$scope.Activities = data;
 
+            if($rootScope.currentUserInfo.role[0].roleDesc === 'RESPONSIBLE PARTY'){
+                data = $filter('filter')(data, {person: $rootScope.currentUserInfo.username}, true);
+            }
+
             $scope.Grid2.Total = data.length;
             $scope.Grid2.Data = data;
 
             setupCalendarEvents(data);
             return DashboardService.GetTasks();
         }).then(function(data){
-
+            if($rootScope.currentUserInfo.role[0].roleDesc === 'RESPONSIBLE PARTY'){
+                data = $filter('filter')(data, {alertRPerson: $rootScope.currentUserInfo.username}, true);
+            }
             $scope.Grid1.Total = data.length;
             $scope.Grid1.Data = data;
 

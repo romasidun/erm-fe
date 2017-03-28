@@ -2,7 +2,7 @@
  * Created by Roma on 03/01/2017.
  */
 
-app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHandler) {
+app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHandler, $filter) {
     // create user variable
     var user = null;
 
@@ -14,6 +14,11 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
         } else {
             return false;
         }
+    }
+
+    function getUserInfo() {
+        var userinfo = $localStorage.currentUserInfo;
+        return userinfo;
     }
 
     function getUserStatus() {
@@ -45,6 +50,12 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
                 if(data.status === 200 && data.data){
                     $localStorage.user = senddata;
                     user = true;
+
+                    APIHandler.Get('users')
+                        .then(function (res) {
+                            var tmpary = $filter('filter')(res, {username: senddata.username}, true);
+                            $localStorage.currentUserInfo = tmpary[0];
+                        });
                     deferred.resolve();
                 } else {
                     user = false;
@@ -53,6 +64,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
             })
             .catch(function (data) {
                 delete $localStorage.user;
+                delete $localStorage.currentUserInfo;
                 user = false;
                 deferred.reject();
             });
@@ -68,20 +80,8 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
 
         // send a get request to the server
         delete $localStorage.user;
-        $http.get('/user/logout')
-        // handle success
-            .success(function (data) {
-                user = false;
-                deferred.resolve();
-            })
-            // handle error
-            .error(function (data) {
-                user = false;
-                deferred.reject();
-            });
-
-        // return promise object
-        return deferred.promise;
+        delete $localStorage.currentUserInfo;
+        return;
 
     }
 
@@ -114,6 +114,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
     return ({
         isLoggedIn: isLoggedIn,
         getUserStatus: getUserStatus,
+        getUserInfo: getUserInfo,
         login: login,
         logout: logout,
         register: register

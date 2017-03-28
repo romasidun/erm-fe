@@ -206,12 +206,11 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
             var userinfo = AuthFactory.getUserStatus();
             $rootScope.user.name = userinfo.username;
 
-            var tmpary = $filter('filter')(users, {name: userinfo.username});
+            /*var tmpary = $filter('filter')(users, {name: userinfo.username});
 
             APIHandler.Get('users/' + tmpary[0].id).then(function (res) {
             	$rootScope.currentUserInfo = res;
-				console.log(res);
-            });
+            });*/
         }
 
 		return APIHandler.Get('roles');
@@ -220,17 +219,16 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
         return APIHandler.Get('assessmenttypes');
     }).then(function(ats){
 		$rootScope.app.Lookup.AssessTypes = ats;
-
-
 	});
+
+    $rootScope.currentUserInfo = AuthFactory.getUserInfo();
+    /*console.log($rootScope.currentUserInfo);*/
 
 	$rootScope.app.Lookup.Severity = [
         { key: 'Low', val: 'Low' },
     	{ key: 'Medium', val: 'Medium' },
         { key: 'High', val: 'High' }
 	];
-
-
 
 	/*
 	  --- Lookup Glossary ---
@@ -285,5 +283,10 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
     $scope.gotoUserDashboard = function(){
         $localStorage['UserState'] = 'user';
         $state.go('app.dashboard.main');
+    };
+
+    $scope.doLogout = function () {
+    	AuthFactory.logout();
+        $state.go('login.signin');
     };
 });
