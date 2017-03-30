@@ -70,6 +70,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
         // send a get request to the server
         delete $localStorage.user;
         delete $localStorage.currentUserInfo;
+        delete $localStorage.UserState;
         $rootScope.currentUserInfo = [];
         return;
 

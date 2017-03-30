@@ -74,7 +74,7 @@
                 <input type="radio" name="raBtn{{$index}}" ng-model="r.response" value="N">
             </td>
             <td style="">
-                <input type="number" min="0" ng-model="r.finding">
+                <input type="number" string-to-number min="0" ng-model="r.finding">
             </td>
             <td>
                 <textarea ng-model="r.comments"></textarea>

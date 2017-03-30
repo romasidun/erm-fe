@@ -47,9 +47,9 @@
                 .finally(function () {
                     ITRiskService.PutAction($stateParams.id, $scope.VM).then(function (res) {
                         if (res.status === 200)
-                            $state.go('app.itrisk.incident.update', {id: $scope.VM.rcsaId});
+                            $state.go('app.itrisk.incident.update', {id: $scope.VM.riskId});
                     }).finally(function () {
-                        $state.go('app.itrisk.incident.update', {id: $scope.VM.rcsaId});
+                        $state.go('app.itrisk.incident.update', {id: $scope.VM.riskId});
                     });
                 });
         };
@@ -58,11 +58,11 @@
             if ($scope.Form.ITAction.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
-                    $state.go('app.itrisk.incident.update', {id: $scope.VM.rcsaId});
+                    $state.go('app.itrisk.incident.update', {id: $scope.VM.riskId});
                 });
                 return false;
             }
-            $state.go('app.itrisk.incident.update', {id: $scope.VM.rcsaId});
+            $state.go('app.itrisk.incident.update', {id: $scope.VM.riskId});
         };
 
         ITRiskService.GetOneAction($stateParams.id).then(function (data) {

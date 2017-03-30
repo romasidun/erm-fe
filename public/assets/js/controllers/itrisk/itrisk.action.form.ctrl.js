@@ -21,7 +21,7 @@
             dueDate: "",
             modifiedBy: "",
             modifiedOn: "",
-            rcsaId: $stateParams.pid,
+            riskId: $stateParams.pid,
             riskType: "",
             userName: ""
         };

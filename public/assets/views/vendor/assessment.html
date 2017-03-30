@@ -82,7 +82,7 @@
                     <input type="checkbox" ng-click="vendorResponseVal('N',this,$event)"  name="N" ng-model="vrStinfoCT[$index].responseN">
                 </td>
                 <td style="">
-                    <input type="number" min="0" ng-model="vrStinfoCT[$index].findings">
+                    <input type="number" string-to-number min="0" ng-model="vrStinfoCT[$index].findings">
                 </td>
                 <td>
                     <textarea ng-model="vrStinfoCT[$index].comments"></textarea>

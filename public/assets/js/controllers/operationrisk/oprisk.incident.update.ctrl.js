@@ -172,7 +172,6 @@
         OPRiskService.GetRiskIncident($stateParams.id).then(function (data) {
             //console.log(data);
             $scope.VM = data;
-
             var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.identifiedDate);
             var d2 = moment($scope.VM.remeDate);

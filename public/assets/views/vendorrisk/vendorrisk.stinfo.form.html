@@ -96,7 +96,7 @@
                                 <div class="form-group"
                                      ng-class="{ 'has-error' : Form.VendorRisk.riskScore.$invalid && (!Form.VendorRisk.riskScore.$pristine || Form.VendorRisk.riskScore.$touched || Form.VendorRisk.riskScore.$submitted) }">
                                     <label> Overall Risk Score </label>
-                                    <input type="number" name="riskScore" min="0" ng-model="VM.riskScore"
+                                    <input type="number" string-to-number name="riskScore" min="0" ng-model="VM.riskScore"
                                            placeholder="Overall Risk Score " class="form-control" required>
                                 </div>
                             </div>

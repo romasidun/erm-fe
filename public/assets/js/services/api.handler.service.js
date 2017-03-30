@@ -13,7 +13,8 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
     APIHandler.prototype.Get = function get(url) {
         url = baseUrl + url;
         if (isDebug) console.info("Get: " + url);
-        var promise = $http.get(url), deferred = $q.defer();
+        var promise = $http.get(url);
+        var deferred = $q.defer();
         promise.then(function (res) {
             if (isDebug) console.log(res.data);
             deferred.resolve(res.data);
@@ -21,7 +22,8 @@ app.service('APIHandler', function ($rootScope, $http, $q, $base64, Utils) {
             if (isDebug) console.error(err);
             $rootScope.app.Mask = false;
             deferred.reject(err);
-        });
+        })
+
         return deferred.promise;
     };
 
