@@ -6,6 +6,8 @@
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Control Test Result";
 
+        $scope.isEdit = false;
+
         $scope.Form = {};
         $scope.VM = {
             controlTestPlanModel: [],
@@ -61,6 +63,7 @@
                 });
                 var controlModal = Utils.CreateSelectListView("Select Test Plans", data, headers, cols);
                 controlModal.result.then(function(list){
+                    $scope.isEdit = true;
                     $scope.VM.controlTestPlanModel = $scope.VM.controlTestPlanModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
@@ -109,7 +112,7 @@
         };
 
         $scope.cancelAction = function() {
-            if($scope.Form.TestResult.$dirty) {
+            if($scope.Form.TestResult.$dirty || $scope.isEdit) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function(){ $state.go('app.control.testresult.main'); });
                 return false;

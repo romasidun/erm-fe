@@ -10,6 +10,8 @@
     	$scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Upload a Sox Test Plan Assessment";
 
+        $scope.isEdit = false;
+
         $scope.Form = {};
 
         $scope.submitAction = function() {
@@ -41,7 +43,7 @@
         };
 
         $scope.cancelAction = function() {
-            if($scope.Form.SoxTp.$dirty) {
+            if($scope.Form.SoxTp.$dirty || $scope.isEdit) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function(){ $state.go('app.compliance.soxtp.main'); });
                 return false;
@@ -72,6 +74,7 @@
                 });
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function (list) {
+                    $scope.isEdit = true;
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;

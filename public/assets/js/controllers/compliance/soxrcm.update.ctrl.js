@@ -10,6 +10,8 @@
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Upload a SOX Risk Control Matrix";
 
+        $scope.isEdit = false;
+
         $scope.Form = {};
         $scope.submitAction = function () {
             if ($scope.Form.SoxRcm.$invalid) return false;
@@ -51,7 +53,7 @@
         };
 
         $scope.cancelAction = function () {
-            if ($scope.Form.SoxRcm.$dirty) {
+            if ($scope.Form.SoxRcm.$dirty || $scope.isEdit) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
                     $state.go('app.compliance.soxrcm.main');
@@ -85,6 +87,7 @@
                 });
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function (list) {
+                    $scope.isEdit = true;
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;

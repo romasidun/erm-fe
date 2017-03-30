@@ -13,6 +13,8 @@
 
         $scope.Form = {};
 
+        $scope.isEdit = false;
+
         $scope.VM = {
             controlDataModel: [],
             actualName: "",
@@ -69,7 +71,7 @@
         };
 
         $scope.cancelAction = function () {
-            if ($scope.Form.SoxRcm.$dirty) {
+            if ($scope.Form.SoxRcm.$dirty || $scope.isEdit) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
                     $state.go('app.compliance.soxrcm.main');
@@ -86,8 +88,6 @@
             } else {
                 $scope.RiskCategories.SelCount--;
             }
-
-            console.log($scope.RiskCategories.SelCount);
         };
 
         $scope.addControls = function () {
@@ -102,6 +102,7 @@
                 });
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function (list) {
+                    $scope.isEdit = true;
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;

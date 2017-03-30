@@ -11,6 +11,7 @@
         $scope.mainTitle = $state.current.title || 'loading';
         $scope.mainDesc = "Add new operational risk incident";
         $scope.isAction = false;
+        $scope.isEdit = false;
 
         $scope.Form = {};
         $scope.RiskCategories = {List: [], SelCount: 0};
@@ -121,6 +122,7 @@
                 });
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function (list) {
+                    $scope.isEdit = true;
                     $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
@@ -140,6 +142,7 @@
                 });
                 var polModal = Utils.CreateSelectListView("Select Policy Documents", data, headers, cols);
                 polModal.result.then(function (list) {
+                    $scope.isEdit = true;
                     $scope.VM.policiesData = $scope.VM.policiesData.concat(list);
                 });
                 $rootScope.app.Mask = false;
@@ -207,7 +210,7 @@
         };
 
         $scope.cancelAction = function () {
-            if ($scope.Form.OpIncident.$dirty) {
+            if ($scope.Form.OpIncident.$dirty || $scope.isEdit) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
                     $state.go('app.oprisk.incident.main');

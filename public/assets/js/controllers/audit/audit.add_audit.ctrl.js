@@ -7,6 +7,8 @@
         vm.mainTitle = $state.current.title;
         vm.mainDesc = "ADD AUDIT";
 
+        vm.isEdit = false;
+
         vm.formdata = {
             auditName: "",
             auditDesc: "",
@@ -32,7 +34,6 @@
             var d2 = moment(vm.formdata.dueDate);
             vm.formdata.dateOccurance = (d1.isValid()) ? d1.format(dtype) : '';
             vm.formdata.dueDate = (d2.isValid()) ? d2.format(dtype) : '';
-            console.log(vm.formdata);
             var fileModel = vm.formdata.auditFileModel;
             var d = new Date();
             var idd = 'Aud' + d.getTime();
@@ -72,6 +73,7 @@
                 });
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function (list) {
+                    vm.isEdit = true;
                     vm.formdata.controlDataModel = vm.formdata.controlDataModel.concat(list);
                 });
                 $rootScope.app.Mask = false;
@@ -91,6 +93,7 @@
                 });
                 var polModal = Utils.CreateSelectListView("Select Policy Documents", data, headers, cols);
                 polModal.result.then(function (list) {
+                    vm.isEdit = true;
                     vm.formdata.policies = vm.formdata.policies.concat(list);
                 });
                 $rootScope.app.Mask = false;
@@ -102,7 +105,7 @@
         };
 
         vm.cancelAction = function () {
-            if (vm.Form.addAudit.$dirty) {
+            if (vm.Form.addAudit.$dirty || vm.isEdit) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
                     $state.go('app.audit.main');
