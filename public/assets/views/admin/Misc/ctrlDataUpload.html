@@ -23,14 +23,13 @@
                             <div class="col-xs-12 text-left">
                                 <div class="form-group" ng-class="{'has-error': Form.CtrlDataUpload.fileupload.$dirty && Form.CtrlDataUpload.fileupload.$invalid }">
                                     <label> Files </label>
-                                    <input type="file" file-model="FileModel" multiple="multiple" name="fileupload" required/>
+                                    <input type="file" file-model="FileModel" name="fileupload" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="row margin-top-20">
                             <div class="col-xs-12 text-left">
                                 <button class="btn btn-squared btn-dark-red" ng-disabled="Form.CtrlDataUpload.$invalid" type="submit"><i class="fa fa-save"></i> Save </button>
-                                <a class="btn btn-squared btn-dark-blue" ng-click="cancelAction()" type="button"><i class="fa fa-times"></i>  Cancel </a>
                             </div>
                         </div>
                     </form>

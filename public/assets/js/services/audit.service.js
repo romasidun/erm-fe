@@ -32,7 +32,7 @@ app.service('AuditService', function(APIHandler){
     };
 
     this.GetTopicByAudit =  function(audit_id){
-        return APIHandler.Get('audittopic/topicssByAuditId/' + audit_id);
+        return APIHandler.Get('audittopic/topicsByAuditId/' + audit_id);
     };
 
     this.AddTopic = function(param){

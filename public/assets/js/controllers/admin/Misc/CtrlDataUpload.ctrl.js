@@ -83,7 +83,7 @@
             /*console.log($scope.VM);
             loadPage($scope.VM);
             return;*/
-            var fileModel = $scope.VM.auditFileModel;
+            var fileModel = $scope.FileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;
@@ -101,19 +101,6 @@
                     $state.go('app.itrisk.incident.main');
                 });
             });
-        };
-
-        $scope.cancelAction = function(){
-            alert('calcel');
-            return;
-            if($scope.Form.ITRisk.$dirty){
-                var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
-                confirm.result.then(function(){
-                    $state.go('app.itrisk.incident.main');
-                });
-                return false;
-            }
-            $state.go('app.itrisk.incident.main');
         };
 
         // ITRiskService.GetRim().then(function (data) {
