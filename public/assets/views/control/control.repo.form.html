@@ -26,33 +26,34 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Control Description </label>
-									<input type="text" name="controlDescription" ng-model="VM.controlDescription" placeholder="Operational Loss" class="form-control">
+									<input type="text" name="controlDescription" ng-model="VM.controlDescription" placeholder="Description" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Control Source </label>
-									<input type="text" name="controlSource" ng-model="VM.controlSource" placeholder="Description" class="form-control">
+									<input type="text" name="controlSource" ng-model="VM.controlSource" placeholder="Control Source" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Control Category </label>
 									<select name="controlCategory" ng-model="VM.controlCategory" class="form-control" ng-options="op.key as op.val for op in app.Lookup.LIST008">
-										<option value="Finance">Select Category</option>
+										<option value="">Select Category</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Control Version Number </label>
-									<input type="text" name="controlVersionNumber" ng-model="VM.controlVersionNumber" placeholder="Description" class="form-control">
+									<input type="number" name="controlVersionNumber" ng-model="VM.controlVersionNumber" placeholder="Version Number" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Control Active </label>
 									<select  name="active" ng-model="VM.active" class="form-control">
+										<option value="">Active</option>
 										<option value="Y">Yes</option>
 										<option value="N">No</option>
 									</select>

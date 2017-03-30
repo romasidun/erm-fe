@@ -16,7 +16,7 @@
 			<div class="panel panel-white no-radius">
 				<div class="panel-heading">
 					<div class="panel-tools">
-						<a class="btn btn-xs btn-dark-blue btn-squared" ng-click="do_download()"><i class="ti-download"></i> Download</a>
+						<a class="btn btn-xs btn-dark-blue btn-squared" ng-click="downloadExcel()"><i class="ti-download"></i> Download</a>
 						<a class="btn btn-xs btn-dark-blue btn-squared" ui-sref="app.control.repo.form"><i class="ti-plus"></i> Add</a>
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 							</thead>
 							<tbody>
 							<tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
-								<th><input type="checkbox"></th>
+								<th><input type="checkbox" ng-model="r.checked"></th>
 								<td>{{r.controlSource}}</td>
 								<td>{{r.controlCategory}}</td>
 								<td>{{r.controlName}}</td>

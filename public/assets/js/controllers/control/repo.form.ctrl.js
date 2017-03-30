@@ -47,7 +47,7 @@
             $scope.VM.controlEffectiveStartdateStr = $scope.VM.controlEffectiveStartdate;
             $scope.VM.controlEffectiveEnddateStr = $scope.VM.controlEffectiveEnddate;
 
-            var fileModel = $scope.VM.filemodel;
+            var fileModel = $scope.VM.controldataFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
             $scope.VM.key = idd;

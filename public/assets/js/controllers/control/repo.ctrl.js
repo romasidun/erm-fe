@@ -1,8 +1,8 @@
 (function () {
-    RepoController.$inject = ['$scope', '$rootScope', '$state', '$filter', 'ControlService', 'Utils', 'ExcelFactory', '$timeout'];
+    RepoController.$inject = ['$scope', '$rootScope', '$state', '$filter', 'ControlService', 'Utils', '$timeout'];
     app.controller('RepoCtrl', RepoController);
 
-    function RepoController($scope, $rootScope, $state, $filter, ControlService, Utils, ExcelFactory, $timeout) {
+    function RepoController($scope, $rootScope, $state, $filter, ControlService, Utils, $timeout) {
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Add Edit Search Delete & Download Controls";
 
@@ -59,39 +59,110 @@
 
         $scope.selectAll = function () {
             var chk = $scope.all_check;
-            $('.table>tbody').find('input:checkbox').each(function (i) {
-                this.checked = chk;
+            angular.forEach($scope.Grid1.Data, function (value, key) {
+                value.checked = chk;
             });
         }
 
-        $scope.do_download = function (e) {
-            var checkedRow = $('.table>tbody').find('input:checkbox:checked');
-            if (checkedRow.length < 1) {
-                alert('Please select at least one record');
-                return;
-            }
-            var tableHtml = '<table>';
-            tableHtml += '<tr>';
-            $('.table>thead>tr').find('th').slice(1, 7).each(function (i) {
-                tableHtml += '<td>' + $(this).html() + '</td>';
-            });
-            tableHtml += '</tr>';
+        $scope.downloadExcel = function () {
+            var data = {};
+            data.heights = [];
+            data.sheetName = "CONTROL REPOSITORY";
+            data.body = [];
 
-            checkedRow.each(function (i) {
-                tableHtml += '<tr>';
-                var tdObj = $(this).closest('tr').find('td');
-                tdObj.each(function (i) {
-                    tableHtml += '<td>' + $(this).html() + '</td>';
+            var head_txt = [
+                'Control Name',
+                'Control Desc',
+                'Control Source',
+                'Control Category',
+                'Control Version',
+                'Control Active',
+                'Business Process',
+                'Sub Process',
+                'Start Date',
+                'End Date',
+                'Control Type',
+                'Risk Type',
+                'Nature of Control',
+                'Control Frequency',
+                'Supporting IT Application',
+                'Control Owner',
+                'Control Test Plan',
+                'Control Ref ID',
+                'Control Definition'
+            ];
+            for (var i = 0; i < head_txt.length; i++) {
+                data.body.push({
+                    col: (+i + 2),
+                    row: 3,
+                    text: head_txt[i],
+                    font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true'},
+                    fill: {type: 'solid', fgColor: 'D9D4D1'},
+                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                    wrap: 'true',
+                    align: 'center'
                 });
-                tableHtml += '</tr>';
+            }
+            data.heights.push({row: 3, height: 30});
+
+            var num = 4;
+            var newData = $filter('filter')($scope.Grid1.Data, {checked: true});
+            if(newData.length < 1){
+                alert('Please select at least one record');
+                return false;
+            }
+            var newObj = []
+            angular.forEach(newData, function (obj, ind) {
+                newObj.push([
+                    obj.controlName,
+                    obj.controlDescription,
+                    obj.controlSource,
+                    obj.controlCategory,
+                    obj.controlVersionNumber,
+                    obj.active,
+                    obj.businessProcess,
+                    obj.subprocess,
+                    obj.controlEffectiveStartdateStr,
+                    obj.controlEffectiveEnddateStr,
+                    obj.controlType,
+                    obj.riskTypes,
+                    obj.natureOfControl,
+                    obj.controlFrequency,
+                    obj.supportingITApplication,
+                    obj.controlOwner,
+                    obj.controlTestPlan,
+                    obj.controlRefID,
+                    obj.controlDefinition
+                ]);
+                num++;
             });
-            tableHtml += '</table>';
-            var exportHref = ExcelFactory.tableToExcel(tableHtml, 'sheet1');
-            $timeout(function () {
-                location.href = exportHref;
-            }, 100); // trigger download
-            /*window.open('data:application/vnd.ms-excel,'+tableHtml);
-            e.preventDefault();*/
-        }
+
+            data.commonData = {
+                data: newObj,
+                font: {name: 'Calibri', sz: '11', family: '2', scheme: '-'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                wrap: 'true',
+                align: 'center',
+                height: 20,
+                srow: 4,
+                scol: 2
+            };
+
+            data.cols = 21;
+            data.rows = num * 1 + 2;
+
+            var wval = [10,50, 40, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15];
+            data.widths = [];
+            for (var i = 0; i < wval.length; i++) {
+                data.widths.push({col: +i + 1, width: wval[i]});
+            }
+
+            ControlService.DownloadExcel(data).then(function (response) {
+                var nodeUrl = $rootScope.app.NodeApi;
+                location.assign(nodeUrl+ '/downloadExcel/' + response.data);
+            }).catch(function (error) {
+                console.log('error!');
+            });
+        };
     }
 })();
