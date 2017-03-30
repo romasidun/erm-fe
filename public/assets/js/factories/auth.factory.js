@@ -2,7 +2,7 @@
  * Created by Roma on 03/01/2017.
  */
 
-app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHandler, $filter) {
+app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHandler, $filter, $rootScope) {
     // create user variable
     var user = null;
 
@@ -31,22 +31,10 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
         // create a new instance of deferred
         var deferred = $q.defer();
 
-        /*if(username === 'Alan' && password === 'Alan1234'){
-            user = { username: 'Alan', password: 'Alan1234' };
-            $localStorage.user = user;
-            deferred.resolve(user);
-        } else {
-            user = false;
-            $localStorage.user = user;
-            deferred.reject();
-        }*/
-
-
         // send a post request to the server
         var senddata = {username: username, password: password, pincode: pincode};
         APIHandler.Post('users/authenticate', senddata)
             .then(function (data) {
-                console.log(data);
                 if(data.status === 200 && data.data){
                     $localStorage.user = senddata;
                     user = true;
@@ -55,6 +43,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
                         .then(function (res) {
                             var tmpary = $filter('filter')(res, {username: senddata.username}, true);
                             $localStorage.currentUserInfo = tmpary[0];
+                            $rootScope.currentUserInfo = tmpary[0];
                         });
                     deferred.resolve();
                 } else {
@@ -81,6 +70,7 @@ app.factory('AuthFactory', function ($q, $timeout, $http, $localStorage, APIHand
         // send a get request to the server
         delete $localStorage.user;
         delete $localStorage.currentUserInfo;
+        $rootScope.currentUserInfo = [];
         return;
 
     }
