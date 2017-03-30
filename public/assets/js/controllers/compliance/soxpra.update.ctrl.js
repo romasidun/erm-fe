@@ -90,7 +90,7 @@
                     angular.isUndefined($scope.VM.regionName)? "" : $scope.VM.regionName + "",
                     "",
                     "Department",
-                    angular.isUndefined($scope.VM.department)? "" : $scope.VM.department[0].deptName + "",
+                    angular.isUndefined($scope.VM.business)? "" : $scope.VM.business + "",
                 ],
                 [
                     "Test Due Date",

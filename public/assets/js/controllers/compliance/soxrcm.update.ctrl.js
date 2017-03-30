@@ -123,14 +123,14 @@
                     angular.isUndefined($scope.VM.region) ? "" : $scope.VM.region + "",
                     "",
                     "Department",
-                    angular.isUndefined($scope.VM.department) ? "" : $scope.VM.department[0].deptName + "",
+                    angular.isUndefined($scope.VM.business) ? "" : $scope.VM.business + "",
                 ],
                 [
                     "Frequency",
                     angular.isUndefined($scope.VM.frequency) ? "" : $scope.VM.frequency + "",
                     "",
                     "Status",
-                    angular.isUndefined($scope.VM.status) ? "" : $scope.VM.status + "",
+                    angular.isUndefined($scope.VM.approval) ? "" : $scope.VM.approval + "",
                 ],
                 [
                     "Priority",
