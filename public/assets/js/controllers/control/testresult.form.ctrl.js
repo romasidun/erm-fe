@@ -1,8 +1,8 @@
 (function(){
-    TestResultFormController.$inject = ['$scope','$rootScope','$state', 'ControlService', 'Utils'];
+    TestResultFormController.$inject = ['$scope','$rootScope','$state', 'ControlService', 'Utils', '$filter'];
     app.controller('TestResultFormCtrl', TestResultFormController);
 
-    function TestResultFormController ($scope, $rootScope, $state, ControlService, Utils){
+    function TestResultFormController ($scope, $rootScope, $state, ControlService, Utils, $filter){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Control Test Result";
 
@@ -17,8 +17,8 @@
             createdOn: "",
             department: [{
                 area: "",
-                // deptId: "",
                 deptName: "",
+                deptId: "",
                 id: ""
             }],
             // id: "",
@@ -74,6 +74,8 @@
         $scope.submitAction = function() {
             if($scope.Form.TestResult.$invalid) return false;
 
+            $rootScope.app.Mask = true;
+
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.testCompletedDate);
             var d2 = moment($scope.VM.testDueDate);
@@ -81,6 +83,9 @@
             $scope.VM.testDueDate = (d2.isValid()) ? d2.format(dtype) : '';
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
+
+            var tmpdept = $filter('filter')($rootScope.app.Lookup.Departments, {id: $scope.VM.department[0].id}, true);
+            $scope.VM.department[0] = tmpdept[0];
 
             var fileModel = $scope.VM.testresultFileModel;
             var d = new Date();
@@ -96,7 +101,7 @@
                 }
             }).finally(function () {
                 ControlService.AddTestResults($scope.VM).then(function (res) {
-                    console.log('res',res);
+                    // console.log('res',res);
                 }).finally(function () {
                     $state.go('app.control.testresult.main');
                 });

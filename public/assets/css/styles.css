@@ -348,7 +348,7 @@ h5.over-title {
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 1089;
+  z-index: 1000;
   border: none;
   margin-bottom: 0;
   height: 65px;
@@ -10937,11 +10937,11 @@ td.small-width {
 }
 
 .modal-backdrop {
-  z-index: 9998 !important;
+  z-index: 9998;
 }
 
 .modal {
-  z-index: 9999 !important;
+  z-index: 9999;
 }
 
 .modal-content {

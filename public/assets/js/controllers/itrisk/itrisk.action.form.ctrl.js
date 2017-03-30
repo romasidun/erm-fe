@@ -21,7 +21,7 @@
             dueDate: "",
             modifiedBy: "",
             modifiedOn: "",
-            riskId: $stateParams.pid,
+            rcsaId: $stateParams.pid,
             riskType: "",
             userName: ""
         };
@@ -61,9 +61,9 @@
                 .finally(function () {
                     ITRiskService.PostAction($scope.VM).then(function (res) {
                         if (res.status === 200)
-                            $window.history.back();
+                            $state.go('app.itrisk.incident.update', {id: $stateParams.pid});
                     }).finally(function () {
-                        $window.history.back();
+                        $state.go('app.itrisk.incident.update', {id: $stateParams.pid});
                     });
                 });
         };
@@ -72,11 +72,11 @@
             if ($scope.Form.OpAction.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
-                    $window.history.back();
+                    $state.go('app.itrisk.incident.update', {id: $stateParams.pid});
                 });
                 return false;
             }
-            $window.history.back();
+            $state.go('app.itrisk.incident.update', {id: $stateParams.pid});
         };
 
         $rootScope.app.Mask = false;

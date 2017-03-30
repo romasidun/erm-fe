@@ -54,7 +54,7 @@
             // return;
             //
             dlTmpModal.result.then(function (updEquip) {
-                console.log("Done");
+
             });
         };
 
@@ -62,11 +62,9 @@
             .then(function (data) {
                 $rootScope.app.Mask = true;
                 ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'rcsaStatus');
-                console.log(data);
                 return OPRiskService.GetRSAPeriod();
             })
             .then(function (data) {
-                console.log(data);
                 ChartFactory.CreateMultiColChart('By Period', data, 'periodChart');
                 return OPRiskService.GetRSADept();
             })

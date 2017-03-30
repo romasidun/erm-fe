@@ -97,37 +97,23 @@
             });
         };
 
-        ComplianceService.GetSOXRCMStatus().then(function (data) {
-            ChartFactory.CreatePieChart('By Status', 'By Status', data, 'rcsaStatus');
-            // var rcsaChrt = [];
-            // Object.keys(data).forEach(function (k) {
-            //     rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
-            // });
-            // setupPieChart(rcsaChrt);
-            return ComplianceService.GetSOXRCMPeriod();
-        }).then(function (data) {
-            ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
-            return ComplianceService.GetSOXRCMDept();
-        }).then(function (data) {
-            ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
-            loadAssessments();
-        });
-
-
-        $scope.deleteAction = function (r) {
-            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
-            confirmation.result.then(function () {
-                console.log("U chose Yes");
-                $rootScope.app.Mask = true;
-                ComplianceService.DeleteSOXRCMAssessment(r.id).then(function (data) {
-                    if (data.status === 200) loadAssessments();
-                });
+        function loadContents() {
+            ComplianceService.GetSOXRCMStatus().then(function (data) {
+                ChartFactory.CreatePieChart('By Status', 'By Status', data, 'rcsaStatus');
+                // var rcsaChrt = [];
+                // Object.keys(data).forEach(function (k) {
+                //     rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
+                // });
+                // setupPieChart(rcsaChrt);
+                return ComplianceService.GetSOXRCMPeriod();
+            }).then(function (data) {
+                ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
+                return ComplianceService.GetSOXRCMDept();
+            }).then(function (data) {
+                ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
+                loadAssessments();
             });
-        };
-
-        $scope.editAction = function (r) {
-
-        };
+        }
 
         function loadAssessments() {
             ComplianceService.GetSOXRCMAssessments().then(function (data) {
@@ -138,6 +124,23 @@
                 $rootScope.app.Mask = false;
             });
         }
+
+        loadContents();
+
+        $scope.deleteAction = function (r) {
+            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
+            confirmation.result.then(function () {
+                console.log("U chose Yes");
+                $rootScope.app.Mask = true;
+                ComplianceService.DeleteSOXRCMAssessment(r.id).then(function (data) {
+                    if (data.status === 200) loadContents();
+                });
+            });
+        };
+
+        $scope.editAction = function (r) {
+
+        };
 
         function drawRegionChart() {
             if ($rootScope.app.Mask) return;

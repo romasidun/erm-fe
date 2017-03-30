@@ -99,24 +99,36 @@
             });
         };
 
+        function loadContents() {
+            ComplianceService.GetSOXPRAStatus().then(function (data) {
+                ChartFactory.CreatePieChart('By Status', 'By Status', data, 'rcsaStatus');
+                // var rcsaChrt = [];
+                // Object.keys(data).forEach(function (k) {
+                //     rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
+                // });
+                // setupPieChart(rcsaChrt);
+                return ComplianceService.GetSOXPRAPeriod();
+            }).then(function (data) {
+                ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
+                return ComplianceService.GetSOXPRADept();
+            }).then(function (data) {
+                // ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
+                ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
+                loadAssessments();
+            });
+        }
 
+        function loadAssessments() {
+            ComplianceService.GetSOXPRAAssessments().then(function (data) {
 
-        ComplianceService.GetSOXPRAStatus().then(function (data) {
-            ChartFactory.CreatePieChart('By Status', 'By Status', data, 'rcsaStatus');
-            // var rcsaChrt = [];
-            // Object.keys(data).forEach(function (k) {
-            //     rcsaChrt.push({key: Utils.camelizeString(k), val: data[k]});
-            // });
-            // setupPieChart(rcsaChrt);
-            return ComplianceService.GetSOXPRAPeriod();
-        }).then(function (data) {
-            ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
-            return ComplianceService.GetSOXPRADept();
-        }).then(function (data) {
-            // ChartFactory.CreateLabelChart('By Department', '', '', '', '', data, 'deptstacked');
-            ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
-            loadAssessments();
-        });
+                $scope.Grid1.Total = data.length;
+                $scope.Grid1.Data = data;
+
+                $rootScope.app.Mask = false;
+            });
+        }
+
+        loadContents();
 
         $scope.deleteAction = function (r) {
             var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
@@ -124,7 +136,7 @@
                 console.log("U chose Yes");
                 $rootScope.app.Mask = true;
                 ComplianceService.DeleteSOXPRAAssessment(r.id).then(function (data) {
-                    if (data.status === 200) loadAssessments();
+                    if (data.status === 200) loadContents();
                 });
             });
         };
@@ -132,17 +144,6 @@
         $scope.editAction = function (r) {
 
         };
-
-        function loadAssessments() {
-        	ComplianceService.GetSOXPRAAssessments().then(function (data) {
-
-        	    $scope.Grid1.Total = data.length;
-                $scope.Grid1.Data = data;
-
-                $rootScope.app.Mask = false;
-            });
-        }
-
 
         function setupStatusChart(data) {
             var opts = {

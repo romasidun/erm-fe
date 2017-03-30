@@ -25,12 +25,10 @@
             if($scope.selectedVType == ''){
                 $scope.selectedVType = risktype[0]['riskType'];
             }
-            console.log($scope.VRiskType);
         });
 
         $scope.setVType = function (vt) {
             $scope.selectedVType = vt;
-            console.log($scope.riskData);
             $scope.riskData = $filter('filter')($scope.riskDataOrigin, {riskSource: vt});
         };
         $scope.setVRisk = function (vr) {
@@ -46,7 +44,6 @@
         });
 
         function setupVRiskChart(data){
-            console.log(data);
             if(data.length < 1) {
                 $('#riskHeatMap').html('');
                 return;
@@ -63,7 +60,6 @@
                 ChartOpts.XCategories.push($scope.VendOpts[i]+'-ORW');
                 ChartOpts.XCategories.push($scope.VendOpts[i]+'-OFW');
             }
-            console.log(ChartOpts.XCategories);
 
             $scope.VendList[$scope.VendOpts[0]].forEach(function(li){
                 ChartOpts.YCategories.push(li.riskCategory);
@@ -77,8 +73,6 @@
                 ChartOpts.SeriesData.push({ y: yval, x: xval1, value: li.overallRiskWeight, color: cellColor(li.overallRiskWeight) });
                 ChartOpts.SeriesData.push({ y: yval, x: xval2, value: li.overallFindingWeight, color: cellColor(li.overallFindingWeight) });
             });
-
-            console.log(ChartOpts);
 
             ChartFactory.BuildHeatMap('riskHeatMap', ChartOpts);
         }
@@ -128,7 +122,6 @@
                 ChartOpts.XCategories.push($scope.VendOpts[i]+'-ORW');
                 ChartOpts.XCategories.push($scope.VendOpts[i]+'-OFW');
             }
-            console.log(ChartOpts.XCategories);
 
             $scope.VendList[$scope.VendOpts[0]].forEach(function(li){ 
                 ChartOpts.YCategories.push(li.riskCategory);
@@ -143,8 +136,6 @@
                 ChartOpts.SeriesData.push({ y: yval, x: xval2, value: li.overallFindingWeight, color: cellColor(li.overallFindingWeight) });
             });
 
-            console.log(ChartOpts);
-
             ChartFactory.BuildHeatMap('multiVendHeatMap', ChartOpts);
         }
 
@@ -158,13 +149,15 @@
                 SeriesData: []
             };
 
-            $scope.VendList[vend].reverse().forEach(function(li, i){
-                ChartOpts.YCategories.push(li.riskCategory);
-                XCategories.forEach(function(xc, j){
-                    ChartOpts.SeriesData.push({ y: i, x: j, value: li[xc], color: cellColor(li[xc]) });
+            if(angular.isArray($scope.VendList[vend])) {
+                $scope.VendList[vend].reverse().forEach(function (li, i) {
+                    ChartOpts.YCategories.push(li.riskCategory);
+                    XCategories.forEach(function (xc, j) {
+                        ChartOpts.SeriesData.push({y: i, x: j, value: li[xc], color: cellColor(li[xc])});
+                    });
                 });
-            });
-            ChartFactory.BuildHeatMap('vendorHeatMap', ChartOpts);
+                ChartFactory.BuildHeatMap('vendorHeatMap', ChartOpts);
+            }
         }
 
         function cellColor(val) {

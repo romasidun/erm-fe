@@ -127,6 +127,48 @@
                 });
         };
 
+
+        $scope.addAction = function () {
+            $state.go('app.oprisk.incident.addaction', {pid: $stateParams.id});
+        };
+
+        $scope.OpList = [5, 10, 25, 50, 100];
+        $scope.Grid1 = {
+            PerPage: 10,
+            CurrPage: 1,
+            Column: 'actionsName',
+            IsAsc: true,
+            Filter: "",
+            Total: 0,
+            Data: [],
+            SortMe: function(col){
+                if($scope.Grid1.Column === col)
+                    $scope.Grid1.IsAsc = !$scope.Grid1.IsAsc;
+                else
+                    $scope.Grid1.Column = col;
+            },
+            GetIco: function(col){
+                if($scope.Grid1.Column === col){
+                    return $scope.Grid1.IsAsc? 'fa-sort-up' : 'fa-sort-down';
+                } else {
+                    return 'fa-unsorted';
+                }
+            }
+        };
+        $scope.$watch('Grid1.Filter', function(n, o){
+            var searchedData = $filter('filter')($scope.Grid1.Data, $scope.Grid1.Filter);
+            $scope.Grid1.Total = searchedData.length;
+        });
+        $scope.deleteAction = function(r){
+            var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
+            confirmation.result.then(function () {
+                $rootScope.app.Mask = true;
+                OPRiskService.DeleteAction(r.id).then(function(data){
+                    if(data.status===200) loadActions($stateParams.id);
+                });
+            });
+        };
+
         OPRiskService.GetRiskIncident($stateParams.id).then(function (data) {
             //console.log(data);
             $scope.VM = data;
@@ -152,13 +194,17 @@
                 }
                 $scope.RiskCategories.List.push({Key: key, Label: data.categories[key], Selected: sel});
             });
-            $rootScope.app.Mask = false;
-        });
 
+            loadActions($stateParams.id);
+        })
 
-        $scope.addAction = function () {
-            $state.go('app.oprisk.incident.addaction', {pid: $stateParams.id});
-        };
-
+        function loadActions(id) {
+            OPRiskService.GetActionsByRiskId(id).then(function (data) {
+                $rootScope.app.Mask = true;
+                $scope.Grid1.Total = data.length;
+                $scope.Grid1.Data = data;
+                $rootScope.app.Mask = false;
+            });
+        }
     }
 })();

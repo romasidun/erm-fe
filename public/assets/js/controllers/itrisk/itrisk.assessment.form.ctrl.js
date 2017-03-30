@@ -55,7 +55,7 @@
                 })
                 .finally(function () {
                     ITRiskService.AddRam($scope.VM).then(function (res) {
-                        console.log('res', res);
+
                     }).finally(function () {
                         $state.go('app.itrisk.assessment.main');
                     });

@@ -124,16 +124,7 @@
             });
         };
 
-        ComplianceService.GetSOXTPStatus().then(function (data) {
-            ChartFactory.CreatePieChart('By Status', 'By Status', data, 'rcsaStatus');
-            return ComplianceService.GetSOXTPPeriod();
-        }).then(function (data) {
-            ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
-            return ComplianceService.GetSOXTPDept();
-        }).then(function (data) {
-            ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
-            loadAssessments();
-        });
+
 
         $scope.deleteAction = function (r) {
             var confirmation = Utils.CreateConfirmModal("Confirm Deletion", "Are u sure you want to delete the seleced item", "Yes", "No");
@@ -141,10 +132,23 @@
                 console.log("U chose Yes");
                 $rootScope.app.Mask = true;
                 ComplianceService.DeleteSOXTPAssessment(r.id).then(function (data) {
-                    if (data.status === 200) loadAssessments();
+                    if (data.status === 200) loadContents();
                 });
             });
         };
+
+        function loadContents() {
+            ComplianceService.GetSOXTPStatus().then(function (data) {
+                ChartFactory.CreatePieChart('By Status', 'By Status', data, 'rcsaStatus');
+                return ComplianceService.GetSOXTPPeriod();
+            }).then(function (data) {
+                ChartFactory.CreateMultiColChart('By period', data, 'periodChart');
+                return ComplianceService.GetSOXTPDept();
+            }).then(function (data) {
+                ChartFactory.CreatePieChart('By Department', 'By Department', data, 'deptstacked');
+                loadAssessments();
+            });
+        }
 
         function loadAssessments() {
             ComplianceService.GetSOXTPAssessments().then(function (data) {
@@ -155,6 +159,9 @@
                 $rootScope.app.Mask = false;
             });
         }
+
+        loadContents();
+
         function drawRegionChart() {
             if ($rootScope.app.Mask) return;
             var categories = [];

@@ -1,8 +1,8 @@
 (function(){
-    TestResultUpdateController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'ControlService', 'OPRiskService', 'Utils'];
+    TestResultUpdateController.$inject = ['$scope','$rootScope','$state', '$stateParams', 'ControlService', 'OPRiskService', 'Utils', '$filter'];
     app.controller('TestResultUpdateCtrl', TestResultUpdateController);
 
-    function TestResultUpdateController ($scope, $rootScope, $state, $stateParams, ControlService, OPRiskService, Utils){
+    function TestResultUpdateController ($scope, $rootScope, $state, $stateParams, ControlService, OPRiskService, Utils, $filter){
         $scope.mainTitle = $state.current.title;
         $scope.mainDesc = "Control Test Result";
 
@@ -33,6 +33,9 @@
 
         $scope.submitAction = function() {
             if($scope.Form.TestResult.$invalid) return false;
+
+            $rootScope.app.Mask = true;
+
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.testCompletedDate);
             var d2 = moment($scope.VM.testDueDate);
@@ -44,6 +47,9 @@
             $scope.VM.modifiedOnStr = (d4.isValid()) ? d4.format(dtype) : '';
             $scope.VM.testCompletedDateStr = $scope.VM.testCompletedDate;
             $scope.VM.testDueDateStr = $scope.VM.testDueDate;
+
+            var tmpdept = $filter('filter')($rootScope.app.Lookup.Departments, {id: $scope.VM.department[0].id}, true);
+            $scope.VM.department[0] = tmpdept[0];
 
             var fileModel = $scope.VM.testresultFileModel;
             var d = new Date();
@@ -58,7 +64,7 @@
                 }
             }).finally(function () {
                 ControlService.UpdateTestResults($stateParams.id, $scope.VM).then(function (res) {
-                    console.log('res',res);
+                    //console.log('res',res);
                 }).finally(function () {
                     $state.go('app.control.testresult.main');
                 });
@@ -76,7 +82,7 @@
 
         ControlService.GetTestResult($stateParams.id).then(function(data){
             $scope.VM = data;
-            console.log('$scope.VM.testCompletedDate',$scope.VM);
+            // console.log('$scope.VM.testCompletedDate',$scope.VM);
             var dtype = 'MM-DD-YYYY';
             var d1 = moment($scope.VM.testCompletedDate);
             var d2 = moment($scope.VM.testDueDate);

@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.OpAction.actionsDesc.$invalid && (!Form.OpAction.actionsDesc.$pristine || Form.OpAction.actionsDesc.$touched || Form.OpAction.actionsDesc.$submitted) }">
+                                <div class="form-group" ng-class="{ 'has-error' : Form.ITAction.actionsDesc.$invalid && (!Form.ITAction.actionsDesc.$pristine || Form.ITAction.actionsDesc.$touched || Form.ITAction.actionsDesc.$submitted) }">
                                     <label> Description </label>
                                     <input type="text" name="actionsDesc" ng-model="VM.actionsDesc" placeholder="Description" class="form-control" required>
                                 </div>
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.OpAction.dueDate.$invalid && (!Form.OpAction.dueDate.$pristine || Form.OpAction.dueDate.$touched || Form.OpAction.dueDate.$submitted) }">
+                                <div class="form-group" ng-class="{ 'has-error' : Form.ITAction.dueDate.$invalid && (!Form.ITAction.dueDate.$pristine || Form.ITAction.dueDate.$touched || Form.ITAction.dueDate.$submitted) }">
                                     <label> Due Date </label>
                                     <datepicker date-format="MM-dd-yyyy">
                                         <input type="text" name="dueDate" ng-model="VM.dueDate" placeholder="Due Date" class="form-control" required>
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <div class="form-group" ng-class="{ 'has-error' : Form.OpAction.actionStatus.$invalid && (!Form.OpAction.actionStatus.$pristine || Form.OpAction.actionStatus.$touched || Form.OpAction.actionStatus.$submitted) }">
+                                <div class="form-group" ng-class="{ 'has-error' : Form.ITAction.actionStatus.$invalid && (!Form.ITAction.actionStatus.$pristine || Form.ITAction.actionStatus.$touched || Form.ITAction.actionStatus.$submitted) }">
                                     <label> Status</label>
                                     <select type="text" name="actionStatus" ng-model="VM.actionStatus" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004" required>
                                         <option selected value>Select Status</option>

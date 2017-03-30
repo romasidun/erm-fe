@@ -27,7 +27,7 @@
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
                                         <label> Operational Loss </label>                                        
-                                        <input type="text" name="operational_loss" ng-model="VM.operationalLoss"  placeholder="Operational Loss" class="form-control">
+                                        <input type="number" name="operational_loss" ng-model="VM.operationalLoss"  placeholder="Operational Loss" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-6">
@@ -342,6 +342,61 @@
                             <a class="btn btn-squared btn-dark-blue" ng-click="cancelAction()"><i class="fa fa-times"></i>  Cancel</a>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="isAction">
+        <div class="col-md-12">
+            <div class="panel panel-white no-radius">
+                <div class="panel-heading">
+                    <h5>Actions</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                            <select id="PerPage" ng-model="Grid1.PerPage" ng-options="op as op for op in OpList" class="form-control input-sm"> </select>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-10 col-lg-11">
+                            <div class="form-group pull-right col-xs-12 col-sm-4 col-md-3">
+								<span class="input-icon">
+									<input type="text" ng-model="Grid1.Filter" placeholder="search" class="form-control input-sm" />
+									<i class="fa fa-search"></i>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-striped table-responsive col-xs-12">
+                            <thead>
+                            <tr class="sortable-headers">
+                                <th><input type="checkbox"></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='actionsName' }" ng-click="Grid1.SortMe('actionsName')"><i class="fa {{Grid1.GetIco('actionsName')}}"></i> Name</a></th>
+                                <th><a ng-class="{'text-azure': CurrCol==='actionsDesc' }" ng-click="Grid1.SortMe('actionsDesc')"><i class="fa {{Grid1.GetIco('actionsDesc')}}"></i> Desc</a></th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="r in Grid1.Data | orderBy: Grid1.Column:Grid1.IsAsc | filter: Grid1.Filter |  limitTo : Grid1.PerPage : (Grid1.CurrPage -1) * Grid1.PerPage">
+                                <th><input type="checkbox"></th>
+                                <td>{{r.actionsName}}</td>
+                                <td>{{r.actionsDesc}}</td>
+                                <td>
+                                    <a ui-sref="app.oprisk.incident.updateaction({ id: r.id })" class="btn btn-xs btn-squared btn-dark-azure"><i class="ti-pencil"></i></a>
+                                    <a ng-click="deleteAction(r)" class="btn btn-xs btn-squared btn-red"><i class="ti-trash"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-xs-12 col-sm-5">
+                            Showing {{(Grid1.CurrPage -1) * Grid1.PerPage + 1}} to {{ ((Grid1.CurrPage * Grid1.PerPage) >  Grid1.Total) ?  Grid1.Total : (Grid1.CurrPage * Grid1.PerPage); }} of {{Grid1.Total}} entries
+                        </div>
+                        <div class="col-xs-12 col-sm-7 pagination-right">
+                            <ul uib-pagination total-items="Grid1.Total" items-per-page="Grid1.PerPage" ng-model="Grid1.CurrPage" max-size="5" class="pagination-sm" boundary-link-numbers="true"></ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

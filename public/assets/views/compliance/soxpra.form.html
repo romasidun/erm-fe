@@ -56,7 +56,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Status</label>
-									<select type="text" name="status" ng-model="VM.approval" class="form-control" ng-options="st.key as st.val for st in app.Lookup.LIST004">
+									<select type="text" name="status" ng-model="VM.approval" class="form-control" ng-options="st.val as st.val for st in app.Lookup.LIST004">
 										<option selected value>Select Status</option>
 									</select>
 								</div>
@@ -72,7 +72,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Responsible Person </label>
-									<select type="text" name="resPerson" ng-model="VM.resPerson" class="form-control" ng-options="op.id as op.name for op in app.Lookup.Users">
+									<select type="text" name="resPerson" ng-model="VM.resPerson" class="form-control" ng-options="op.name as op.name for op in app.Lookup.Users">
 										<option selected value>Select Person</option>
 									</select>
 								</div>

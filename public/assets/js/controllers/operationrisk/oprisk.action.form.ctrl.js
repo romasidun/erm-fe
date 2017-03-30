@@ -40,10 +40,7 @@
         $scope.submitAction = function () {
             if ($scope.Form.OpAction.$invalid || $scope.Form.OpAction.pristine) return false;
 
-            /*var fileModel = $scope.VM.actionfileModel;
-             OPRiskService.FileUpload($stateParams.id, fileModel).then(function (res) {
-             console.log(res);
-             });*/
+            $rootScope.app.Mask = true;
 
             var dtype = 'YYYY-MM-DD';
             var d1 = moment($scope.VM.dueDate);
@@ -66,9 +63,9 @@
                 .finally(function () {
                     OPRiskService.PostAction($scope.VM).then(function (res) {
                         if (res.status === 200)
-                            $window.history.back();
+                            $state.go('app.oprisk.incident.update', {id: $stateParams.pid});
                     }).finally(function () {
-                        $window.history.back();
+                        $state.go('app.oprisk.incident.update', {id: $stateParams.pid});
                     });
                 });
         };
@@ -77,11 +74,11 @@
             if ($scope.Form.OpAction.$dirty) {
                 var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
                 confirm.result.then(function () {
-                    $window.history.back();
+                    $state.go('app.oprisk.incident.update', {id: $stateParams.pid});
                 });
                 return false;
             }
-            $window.history.back();
+            $state.go('app.oprisk.incident.update', {id: $stateParams.pid});
         };
 
         $rootScope.app.Mask = false;

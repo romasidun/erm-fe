@@ -141,6 +141,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             icon: 'ti-layout-media-left-alt',
             controller: 'OprActionFormCtrl',
             resolve: loadSequence('OprActionFormCtrl')
+        }).state('app.oprisk.incident.updateaction', {
+            url: '/updateaction/:id',
+            templateUrl: "assets/views/operationrisk/oprisk.action.form.html",
+            title: 'Update Action',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'OprActionUpdateCtrl',
+            resolve: loadSequence('OprActionUpdateCtrl')
         }).state('app.oprisk.assessment', {
             url: '/assessment',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -286,6 +293,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$contr
             controller: 'ITRiskActionFormCtrl',
             controllerAs: 'vm',
             resolve: loadSequence('ITRiskActionFormCtrl')
+        }).state('app.itrisk.incident.updateaction', {
+            url: '/updateaction/:id',
+            templateUrl: "assets/views/itrisk/itrisk.action.form.html",
+            title: 'Update Action',
+            icon: 'ti-layout-media-left-alt',
+            controller: 'ITRiskActionUpdateCtrl',
+            controllerAs: 'vm',
+            resolve: loadSequence('ITRiskActionUpdateCtrl')
         }).state('app.itrisk.assessment', {
             url: '/assessment',
             template: '<div ui-view class="fade-in-up"></div>',

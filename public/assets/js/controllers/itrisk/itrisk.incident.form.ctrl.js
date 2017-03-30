@@ -111,6 +111,8 @@
                 return false;
             }
 
+            $rootScope.app.Mask = true;
+
             angular.forEach($scope.RiskCategories.List, function(val, key){
                 if(val.Selected == true){
                     $scope.VM.riskCategory = $scope.VM.riskCategory + val.Label + ",";
@@ -124,7 +126,6 @@
             var d2 = moment($scope.VM.remeDate);
             $scope.VM.identifiedDate = (d1.isValid()) ? d1.format(dtype) : '';
             $scope.VM.remeDate = (d2.isValid()) ? d2.format(dtype) : '';
-            console.log('$scope.VM$scope.VM',$scope.VM);
             var fileModel = $scope.VM.auditFileModel;
             var d = new Date();
             var idd = 'Pol' + d.getTime();
@@ -138,7 +139,7 @@
                 }
             }).finally(function () {
                 ITRiskService.AddRim($scope.VM).then(function (res) {
-                    console.log('res',res);
+                    // console.log('res',res);
                 }).finally(function () {
                     $state.go('app.itrisk.incident.main');
                 });

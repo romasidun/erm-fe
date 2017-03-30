@@ -92,11 +92,11 @@ function excelGenerator(path, data, callback) {
     }
 
     sheet1.width(1,21);
-    sheet1.width(2,14);
-    sheet1.width(3,17);
+    sheet1.width(2,20);
+    sheet1.width(3,25);
     sheet1.width(4,20);
     sheet1.width(5,24);
-    sheet1.width(6,15);
+    sheet1.width(6,25);
     sheet1.width(7,16);
 
     // Save it

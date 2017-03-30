@@ -73,7 +73,7 @@
      Template Download Modal Controller
      ----------------------------------
      */
-    app.controller('SelectListCtrl', function($scope, $rootScope, $filter, $uibModalInstance, items){
+    app.controller('SelectListCtrl', function($scope, $rootScope, $filter, $uibModalInstance, items, Utils){
         $rootScope.app.CurrentModal = $uibModalInstance;
 
         $scope.Title = items.Title;
@@ -90,7 +90,16 @@
         };
 
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
+            var selection = $filter('filter')($scope.List, { Selected: true });
+
+            if(selection.length > 0){
+                var confirm = Utils.CreateConfirmModal("Confirmation", "Do you want to cancel and if yes you should go back to previous screen", "Yes", "No");
+                confirm.result.then(function () {
+                    $uibModalInstance.dismiss('cancel');
+                });
+            } else {
+                $uibModalInstance.dismiss('cancel');
+            }
         };
 
         $('.modal-content').keyup(function (e) {

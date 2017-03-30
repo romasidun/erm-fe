@@ -59,7 +59,6 @@ app.service('ControlService', function ($rootScope, APIHandler, Utils) {
     };
 
     this.UpdateTestResults = function (id, params) {
-        console.log('paramsparams',params);
         return APIHandler.Put('crtls/testResults/' + id, params);
     };
 
@@ -99,8 +98,8 @@ app.service('ControlService', function ($rootScope, APIHandler, Utils) {
         return APIHandler.Get('crtls/testPlans/source');
     };
 
-    this.DTExcelDownload = function (param) {
-        return APIHandler.Excel('/control_xlsx', param);
+    this.DownloadExcel = function (params) {
+        return APIHandler.Excel('/createExcel', params);
     };
 
     this.FileUpload = function (idd, fileModel) {

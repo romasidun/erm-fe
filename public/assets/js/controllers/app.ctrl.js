@@ -261,8 +261,6 @@ app.controller('AppCtrl', function($rootScope, $scope, $state, $location, $local
     // });
 
 
-
-
 	/*
 	* User's event handling
 	* */

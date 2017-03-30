@@ -31,7 +31,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="form-group">
 									<label> Department </label>
-									<select name="controlCategory" ng-model="VM.department[0]" ng-options="d as d.deptName for d in app.Lookup.Departments" class="form-control">
+									<select name="controlCategory" ng-model="VM.department[0].deptId" ng-options="d.deptId as d.deptName for d in app.Lookup.Departments" class="form-control">
 										<option value="">Select Department</option>
 									</select>
 								</div>
