@@ -85,6 +85,7 @@
         };
 
         function loadRam() {
+            console.log(111111111111);
             ITRiskService.GetRam().then(function (data) {
                 data.forEach(function (r) {
                     r.IDate = Utils.createDate(r.modifiedOn);
@@ -93,6 +94,7 @@
                 $scope.Grid1.Total = data.length;
                 $scope.Grid1.Data = data;
 
+            }).finally(function () {
                 $rootScope.app.Mask = false;
             });
         }
