@@ -85,8 +85,10 @@
         };
 
         $scope.downloadExcel = function () {
+            console.log($scope.VM.controlDataModel);
+
             var tmpdept = $filter('filter')($rootScope.app.Lookup.Departments, {deptId: $scope.VM.department[0].deptId}, true);
-            $scope.VM.department[0] = (tmpdept.length > 0) ? tmpdept[0] : {deptId:'', deptName:''};
+            $scope.VM.department[0] = (typeof tmpdept !== 'undefined' && tmpdept.length > 0) ? tmpdept[0] : {deptId:'', deptName:''};
 
             var data = {};
             data.heights = [];
@@ -139,7 +141,27 @@
                 data.heights.push({row: (+i+2), height: 30});
             }
 
-            var head_txt = ['Control Category', 'Control Name', 'Control ID', 'Control Source', 'Business Process', 'Owner', 'status'];
+            var head_txt = [
+                'Control Name',
+                'Control Desc',
+                'Control Source',
+                'Control Category',
+                'Control Version',
+                'Control Active',
+                'Business Process',
+                'Sub Process',
+                'Start Date',
+                'End Date',
+                'Control Type',
+                'Risk Type',
+                'Nature of Control',
+                'Control Frequency',
+                'Supporting IT Application',
+                'Control Owner',
+                'Control Test Plan',
+                'Control Ref ID',
+                'Control Definition'
+            ];
             for (var i = 0; i < head_txt.length; i++) {
                 data.body.push({
                     col: (+i + 1),
@@ -154,20 +176,32 @@
             data.heights.push({row: 7, height: 30});
 
             var control_data = $scope.VM.controlDataModel;
-            var newObj = []
             var num = 8;
-            for(var i in control_data){
+            var newObj = []
+            angular.forEach(control_data, function (obj, ind) {
                 newObj.push([
-                    control_data[i].controlCategory+"",
-                    control_data[i].controlName+"",
-                    control_data[i].id + "",
-                    control_data[i].controlSource + "",
-                    control_data[i].businessProcess + "",
-                    control_data[i].controlOwner + "",
-                    angular.isUndefined($scope.VM.testStatus)? "" : $scope.VM.testStatus + ""
+                    obj.controlName,
+                    obj.controlDescription,
+                    obj.controlSource,
+                    obj.controlCategory,
+                    obj.controlVersionNumber,
+                    obj.active,
+                    obj.businessProcess,
+                    obj.subprocess,
+                    moment(obj.controlEffectiveStartdateStr).format('MM-DD-YYYY'),
+                    moment(obj.controlEffectiveEnddateStr).format('MM-DD-YYYY'),
+                    obj.controlType,
+                    obj.riskTypes,
+                    obj.natureOfControl,
+                    obj.controlFrequency,
+                    obj.supportingITApplication,
+                    obj.controlOwner,
+                    obj.controlTestPlan,
+                    obj.controlRefID,
+                    obj.controlDefinition
                 ]);
                 num++;
-            }
+            });
 
             data.commonData = {
                 data: newObj,
@@ -179,10 +213,10 @@
                 scol: 1
             };
 
-            data.cols = 7;
+            data.cols = 21;
             data.rows = num * 1 + 2;
 
-            var wval = [21, 20, 25, 20, 24, 25, 25, 16];
+            var wval = [30, 30, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15];
             data.widths = [];
             for (var i = 0; i < wval.length; i++) {
                 data.widths.push({col: +i + 1, width: wval[i]});

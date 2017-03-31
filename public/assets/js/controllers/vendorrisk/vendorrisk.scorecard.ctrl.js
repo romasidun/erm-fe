@@ -149,7 +149,7 @@
                 SeriesData: []
             };
 
-            if(angular.isArray($scope.VendList[vend])) {
+            if(angular.isArray($scope.VendList[vend]) && $scope.VendList[vend].length > 0) {
                 $scope.VendList[vend].reverse().forEach(function (li, i) {
                     ChartOpts.YCategories.push(li.riskCategory);
                     XCategories.forEach(function (xc, j) {

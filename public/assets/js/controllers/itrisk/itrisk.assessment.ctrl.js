@@ -33,20 +33,19 @@
             $scope.Grid1.Total = searchedData.length;
         });
 
-        ITRiskService.GetRamStatus().then(function (data) {
-            ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'statusChart');
-            // setupPieChart(data);
-            return ITRiskService.GetRamPeriod();
-        }).then(function (data) {
-            ChartFactory.CreateMultiColChart('By Period', data, periodChart);
-            // setupPeriodChart(data);
-            return ITRiskService.GetRamDept();
-        }).then(function (data) {
-            //ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptChart');
-            ChartFactory.CreatePieChart('By Department', 'Risk Type Severity', data, 'deptChart');
-            // setupDeptChart(data);
-            loadRam();
-        });
+        function loadRam() {
+            ITRiskService.GetRam().then(function (data) {
+                data.forEach(function (r) {
+                    r.IDate = Utils.createDate(r.modifiedOn);
+                });
+
+                $scope.Grid1.Total = data.length;
+                $scope.Grid1.Data = data;
+
+            }).finally(function () {
+                $rootScope.app.Mask = false;
+            });
+        }
 
         $scope.downloadTemp = function () {
             var dlTmpModal = $uibModal.open({
@@ -62,10 +61,9 @@
                     }
                 }
             });
-            console.log('dlTmpModal', dlTmpModal);
 
             dlTmpModal.result.then(function (updEquip) {
-                console.log("Done");
+
             });
         };
 
@@ -79,25 +77,6 @@
                 });
             });
         };
-
-        $scope.editAction = function (r) {
-
-        };
-
-        function loadRam() {
-            console.log(111111111111);
-            ITRiskService.GetRam().then(function (data) {
-                data.forEach(function (r) {
-                    r.IDate = Utils.createDate(r.modifiedOn);
-                });
-
-                $scope.Grid1.Total = data.length;
-                $scope.Grid1.Data = data;
-
-            }).finally(function () {
-                $rootScope.app.Mask = false;
-            });
-        }
 
         function drawRegionChart() {
             if ($rootScope.app.Mask) return;
@@ -145,5 +124,19 @@
             drawRegionChart();
         });
 
+        ITRiskService.GetRamStatus().then(function (data) {
+            ChartFactory.CreatePieChart('Risk Type Severity', 'Risk Type Severity', data, 'statusChart');
+            // setupPieChart(data);
+            return ITRiskService.GetRamPeriod();
+        }).then(function (data) {
+            ChartFactory.CreateMultiColChart('By Period', data, periodChart);
+            // setupPeriodChart(data);
+            return ITRiskService.GetRamDept();
+        }).then(function (data) {
+            //ChartFactory.CreateLabelChart('By Department', 'Risk Type Severity', '', '', '', data, 'deptChart');
+            ChartFactory.CreatePieChart('By Department', 'Risk Type Severity', data, 'deptChart');
+            // setupDeptChart(data);
+            loadRam();
+        });
     }
 })();

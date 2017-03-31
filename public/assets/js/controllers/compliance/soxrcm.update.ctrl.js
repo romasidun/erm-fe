@@ -96,22 +96,12 @@
         $scope.removeItem = function (type, idx) {
             $scope.VM[type].splice(idx, 1);
         };
+
         $scope.downloadExcel = function () {
             var data = {};
             data.sheetName = "Risk Control Matrix";
+            data.heights = [];
             data.body = [];
-
-            var head_txt = ['Control Category', 'Control Name', 'Control ID', 'Control Source', 'Business Process', 'Owner', 'status'];
-            for (var i = 0; i < head_txt.length; i++) {
-                data.body.push({
-                    col: (+i + 1),
-                    row: 6,
-                    text: head_txt[i],
-                    font: {name: 'Calibri', sz: '13', family: '2', scheme: '-', bold: 'true'},
-                    fill: {type: 'solid', fgColor: '666666'},
-                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-                });
-            }
 
             var inputdata = [
                 [
@@ -156,44 +146,94 @@
                         col: +j + 2,
                         row: +i + 1,
                         text: inputdata[i][j],
+                        font: {name: 'Calibri', sz: '11', family: '3', scheme: '-', bold: 'true',iter:'true'},
+                        border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                        wrap: 'true',
                         fill: {type: 'solid', fgColor: '99b8ca'}
                     });
                 }
+                data.heights.push({row: (+i+1), height: 30});
             }
 
-
-            var control_data = $scope.VM.controlDataModel;
-            var fieldAry = ['controlCategory', 'controlName', 'id', 'controlSource', 'businessProcess', 'controlOwner'];
-            var status = angular.isUndefined($scope.VM.testStatus) ? "" : $scope.VM.testStatus + "";
-            for (var i in control_data) {
-                for (var j = 0; j < fieldAry.length; j++) {
-                    data.body.push({
-                        col: +j + 1,
-                        row: +i + 7,
-                        text: control_data[i][fieldAry[j]],
-                        border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
-                    });
-                }
+            var head_txt = [
+                'Control Name',
+                'Control Desc',
+                'Control Source',
+                'Control Category',
+                'Control Version',
+                'Control Active',
+                'Business Process',
+                'Sub Process',
+                'Start Date',
+                'End Date',
+                'Control Type',
+                'Risk Type',
+                'Nature of Control',
+                'Control Frequency',
+                'Supporting IT Application',
+                'Control Owner',
+                'Control Test Plan',
+                'Control Ref ID',
+                'Control Definition'
+            ];
+            for (var i = 0; i < head_txt.length; i++) {
                 data.body.push({
-                    col: +j + 1,
-                    row: +i + 7,
-                    text: status,
-                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'}
+                    col: (+i + 1),
+                    row: 6,
+                    text: head_txt[i],
+                    font: {name: 'Calibri', sz: '11', family: '3', scheme: '-'},
+                    fill: {type: 'solid', fgColor: '99b8ca'},
+                    border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                    wrap: 'true'
                 });
             }
-            data.cols = +j + 5;
-            data.rows = +i + 12;
+            data.heights.push({row: 6, height: 30});
 
+            var control_data = $scope.VM.controlDataModel;
+            var num = 7;
+            var newObj = []
+            angular.forEach(control_data, function (obj, ind) {
+                newObj.push([
+                    obj.controlName,
+                    obj.controlDescription,
+                    obj.controlSource,
+                    obj.controlCategory,
+                    obj.controlVersionNumber,
+                    obj.active,
+                    obj.businessProcess,
+                    obj.subprocess,
+                    moment(obj.controlEffectiveStartdateStr).format('MM-DD-YYYY'),
+                    moment(obj.controlEffectiveEnddateStr).format('MM-DD-YYYY'),
+                    obj.controlType,
+                    obj.riskTypes,
+                    obj.natureOfControl,
+                    obj.controlFrequency,
+                    obj.supportingITApplication,
+                    obj.controlOwner,
+                    obj.controlTestPlan,
+                    obj.controlRefID,
+                    obj.controlDefinition
+                ]);
+                num++;
+            });
+
+            data.commonData = {
+                data: newObj,
+                font: {name: 'Calibri', sz: '11', family: '2', scheme: '-'},
+                border: {left: 'thin', top: 'thin', right: 'thin', bottom: 'thin'},
+                wrap: 'true',
+                height: 30,
+                srow: 7,
+                scol: 1
+            };
+
+            data.cols = 21;
+            data.rows = num * 1 + 2;
+
+            var wval = [30, 30, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15];
             data.widths = [];
-            for (var c = 1; c <= data.cols; c++) {
-                data.widths.push({col: c, width: 25});
-            }
-            data.widths[1].width = 45;
-            data.widths[2].width = 35;
-
-            data.heights = [];
-            for (var r = 1; r <= data.rows; r++) {
-                data.heights.push({row: r, height: 25});
+            for (var i = 0; i < wval.length; i++) {
+                data.widths.push({col: +i + 1, width: wval[i]});
             }
 
             ComplianceService.DownloadExcel(data).then(function (response) {
