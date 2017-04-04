@@ -89,9 +89,7 @@
 
             //init Single Vendor Chart
             $scope.CurrVendor  = $scope.VendOpts[0];
-            $scope.$watch('CurrVendor', function(nv){
-                setupVendorChart(nv);
-            });
+
 
             //MultiVendor Chart load
             setupMultiVendChart(data);
@@ -108,7 +106,9 @@
             if(nv) setupVendorChart(nv);
         });
 
+
         function setupMultiVendChart(data){
+            if($scope.VendOpts.length < 1) return;
             var XCategories = ['overallRiskWeight', 'overallFindingWeight'];
             var ChartOpts = {
                 Title: 'Multi-Vendor Risk  Ratings',
@@ -123,7 +123,8 @@
                 ChartOpts.XCategories.push($scope.VendOpts[i]+'-OFW');
             }
 
-            $scope.VendList[$scope.VendOpts[0]].forEach(function(li){ 
+
+            $scope.VendList[$scope.VendOpts[0]].forEach(function(li){
                 ChartOpts.YCategories.push(li.riskCategory);
             });
 
