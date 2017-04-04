@@ -25,21 +25,21 @@
                     <div class="form-group">
 						<span class="input-icon">
 							<input type="text" class="form-control" name="username" ng-model="vm.creds.username"
-                                   placeholder="Username" focus="true">
+                                   placeholder="Username" focus="true" tabindex="1">
 							<i class="fa fa-user"></i>
 						</span>
                     </div>
                     <div class="form-group form-actions">
 						<span class="input-icon">
 							<input type="password" class="form-control password" name="password"
-                                   ng-model="vm.creds.password" placeholder="Password">
+                                   ng-model="vm.creds.password" placeholder="Password" tabindex="2">
 							<i class="fa fa-lock"></i>
 							<a class="forgot" ui-sref="login.forgot"> I forgot my password </a> </span>
                     </div>
                     <div class="form-group form-actions" ng-class="{ 'has-error' : vm.form.signin.pincode.$invalid && !vm.form.signin.pincode.$pristine }">
 						<span class="input-icon">
 							<input type="password" class="form-control" name="pincode"
-                                   ng-model="vm.creds.pincode" placeholder="Pin Code" ng-pattern="/^[1-9]{1}[0-9]{5}$/" required>
+                                   ng-model="vm.creds.pincode" placeholder="Pin Code" ng-pattern="/^[1-9]{1}[0-9]{5}$/" required tabindex="3">
 							<i class="fa fa-keyboard-o"></i>
                         </span>
                         <p ng-show="vm.form.signin.pincode.$invalid && !vm.form.signin.pincode.$pristine"
@@ -47,14 +47,14 @@
                     </div>
                     <div class="form-actions">
                         <div class="checkbox clip-check check-primary">
-                            <input type="checkbox" id="remember" value="1">
+                            <input type="checkbox" id="remember" value="1" tabindex="4">
                             <label for="remember"> Keep me signed in </label>
                         </div>
                     </div>
                     <div>
                         <div class="pull-right">
                             <button type="submit" ng-disabled="vm.form.signin.$invalid"
-                                    class="btn btn-primary"> Login <i class="fa fa-arrow-circle-right"></i></button>
+                                    class="btn btn-primary" tabindex="5"> Login <i class="fa fa-arrow-circle-right"></i></button>
                             <!--<a class="btn btn-primary" ng-click="vm.signin=false"> Sign Up <i
                                     class="fa fa-arrow-circle-up"></i></a>-->
                         </div>
