@@ -25,7 +25,7 @@
                     <div class="form-group">
 						<span class="input-icon">
 							<input type="text" class="form-control" name="username" ng-model="vm.creds.username"
-                                   placeholder="Username">
+                                   placeholder="Username" focus="true">
 							<i class="fa fa-user"></i>
 						</span>
                     </div>
@@ -74,7 +74,7 @@
                     <div class="form-group" ng-class="{ 'has-error' : vm.form.signup.regUserName.$invalid && !vm.form.signup.regUserName.$pristine }">
                         <label for="regUserName">UserName</label>
                         <input type="text" ng-model="vm.regs.username" class="form-control" id="regUserName"
-                               name="regUserName" placeholder="Enter Username" required>
+                               name="regUserName" placeholder="Enter Username" focus="true" required>
                         <p ng-show="vm.form.signup.regUserName.$invalid && !vm.form.signup.regUserName.$pristine"
                            class="help-block">You name is required.</p>
                     </div>
