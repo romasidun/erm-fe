@@ -13,8 +13,21 @@
 
         $scope.submitAction = function() {
             if($scope.Form.Audit.$invalid) return false;
-            AuditService.ReviewAction($stateParams.id, $scope.Action).then(function (res) {
-                if(res.status===200) $state.go('app.dashboard.main');
+
+            var fileModel = $scope.Action.actionfileModel;
+            var d = new Date();
+            var idd = 'Top' + d.getTime();
+            AuditService.ActionFileUpload(idd, fileModel).then(function(res){
+                if(res.status === 200) {
+                    for (var i in fileModel) {
+                        fileModel[i].id = res.data.fileId;
+                        fileModel[i].filePath = res.data.path;
+                    }
+                }
+            }).finally(function () {
+                AuditService.ReviewAction($stateParams.id, $scope.Action).then(function (res) {
+                    //if(res.status===200) $state.go('app.dashboard.main');
+                });
             });
         };
 

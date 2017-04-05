@@ -10,7 +10,7 @@
 
         $scope.Form = {};
         $scope.addControls = function(){
-            $scope.VM.controlDataModel = [];
+            // $scope.VM.controlDataModel = [];
             var headers= ["Control Category", "Control ID", "Control Name", "Control Source", "Business Procee", "Owner"],
                 cols =["controlCategory", "controlRefID", "controlName", "controlSource", "businessProcess", "controlOwner"];
 
@@ -18,13 +18,19 @@
             OPRiskService.GetControlData().then(function(data){
                 data.forEach(function(c, i){
                     c.Selected = false;
+
+                    var tmpRow = $filter('filter')($scope.VM.controlDataModel, {id: c.id});
+                    if(tmpRow.length > 0){
+                        c.Selected = true;
+                    }
+
                     c.modifiedOn = Utils.createDate(c.modifiedOn);
                 });
 
                 var controlModal = Utils.CreateSelectListView("Select Controls", data, headers, cols);
                 controlModal.result.then(function(list){
                     $scope.isEdit = true;
-                    $scope.VM.controlDataModel = $scope.VM.controlDataModel.concat(list);
+                    $scope.VM.controlDataModel = list;
                 });
                 $rootScope.app.Mask = false;
             });
@@ -81,8 +87,6 @@
         };
 
         $scope.downloadExcel = function () {
-            console.log($scope.VM.controlDataModel);
-
             var tmpdept = $filter('filter')($rootScope.app.Lookup.Departments, {deptId: $scope.VM.department[0].deptId}, true);
             $scope.VM.department[0] = (typeof tmpdept !== 'undefined' && tmpdept.length > 0) ? tmpdept[0] : {deptId:'', deptName:''};
 

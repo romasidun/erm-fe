@@ -11,7 +11,6 @@
         $scope.Form = {};
 
         $scope.addTestPlan = function(){
-            $scope.VM.controlTestPlanModel = [];
             var headers= ["Test Plan", "Region", "Status", "File Name", "Test Due Date", "Priority"],
                 cols =["testPlanName", "regionName", "controlStatus", "testPlanFile", "dueDate", "controlPriority"];
 
@@ -19,12 +18,18 @@
             ControlService.GetTestPlans(10, 1).then(function(data){
                 data.forEach(function(c, i){
                     c.Selected = false;
+
+                    var tmpRow = $filter('filter')($scope.VM.controlTestPlanModel, {id: c.id});
+                    if(tmpRow.length > 0){
+                        c.Selected = true;
+                    }
+
                     c.dueDate = c.testDueDate? moment(Utils.createDate(c.testDueDate)).format('DD/MM/YYYY'):'None';
                 });
                 var controlModal = Utils.CreateSelectListView("Select Test Plans", data, headers, cols);
                 controlModal.result.then(function(list){
                     $scope.isEdit = true;
-                    $scope.VM.controlTestPlanModel = $scope.VM.controlTestPlanModel.concat(list);
+                    $scope.VM.controlTestPlanModel = list;
                 });
                 $rootScope.app.Mask = false;
             });

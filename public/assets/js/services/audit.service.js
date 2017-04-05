@@ -125,6 +125,22 @@ app.service('AuditService', function(APIHandler){
         return APIHandler.UploadFile(url, formdata);
     };
 
+    this.ActionFileUpload = function (idd, fileModel) {
+        if(fileModel.length < 1){
+            return APIHandler.NullPromise();
+        }
+        var formdata = new FormData();
+        for (var i in fileModel) {
+            if(fileModel[i].id != 'newfile'){
+                return APIHandler.NullPromise();
+            }
+            fileModel[i].id = idd + '_' + i;
+            formdata.append("file", fileModel[i]._file);
+        }
+        var url = 'auditactions/' + idd + '/upload';
+        return APIHandler.UploadFile(url, formdata);
+    };
+
     this.FileDownload = function(idd){
         var url = 'auditmgmt/download/' + idd;
         return APIHandler.Get(url);

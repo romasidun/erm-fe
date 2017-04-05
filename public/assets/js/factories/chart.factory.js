@@ -175,21 +175,23 @@
                 },
                 color = [
                     '#22a3e1',
-                    '#aaa0C7',
-                    '#faebd7',
+                    '#9a84ff',
+                    '#26fac5',
                     '#ffeeaa',
                     '#808080',
-                    '#ffa500',
+                    '#ffb100',
                     '#039220',
                     '#33bbff',
-                    '#D4AF37',
+                    '#ffff00',
                     '#ff0000',
-                    '#FDF204',
+                    '#0ccbfd',
                     '#32cd32',
-                    '#7fffd4',
+                    '#bb0bff',
                     '#0600C7',
-                    '#523357'
-
+                    '#523357',
+                    '#ff00f8',
+                    '#4bff00',
+                    '#00fffa'
                 ];
 
             for(var i in data){
@@ -216,6 +218,7 @@
                         allowPointSelect: true,
                         cursor: 'pointer',
                         depth: 35,
+                        colors: color,
                         dataLabels: {
                             enabled: true,
                             format: '{point.name}'

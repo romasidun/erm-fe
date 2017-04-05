@@ -66,7 +66,7 @@
                                     <label> Files to upload </label>
                                     <input type="file" file-model="VM.actionfileModel" class="form-control"  multiple="multiple"/>
                                     <ul class="file-list-group col-xs-12">
-                                        <li class="file-list-item" ng-repeat="file in VM.filemodel">
+                                        <li class="file-list-item" ng-repeat="file in VM.actionfileModel">
                                             <a ng-click="openFile(file)"><i class="fa fa-file"></i> {{file.fileName}}</a>
                                         </li>
                                     </ul>

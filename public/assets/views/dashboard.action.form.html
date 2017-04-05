@@ -97,6 +97,20 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="col-sm-3 col-md-4"> Files to upload </label>
+									<input type="file" file-model="Action.actionfileModel"/>
+									<ul class="file-list-group col-sm-offset-3 col-md-offset-4">
+										<li class="file-list-item" ng-repeat="file in Action.actionfileModel">
+											<a href="{{app.APIPrefix + 'auditactions/download/stream/'+file.id}}" download="{{file.fileName}}" ng-if="file.id!=1">
+												{{file.fileName}}
+											</a>
+											<span ng-if="file.id==1">{{file.fileName}}</span>
+										</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 						<hr class="hrule4" />
 						<div class="col-xs-12 text-right">

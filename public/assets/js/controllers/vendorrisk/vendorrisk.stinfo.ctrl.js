@@ -65,14 +65,10 @@
                 // console.log('dataListdataListdataList',dataList);
                 var chartObj = ChartFactory.CreatePieChartTemplate('Vendor By RiskType', 'VendorRisk By RiskType', dataList, ['#E0ED00', '#1372DF', '#24CBE5', '#1CB400']);
                 Highcharts.chart('riskTypeChart', chartObj);
-                return VendorService.GetRimRiskScore();
-            })
-            .then(function (data) {
-                ChartFactory.CreateLabelChart('VendorRisk by RiskScore', 'VendorRisk by RiskScore', '', '', '', data, 'riskScoreChart');
                 $scope.$watch('PerPage', function (n, o) {
                     loadData();
                 });
-            });
+            })
 
         function loadData() {
             VendorService.GetRim().then(function (data) {
